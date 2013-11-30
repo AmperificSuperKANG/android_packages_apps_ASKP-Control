@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.util.Log;
-
 public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";

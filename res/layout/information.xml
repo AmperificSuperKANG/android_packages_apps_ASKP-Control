@@ -9,15 +9,13 @@
         <TextView
             android:id="@+id/devicetext"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/device"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="test" />
+            android:layout_weight="1" />
     </TableRow>
 
     <TableRow>
@@ -25,15 +23,13 @@
         <TextView
             android:id="@+id/codenametext"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/codename"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="test" />
+            android:layout_weight="1" />
     </TableRow>
 
     <TableRow>
@@ -41,15 +37,13 @@
         <TextView
             android:id="@+id/kernelversiontext"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/kernelversion"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="test" />
+            android:layout_weight="1" />
     </TableRow>
 
 </TableLayout>
