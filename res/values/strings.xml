@@ -2,7 +2,14 @@
 <resources>
 
     <string name="app_name">ASKP-Control</string>
+
+    <!-- Information -->
+    <string name="information">Information</string>
+
+    <!-- Control -->
+    <string name="control">Control</string>
+
+    <!-- Menu -->
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>
