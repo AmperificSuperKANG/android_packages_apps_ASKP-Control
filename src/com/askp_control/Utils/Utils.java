@@ -1,6 +1,7 @@
 package com.askp_control.Utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -10,14 +11,19 @@ public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
 	private static final String FILENAME_CUR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+	private static final File mCurCpuFreqFile = new File(FILENAME_CUR_FREQ);
 
 	public static String mCurCpuFreq() {
-		try {
-			return readLine(FILENAME_CUR_FREQ);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (mCurCpuFreqFile.exists()) {
+			try {
+				return readLine(FILENAME_CUR_FREQ);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			return "Unavailable";
 		}
-		return "Unavailable";
+		return null;
 	}
 
 	/**

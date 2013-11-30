@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">ASKP-Control</string>
+    <string name="unavailable">Unavailable</string>
 
     <!-- Information -->
     <string name="information">Information</string>

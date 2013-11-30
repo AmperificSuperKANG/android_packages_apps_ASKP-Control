@@ -73,8 +73,10 @@ public class InformationFragment extends Fragment {
 
 	protected Handler mCurCPUHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			int mFreq = Integer.parseInt(String.valueOf(msg.obj)) / 1000;
-			mCurCpuFreq.setText(String.valueOf(mFreq) + " Mhz");
+			if (!String.valueOf(msg.obj).equals("Unavailable")) {
+				int mFreq = Integer.parseInt(String.valueOf(msg.obj)) / 1000;
+				mCurCpuFreq.setText(String.valueOf(mFreq) + " Mhz");
+			}
 		}
 	};
 }
