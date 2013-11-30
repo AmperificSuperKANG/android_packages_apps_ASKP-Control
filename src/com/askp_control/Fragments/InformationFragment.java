@@ -64,7 +64,7 @@ public class InformationFragment extends Fragment {
 				while (true) {
 					mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,
 							Utils.mCurCpuFreq()));
-					sleep(500);
+					sleep(1000);
 				}
 			} catch (InterruptedException e) {
 			}
