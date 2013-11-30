@@ -1,6 +1,10 @@
-package com.example.askp_control;
+package com.askp_control;
 
 import java.util.Locale;
+
+import com.askp_control.Fragments.ControlFragment;
+import com.askp_control.Fragments.InformationFragment;
+import com.example.askp_control.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

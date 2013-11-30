@@ -5,6 +5,9 @@
 
     <!-- Information -->
     <string name="information">Information</string>
+    <string name="device">Device</string>
+    <string name="codename">Codename</string>
+    <string name="kernelversion">Kernel Version</string>
 
     <!-- Control -->
     <string name="control">Control</string>
