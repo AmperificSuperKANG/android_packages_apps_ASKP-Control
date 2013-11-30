@@ -8,6 +8,7 @@
     <string name="device">Device</string>
     <string name="codename">Codename</string>
     <string name="kernelversion">Kernel Version</string>
+    <string name="cpufreq">CPU Frequency</string>
 
     <!-- Control -->
     <string name="control">Control</string>

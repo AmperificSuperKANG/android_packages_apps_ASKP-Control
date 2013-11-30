@@ -9,6 +9,16 @@ import java.util.regex.Pattern;
 public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
+	private static final String FILENAME_CUR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+
+	public static String mCurCpuFreq() {
+		try {
+			return readLine(FILENAME_CUR_FREQ);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "Unavailable";
+	}
 
 	/**
 	 * Reads a line from the specified file.
@@ -37,7 +47,7 @@ public class Utils {
 		}
 	}
 
-	public static String formatKernelVersion(String rawKernelVersion) {
+	private static String formatKernelVersion(String rawKernelVersion) {
 		// Example (see tests for more):
 		// Linux version 3.0.31-g6fb96c9 (android-build@xxx.xxx.xxx.xxx.com) \
 		// (gcc version 4.6.x-xxx 20120106 (prerelease) (GCC) ) #1 SMP PREEMPT \
