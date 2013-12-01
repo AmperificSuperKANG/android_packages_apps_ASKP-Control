@@ -3,15 +3,19 @@ package com.askp_control;
 import java.util.Locale;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.askp_control.Fragments.CpuFragment;
 import com.askp_control.Fragments.InformationFragment;
+import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
 import com.askp_control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
@@ -26,12 +30,19 @@ public class MainActivity extends FragmentActivity {
 	 * intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	private static SectionsPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
+	private static ViewPager mViewPager;
+
+	private static MenuItem applyButton;
+
+	public static boolean mChange = false;
+	public static String mAction = "";
+
+	private static ActionThread mActionThread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +86,25 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		applyButton = menu.findItem(R.id.action_apply);
+		applyButton.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_WITH_TEXT
+				| MenuItem.SHOW_AS_ACTION_ALWAYS);
+		applyButton.setVisible(false);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_apply:
+			Control.setValues();
+			Control.setValuesback();
+			Utils.toast(getString(R.string.valuesapplied),
+					getApplicationContext());
+			applyButton.setVisible(false);
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -127,4 +156,33 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
+	@Override
+	public void onResume() {
+		mActionThread = new ActionThread();
+		mActionThread.start();
+		super.onResume();
+	}
+
+	protected class ActionThread extends Thread {
+		@Override
+		public void run() {
+			try {
+				while (true) {
+					mActionHandler.sendMessage(mActionHandler.obtainMessage(0,
+							mAction));
+					sleep(100);
+				}
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+
+	protected Handler mActionHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			if (mChange) {
+				applyButton.setVisible(true);
+				mChange = false;
+			}
+		}
+	};
 }

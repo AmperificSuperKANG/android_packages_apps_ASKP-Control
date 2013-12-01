@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.askp_control.MainActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
@@ -27,6 +28,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar;
 
 	private static String[] mAvailableFreq;
+
+	private static List<String> mAvailableFreqList;
 
 	public static int mMinCpuFreqRaw;
 
@@ -43,14 +46,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 		mMaxCpuFreq = (TextView) rootView.findViewById(R.id.curmaxcpufreq);
 		mMaxCpuFreq.setText(getActivity().getString(R.string.curmaxfreq) + ": "
 				+ String.valueOf(CpuValues.mMaxFreq() / 1000) + " MHz");
+		mMaxFreqValue = String.valueOf(CpuValues.mMaxFreq());
 
 		mMinCpuFreq = (TextView) rootView.findViewById(R.id.curmincpufreq);
 		mMinCpuFreq.setText(getActivity().getString(R.string.curminfreq) + ": "
 				+ String.valueOf(mMinCpuFreqRaw / 1000) + " MHz");
+		mMinFreqValue = String.valueOf(mMinCpuFreqRaw);
 
 		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
 
-		List<String> mAvailableFreqList = Arrays.asList(mAvailableFreq);
+		mAvailableFreqList = Arrays.asList(mAvailableFreq);
 		int mMax = mAvailableFreqList.indexOf(String.valueOf(CpuValues
 				.mMaxFreq()));
 		int mMin = mAvailableFreqList.indexOf(String.valueOf(mMinCpuFreqRaw));
@@ -117,6 +122,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 							+ " MHz");
 			mMinFreqValue = mAvailableFreq[progress];
 		}
+		if (Integer.parseInt(mMaxFreqValue) < Integer.parseInt(mMinFreqValue)) {
+			mMaxCpuFreqBar.setProgress(progress);
+			mMinCpuFreqBar.setProgress(progress);
+		}
 	}
 
 	@Override
@@ -125,10 +134,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
+		MainActivity.mChange = true;
 		if (seekBar.equals(mMaxCpuFreqBar)) {
-			Control.setMaxFreq(mMaxFreqValue);
+			Control.MAX_CPU_FREQ = mMaxFreqValue;
 		} else if (seekBar.equals(mMinCpuFreqBar)) {
-			Control.setMinFreq(mMinFreqValue);
+			Control.MIN_CPU_FREQ = mMinFreqValue;
 		}
 	}
 }
