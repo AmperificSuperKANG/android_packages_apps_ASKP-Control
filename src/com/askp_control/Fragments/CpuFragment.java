@@ -53,6 +53,14 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	private static TextView mSmartreflextext, mSmartreflexSummaryText;
 	private static CheckBox mCore, mIVA, mMPU;
+	@SuppressWarnings("unused")
+	private static TextView mCoreVoltages, mVoltageOne, mVoltageTwo,
+			mVoltageThree, mVoltageFour;
+	@SuppressWarnings("unused")
+	private static SeekBar mVoltageOneBar, mVoltageTwoBar, mVoltageThreeBar,
+			mVoltageFourBar;
+
+	public static String[] mCoreVoltagesFreq;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,13 +72,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Freq scaling
 		mMaxCpuFreq = (TextView) rootView.findViewById(R.id.curmaxcpufreq);
-		mMaxCpuFreq.setText(getActivity().getString(R.string.curmaxfreq) + ": "
-				+ String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz");
+		mMaxCpuFreq.setText(String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz");
 		mMaxFreqValue = String.valueOf(mMaxCpuFreqRaw);
 
 		mMinCpuFreq = (TextView) rootView.findViewById(R.id.curmincpufreq);
-		mMinCpuFreq.setText(getActivity().getString(R.string.curminfreq) + ": "
-				+ String.valueOf(mMinCpuFreqRaw / 1000) + " MHz");
+		mMinCpuFreq.setText(String.valueOf(mMinCpuFreqRaw / 1000) + " MHz");
 		mMinFreqValue = String.valueOf(mMinCpuFreqRaw);
 
 		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
@@ -101,9 +107,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				Utils.runCommand("echo " + mAvailableFreq[0] + " > "
 						+ CpuValues.FILENAME_MAX_SCREEN_OFF);
 
-			mMaxScreenOff.setText(getString(R.string.maxscreenoff) + ": "
-					+ String.valueOf(CpuValues.mMaxScreenOffFreq() / 1000)
-					+ " MHz");
+			mMaxScreenOff
+					.setText(String.valueOf(CpuValues.mMaxScreenOffFreq() / 1000)
+							+ " MHz");
 
 			mMaxScreenOffValue = String.valueOf(CpuValues.mMaxScreenOffFreq());
 
@@ -122,9 +128,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mMinScreenOnBar.setVisibility(View.GONE);
 		} else {
 
-			mMinScreenOn.setText(getString(R.string.minscreenon) + ": "
-					+ String.valueOf(CpuValues.mMinScreenOnFreq() / 1000)
-					+ " MHz");
+			mMinScreenOn
+					.setText(String.valueOf(CpuValues.mMinScreenOnFreq() / 1000)
+							+ " MHz");
 
 			mMinScreenOnValue = String.valueOf(CpuValues.mMinScreenOnFreq());
 
@@ -147,6 +153,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mGovernor.setSelection(mCurGovernor);
 		mGovernor.setOnItemSelectedListener(this);
 
+		// Smartreflex
 		mCore = (CheckBox) rootView.findViewById(R.id.corebox);
 		mIVA = (CheckBox) rootView.findViewById(R.id.ivabox);
 		mMPU = (CheckBox) rootView.findViewById(R.id.mpubox);
@@ -213,12 +220,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
 		if (seekBar.equals(mMaxCpuFreqBar)) {
-			mMaxCpuFreq
-					.setText(getActivity().getString(R.string.curmaxfreq)
-							+ ": "
-							+ String.valueOf(Integer
-									.parseInt(mAvailableFreq[progress]) / 1000)
-							+ " MHz");
+			mMaxCpuFreq.setText(String.valueOf(Integer
+					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
 			mMaxFreqValue = mAvailableFreq[progress];
 			if (Integer.parseInt(mMaxFreqValue) < Integer
 					.parseInt(mMinFreqValue)) {
@@ -226,12 +229,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				mMinCpuFreqBar.setProgress(progress);
 			}
 		} else if (seekBar.equals(mMinCpuFreqBar)) {
-			mMinCpuFreq
-					.setText(getActivity().getString(R.string.curminfreq)
-							+ ": "
-							+ String.valueOf(Integer
-									.parseInt(mAvailableFreq[progress]) / 1000)
-							+ " MHz");
+			mMinCpuFreq.setText(String.valueOf(Integer
+					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
 			mMinFreqValue = mAvailableFreq[progress];
 			if (Integer.parseInt(mMaxFreqValue) < Integer
 					.parseInt(mMinFreqValue)) {
@@ -239,20 +238,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				mMinCpuFreqBar.setProgress(progress);
 			}
 		} else if (seekBar.equals(mMaxScreenOffBar)) {
-			mMaxScreenOff
-					.setText(getActivity().getString(R.string.maxscreenoff)
-							+ ": "
-							+ String.valueOf(Integer
-									.parseInt(mAvailableFreq[progress]) / 1000)
-							+ " MHz");
+			mMaxScreenOff.setText(String.valueOf(Integer
+					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
 			mMaxScreenOffValue = mAvailableFreq[progress];
 		} else if (seekBar.equals(mMinScreenOnBar)) {
-			mMinScreenOn
-					.setText(getActivity().getString(R.string.minscreenon)
-							+ ": "
-							+ String.valueOf(Integer
-									.parseInt(mAvailableFreq[progress]) / 1000)
-							+ " MHz");
+			mMinScreenOn.setText(String.valueOf(Integer
+					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
 			mMinScreenOnValue = mAvailableFreq[progress];
 		}
 

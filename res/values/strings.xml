@@ -13,10 +13,14 @@
     <string name="cpu">Cpu</string>
     <string name="cpufreq">CPU Frequency</string>
     <string name="cpuscaling">Frequency scaling</string>
-    <string name="curmaxfreq">Current Max</string>
-    <string name="curminfreq">Current Min</string>
-    <string name="maxscreenoff">Max Screen Off</string>
-    <string name="minscreenon">Min Screen On</string>
+    <string name="cpumaxfreq">CPU Max Freq</string>
+    <string name="cpumaxfreq_summary">Set the maximum frequency the CPU scales up to.</string>
+    <string name="cpuminfreq">CPU Min Freq</string>
+    <string name="cpuminfreq_summary">Set the minimum frequency the CPU scales down to.</string>
+    <string name="maxscreenoff">CPU Max Freq Screen Off</string>
+    <string name="maxscreenoff_summary">Set the maximum frequency the CPU scales up to when the screen is off.</string>
+    <string name="minscreenon">CPU Min Freq Screen On</string>
+    <string name="minscreenon_summary">Set the minimum frequency the CPU scales up to when the screen is on.</string>
     <string name="governor">Governor</string>
     <string name="governor_summary">The CPU governor determines how your CPU behaves in response to changes in workload. Changing the governor will impact how your CPU scales through the freq steps available to you CPU.</string>
     <string name="smartreflex">Smartreflex</string>
@@ -24,6 +28,8 @@
     <string name="core">Core</string>
     <string name="iva">IVA</string>
     <string name="mpu">MPU</string>
+    <string name="corevoltages">Core Voltages</string>
+    <string name="voltage">Voltage</string>
 
     <!-- Information -->
     <string name="information">Information</string>

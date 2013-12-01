@@ -16,7 +16,8 @@
             android:background="@android:color/holo_blue_dark"
             android:text="@string/cpufreq"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/curcpufreq"
@@ -34,18 +35,55 @@
             android:background="@android:color/holo_blue_dark"
             android:text="@string/cpuscaling"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cpumaxfreq"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cpumaxfreq_summary"
+            android:textStyle="italic" />
+
+        <SeekBar
+            android:id="@+id/maxcpuseekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/curmaxcpufreq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/curmaxfreq"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cpuminfreq"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cpuminfreq_summary"
+            android:textStyle="italic" />
+
         <SeekBar
-            android:id="@+id/maxcpuseekbar"
+            android:id="@+id/mincpuseekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -54,11 +92,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/curminfreq"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/maxscreenoff"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/maxscreenoff_summary"
+            android:textStyle="italic" />
+
         <SeekBar
-            android:id="@+id/mincpuseekbar"
+            android:id="@+id/maxscreenoffseekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -70,8 +123,24 @@
             android:text="@string/maxscreenoff"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minscreenon"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minscreenon_summary"
+            android:textStyle="italic" />
+
         <SeekBar
-            android:id="@+id/maxscreenoffseekbar"
+            android:id="@+id/minscreenonseekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -83,11 +152,6 @@
             android:text="@string/minscreenon"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <SeekBar
-            android:id="@+id/minscreenonseekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -95,7 +159,8 @@
             android:background="@android:color/holo_blue_dark"
             android:text="@string/governor"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView3"
@@ -103,7 +168,7 @@
             android:layout_height="wrap_content"
             android:text="@string/governor_summary"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="13sp" />
+            android:textStyle="italic" />
 
         <Spinner
             android:id="@+id/governor_spinner"
@@ -117,7 +182,8 @@
             android:background="@android:color/holo_blue_dark"
             android:text="@string/smartreflex"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/smartreflex_summarytext"
@@ -125,7 +191,7 @@
             android:layout_height="wrap_content"
             android:text="@string/smartreflex_summary"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="13sp" />
+            android:textStyle="italic" />
 
         <CheckBox
             android:id="@+id/corebox"
@@ -144,6 +210,68 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mpu" />
+
+        <TextView
+            android:id="@+id/corevoltagetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/corevoltages"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/voltageoneseekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/voltageonetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voltage"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <SeekBar
+            android:id="@+id/voltagetwoseekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/voltagetwotext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voltage"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <SeekBar
+            android:id="@+id/voltagethreeseekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/voltagethreetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voltage"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <SeekBar
+            android:id="@+id/voltagefourseekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/voltagefourtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voltage"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     </TableLayout>
 
 </ScrollView>

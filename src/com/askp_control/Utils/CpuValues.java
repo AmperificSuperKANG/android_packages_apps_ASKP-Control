@@ -1,8 +1,12 @@
 package com.askp_control.Utils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
+
+import android.content.Context;
 
 import com.askp_control.Fragments.CpuFragment;
 import com.stericson.RootTools.RootTools;
@@ -11,6 +15,7 @@ import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
+	public static final String FILENAME_CORE_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/core_voltages";
 	public static final String FILENAME_MPU = "/sys/kernel/debug/smartreflex/sr_mpu/autocomp";
 	public static final String FILENAME_IVA = "/sys/kernel/debug/smartreflex/sr_iva/autocomp";
 	public static final String FILENAME_CORE = "/sys/kernel/debug/smartreflex/sr_core/autocomp";
@@ -32,11 +37,24 @@ public class CpuValues {
 			FILENAME_MAX_SCREEN_OFF);
 	private static final File mCurCpuFreqFile = new File(FILENAME_CUR_CPU_FREQ);
 
+	public static String[] mCoreVoltagesFreq(Context context)
+			throws IOException {
+		BufferedReader buffreader = new BufferedReader(new FileReader(
+				FILENAME_CORE_VOLTAGES), 256);
+		String line;
+		StringBuilder text = new StringBuilder();
+
+		while ((line = buffreader.readLine()) != null) {
+			text.append(line);
+		}
+		buffreader.close();
+		return text.toString().replace(" mV", " ").split(" ");
+	}
+
 	public static boolean mMPU() {
 		try {
-			if (Utils.readLine(FILENAME_MPU).equals("1")) {
+			if (Utils.readLine(FILENAME_MPU).equals("1"))
 				return true;
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,9 +63,8 @@ public class CpuValues {
 
 	public static boolean mIVA() {
 		try {
-			if (Utils.readLine(FILENAME_IVA).equals("1")) {
+			if (Utils.readLine(FILENAME_IVA).equals("1"))
 				return true;
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,9 +73,8 @@ public class CpuValues {
 
 	public static boolean mCore() {
 		try {
-			if (Utils.readLine(FILENAME_CORE).equals("1")) {
+			if (Utils.readLine(FILENAME_CORE).equals("1"))
 				return true;
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -66,25 +82,23 @@ public class CpuValues {
 	}
 
 	public static int mMinScreenOnFreq() {
-		if (mMinScreenOnFreqFile.exists()) {
+		if (mMinScreenOnFreqFile.exists())
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
 		return 0;
 	}
 
 	public static int mMaxScreenOffFreq() {
-		if (mMaxScreenOffFreqFile.exists()) {
+		if (mMaxScreenOffFreqFile.exists())
 			try {
 				return Integer
 						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
 		return 0;
 	}
 
@@ -185,13 +199,12 @@ public class CpuValues {
 	}
 
 	public static int mCurCpuFreq() {
-		if (mCurCpuFreqFile.exists()) {
+		if (mCurCpuFreqFile.exists())
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_CUR_CPU_FREQ));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
 		return 0;
 	}
 }

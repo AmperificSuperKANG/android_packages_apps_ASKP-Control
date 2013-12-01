@@ -70,6 +70,7 @@ public class MainActivity extends FragmentActivity {
 			finish();
 		}
 
+		RootTools.debugMode = true;
 		Utils.saveString("kernelversion", Utils.getFormattedKernelVersion(),
 				this);
 
