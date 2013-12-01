@@ -22,7 +22,6 @@ import com.askp_control.MainActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
-import com.askp_control.Utils.Utils;
 
 public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		OnItemSelectedListener {
@@ -167,11 +166,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		MainActivity.mChange = true;
 		if (arg0.equals(mGovernor)) {
 			int mCurGovernor = mAvailableGovernorList.indexOf(mCurGovernorRaw);
-			if (arg2 != mCurGovernor)
+			if (arg2 != mCurGovernor) {
+				MainActivity.mChange = true;
 				Control.GOVERNOR = mAvailableGovernor[arg2];
+			}
 		}
 	}
 

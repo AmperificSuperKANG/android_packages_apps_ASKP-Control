@@ -100,9 +100,7 @@ public class MainActivity extends FragmentActivity {
 		switch (item.getItemId()) {
 		case R.id.action_apply:
 			Control.setValues(getApplicationContext());
-			Control.setValuesback();
-			Utils.toast(getString(R.string.valuesapplied),
-					getApplicationContext());
+			Control.setValuesback(getApplicationContext());
 			applyButton.setVisible(false);
 			break;
 		}
