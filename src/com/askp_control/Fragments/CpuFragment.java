@@ -53,10 +53,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	private static TextView mSmartreflextext, mSmartreflexSummaryText;
 	private static CheckBox mCore, mIVA, mMPU;
-	@SuppressWarnings("unused")
+
 	private static TextView mCoreVoltages, mVoltageOne, mVoltageTwo,
 			mVoltageThree, mVoltageFour;
-	@SuppressWarnings("unused")
+
 	private static SeekBar mVoltageOneBar, mVoltageTwoBar, mVoltageThreeBar,
 			mVoltageFourBar;
 
