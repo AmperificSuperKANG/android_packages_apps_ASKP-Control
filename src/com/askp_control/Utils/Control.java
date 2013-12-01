@@ -4,7 +4,8 @@ import com.askp_control.Fragments.CpuFragment;
 
 public class Control {
 
-	public static String MAX_CPU_FREQ = String.valueOf(CpuValues.mMaxFreq());
+	public static String MAX_CPU_FREQ = String
+			.valueOf(CpuFragment.mMaxCpuFreqRaw);
 	public static String MIN_CPU_FREQ = String
 			.valueOf(CpuFragment.mMinCpuFreqRaw);
 
@@ -17,7 +18,7 @@ public class Control {
 	}
 
 	public static void setValuesback() {
-		MAX_CPU_FREQ = String.valueOf(CpuValues.mMaxFreq());
+		MAX_CPU_FREQ = String.valueOf(CpuFragment.mMaxCpuFreqRaw);
 		MIN_CPU_FREQ = String.valueOf(CpuFragment.mMinCpuFreqRaw);
 	}
 }

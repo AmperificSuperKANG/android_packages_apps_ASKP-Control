@@ -49,6 +49,7 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		CpuValues.mMaxFreq();
 		CpuValues.mMinFreq();
 
 		if (RootTools.isRootAvailable()) {

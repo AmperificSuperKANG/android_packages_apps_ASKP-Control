@@ -28,15 +28,30 @@ public class CpuValues {
 		return null;
 	}
 
-	public static int mMaxFreq() {
-		if (mMaxFreqFile.exists()) {
-			try {
-				return Integer.parseInt(Utils.readLine(FILENAME_MAX_FREQ));
-			} catch (IOException e) {
-				e.printStackTrace();
+	public static void mMaxFreq() {
+		Command command = new Command(0, "cat " + FILENAME_MAX_FREQ) {
+			@Override
+			public void commandCompleted(int arg0, int arg1) {
 			}
+
+			@Override
+			public void commandOutput(int arg0, String arg1) {
+				CpuFragment.mMaxCpuFreqRaw = Integer.parseInt(arg1);
+			}
+
+			@Override
+			public void commandTerminated(int arg0, String arg1) {
+			}
+		};
+		try {
+			RootTools.getShell(true).add(command);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+		} catch (RootDeniedException e) {
+			e.printStackTrace();
 		}
-		return 0;
 	}
 
 	public static void mMinFreq() {

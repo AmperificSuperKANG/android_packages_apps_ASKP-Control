@@ -32,6 +32,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 	private static List<String> mAvailableFreqList;
 
 	public static int mMinCpuFreqRaw;
+	public static int mMaxCpuFreqRaw;
 
 	private static String mMaxFreqValue;
 	private static String mMinFreqValue;
@@ -45,8 +46,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 
 		mMaxCpuFreq = (TextView) rootView.findViewById(R.id.curmaxcpufreq);
 		mMaxCpuFreq.setText(getActivity().getString(R.string.curmaxfreq) + ": "
-				+ String.valueOf(CpuValues.mMaxFreq() / 1000) + " MHz");
-		mMaxFreqValue = String.valueOf(CpuValues.mMaxFreq());
+				+ String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz");
+		mMaxFreqValue = String.valueOf(mMaxCpuFreqRaw);
 
 		mMinCpuFreq = (TextView) rootView.findViewById(R.id.curmincpufreq);
 		mMinCpuFreq.setText(getActivity().getString(R.string.curminfreq) + ": "
@@ -56,8 +57,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
 
 		mAvailableFreqList = Arrays.asList(mAvailableFreq);
-		int mMax = mAvailableFreqList.indexOf(String.valueOf(CpuValues
-				.mMaxFreq()));
+		int mMax = mAvailableFreqList.indexOf(String.valueOf(mMaxCpuFreqRaw));
 		int mMin = mAvailableFreqList.indexOf(String.valueOf(mMinCpuFreqRaw));
 
 		mMaxCpuFreqBar = (SeekBar) rootView.findViewById(R.id.maxcpuseekbar);
