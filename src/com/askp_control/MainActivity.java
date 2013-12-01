@@ -4,7 +4,10 @@ import java.util.Locale;
 
 import com.askp_control.Fragments.ControlFragment;
 import com.askp_control.Fragments.InformationFragment;
-import com.example.askp_control.R;
+import com.askp_control.Utils.CpuValues;
+import com.askp_control.Utils.Utils;
+import com.askp_control.R;
+import com.stericson.RootTools.RootTools;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,6 +38,25 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		CpuValues.mMinFreq();
+
+		if (RootTools.isRootAvailable()) {
+			if (RootTools.isAccessGiven()) {
+				if (!RootTools.isBusyboxAvailable()) {
+					Utils.toast(getString(R.string.nobusybox), this);
+					RootTools.offerBusyBox(this);
+					finish();
+				}
+			} else {
+				Utils.toast(getString(R.string.norootaccess), this);
+				finish();
+			}
+		} else {
+			Utils.toast(getString(R.string.noroot), this);
+			RootTools.offerSuperUser(this);
+			finish();
+		}
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.

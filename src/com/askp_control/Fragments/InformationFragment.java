@@ -1,7 +1,11 @@
 package com.askp_control.Fragments;
 
-import com.askp_control.Utils.Utils;
-import com.example.askp_control.R;
+import java.util.Arrays;
+import java.util.List;
+
+import com.askp_control.Utils.Control;
+import com.askp_control.Utils.CpuValues;
+import com.askp_control.R;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -11,18 +15,31 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class InformationFragment extends Fragment {
+public class InformationFragment extends Fragment implements
+		OnSeekBarChangeListener {
 
 	private static TextView mDeviceText, mCodenameText, mKernelVersionText,
-			mDevice, mCodename, mKernelVersion, mCurCpuFreq;
+			mDevice, mCodename, mKernelVersion, mCurCpuFreq, mMaxCpuFreq,
+			mMinCpuFreq;
 
 	private static final String mManufacturer = Build.MANUFACTURER;
 	private static final String mModel = Build.MODEL;
 	private static final String mCode = Build.DEVICE;
 
-	private CurCPUThread mCurCPUThread;
+	private static CurCPUThread mCurCPUThread;
+
+	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar;
+
+	private static String[] mAvailableFreq;
+
+	public static int mMinCpuFreqRaw;
+
+	private static String mMaxFreqValue;
+	private static String mMinFreqValue;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,8 +49,10 @@ public class InformationFragment extends Fragment {
 
 		mDeviceText = (TextView) rootView.findViewById(R.id.devicetext);
 		mDeviceText.setText(getString(R.string.device) + ": ");
+
 		mCodenameText = (TextView) rootView.findViewById(R.id.codenametext);
 		mCodenameText.setText(getString(R.string.codename) + ": ");
+
 		mKernelVersionText = (TextView) rootView
 				.findViewById(R.id.kernelversiontext);
 		mKernelVersionText.setText(getString(R.string.kernelversion) + ": ");
@@ -41,12 +60,41 @@ public class InformationFragment extends Fragment {
 		mDevice = (TextView) rootView.findViewById(R.id.device);
 		mDevice.setText(mManufacturer.substring(0, 1).toUpperCase()
 				+ mManufacturer.substring(1) + " " + mModel);
+
 		mCodename = (TextView) rootView.findViewById(R.id.codename);
 		mCodename.setText(mCode);
+
 		mKernelVersion = (TextView) rootView.findViewById(R.id.kernelversion);
-		mKernelVersion.setText(Utils.getFormattedKernelVersion());
+		mKernelVersion.setText(CpuValues.getFormattedKernelVersion());
 
 		mCurCpuFreq = (TextView) rootView.findViewById(R.id.curcpufreq);
+
+		mMaxCpuFreq = (TextView) rootView.findViewById(R.id.curmaxcpufreq);
+		mMaxCpuFreq.setText(getActivity().getString(R.string.curmaxfreq) + ": "
+				+ String.valueOf(CpuValues.mMaxFreq() / 1000) + " MHz");
+
+		mMinCpuFreq = (TextView) rootView.findViewById(R.id.curmincpufreq);
+		mMinCpuFreq.setText(getActivity().getString(R.string.curminfreq) + ": "
+				+ String.valueOf(mMinCpuFreqRaw / 1000) + " MHz");
+
+		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
+		ControlFragment.value = mAvailableFreq;
+
+		List<String> mAvailableFreqList = Arrays.asList(mAvailableFreq);
+		int mMax = mAvailableFreqList.indexOf(String.valueOf(CpuValues
+				.mMaxFreq()));
+		int mMin = mAvailableFreqList.indexOf(String.valueOf(mMinCpuFreqRaw));
+
+		mMaxCpuFreqBar = (SeekBar) rootView.findViewById(R.id.maxcpuseekbar);
+		mMaxCpuFreqBar.setMax(mAvailableFreq.length - 1);
+		mMaxCpuFreqBar.setProgress(mMax);
+		mMaxCpuFreqBar.setOnSeekBarChangeListener(this);
+
+		mMinCpuFreqBar = (SeekBar) rootView.findViewById(R.id.mincpuseekbar);
+		mMinCpuFreqBar.setMax(mAvailableFreq.length - 1);
+		mMinCpuFreqBar.setProgress(mMin);
+		mMinCpuFreqBar.setOnSeekBarChangeListener(this);
+
 		return rootView;
 	}
 
@@ -63,7 +111,7 @@ public class InformationFragment extends Fragment {
 			try {
 				while (true) {
 					mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,
-							Utils.mCurCpuFreq()));
+							CpuValues.mCurCpuFreq()));
 					sleep(1000);
 				}
 			} catch (InterruptedException e) {
@@ -73,10 +121,44 @@ public class InformationFragment extends Fragment {
 
 	protected Handler mCurCPUHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			if (!String.valueOf(msg.obj).equals("Unavailable")) {
-				int mFreq = Integer.parseInt(String.valueOf(msg.obj)) / 1000;
-				mCurCpuFreq.setText(String.valueOf(mFreq) + " Mhz");
+			if (!String.valueOf(msg.obj).equals(0)) {
+				mCurCpuFreq.setText(CpuValues.mCurCpuFreq() + " Mhz");
 			}
 		}
 	};
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		if (seekBar.equals(mMaxCpuFreqBar)) {
+			mMaxCpuFreq
+					.setText(getActivity().getString(R.string.curmaxfreq)
+							+ ": "
+							+ String.valueOf(Integer
+									.parseInt(mAvailableFreq[progress]) / 1000)
+							+ " MHz");
+			mMaxFreqValue = mAvailableFreq[progress];
+		} else if (seekBar.equals(mMinCpuFreqBar)) {
+			mMinCpuFreq
+					.setText(getActivity().getString(R.string.curminfreq)
+							+ ": "
+							+ String.valueOf(Integer
+									.parseInt(mAvailableFreq[progress]) / 1000)
+							+ " MHz");
+			mMinFreqValue = mAvailableFreq[progress];
+		}
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		if (seekBar.equals(mMaxCpuFreqBar)) {
+			Control.setMaxFreq(mMaxFreqValue);
+		} else if (seekBar.equals(mMinCpuFreqBar)) {
+			Control.setMinFreq(mMinFreqValue);
+		}
+	}
 }

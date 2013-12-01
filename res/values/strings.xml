@@ -3,6 +3,9 @@
 
     <string name="app_name">ASKP-Control</string>
     <string name="unavailable">Unavailable</string>
+    <string name="noroot">No root!</string>
+    <string name="norootaccess">No root access!</string>
+    <string name="nobusybox">No busybox!</string>
 
     <!-- Information -->
     <string name="information">Information</string>
@@ -10,6 +13,9 @@
     <string name="codename">Codename</string>
     <string name="kernelversion">Kernel Version</string>
     <string name="cpufreq">CPU Frequency</string>
+    <string name="cpuscaling">Frequency scaling</string>
+    <string name="curmaxfreq">Current Max</string>
+    <string name="curminfreq">Current Min</string>
 
     <!-- Control -->
     <string name="control">Control</string>
