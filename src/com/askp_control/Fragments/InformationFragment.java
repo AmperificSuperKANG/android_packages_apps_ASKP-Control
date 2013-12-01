@@ -78,7 +78,6 @@ public class InformationFragment extends Fragment implements
 				+ String.valueOf(mMinCpuFreqRaw / 1000) + " MHz");
 
 		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
-		ControlFragment.value = mAvailableFreq;
 
 		List<String> mAvailableFreqList = Arrays.asList(mAvailableFreq);
 		int mMax = mAvailableFreqList.indexOf(String.valueOf(CpuValues
