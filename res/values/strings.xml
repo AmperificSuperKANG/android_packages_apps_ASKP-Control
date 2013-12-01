@@ -7,7 +7,6 @@
     <string name="norootaccess">No root access!</string>
     <string name="nobusybox">No busybox!</string>
     <string name="action_apply">Apply</string>
-    <string name="action_cancel">Cancel</string>
     <string name="valuesapplied">Values applied</string>
 
     <!-- CPU -->
