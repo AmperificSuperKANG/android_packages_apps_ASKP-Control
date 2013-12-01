@@ -1,6 +1,6 @@
 package com.askp_control.Fragments;
 
-import com.askp_control.Utils.CpuValues;
+import com.askp_control.Utils.Utils;
 import com.askp_control.R;
 
 import android.os.Build;
@@ -44,7 +44,7 @@ public class InformationFragment extends Fragment {
 		mCodename.setText(mCode);
 
 		mKernelVersion = (TextView) rootView.findViewById(R.id.kernelversion);
-		mKernelVersion.setText(CpuValues.getFormattedKernelVersion());
+		mKernelVersion.setText(Utils.getFormattedKernelVersion());
 
 		return rootView;
 	}
