@@ -3,10 +3,6 @@ package com.askp_control.Fragments;
 import java.util.Arrays;
 import java.util.List;
 
-import com.askp_control.Utils.Control;
-import com.askp_control.Utils.CpuValues;
-import com.askp_control.R;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import com.askp_control.R;
+import com.askp_control.Utils.Control;
+import com.askp_control.Utils.CpuValues;
 
 public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 

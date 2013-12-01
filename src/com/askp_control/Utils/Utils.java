@@ -7,16 +7,24 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.Toast;
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.exceptions.RootDeniedException;
 import com.stericson.RootTools.execution.CommandCapture;
 
-import android.content.Context;
-import android.widget.Toast;
-
 public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
+
+	public static void saveString(String name, String value, Context context) {
+		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
+		SharedPreferences.Editor editorPref = mPref.edit();
+		editorPref.putString(name, value);
+		editorPref.commit();
+	}
 
 	public static void toast(String text, Context context) {
 		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();

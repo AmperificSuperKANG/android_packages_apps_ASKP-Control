@@ -2,14 +2,6 @@ package com.askp_control;
 
 import java.util.Locale;
 
-import com.askp_control.Fragments.CpuFragment;
-import com.askp_control.Fragments.InformationFragment;
-import com.askp_control.Utils.CpuValues;
-import com.askp_control.Utils.Utils;
-import com.askp_control.R;
-import com.stericson.RootTools.RootTools;
-
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,6 +9,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+
+import com.askp_control.Fragments.CpuFragment;
+import com.askp_control.Fragments.InformationFragment;
+import com.askp_control.Utils.CpuValues;
+import com.askp_control.Utils.Utils;
+import com.stericson.RootTools.RootTools;
 
 public class MainActivity extends FragmentActivity {
 
@@ -59,11 +57,8 @@ public class MainActivity extends FragmentActivity {
 			finish();
 		}
 
-		SharedPreferences mPref = getSharedPreferences("prefs", 0);
-		SharedPreferences.Editor editorPref = mPref.edit();
-		editorPref
-				.putString("kernelversion", Utils.getFormattedKernelVersion());
-		editorPref.commit();
+		Utils.saveString("kernelversion", Utils.getFormattedKernelVersion(),
+				this);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
