@@ -7,7 +7,7 @@
     <string name="norootaccess">No root access!</string>
     <string name="nobusybox">No busybox!</string>
     <string name="action_apply">Apply</string>
-    <string name="valuesapplied">Values applied</string>
+    <string name="valuesapplied">Apply Successfully</string>
 
     <!-- CPU -->
     <string name="cpu">Cpu</string>
@@ -19,6 +19,11 @@
     <string name="minscreenon">Min Screen On</string>
     <string name="governor">Governor</string>
     <string name="governor_summary">The CPU governor determines how your CPU behaves in response to changes in workload. Changing the governor will impact how your CPU scales through the freq steps available to you CPU.</string>
+    <string name="smartreflex">Smartreflex</string>
+    <string name="smartreflex_summary">SR is a power management technology developed by Texas Instruments. It dynamically undervolts to what it determines is the lowest stable voltage at each frequency.</string>
+    <string name="core">Core</string>
+    <string name="iva">IVA</string>
+    <string name="mpu">MPU</string>
 
     <!-- Information -->
     <string name="information">Information</string>

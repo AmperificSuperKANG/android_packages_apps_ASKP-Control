@@ -21,6 +21,12 @@ public class Control {
 
 	public static String GOVERNOR = CpuFragment.mCurGovernorRaw;
 
+	public static boolean CORE = CpuValues.mCore();
+
+	public static boolean IVA = CpuValues.mIVA();
+
+	public static boolean MPU = CpuValues.mMPU();
+
 	public static void setValues(Context context) {
 
 		// Max Cpu
@@ -49,6 +55,26 @@ public class Control {
 				+ CpuValues.FILENAME_CUR_GOVERNOR);
 		Utils.saveString("governor", GOVERNOR, context);
 		CpuValues.mCurGovernor();
+
+		// Smartreflex
+		if (CORE) {
+			Utils.runCommand("echo 1 > " + CpuValues.FILENAME_CORE);
+		} else {
+			Utils.runCommand("echo 0 > " + CpuValues.FILENAME_CORE);
+		}
+
+		if (IVA) {
+			Utils.runCommand("echo 1 > " + CpuValues.FILENAME_IVA);
+		} else {
+			Utils.runCommand("echo 0 > " + CpuValues.FILENAME_IVA);
+		}
+
+		if (MPU) {
+			Utils.runCommand("echo 1 > " + CpuValues.FILENAME_MPU);
+		} else {
+			Utils.runCommand("echo 0 > " + CpuValues.FILENAME_MPU);
+		}
+
 	}
 
 	public static void setValuesback(Context context) {

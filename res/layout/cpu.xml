@@ -103,12 +103,47 @@
             android:layout_height="wrap_content"
             android:text="@string/governor_summary"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <Spinner
             android:id="@+id/governor_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/smartreflextext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/smartreflex"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/smartreflex_summarytext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/smartreflex_summary"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="13sp" />
+
+        <CheckBox
+            android:id="@+id/corebox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/core" />
+
+        <CheckBox
+            android:id="@+id/ivabox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/iva" />
+
+        <CheckBox
+            android:id="@+id/mpubox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mpu" />
     </TableLayout>
 
 </ScrollView>

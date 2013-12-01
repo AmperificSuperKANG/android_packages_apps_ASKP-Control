@@ -11,6 +11,9 @@ import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
+	public static final String FILENAME_MPU = "/sys/kernel/debug/smartreflex/sr_mpu/autocomp";
+	public static final String FILENAME_IVA = "/sys/kernel/debug/smartreflex/sr_iva/autocomp";
+	public static final String FILENAME_CORE = "/sys/kernel/debug/smartreflex/sr_core/autocomp";
 	public static final String FILENAME_MIN_SCREEN_ON = "/sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq";
 	public static final String FILENAME_MAX_SCREEN_OFF = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
 	public static final String FILENAME_CUR_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
@@ -20,11 +23,47 @@ public class CpuValues {
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	private static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
+	public static final File mMPUFile = new File(FILENAME_MPU);
+	public static final File mIVAFile = new File(FILENAME_IVA);
+	public static final File mCoreFile = new File(FILENAME_CORE);
 	public static final File mMinScreenOnFreqFile = new File(
 			FILENAME_MIN_SCREEN_ON);
 	public static final File mMaxScreenOffFreqFile = new File(
 			FILENAME_MAX_SCREEN_OFF);
 	private static final File mCurCpuFreqFile = new File(FILENAME_CUR_CPU_FREQ);
+
+	public static boolean mMPU() {
+		try {
+			if (Utils.readLine(FILENAME_MPU).equals("1")) {
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static boolean mIVA() {
+		try {
+			if (Utils.readLine(FILENAME_IVA).equals("1")) {
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static boolean mCore() {
+		try {
+			if (Utils.readLine(FILENAME_CORE).equals("1")) {
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	public static int mMinScreenOnFreq() {
 		if (mMinScreenOnFreqFile.exists()) {

@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -25,7 +28,7 @@ import com.askp_control.Utils.CpuValues;
 import com.askp_control.Utils.Utils;
 
 public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
-		OnItemSelectedListener {
+		OnItemSelectedListener, OnCheckedChangeListener {
 
 	private static TextView mCurCpuFreq, mMaxCpuFreq, mMinCpuFreq,
 			mMaxScreenOff, mMinScreenOn;
@@ -47,6 +50,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static String[] mAvailableGovernor;
 	private static List<String> mAvailableGovernorList;
 	public static String mCurGovernorRaw;
+
+	private static TextView mSmartreflextext, mSmartreflexSummaryText;
+	private static CheckBox mCore, mIVA, mMPU;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,6 +146,34 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mGovernor.setAdapter(adapter);
 		mGovernor.setSelection(mCurGovernor);
 		mGovernor.setOnItemSelectedListener(this);
+
+		mCore = (CheckBox) rootView.findViewById(R.id.corebox);
+		mIVA = (CheckBox) rootView.findViewById(R.id.ivabox);
+		mMPU = (CheckBox) rootView.findViewById(R.id.mpubox);
+
+		if (!CpuValues.mCoreFile.exists())
+			mCore.setVisibility(View.GONE);
+		if (!CpuValues.mIVAFile.exists())
+			mIVA.setVisibility(View.GONE);
+		if (!CpuValues.mMPUFile.exists())
+			mMPU.setVisibility(View.GONE);
+
+		if (!CpuValues.mCoreFile.exists() && !CpuValues.mIVAFile.exists()
+				&& !CpuValues.mMPUFile.exists()) {
+			mSmartreflextext = (TextView) rootView
+					.findViewById(R.id.smartreflextext);
+			mSmartreflextext.setVisibility(View.GONE);
+			mSmartreflexSummaryText = (TextView) rootView
+					.findViewById(R.id.smartreflex_summarytext);
+			mSmartreflexSummaryText.setVisibility(View.GONE);
+		}
+
+		mCore.setChecked(CpuValues.mCore());
+		mCore.setOnCheckedChangeListener(this);
+		mIVA.setChecked(CpuValues.mIVA());
+		mIVA.setOnCheckedChangeListener(this);
+		mMPU.setChecked(CpuValues.mMPU());
+		mMPU.setOnCheckedChangeListener(this);
 
 		return rootView;
 	}
@@ -256,5 +290,17 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		MainActivity.mChange = true;
+		if (buttonView.equals(mCore)) {
+			Control.CORE = isChecked;
+		} else if (buttonView.equals(mIVA)) {
+			Control.IVA = isChecked;
+		} else if (buttonView.equals(mMPU)) {
+			Control.MPU = isChecked;
+		}
 	}
 }
