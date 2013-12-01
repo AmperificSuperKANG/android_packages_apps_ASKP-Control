@@ -8,7 +8,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.askp_control.Fragments.InformationFragment;
+import com.askp_control.Fragments.CpuFragment;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.exceptions.RootDeniedException;
 import com.stericson.RootTools.execution.Command;
@@ -52,7 +52,7 @@ public class CpuValues {
 
 			@Override
 			public void commandOutput(int arg0, String arg1) {
-				InformationFragment.mMinCpuFreqRaw = Integer.parseInt(arg1);
+				CpuFragment.mMinCpuFreqRaw = Integer.parseInt(arg1);
 			}
 
 			@Override

@@ -2,7 +2,7 @@ package com.askp_control;
 
 import java.util.Locale;
 
-import com.askp_control.Fragments.ControlFragment;
+import com.askp_control.Fragments.CpuFragment;
 import com.askp_control.Fragments.InformationFragment;
 import com.askp_control.Utils.CpuValues;
 import com.askp_control.Utils.Utils;
@@ -94,10 +94,10 @@ public class MainActivity extends FragmentActivity {
 			Fragment fragment = null;
 			switch (position) {
 			case 0:
-				fragment = new InformationFragment();
+				fragment = new CpuFragment();
 				break;
 			case 1:
-				fragment = new ControlFragment();
+				fragment = new InformationFragment();
 				break;
 			default:
 				break;
@@ -117,9 +117,9 @@ public class MainActivity extends FragmentActivity {
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.information).toUpperCase(l);
+				return getString(R.string.cpu).toUpperCase(l);
 			case 1:
-				return getString(R.string.control).toUpperCase(l);
+				return getString(R.string.information).toUpperCase(l);
 			}
 			return null;
 		}
