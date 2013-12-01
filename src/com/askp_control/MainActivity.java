@@ -98,7 +98,7 @@ public class MainActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_apply:
-			Control.setValues();
+			Control.setValues(getApplicationContext());
 			Control.setValuesback();
 			Utils.toast(getString(R.string.valuesapplied),
 					getApplicationContext());
