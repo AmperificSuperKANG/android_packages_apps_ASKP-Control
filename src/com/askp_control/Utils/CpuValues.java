@@ -11,12 +11,49 @@ import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
+	public static final String FILENAME_CUR_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+	private static final String FILENAME_AVAILABLE_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
 	private static final String FILENAME_AVAILABLE_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
 	public static final String FILENAME_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	private static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
 	private static final File mCurCpuFreqFile = new File(FILENAME_CUR_CPU_FREQ);
+
+	public static void mCurGovernor() {
+		Command command = new Command(0, "cat " + FILENAME_CUR_GOVERNOR) {
+			@Override
+			public void commandCompleted(int arg0, int arg1) {
+			}
+
+			@Override
+			public void commandOutput(int arg0, String arg1) {
+				CpuFragment.mCurGovernorRaw = arg1;
+			}
+
+			@Override
+			public void commandTerminated(int arg0, String arg1) {
+			}
+		};
+		try {
+			RootTools.getShell(true).add(command);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+		} catch (RootDeniedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String mAvailableGovernor() {
+		try {
+			return Utils.readLine(FILENAME_AVAILABLE_GOVERNOR);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public static String mAvailableFreq() {
 		try {

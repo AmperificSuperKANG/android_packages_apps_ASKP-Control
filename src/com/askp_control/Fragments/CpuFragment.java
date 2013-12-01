@@ -10,16 +10,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.askp_control.MainActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
+import com.askp_control.Utils.Utils;
 
-public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
+public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
+		OnItemSelectedListener {
 
 	private static TextView mCurCpuFreq, mMaxCpuFreq, mMinCpuFreq;
 
@@ -28,7 +34,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar;
 
 	private static String[] mAvailableFreq;
-
 	private static List<String> mAvailableFreqList;
 
 	public static int mMinCpuFreqRaw;
@@ -36,6 +41,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 
 	private static String mMaxFreqValue;
 	private static String mMinFreqValue;
+
+	private static Spinner mGovernor;
+	private static String[] mAvailableGovernor;
+	private static List<String> mAvailableGovernorList;
+	public static String mCurGovernorRaw;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +79,18 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 		mMinCpuFreqBar.setMax(mAvailableFreq.length - 1);
 		mMinCpuFreqBar.setProgress(mMin);
 		mMinCpuFreqBar.setOnSeekBarChangeListener(this);
+
+		mAvailableGovernor = CpuValues.mAvailableGovernor().split(" ");
+		mAvailableGovernorList = Arrays.asList(mAvailableGovernor);
+		int mCurGovernor = mAvailableGovernorList.indexOf(mCurGovernorRaw);
+
+		mGovernor = (Spinner) rootView.findViewById(R.id.governor_spinner);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+				android.R.layout.simple_spinner_item, mAvailableGovernor);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mGovernor.setAdapter(adapter);
+		mGovernor.setSelection(mCurGovernor);
+		mGovernor.setOnItemSelectedListener(this);
 
 		return rootView;
 	}
@@ -140,5 +162,20 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener {
 		} else if (seekBar.equals(mMinCpuFreqBar)) {
 			Control.MIN_CPU_FREQ = mMinFreqValue;
 		}
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		MainActivity.mChange = true;
+		if (arg0.equals(mGovernor)) {
+			int mCurGovernor = mAvailableGovernorList.indexOf(mCurGovernorRaw);
+			if (arg2 != mCurGovernor)
+				Control.GOVERNOR = mAvailableGovernor[arg2];
+		}
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
 	}
 }

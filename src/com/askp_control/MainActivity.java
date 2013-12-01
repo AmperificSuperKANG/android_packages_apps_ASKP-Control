@@ -51,6 +51,7 @@ public class MainActivity extends FragmentActivity {
 
 		CpuValues.mMaxFreq();
 		CpuValues.mMinFreq();
+		CpuValues.mCurGovernor();
 
 		if (RootTools.isRootAvailable()) {
 			if (RootTools.isAccessGiven()) {
