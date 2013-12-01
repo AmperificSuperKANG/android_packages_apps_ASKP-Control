@@ -17,7 +17,6 @@ public class CpuValues {
 	private static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
 	private static final File mCurCpuFreqFile = new File(FILENAME_CUR_CPU_FREQ);
-	private static final File mMaxFreqFile = new File(FILENAME_MAX_FREQ);
 
 	public static String mAvailableFreq() {
 		try {
