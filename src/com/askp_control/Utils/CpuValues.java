@@ -11,6 +11,8 @@ import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
+	public static final String FILENAME_MIN_SCREEN_ON = "/sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq";
+	public static final String FILENAME_MAX_SCREEN_OFF = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
 	public static final String FILENAME_CUR_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
 	private static final String FILENAME_AVAILABLE_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
 	private static final String FILENAME_AVAILABLE_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
@@ -18,7 +20,34 @@ public class CpuValues {
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	private static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
+	public static final File mMinScreenOnFreqFile = new File(
+			FILENAME_MIN_SCREEN_ON);
+	public static final File mMaxScreenOffFreqFile = new File(
+			FILENAME_MAX_SCREEN_OFF);
 	private static final File mCurCpuFreqFile = new File(FILENAME_CUR_CPU_FREQ);
+
+	public static int mMinScreenOnFreq() {
+		if (mMinScreenOnFreqFile.exists()) {
+			try {
+				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	public static int mMaxScreenOffFreq() {
+		if (mMaxScreenOffFreqFile.exists()) {
+			try {
+				return Integer
+						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
 
 	public static void mCurGovernor() {
 		Command command = new Command(0, "cat " + FILENAME_CUR_GOVERNOR) {
@@ -119,7 +148,7 @@ public class CpuValues {
 	public static int mCurCpuFreq() {
 		if (mCurCpuFreqFile.exists()) {
 			try {
-				return Integer.parseInt(Utils.readLine(FILENAME_CUR_CPU_FREQ)) / 1000;
+				return Integer.parseInt(Utils.readLine(FILENAME_CUR_CPU_FREQ));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

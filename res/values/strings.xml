@@ -15,6 +15,8 @@
     <string name="cpuscaling">Frequency scaling</string>
     <string name="curmaxfreq">Current Max</string>
     <string name="curminfreq">Current Min</string>
+    <string name="maxscreenoff">Max Screen Off</string>
+    <string name="minscreenon">Min Screen On</string>
     <string name="governor">Governor</string>
     <string name="governor_summary">The CPU governor determines how your CPU behaves in response to changes in workload. Changing the governor will impact how your CPU scales through the freq steps available to you CPU.</string>
 

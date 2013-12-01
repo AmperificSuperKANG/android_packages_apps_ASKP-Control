@@ -22,24 +22,26 @@ import com.askp_control.MainActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
+import com.askp_control.Utils.Utils;
 
 public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		OnItemSelectedListener {
 
-	private static TextView mCurCpuFreq, mMaxCpuFreq, mMinCpuFreq;
+	private static TextView mCurCpuFreq, mMaxCpuFreq, mMinCpuFreq,
+			mMaxScreenOff, mMinScreenOn;
 
 	private static CurCPUThread mCurCPUThread;
 
-	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar;
+	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar, mMaxScreenOffBar,
+			mMinScreenOnBar;
 
 	private static String[] mAvailableFreq;
 	private static List<String> mAvailableFreqList;
 
-	public static int mMinCpuFreqRaw;
-	public static int mMaxCpuFreqRaw;
+	public static int mMinCpuFreqRaw, mMaxCpuFreqRaw;
 
-	private static String mMaxFreqValue;
-	private static String mMinFreqValue;
+	private static String mMaxFreqValue, mMinFreqValue, mMaxScreenOffValue,
+			mMinScreenOnValue;
 
 	private static Spinner mGovernor;
 	private static String[] mAvailableGovernor;
@@ -51,8 +53,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.cpu, container, false);
 
+		// Current Freq
 		mCurCpuFreq = (TextView) rootView.findViewById(R.id.curcpufreq);
 
+		// Freq scaling
 		mMaxCpuFreq = (TextView) rootView.findViewById(R.id.curmaxcpufreq);
 		mMaxCpuFreq.setText(getActivity().getString(R.string.curmaxfreq) + ": "
 				+ String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz");
@@ -79,6 +83,52 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mMinCpuFreqBar.setProgress(mMin);
 		mMinCpuFreqBar.setOnSeekBarChangeListener(this);
 
+		mMaxScreenOff = (TextView) rootView.findViewById(R.id.maxscreenofftext);
+		mMaxScreenOffBar = (SeekBar) rootView
+				.findViewById(R.id.maxscreenoffseekbar);
+
+		if (!CpuValues.mMaxScreenOffFreqFile.exists()) {
+			mMaxScreenOff.setVisibility(View.GONE);
+			mMaxScreenOffBar.setVisibility(View.GONE);
+		} else {
+			if (CpuValues.mMaxScreenOffFreq() == 0)
+				Utils.runCommand("echo " + mAvailableFreq[0] + " > "
+						+ CpuValues.FILENAME_MAX_SCREEN_OFF);
+
+			mMaxScreenOff.setText(getString(R.string.maxscreenoff) + ": "
+					+ String.valueOf(CpuValues.mMaxScreenOffFreq() / 1000)
+					+ " MHz");
+
+			mMaxScreenOffValue = String.valueOf(CpuValues.mMaxScreenOffFreq());
+
+			int mMaxScreenOff = mAvailableFreqList.indexOf(mMaxScreenOffValue);
+			mMaxScreenOffBar.setMax(mAvailableFreq.length - 1);
+			mMaxScreenOffBar.setProgress(mMaxScreenOff);
+			mMaxScreenOffBar.setOnSeekBarChangeListener(this);
+		}
+
+		mMinScreenOn = (TextView) rootView.findViewById(R.id.minscreenontext);
+		mMinScreenOnBar = (SeekBar) rootView
+				.findViewById(R.id.minscreenonseekbar);
+
+		if (!CpuValues.mMinScreenOnFreqFile.exists()) {
+			mMinScreenOn.setVisibility(View.GONE);
+			mMinScreenOnBar.setVisibility(View.GONE);
+		} else {
+
+			mMinScreenOn.setText(getString(R.string.minscreenon) + ": "
+					+ String.valueOf(CpuValues.mMinScreenOnFreq() / 1000)
+					+ " MHz");
+
+			mMinScreenOnValue = String.valueOf(CpuValues.mMinScreenOnFreq());
+
+			int mMinScreenOn = mAvailableFreqList.indexOf(mMinScreenOnValue);
+			mMinScreenOnBar.setMax(mAvailableFreq.length - 1);
+			mMinScreenOnBar.setProgress(mMinScreenOn);
+			mMinScreenOnBar.setOnSeekBarChangeListener(this);
+		}
+
+		// Governor
 		mAvailableGovernor = CpuValues.mAvailableGovernor().split(" ");
 		mAvailableGovernorList = Arrays.asList(mAvailableGovernor);
 		int mCurGovernor = mAvailableGovernorList.indexOf(mCurGovernorRaw);
@@ -118,7 +168,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	protected Handler mCurCPUHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (!String.valueOf(msg.obj).equals(0)) {
-				mCurCpuFreq.setText(CpuValues.mCurCpuFreq() + " Mhz");
+				mCurCpuFreq
+						.setText(String.valueOf(CpuValues.mCurCpuFreq() / 1000)
+								+ " Mhz");
 			}
 		}
 	};
@@ -134,6 +186,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 									.parseInt(mAvailableFreq[progress]) / 1000)
 							+ " MHz");
 			mMaxFreqValue = mAvailableFreq[progress];
+			if (Integer.parseInt(mMaxFreqValue) < Integer
+					.parseInt(mMinFreqValue)) {
+				mMaxCpuFreqBar.setProgress(progress);
+				mMinCpuFreqBar.setProgress(progress);
+			}
 		} else if (seekBar.equals(mMinCpuFreqBar)) {
 			mMinCpuFreq
 					.setText(getActivity().getString(R.string.curminfreq)
@@ -142,11 +199,29 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 									.parseInt(mAvailableFreq[progress]) / 1000)
 							+ " MHz");
 			mMinFreqValue = mAvailableFreq[progress];
+			if (Integer.parseInt(mMaxFreqValue) < Integer
+					.parseInt(mMinFreqValue)) {
+				mMaxCpuFreqBar.setProgress(progress);
+				mMinCpuFreqBar.setProgress(progress);
+			}
+		} else if (seekBar.equals(mMaxScreenOffBar)) {
+			mMaxScreenOff
+					.setText(getActivity().getString(R.string.maxscreenoff)
+							+ ": "
+							+ String.valueOf(Integer
+									.parseInt(mAvailableFreq[progress]) / 1000)
+							+ " MHz");
+			mMaxScreenOffValue = mAvailableFreq[progress];
+		} else if (seekBar.equals(mMinScreenOnBar)) {
+			mMinScreenOn
+					.setText(getActivity().getString(R.string.minscreenon)
+							+ ": "
+							+ String.valueOf(Integer
+									.parseInt(mAvailableFreq[progress]) / 1000)
+							+ " MHz");
+			mMinScreenOnValue = mAvailableFreq[progress];
 		}
-		if (Integer.parseInt(mMaxFreqValue) < Integer.parseInt(mMinFreqValue)) {
-			mMaxCpuFreqBar.setProgress(progress);
-			mMinCpuFreqBar.setProgress(progress);
-		}
+
 	}
 
 	@Override
@@ -160,6 +235,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			Control.MAX_CPU_FREQ = mMaxFreqValue;
 		} else if (seekBar.equals(mMinCpuFreqBar)) {
 			Control.MIN_CPU_FREQ = mMinFreqValue;
+		} else if (seekBar.equals(mMaxScreenOffBar)) {
+			Control.MAX_SCREEN_OFF = mMaxScreenOffValue;
+		} else if (seekBar.equals(mMinScreenOnBar)) {
+			Control.MIN_SCREEN_ON = mMinScreenOnValue;
 		}
 	}
 
