@@ -73,7 +73,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static String[] mMPUVoltagesList;
 	private static SeekBar[] mMPUVoltagesBars;
 	private static List<String> mMPUVoltagesValuesList = new ArrayList<String>();
-	private static String[] mMPUVoltagesLine;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -472,25 +471,26 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mMPUVoltagesTexts = new TextView[mMPUVoltagesList.length];
 		for (int i = 0; i < mMPUVoltagesList.length; i++) {
 			// MPU Voltages Subtitle
-			mMPUVoltagesLine = mMPUVoltagesList[i].split(" ");
 
 			TextView mMPUVoltagesSubtitle = new TextView(getActivity());
 			mMPUVoltagesSubtitle.setTypeface(null, Typeface.BOLD);
 			mMPUVoltagesSubtitle.setTextColor(getResources().getColor(
 					android.R.color.white));
-			mMPUVoltagesSubtitle.setText(mMPUVoltagesLine[0] + " mV");
+			mMPUVoltagesSubtitle.setText(mMPUVoltagesList[i].split(" ")[0]
+					+ " mV");
 
 			// MPU Voltages SeekBar
 			SeekBar mMPUVoltagesBar = new SeekBar(getActivity());
 			mMPUVoltagesBar.setMax(Integer.parseInt(mMPUVoltagesList[0]
 					.split(" ")[1]) + 500);
-			mMPUVoltagesBar.setProgress(Integer.parseInt(mMPUVoltagesLine[1]));
+			mMPUVoltagesBar.setProgress(Integer.parseInt(mMPUVoltagesList[i]
+					.split(" ")[1]));
 			mMPUVoltagesBar.setOnSeekBarChangeListener(this);
 			mMPUVoltagesBars[i] = mMPUVoltagesBar;
 
 			// MPU Voltages TextView
 			TextView mMPUVoltagesText = new TextView(getActivity());
-			mMPUVoltagesText.setText(mMPUVoltagesLine[1] + " mV");
+			mMPUVoltagesText.setText(mMPUVoltagesList[i].split(" ")[1] + " mV");
 			mMPUVoltagesText.setGravity(Gravity.CENTER);
 			mMPUVoltagesTexts[i] = mMPUVoltagesText;
 
