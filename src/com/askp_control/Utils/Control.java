@@ -27,6 +27,8 @@ public class Control {
 
 	public static boolean MPU = CpuValues.mMPU();
 
+	public static String CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
+
 	public static void setValues(Context context) {
 
 		// Max Cpu
@@ -75,6 +77,11 @@ public class Control {
 			Utils.runCommand("echo 0 > " + CpuValues.FILENAME_MPU);
 		}
 
+		// Core Voltage
+		Utils.runCommand("echo " + CORE_VOLTAGE + " > "
+				+ CpuValues.FILENAME_CORE_VOLTAGES);
+		Utils.saveString("corevoltage", CORE_VOLTAGE, context);
+
 	}
 
 	public static void setValuesback(Context context) {
@@ -83,6 +90,7 @@ public class Control {
 		MAX_SCREEN_OFF = String.valueOf(CpuValues.mMaxScreenOffFreq());
 		MIN_SCREEN_ON = String.valueOf(CpuValues.mMinScreenOnFreq());
 		GOVERNOR = CpuFragment.mCurGovernorRaw;
+		CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
 
 		Utils.toast(context.getString(R.string.valuesapplied),
 				context.getApplicationContext());

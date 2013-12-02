@@ -1,11 +1,10 @@
 package com.askp_control.Utils;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
-
-import android.content.Context;
 
 import com.askp_control.Fragments.CpuFragment;
 import com.stericson.RootTools.RootTools;
@@ -27,18 +26,26 @@ public class CpuValues {
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
-	public static String[] mCoreVoltagesFreq(Context context)
-			throws IOException {
-		BufferedReader buffreader = new BufferedReader(new FileReader(
-				FILENAME_CORE_VOLTAGES), 256);
-		String line;
-		StringBuilder text = new StringBuilder();
+	public static String mCoreVoltagesFreq() {
+		BufferedReader buffreader;
+		try {
+			buffreader = new BufferedReader(new FileReader(
+					FILENAME_CORE_VOLTAGES), 256);
+			String line;
+			StringBuilder text = new StringBuilder();
 
-		while ((line = buffreader.readLine()) != null) {
-			text.append(line);
+			while ((line = buffreader.readLine()) != null) {
+				text.append(line);
+			}
+			buffreader.close();
+			return text.toString().replace(" mV", " ");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		buffreader.close();
-		return text.toString().replace(" mV", " ").split(" ");
+		return "error";
+
 	}
 
 	public static boolean mMPU() {

@@ -29,6 +29,7 @@
     <string name="iva">IVA</string>
     <string name="mpu">MPU</string>
     <string name="corevoltages">Core Voltages</string>
+    <string name="corevoltages_summary">ONLY FOR ADVANCED USERS!</string>
     <string name="voltage">Voltage</string>
 
     <!-- Information -->

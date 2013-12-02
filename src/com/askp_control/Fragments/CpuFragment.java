@@ -1,5 +1,6 @@
 package com.askp_control.Fragments;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +58,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	public static String mCurGovernorRaw;
 
 	private static CheckBox mCore, mIVA, mMPU;
+
+	private static TextView[] mCoreVoltagesTexts;
+	private static String[] mCoreVoltagesList;
+	private static SeekBar[] mCoreVoltagesBars;
+	private static List<String> mCoreVoltagesValuesList = new ArrayList<String>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -325,6 +331,60 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		if (Utils.existFile(CpuValues.FILENAME_MPU))
 			mLayout.addView(mMPU);
 
+		// Core Voltages Title
+		TextView mCoreVoltagesTitle = new TextView(getActivity());
+		mCoreVoltagesTitle.setBackgroundColor(getResources().getColor(
+				android.R.color.holo_blue_dark));
+		mCoreVoltagesTitle.setTextColor(getResources().getColor(
+				android.R.color.white));
+		mCoreVoltagesTitle.setTypeface(null, Typeface.BOLD);
+		mCoreVoltagesTitle.setText(getString(R.string.corevoltages));
+
+		// Core Voltages Summary
+		TextView mCoreVoltagesSummary = new TextView(getActivity());
+		mCoreVoltagesSummary.setTypeface(null, Typeface.ITALIC);
+		mCoreVoltagesSummary.setText(getString(R.string.corevoltages_summary));
+
+		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
+			mLayout.addView(mCoreVoltagesTitle);
+			mLayout.addView(mCoreVoltagesSummary);
+		}
+
+		mCoreVoltagesList = CpuValues.mCoreVoltagesFreq().split(" ");
+		mCoreVoltagesBars = new SeekBar[mCoreVoltagesList.length];
+		mCoreVoltagesTexts = new TextView[mCoreVoltagesList.length];
+		for (int i = 0; i < mCoreVoltagesList.length; i++) {
+			// Core Voltages Subtitle
+			int mVoltageNumber = i + 1;
+			TextView mCoreVoltagesSubtitle = new TextView(getActivity());
+			mCoreVoltagesSubtitle.setTypeface(null, Typeface.BOLD);
+			mCoreVoltagesSubtitle.setTextColor(getResources().getColor(
+					android.R.color.white));
+			mCoreVoltagesSubtitle.setText(getString(R.string.voltage) + " "
+					+ mVoltageNumber);
+
+			// Core Voltages SeekBar
+			SeekBar mCoreVoltagesBar = new SeekBar(getActivity());
+			mCoreVoltagesBar
+					.setMax(Integer.parseInt(mCoreVoltagesList[0]) + 500);
+			mCoreVoltagesBar
+					.setProgress(Integer.parseInt(mCoreVoltagesList[i]));
+			mCoreVoltagesBar.setOnSeekBarChangeListener(this);
+			mCoreVoltagesBars[i] = mCoreVoltagesBar;
+
+			// Core Voltages TextView
+			TextView mCoreVoltagesText = new TextView(getActivity());
+			mCoreVoltagesText.setText(mCoreVoltagesList[i] + " mV");
+			mCoreVoltagesText.setGravity(Gravity.CENTER);
+			mCoreVoltagesTexts[i] = mCoreVoltagesText;
+
+			if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
+				mLayout.addView(mCoreVoltagesSubtitle);
+				mLayout.addView(mCoreVoltagesBar);
+				mLayout.addView(mCoreVoltagesText);
+			}
+		}
+
 		return rootView;
 	}
 
@@ -362,6 +422,14 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
+		mCoreVoltagesValuesList.clear();
+		for (int i = 0; i < mCoreVoltagesList.length; i++) {
+			if (seekBar.equals(mCoreVoltagesBars[i])) {
+				mCoreVoltagesTexts[i].setText(String.valueOf(progress) + " mV");
+			}
+			mCoreVoltagesValuesList.add(mCoreVoltagesTexts[i].getText()
+					.toString());
+		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
 			mMaxCpuFreqText.setText(String.valueOf(Integer
 					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
@@ -389,7 +457,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
 			mMinScreenOnValue = mAvailableFreq[progress];
 		}
-
 	}
 
 	@Override
@@ -399,6 +466,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		MainActivity.mChange = true;
+		for (int i = 0; i < mCoreVoltagesList.length; i++) {
+			if (seekBar.equals(mCoreVoltagesBars[i])) {
+				StringBuilder mCoreVoltagesValue = new StringBuilder();
+				for (String s : mCoreVoltagesValuesList) {
+					mCoreVoltagesValue.append(s);
+					mCoreVoltagesValue.append("\t");
+				}
+				Control.CORE_VOLTAGE = mCoreVoltagesValue.toString();
+			}
+		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
 			Control.MAX_CPU_FREQ = mMaxFreqValue;
 		} else if (seekBar.equals(mMinCpuFreqBar)) {
