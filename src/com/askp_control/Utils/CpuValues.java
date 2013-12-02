@@ -1,7 +1,6 @@
 package com.askp_control.Utils;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -22,20 +21,11 @@ public class CpuValues {
 	public static final String FILENAME_MIN_SCREEN_ON = "/sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq";
 	public static final String FILENAME_MAX_SCREEN_OFF = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
 	public static final String FILENAME_CUR_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-	private static final String FILENAME_AVAILABLE_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
-	private static final String FILENAME_AVAILABLE_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+	public static final String FILENAME_AVAILABLE_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
+	public static final String FILENAME_AVAILABLE_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
 	public static final String FILENAME_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-	private static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-
-	public static final File mMPUFile = new File(FILENAME_MPU);
-	public static final File mIVAFile = new File(FILENAME_IVA);
-	public static final File mCoreFile = new File(FILENAME_CORE);
-	public static final File mMinScreenOnFreqFile = new File(
-			FILENAME_MIN_SCREEN_ON);
-	public static final File mMaxScreenOffFreqFile = new File(
-			FILENAME_MAX_SCREEN_OFF);
-	private static final File mCurCpuFreqFile = new File(FILENAME_CUR_CPU_FREQ);
+	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
 	public static String[] mCoreVoltagesFreq(Context context)
 			throws IOException {
@@ -82,7 +72,7 @@ public class CpuValues {
 	}
 
 	public static int mMinScreenOnFreq() {
-		if (mMinScreenOnFreqFile.exists())
+		if (Utils.existFile(FILENAME_MIN_SCREEN_ON))
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
 			} catch (IOException e) {
@@ -92,7 +82,7 @@ public class CpuValues {
 	}
 
 	public static int mMaxScreenOffFreq() {
-		if (mMaxScreenOffFreqFile.exists())
+		if (Utils.existFile(FILENAME_MAX_SCREEN_OFF))
 			try {
 				return Integer
 						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));
@@ -199,7 +189,7 @@ public class CpuValues {
 	}
 
 	public static int mCurCpuFreq() {
-		if (mCurCpuFreqFile.exists())
+		if (Utils.existFile(FILENAME_CUR_CPU_FREQ))
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_CUR_CPU_FREQ));
 			} catch (IOException e) {

@@ -1,6 +1,7 @@
 package com.askp_control.Utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -18,6 +19,13 @@ import com.stericson.RootTools.execution.CommandCapture;
 public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
+
+	public static boolean existFile(String file) {
+		File mFile = new File(file);
+		if (mFile.exists())
+			return true;
+		return false;
+	}
 
 	public static void saveString(String name, String value, Context context) {
 		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
