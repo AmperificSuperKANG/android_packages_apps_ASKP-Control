@@ -56,7 +56,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static List<String> mAvailableGovernorList;
 	public static String mCurGovernorRaw;
 
-	private static TextView mSmartreflextext, mSmartreflexSummaryText;
 	private static CheckBox mCore, mIVA, mMPU;
 
 	private static TextView mCoreVoltages, mVoltageOne, mVoltageTwo,
@@ -193,6 +192,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				.setText(getString(R.string.maxscreenoff_summary));
 
 		// Max Freq Screen Off SeekBar
+		mMaxScreenOffValue = String.valueOf(CpuValues.mMaxScreenOffFreq());
 		int mMaxScreenOff = mAvailableFreqList.indexOf(mMaxScreenOffValue);
 
 		mMaxScreenFreqOffBar = new SeekBar(getActivity());
@@ -202,7 +202,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mMaxScreenFreqOffBar.setMax(mAvailableFreq.length - 1);
 		mMaxScreenFreqOffBar.setProgress(mMaxScreenOff);
 		mMaxScreenFreqOffBar.setOnSeekBarChangeListener(this);
-		mMaxScreenOffValue = String.valueOf(CpuValues.mMaxScreenOffFreq());
 
 		// Max Freq Screen Off TextView
 		mMaxFreqScreenOffText = new TextView(getActivity());
@@ -231,13 +230,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				.setText(getString(R.string.minscreenon_summary));
 
 		// Min Freq Screen On SeekBar
+		mMinScreenOnValue = String.valueOf(CpuValues.mMinScreenOnFreq());
 		int mMinScreenOn = mAvailableFreqList.indexOf(mMinScreenOnValue);
 
 		mMinFreqScreenOnBar = new SeekBar(getActivity());
 		mMinFreqScreenOnBar.setMax(mAvailableFreq.length - 1);
 		mMinFreqScreenOnBar.setProgress(mMinScreenOn);
 		mMinFreqScreenOnBar.setOnSeekBarChangeListener(this);
-		mMinScreenOnValue = String.valueOf(CpuValues.mMinScreenOnFreq());
 
 		// Min Freq Screen On TextView
 		mMinFreqScreenOnText = new TextView(getActivity());
