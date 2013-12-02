@@ -74,9 +74,12 @@ public class CpuValues {
 	public static int mMinScreenOnFreq() {
 		if (Utils.existFile(FILENAME_MIN_SCREEN_ON))
 			try {
+				if (Utils.readLine(FILENAME_MIN_SCREEN_ON).equals("0"))
+					Utils.runCommand("echo " + CpuFragment.mAvailableFreq[0]
+							+ " > " + FILENAME_MIN_SCREEN_ON);
 				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 		return 0;
 	}

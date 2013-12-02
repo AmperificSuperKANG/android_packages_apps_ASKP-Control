@@ -43,7 +43,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar,
 			mMaxScreenFreqOffBar, mMinFreqScreenOnBar;
 
-	private static String[] mAvailableFreq;
+	public static String[] mAvailableFreq;
 	private static List<String> mAvailableFreqList;
 
 	public static int mMinCpuFreqRaw, mMaxCpuFreqRaw;
@@ -57,14 +57,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	public static String mCurGovernorRaw;
 
 	private static CheckBox mCore, mIVA, mMPU;
-
-	private static TextView mCoreVoltages, mVoltageOne, mVoltageTwo,
-			mVoltageThree, mVoltageFour;
-
-	private static SeekBar mVoltageOneBar, mVoltageTwoBar, mVoltageThreeBar,
-			mVoltageFourBar;
-
-	public static String[] mCoreVoltagesFreq;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
