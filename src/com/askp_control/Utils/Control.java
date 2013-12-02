@@ -54,7 +54,7 @@ public class Control {
 		Utils.runCommand("echo " + GOVERNOR + " > "
 				+ CpuValues.FILENAME_CUR_GOVERNOR);
 		Utils.saveString("governor", GOVERNOR, context);
-		CpuValues.mCurGovernor();
+		CpuFragment.mCurGovernorRaw = GOVERNOR;
 
 		// Smartreflex
 		if (CORE) {
