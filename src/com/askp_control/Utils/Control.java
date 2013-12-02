@@ -31,6 +31,8 @@ public class Control {
 
 	public static String IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
 
+	public static String MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();
+
 	public static void setValues(Context context) {
 
 		// Max Cpu
@@ -89,6 +91,11 @@ public class Control {
 				+ CpuValues.FILENAME_IVA_VOLTAGES);
 		Utils.saveString("ivavoltage", IVA_VOLTAGE, context);
 
+		// MPU Voltage
+		Utils.runCommand("echo " + MPU_VOLTAGE + " > "
+				+ CpuValues.FILENAME_MPU_VOLTAGES);
+		Utils.saveString("mpuvoltage", MPU_VOLTAGE, context);
+
 		Utils.toast(context.getString(R.string.valuesapplied),
 				context.getApplicationContext());
 	}
@@ -101,5 +108,6 @@ public class Control {
 		GOVERNOR = CpuFragment.mCurGovernorRaw;
 		CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
 		IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
+		MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();
 	}
 }

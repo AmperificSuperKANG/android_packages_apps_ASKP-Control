@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import com.askp_control.Fragments.CpuFragment;
@@ -13,6 +15,7 @@ import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
+	public static final String FILENAME_MPU_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/mpu_voltages";
 	public static final String FILENAME_IVA_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/iva_voltages";
 	public static final String FILENAME_CORE_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/core_voltages";
 	public static final String FILENAME_MPU = "/sys/kernel/debug/smartreflex/sr_mpu/autocomp";
@@ -27,6 +30,41 @@ public class CpuValues {
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
+	public static String mMPUVoltagesFreqRaw() {
+		List<String> mValueString = new ArrayList<String>();
+		String[] mValueList = mMPUVoltagesFreq().split(";");
+		StringBuilder mValueBuilder = new StringBuilder();
+		for (int i = 0; i < mValueList.length; i++) {
+			mValueString.add(mValueList[i].split(" ")[1]);
+		}
+		for (String s : mValueString) {
+			mValueBuilder.append(s);
+			mValueBuilder.append("\t");
+		}
+		return mValueBuilder.toString();
+	}
+
+	public static String mMPUVoltagesFreq() {
+		BufferedReader buffreader;
+		try {
+			buffreader = new BufferedReader(new FileReader(
+					FILENAME_MPU_VOLTAGES), 256);
+			String line;
+			StringBuilder text = new StringBuilder();
+
+			while ((line = buffreader.readLine()) != null) {
+				text.append(line);
+			}
+			buffreader.close();
+			return text.toString().replace(" mV", ";").replace("mhz:", "");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "error";
+	}
+
 	public static String mIVAVoltagesFreq() {
 		BufferedReader buffreader;
 		try {
@@ -39,7 +77,7 @@ public class CpuValues {
 				text.append(line);
 			}
 			buffreader.close();
-			return text.toString().replace(" mV", " ");
+			return text.toString().replace("mV", "");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -60,7 +98,7 @@ public class CpuValues {
 				text.append(line);
 			}
 			buffreader.close();
-			return text.toString().replace(" mV", " ");
+			return text.toString().replace("mV", "");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

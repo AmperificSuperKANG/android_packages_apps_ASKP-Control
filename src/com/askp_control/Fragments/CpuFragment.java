@@ -69,6 +69,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static SeekBar[] mIVAVoltagesBars;
 	private static List<String> mIVAVoltagesValuesList = new ArrayList<String>();
 
+	private static TextView[] mMPUVoltagesTexts;
+	private static String[] mMPUVoltagesList;
+	private static SeekBar[] mMPUVoltagesBars;
+	private static List<String> mMPUVoltagesValuesList = new ArrayList<String>();
+	private static String[] mMPUVoltagesLine;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -442,6 +448,59 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			}
 		}
 
+		// MPU Voltages Title
+		TextView mMPUVoltagesTitle = new TextView(getActivity());
+		mMPUVoltagesTitle.setBackgroundColor(getResources().getColor(
+				android.R.color.holo_blue_dark));
+		mMPUVoltagesTitle.setTextColor(getResources().getColor(
+				android.R.color.white));
+		mMPUVoltagesTitle.setTypeface(null, Typeface.BOLD);
+		mMPUVoltagesTitle.setText(getString(R.string.mpuvoltages));
+
+		// MPU Voltages Summary
+		TextView mMPUVoltagesSummary = new TextView(getActivity());
+		mMPUVoltagesSummary.setTypeface(null, Typeface.ITALIC);
+		mMPUVoltagesSummary.setText(getString(R.string.warning));
+
+		if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
+			mLayout.addView(mMPUVoltagesTitle);
+			mLayout.addView(mMPUVoltagesSummary);
+		}
+
+		mMPUVoltagesList = CpuValues.mMPUVoltagesFreq().split(";");
+		mMPUVoltagesBars = new SeekBar[mMPUVoltagesList.length];
+		mMPUVoltagesTexts = new TextView[mMPUVoltagesList.length];
+		for (int i = 0; i < mMPUVoltagesList.length; i++) {
+			// MPU Voltages Subtitle
+			mMPUVoltagesLine = mMPUVoltagesList[i].split(" ");
+
+			TextView mMPUVoltagesSubtitle = new TextView(getActivity());
+			mMPUVoltagesSubtitle.setTypeface(null, Typeface.BOLD);
+			mMPUVoltagesSubtitle.setTextColor(getResources().getColor(
+					android.R.color.white));
+			mMPUVoltagesSubtitle.setText(mMPUVoltagesLine[0] + " mV");
+
+			// MPU Voltages SeekBar
+			SeekBar mMPUVoltagesBar = new SeekBar(getActivity());
+			mMPUVoltagesBar.setMax(Integer.parseInt(mMPUVoltagesList[0]
+					.split(" ")[1]) + 500);
+			mMPUVoltagesBar.setProgress(Integer.parseInt(mMPUVoltagesLine[1]));
+			mMPUVoltagesBar.setOnSeekBarChangeListener(this);
+			mMPUVoltagesBars[i] = mMPUVoltagesBar;
+
+			// MPU Voltages TextView
+			TextView mMPUVoltagesText = new TextView(getActivity());
+			mMPUVoltagesText.setText(mMPUVoltagesLine[1] + " mV");
+			mMPUVoltagesText.setGravity(Gravity.CENTER);
+			mMPUVoltagesTexts[i] = mMPUVoltagesText;
+
+			if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
+				mLayout.addView(mMPUVoltagesSubtitle);
+				mLayout.addView(mMPUVoltagesBar);
+				mLayout.addView(mMPUVoltagesText);
+			}
+		}
+
 		return rootView;
 	}
 
@@ -494,6 +553,14 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			}
 			mIVAVoltagesValuesList.add(mIVAVoltagesTexts[i].getText()
 					.toString());
+		}
+		mMPUVoltagesValuesList.clear();
+		for (int i = 0; i < mMPUVoltagesList.length; i++) {
+			if (seekBar.equals(mMPUVoltagesBars[i])) {
+				mMPUVoltagesTexts[i].setText(String.valueOf(progress) + " mV");
+			}
+			mMPUVoltagesValuesList.add(mMPUVoltagesTexts[i].getText()
+					.toString().replace(" mV", ""));
 		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
 			mMaxCpuFreqText.setText(String.valueOf(Integer
@@ -549,6 +616,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mIVAVoltagesValue.append("\t");
 				}
 				Control.IVA_VOLTAGE = mIVAVoltagesValue.toString();
+			}
+		}
+		for (int i = 0; i < mMPUVoltagesList.length; i++) {
+			if (seekBar.equals(mMPUVoltagesBars[i])) {
+				StringBuilder mMPUVoltagesValue = new StringBuilder();
+				for (String s : mMPUVoltagesValuesList) {
+					mMPUVoltagesValue.append(s);
+					mMPUVoltagesValue.append("\t");
+				}
+				Control.MPU_VOLTAGE = mMPUVoltagesValue.toString();
 			}
 		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
