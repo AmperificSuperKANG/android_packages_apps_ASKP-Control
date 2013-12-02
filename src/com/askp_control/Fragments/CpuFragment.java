@@ -64,6 +64,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static SeekBar[] mCoreVoltagesBars;
 	private static List<String> mCoreVoltagesValuesList = new ArrayList<String>();
 
+	private static TextView[] mIVAVoltagesTexts;
+	private static String[] mIVAVoltagesList;
+	private static SeekBar[] mIVAVoltagesBars;
+	private static List<String> mIVAVoltagesValuesList = new ArrayList<String>();
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -343,7 +348,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Core Voltages Summary
 		TextView mCoreVoltagesSummary = new TextView(getActivity());
 		mCoreVoltagesSummary.setTypeface(null, Typeface.ITALIC);
-		mCoreVoltagesSummary.setText(getString(R.string.corevoltages_summary));
+		mCoreVoltagesSummary.setText(getString(R.string.warning));
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
 			mLayout.addView(mCoreVoltagesTitle);
@@ -382,6 +387,58 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				mLayout.addView(mCoreVoltagesSubtitle);
 				mLayout.addView(mCoreVoltagesBar);
 				mLayout.addView(mCoreVoltagesText);
+			}
+		}
+
+		// IVA Voltages Title
+		TextView mIVAVoltagesTitle = new TextView(getActivity());
+		mIVAVoltagesTitle.setBackgroundColor(getResources().getColor(
+				android.R.color.holo_blue_dark));
+		mIVAVoltagesTitle.setTextColor(getResources().getColor(
+				android.R.color.white));
+		mIVAVoltagesTitle.setTypeface(null, Typeface.BOLD);
+		mIVAVoltagesTitle.setText(getString(R.string.ivavoltages));
+
+		// IVA Voltages Summary
+		TextView mIVAVoltagesSummary = new TextView(getActivity());
+		mIVAVoltagesSummary.setTypeface(null, Typeface.ITALIC);
+		mIVAVoltagesSummary.setText(getString(R.string.warning));
+
+		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
+			mLayout.addView(mIVAVoltagesTitle);
+			mLayout.addView(mIVAVoltagesSummary);
+		}
+
+		mIVAVoltagesList = CpuValues.mIVAVoltagesFreq().split(" ");
+		mIVAVoltagesBars = new SeekBar[mIVAVoltagesList.length];
+		mIVAVoltagesTexts = new TextView[mIVAVoltagesList.length];
+		for (int i = 0; i < mIVAVoltagesList.length; i++) {
+			// IVA Voltages Subtitle
+			int mVoltageNumber = i + 1;
+			TextView mIVAVoltagesSubtitle = new TextView(getActivity());
+			mIVAVoltagesSubtitle.setTypeface(null, Typeface.BOLD);
+			mIVAVoltagesSubtitle.setTextColor(getResources().getColor(
+					android.R.color.white));
+			mIVAVoltagesSubtitle.setText(getString(R.string.voltage) + " "
+					+ mVoltageNumber);
+
+			// IVA Voltages SeekBar
+			SeekBar mIVAVoltagesBar = new SeekBar(getActivity());
+			mIVAVoltagesBar.setMax(Integer.parseInt(mIVAVoltagesList[0]) + 500);
+			mIVAVoltagesBar.setProgress(Integer.parseInt(mIVAVoltagesList[i]));
+			mIVAVoltagesBar.setOnSeekBarChangeListener(this);
+			mIVAVoltagesBars[i] = mIVAVoltagesBar;
+
+			// IVA Voltages TextView
+			TextView mIVAVoltagesText = new TextView(getActivity());
+			mIVAVoltagesText.setText(mIVAVoltagesList[i] + " mV");
+			mIVAVoltagesText.setGravity(Gravity.CENTER);
+			mIVAVoltagesTexts[i] = mIVAVoltagesText;
+
+			if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
+				mLayout.addView(mIVAVoltagesSubtitle);
+				mLayout.addView(mIVAVoltagesBar);
+				mLayout.addView(mIVAVoltagesText);
 			}
 		}
 
@@ -430,6 +487,14 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mCoreVoltagesValuesList.add(mCoreVoltagesTexts[i].getText()
 					.toString());
 		}
+		mIVAVoltagesValuesList.clear();
+		for (int i = 0; i < mIVAVoltagesList.length; i++) {
+			if (seekBar.equals(mIVAVoltagesBars[i])) {
+				mIVAVoltagesTexts[i].setText(String.valueOf(progress) + " mV");
+			}
+			mIVAVoltagesValuesList.add(mIVAVoltagesTexts[i].getText()
+					.toString());
+		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
 			mMaxCpuFreqText.setText(String.valueOf(Integer
 					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
@@ -474,6 +539,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mCoreVoltagesValue.append("\t");
 				}
 				Control.CORE_VOLTAGE = mCoreVoltagesValue.toString();
+			}
+		}
+		for (int i = 0; i < mIVAVoltagesList.length; i++) {
+			if (seekBar.equals(mIVAVoltagesBars[i])) {
+				StringBuilder mIVAVoltagesValue = new StringBuilder();
+				for (String s : mIVAVoltagesValuesList) {
+					mIVAVoltagesValue.append(s);
+					mIVAVoltagesValue.append("\t");
+				}
+				Control.IVA_VOLTAGE = mIVAVoltagesValue.toString();
 			}
 		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {

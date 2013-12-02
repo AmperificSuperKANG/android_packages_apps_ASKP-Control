@@ -13,6 +13,7 @@ import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
+	public static final String FILENAME_IVA_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/iva_voltages";
 	public static final String FILENAME_CORE_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/core_voltages";
 	public static final String FILENAME_MPU = "/sys/kernel/debug/smartreflex/sr_mpu/autocomp";
 	public static final String FILENAME_IVA = "/sys/kernel/debug/smartreflex/sr_iva/autocomp";
@@ -25,6 +26,27 @@ public class CpuValues {
 	public static final String FILENAME_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+
+	public static String mIVAVoltagesFreq() {
+		BufferedReader buffreader;
+		try {
+			buffreader = new BufferedReader(new FileReader(
+					FILENAME_IVA_VOLTAGES), 256);
+			String line;
+			StringBuilder text = new StringBuilder();
+
+			while ((line = buffreader.readLine()) != null) {
+				text.append(line);
+			}
+			buffreader.close();
+			return text.toString().replace(" mV", " ");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "error";
+	}
 
 	public static String mCoreVoltagesFreq() {
 		BufferedReader buffreader;
@@ -45,7 +67,6 @@ public class CpuValues {
 			e.printStackTrace();
 		}
 		return "error";
-
 	}
 
 	public static boolean mMPU() {

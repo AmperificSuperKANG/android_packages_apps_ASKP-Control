@@ -38,6 +38,7 @@ public class MainActivity extends FragmentActivity {
 	private static ViewPager mViewPager;
 
 	private static MenuItem applyButton;
+	private static MenuItem cancelButton;
 
 	public static boolean mChange = false;
 	public static String mAction = "";
@@ -90,9 +91,13 @@ public class MainActivity extends FragmentActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		applyButton = menu.findItem(R.id.action_apply);
+		cancelButton = menu.findItem(R.id.action_cancel);
 		applyButton.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_WITH_TEXT
 				| MenuItem.SHOW_AS_ACTION_ALWAYS);
+		cancelButton.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_WITH_TEXT
+				| MenuItem.SHOW_AS_ACTION_ALWAYS);
 		applyButton.setVisible(false);
+		cancelButton.setVisible(false);
 		return true;
 	}
 
@@ -103,6 +108,13 @@ public class MainActivity extends FragmentActivity {
 			Control.setValues(getApplicationContext());
 			Control.setValuesback(getApplicationContext());
 			applyButton.setVisible(false);
+			cancelButton.setVisible(false);
+			break;
+		case R.id.action_cancel:
+			Control.setValuesback(getApplicationContext());
+			super.recreate();
+			applyButton.setVisible(false);
+			cancelButton.setVisible(false);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -182,6 +194,7 @@ public class MainActivity extends FragmentActivity {
 		public void handleMessage(Message msg) {
 			if (mChange) {
 				applyButton.setVisible(true);
+				cancelButton.setVisible(true);
 				mChange = false;
 			}
 		}

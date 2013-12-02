@@ -29,6 +29,8 @@ public class Control {
 
 	public static String CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
 
+	public static String IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
+
 	public static void setValues(Context context) {
 
 		// Max Cpu
@@ -82,6 +84,13 @@ public class Control {
 				+ CpuValues.FILENAME_CORE_VOLTAGES);
 		Utils.saveString("corevoltage", CORE_VOLTAGE, context);
 
+		// IVA Voltage
+		Utils.runCommand("echo " + IVA_VOLTAGE + " > "
+				+ CpuValues.FILENAME_IVA_VOLTAGES);
+		Utils.saveString("ivavoltage", IVA_VOLTAGE, context);
+
+		Utils.toast(context.getString(R.string.valuesapplied),
+				context.getApplicationContext());
 	}
 
 	public static void setValuesback(Context context) {
@@ -91,8 +100,6 @@ public class Control {
 		MIN_SCREEN_ON = String.valueOf(CpuValues.mMinScreenOnFreq());
 		GOVERNOR = CpuFragment.mCurGovernorRaw;
 		CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
-
-		Utils.toast(context.getString(R.string.valuesapplied),
-				context.getApplicationContext());
+		IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
 	}
 }
