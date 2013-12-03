@@ -73,6 +73,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static SeekBar[] mMPUVoltagesBars;
 	private static List<String> mMPUVoltagesValuesList = new ArrayList<String>();
 
+	private static TextView[] mRegulatorVoltagesTexts;
+	private static String[] mRegulatorVoltagesList;
+	private static SeekBar[] mRegulatorVoltagesBars;
+	private static List<String> mRegulatorVoltagesValuesList = new ArrayList<String>();
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -330,7 +335,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mCoreVoltagesList = CpuValues.mCoreVoltagesFreq().split(" ");
 		mCoreVoltagesBars = new SeekBar[mCoreVoltagesList.length];
 		mCoreVoltagesTexts = new TextView[mCoreVoltagesList.length];
+		int mCoreVoltagesHigh = 0;
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
+
+			if (mCoreVoltagesHigh < Integer.parseInt(mCoreVoltagesList[i]))
+				mCoreVoltagesHigh = Integer.parseInt(mCoreVoltagesList[i]);
 
 			// Core Voltages Subtitle
 			int mVoltageNumber = i + 1;
@@ -341,8 +350,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// Core Voltages SeekBar
 			SeekBar mCoreVoltagesBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mCoreVoltagesBar,
-					Integer.parseInt(mCoreVoltagesList[0]) + 500,
+			LayoutStyle.setSeekBar(mCoreVoltagesBar, mCoreVoltagesHigh + 500,
 					Integer.parseInt(mCoreVoltagesList[i]));
 			mCoreVoltagesBar.setOnSeekBarChangeListener(this);
 			mCoreVoltagesBars[i] = mCoreVoltagesBar;
@@ -378,7 +386,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mIVAVoltagesList = CpuValues.mIVAVoltagesFreq().split(" ");
 		mIVAVoltagesBars = new SeekBar[mIVAVoltagesList.length];
 		mIVAVoltagesTexts = new TextView[mIVAVoltagesList.length];
+		int mIVAVoltagesHigh = 0;
 		for (int i = 0; i < mIVAVoltagesList.length; i++) {
+
+			if (mIVAVoltagesHigh < Integer.parseInt(mIVAVoltagesList[i]))
+				mIVAVoltagesHigh = Integer.parseInt(mIVAVoltagesList[i]);
 
 			// IVA Voltages Subtitle
 			int mVoltageNumber = i + 1;
@@ -389,8 +401,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// IVA Voltages SeekBar
 			SeekBar mIVAVoltagesBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mIVAVoltagesBar,
-					Integer.parseInt(mIVAVoltagesList[0]) + 500,
+			LayoutStyle.setSeekBar(mIVAVoltagesBar, mIVAVoltagesHigh + 500,
 					Integer.parseInt(mIVAVoltagesList[i]));
 			mIVAVoltagesBar.setOnSeekBarChangeListener(this);
 			mIVAVoltagesBars[i] = mIVAVoltagesBar;
@@ -426,7 +437,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mMPUVoltagesList = CpuValues.mMPUVoltagesFreq().split(";");
 		mMPUVoltagesBars = new SeekBar[mMPUVoltagesList.length];
 		mMPUVoltagesTexts = new TextView[mMPUVoltagesList.length];
+		int mMPUVoltagesHigh = 0;
 		for (int i = 0; i < mMPUVoltagesList.length; i++) {
+
+			if (mMPUVoltagesHigh < Integer.parseInt(mMPUVoltagesList[i]
+					.split(" ")[1]))
+				mMPUVoltagesHigh = Integer.parseInt(mMPUVoltagesList[i]
+						.split(" ")[1]);
 
 			// MPU Voltages Subtitle
 			TextView mMPUVoltagesSubtitle = new TextView(getActivity());
@@ -435,8 +452,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// MPU Voltages SeekBar
 			SeekBar mMPUVoltagesBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mMPUVoltagesBar,
-					Integer.parseInt(mMPUVoltagesList[0].split(" ")[1]) + 500,
+			LayoutStyle.setSeekBar(mMPUVoltagesBar, mMPUVoltagesHigh + 500,
 					Integer.parseInt(mMPUVoltagesList[i].split(" ")[1]));
 			mMPUVoltagesBar.setOnSeekBarChangeListener(this);
 			mMPUVoltagesBars[i] = mMPUVoltagesBar;
@@ -451,6 +467,56 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				mLayout.addView(mMPUVoltagesSubtitle);
 				mLayout.addView(mMPUVoltagesBar);
 				mLayout.addView(mMPUVoltagesText);
+			}
+		}
+
+		// Regulator Voltages Title
+		TextView mRegulatorVoltagesTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mRegulatorVoltagesTitle,
+				getString(R.string.regulatorvoltages), getActivity());
+
+		// Regulator Voltages Summary
+		TextView mRegulatorVoltagesSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mRegulatorVoltagesSummary,
+				getString(R.string.warning), getActivity());
+
+		if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES)) {
+			mLayout.addView(mRegulatorVoltagesTitle);
+			mLayout.addView(mRegulatorVoltagesSummary);
+		}
+
+		mRegulatorVoltagesList = CpuValues.mRegulatorVoltagesFreq().split(";");
+		mRegulatorVoltagesBars = new SeekBar[mRegulatorVoltagesList.length];
+		mRegulatorVoltagesTexts = new TextView[mRegulatorVoltagesList.length];
+		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
+
+			// Regulator Voltages Subtitle
+			TextView mRegulatorVoltagesSubtitle = new TextView(getActivity());
+			LayoutStyle.setTextSubTitle(mRegulatorVoltagesSubtitle,
+					mRegulatorVoltagesList[i].split(" ")[0], getActivity());
+
+			// Regulator Voltages SeekBar
+			SeekBar mRegulatorVoltagesBar = new SeekBar(getActivity());
+			LayoutStyle
+					.setSeekBar(mRegulatorVoltagesBar,
+							Integer.parseInt(mRegulatorVoltagesList[i]
+									.split(" ")[1]) + 500, Integer
+									.parseInt(mRegulatorVoltagesList[i]
+											.split(" ")[1]));
+			mRegulatorVoltagesBar.setOnSeekBarChangeListener(this);
+			mRegulatorVoltagesBars[i] = mRegulatorVoltagesBar;
+
+			// Regulator Voltages TextView
+			TextView mRegulatorVoltagesText = new TextView(getActivity());
+			LayoutStyle.setCenterText(mRegulatorVoltagesText,
+					mRegulatorVoltagesList[i].split(" ")[1] + " mV",
+					getActivity());
+			mRegulatorVoltagesTexts[i] = mRegulatorVoltagesText;
+
+			if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES)) {
+				mLayout.addView(mRegulatorVoltagesSubtitle);
+				mLayout.addView(mRegulatorVoltagesBar);
+				mLayout.addView(mRegulatorVoltagesText);
 			}
 		}
 
@@ -514,6 +580,15 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			}
 			mMPUVoltagesValuesList.add(mMPUVoltagesTexts[i].getText()
 					.toString().replace(" mV", ""));
+		}
+		mRegulatorVoltagesValuesList.clear();
+		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
+			if (seekBar.equals(mRegulatorVoltagesBars[i])) {
+				mRegulatorVoltagesTexts[i].setText(String.valueOf(progress)
+						+ " mV");
+			}
+			mRegulatorVoltagesValuesList.add(mRegulatorVoltagesTexts[i]
+					.getText().toString().replace(" mV", ""));
 		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
 			mMaxCpuFreqText.setText(String.valueOf(Integer
@@ -579,6 +654,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mMPUVoltagesValue.append("\t");
 				}
 				Control.MPU_VOLTAGE = mMPUVoltagesValue.toString();
+			}
+		}
+		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
+			if (seekBar.equals(mRegulatorVoltagesBars[i])) {
+				StringBuilder mRegulatorVoltagesValue = new StringBuilder();
+				for (String s : mRegulatorVoltagesValuesList) {
+					mRegulatorVoltagesValue.append(s);
+					mRegulatorVoltagesValue.append("\t");
+				}
+				Control.REGULATOR_VOLTAGE = mRegulatorVoltagesValue.toString();
 			}
 		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {

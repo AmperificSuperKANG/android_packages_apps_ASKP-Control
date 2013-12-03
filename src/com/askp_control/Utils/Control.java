@@ -33,6 +33,9 @@ public class Control {
 
 	public static String MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();
 
+	public static String REGULATOR_VOLTAGE = CpuValues
+			.mRegulatorVoltagesFreqRaw();
+
 	public static void setValues(Context context) {
 
 		// Max Cpu
@@ -121,6 +124,13 @@ public class Control {
 			Utils.saveString("mpuvoltage", MPU_VOLTAGE, context);
 		}
 
+		// Regulator Voltage
+		if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES)) {
+			Utils.runCommand("echo " + REGULATOR_VOLTAGE + " > "
+					+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
+			Utils.saveString("regulatorvoltage", REGULATOR_VOLTAGE, context);
+		}
+
 		Utils.toast(context.getString(R.string.valuesapplied),
 				context.getApplicationContext());
 	}
@@ -134,5 +144,6 @@ public class Control {
 		CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
 		IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
 		MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();
+		REGULATOR_VOLTAGE = CpuValues.mRegulatorVoltagesFreqRaw();
 	}
 }
