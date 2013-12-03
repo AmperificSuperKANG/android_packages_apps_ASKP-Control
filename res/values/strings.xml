@@ -31,7 +31,6 @@
     <string name="iva">IVA</string>
     <string name="mpu">MPU</string>
     <string name="corevoltages">Core Voltages</string>
-    <string name="corevoltages_summary">CPU core voltage is the power supply voltage supplied to the CPU, GPU, or other device containing a processing core. The amount of power a CPU uses, and thus the amount of heat it dissipates, is the product of this voltage and the current it draws.</string>
     <string name="ivavoltages">IVA Voltages</string>
     <string name="mpuvoltages">MPU Voltages</string>
     <string name="regulatorvoltages">Regulator Voltages</string>
