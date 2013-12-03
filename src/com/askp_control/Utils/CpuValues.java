@@ -15,6 +15,7 @@ import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
+	public static final String FILENAME_REGULATOR_VOLTAGES = "devices/virtual/misc/customvoltage/regulator_voltages";
 	public static final String FILENAME_MPU_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/mpu_voltages";
 	public static final String FILENAME_IVA_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/iva_voltages";
 	public static final String FILENAME_CORE_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/core_voltages";
@@ -31,109 +32,118 @@ public class CpuValues {
 	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 
 	public static String mMPUVoltagesFreqRaw() {
-		List<String> mValueString = new ArrayList<String>();
-		String[] mValueList = mMPUVoltagesFreq().split(";");
-		StringBuilder mValueBuilder = new StringBuilder();
-		for (int i = 0; i < mValueList.length; i++) {
-			mValueString.add(mValueList[i].split(" ")[1]);
+		if (Utils.existFile(FILENAME_MPU_VOLTAGES)) {
+			List<String> mValueString = new ArrayList<String>();
+			String[] mValueList = mMPUVoltagesFreq().split(";");
+			StringBuilder mValueBuilder = new StringBuilder();
+			for (int i = 0; i < mValueList.length; i++) {
+				mValueString.add(mValueList[i].split(" ")[1]);
+			}
+			for (String s : mValueString) {
+				mValueBuilder.append(s);
+				mValueBuilder.append("\t");
+			}
+			return mValueBuilder.toString();
 		}
-		for (String s : mValueString) {
-			mValueBuilder.append(s);
-			mValueBuilder.append("\t");
-		}
-		return mValueBuilder.toString();
+		return "0 0";
 	}
 
 	public static String mMPUVoltagesFreq() {
-		BufferedReader buffreader;
-		try {
-			buffreader = new BufferedReader(new FileReader(
-					FILENAME_MPU_VOLTAGES), 256);
-			String line;
-			StringBuilder text = new StringBuilder();
+		if (Utils.existFile(FILENAME_MPU_VOLTAGES))
+			try {
+				BufferedReader buffreader;
+				buffreader = new BufferedReader(new FileReader(
+						FILENAME_MPU_VOLTAGES), 256);
+				String line;
+				StringBuilder text = new StringBuilder();
 
-			while ((line = buffreader.readLine()) != null) {
-				text.append(line);
+				while ((line = buffreader.readLine()) != null) {
+					text.append(line);
+				}
+				buffreader.close();
+				return text.toString().replace(" mV", ";").replace("mhz:", "");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			buffreader.close();
-			return text.toString().replace(" mV", ";").replace("mhz:", "");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "error";
+		return "0 0";
 	}
 
 	public static String mIVAVoltagesFreq() {
-		BufferedReader buffreader;
-		try {
-			buffreader = new BufferedReader(new FileReader(
-					FILENAME_IVA_VOLTAGES), 256);
-			String line;
-			StringBuilder text = new StringBuilder();
+		if (Utils.existFile(FILENAME_IVA_VOLTAGES))
+			try {
+				BufferedReader buffreader;
+				buffreader = new BufferedReader(new FileReader(
+						FILENAME_IVA_VOLTAGES), 256);
+				String line;
+				StringBuilder text = new StringBuilder();
 
-			while ((line = buffreader.readLine()) != null) {
-				text.append(line);
+				while ((line = buffreader.readLine()) != null) {
+					text.append(line);
+				}
+				buffreader.close();
+				return text.toString().replace("mV", "");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			buffreader.close();
-			return text.toString().replace("mV", "");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "error";
+		return "0 0";
 	}
 
 	public static String mCoreVoltagesFreq() {
-		BufferedReader buffreader;
-		try {
-			buffreader = new BufferedReader(new FileReader(
-					FILENAME_CORE_VOLTAGES), 256);
-			String line;
-			StringBuilder text = new StringBuilder();
+		if (Utils.existFile(FILENAME_CORE_VOLTAGES))
+			try {
+				BufferedReader buffreader;
+				buffreader = new BufferedReader(new FileReader(
+						FILENAME_CORE_VOLTAGES), 256);
+				String line;
+				StringBuilder text = new StringBuilder();
 
-			while ((line = buffreader.readLine()) != null) {
-				text.append(line);
+				while ((line = buffreader.readLine()) != null) {
+					text.append(line);
+				}
+				buffreader.close();
+				return text.toString().replace("mV", "");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			buffreader.close();
-			return text.toString().replace("mV", "");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "error";
+		return "0 0";
 	}
 
 	public static boolean mMPU() {
-		try {
-			if (Utils.readLine(FILENAME_MPU).equals("1"))
-				return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if (Utils.existFile(FILENAME_MPU))
+			try {
+				if (Utils.readLine(FILENAME_MPU).equals("1"))
+					return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		return false;
 	}
 
 	public static boolean mIVA() {
-		try {
-			if (Utils.readLine(FILENAME_IVA).equals("1"))
-				return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if (Utils.existFile(FILENAME_IVA))
+			try {
+				if (Utils.readLine(FILENAME_IVA).equals("1"))
+					return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		return false;
 	}
 
 	public static boolean mCore() {
-		try {
-			if (Utils.readLine(FILENAME_CORE).equals("1"))
-				return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if (Utils.existFile(FILENAME_CORE))
+			try {
+				if (Utils.readLine(FILENAME_CORE).equals("1"))
+					return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		return false;
 	}
 
@@ -153,6 +163,9 @@ public class CpuValues {
 	public static int mMaxScreenOffFreq() {
 		if (Utils.existFile(FILENAME_MAX_SCREEN_OFF))
 			try {
+				if (Utils.readLine(FILENAME_MAX_SCREEN_OFF).equals("0"))
+					Utils.runCommand("echo " + CpuFragment.mAvailableFreq[0]
+							+ " > " + CpuValues.FILENAME_MAX_SCREEN_OFF);
 				return Integer
 						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));
 			} catch (IOException e) {
@@ -169,7 +182,11 @@ public class CpuValues {
 
 			@Override
 			public void commandOutput(int arg0, String arg1) {
-				CpuFragment.mCurGovernorRaw = arg1;
+				if (Utils.existFile(FILENAME_CUR_GOVERNOR)) {
+					CpuFragment.mCurGovernorRaw = arg1;
+				} else {
+					CpuFragment.mCurGovernorRaw = "0";
+				}
 			}
 
 			@Override
@@ -188,21 +205,23 @@ public class CpuValues {
 	}
 
 	public static String mAvailableGovernor() {
-		try {
-			return Utils.readLine(FILENAME_AVAILABLE_GOVERNOR);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		if (Utils.existFile(FILENAME_AVAILABLE_GOVERNOR))
+			try {
+				return Utils.readLine(FILENAME_AVAILABLE_GOVERNOR);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return "0 0";
 	}
 
 	public static String mAvailableFreq() {
-		try {
-			return Utils.readLine(FILENAME_AVAILABLE_FREQ);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		if (Utils.existFile(FILENAME_AVAILABLE_FREQ))
+			try {
+				return Utils.readLine(FILENAME_AVAILABLE_FREQ);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return "0 0";
 	}
 
 	public static void mMaxFreq() {
@@ -213,7 +232,11 @@ public class CpuValues {
 
 			@Override
 			public void commandOutput(int arg0, String arg1) {
-				CpuFragment.mMaxCpuFreqRaw = Integer.parseInt(arg1);
+				if (Utils.existFile(FILENAME_MAX_FREQ)) {
+					CpuFragment.mMaxCpuFreqRaw = Integer.parseInt(arg1);
+				} else {
+					CpuFragment.mMaxCpuFreqRaw = 0;
+				}
 			}
 
 			@Override
@@ -239,7 +262,11 @@ public class CpuValues {
 
 			@Override
 			public void commandOutput(int arg0, String arg1) {
-				CpuFragment.mMinCpuFreqRaw = Integer.parseInt(arg1);
+				if (Utils.existFile(FILENAME_MIN_FREQ)) {
+					CpuFragment.mMinCpuFreqRaw = Integer.parseInt(arg1);
+				} else {
+					CpuFragment.mMinCpuFreqRaw = 0;
+				}
 			}
 
 			@Override

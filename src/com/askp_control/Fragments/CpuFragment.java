@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +27,7 @@ import com.askp_control.MainActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
+import com.askp_control.Utils.LayoutStyle;
 import com.askp_control.Utils.Utils;
 
 public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
@@ -83,19 +82,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Current Freq Title
 		TextView mCpuFreqTitle = new TextView(getActivity());
-		mCpuFreqTitle.setBackgroundColor(getResources().getColor(
-				android.R.color.holo_blue_dark));
-		mCpuFreqTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mCpuFreqTitle.setTypeface(null, Typeface.BOLD);
-		mCpuFreqTitle.setText(getString(R.string.cpufreq));
+		LayoutStyle.setTextTitle(mCpuFreqTitle, getString(R.string.cpufreq),
+				getActivity());
 
 		// Current Freq
 		mCurCpuFreq = new TextView(getActivity());
+		LayoutStyle.setCenterText(mCurCpuFreq, getString(R.string.unavailable),
+				getActivity());
+		mCurCpuFreq.setTextSize(40);
 		mCurCpuFreq
 				.setTextColor(getResources().getColor(android.R.color.white));
-		mCurCpuFreq.setGravity(Gravity.CENTER);
-		mCurCpuFreq.setTextSize(40);
 
 		if (Utils.existFile(CpuValues.FILENAME_CUR_CPU_FREQ)) {
 			mLayout.addView(mCpuFreqTitle);
@@ -104,12 +100,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Freq scaling Title
 		TextView mFreqScalingTitle = new TextView(getActivity());
-		mFreqScalingTitle.setBackgroundColor(getResources().getColor(
-				android.R.color.holo_blue_dark));
-		mFreqScalingTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mFreqScalingTitle.setTypeface(null, Typeface.BOLD);
-		mFreqScalingTitle.setText(getString(R.string.cpuscaling));
+		LayoutStyle.setTextTitle(mFreqScalingTitle,
+				getString(R.string.cpuscaling), getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)
 				|| Utils.existFile(CpuValues.FILENAME_MIN_FREQ)
@@ -120,15 +112,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Max Freq Title
 		TextView mMaxCpuFreqTitle = new TextView(getActivity());
-		mMaxCpuFreqTitle.setTypeface(null, Typeface.BOLD);
-		mMaxCpuFreqTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mMaxCpuFreqTitle.setText(getString(R.string.cpumaxfreq));
+		LayoutStyle.setTextSubTitle(mMaxCpuFreqTitle,
+				getString(R.string.cpumaxfreq), getActivity());
 
 		// Max Freq Summary
 		TextView mMaxCpuFreqSummary = new TextView(getActivity());
-		mMaxCpuFreqSummary.setTypeface(null, Typeface.ITALIC);
-		mMaxCpuFreqSummary.setText(getString(R.string.cpumaxfreq_summary));
+		LayoutStyle.setTextSummary(mMaxCpuFreqSummary,
+				getString(R.string.cpumaxfreq_summary), getActivity());
 
 		// Max Freq SeekBar
 		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
@@ -138,15 +128,14 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		int mMin = mAvailableFreqList.indexOf(String.valueOf(mMinCpuFreqRaw));
 
 		mMaxCpuFreqBar = new SeekBar(getActivity());
-		mMaxCpuFreqBar.setMax(mAvailableFreq.length - 1);
-		mMaxCpuFreqBar.setProgress(mMax);
+		LayoutStyle.setSeekBar(mMaxCpuFreqBar, mAvailableFreq.length - 1, mMax);
 		mMaxCpuFreqBar.setOnSeekBarChangeListener(this);
 		mMaxFreqValue = String.valueOf(mMaxCpuFreqRaw);
 
 		// Max Freq TextView
 		mMaxCpuFreqText = new TextView(getActivity());
-		mMaxCpuFreqText.setText(String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz");
-		mMaxCpuFreqText.setGravity(Gravity.CENTER);
+		LayoutStyle.setCenterText(mMaxCpuFreqText,
+				String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz", getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
 			mLayout.addView(mMaxCpuFreqTitle);
@@ -157,27 +146,24 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Min Freq Title
 		TextView mMinCpuFreqTitle = new TextView(getActivity());
-		mMinCpuFreqTitle.setTypeface(null, Typeface.BOLD);
-		mMinCpuFreqTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mMinCpuFreqTitle.setText(getString(R.string.cpuminfreq));
+		LayoutStyle.setTextSubTitle(mMinCpuFreqTitle,
+				getString(R.string.cpuminfreq), getActivity());
 
 		// Min Freq Summary
 		TextView mMinCpuFreqSummary = new TextView(getActivity());
-		mMinCpuFreqSummary.setTypeface(null, Typeface.ITALIC);
-		mMinCpuFreqSummary.setText(getString(R.string.cpuminfreq_summary));
+		LayoutStyle.setTextSummary(mMinCpuFreqSummary,
+				getString(R.string.cpuminfreq_summary), getActivity());
 
 		// Min Freq SeekBar
 		mMinCpuFreqBar = new SeekBar(getActivity());
-		mMinCpuFreqBar.setMax(mAvailableFreq.length - 1);
-		mMinCpuFreqBar.setProgress(mMin);
+		LayoutStyle.setSeekBar(mMinCpuFreqBar, mAvailableFreq.length - 1, mMin);
 		mMinCpuFreqBar.setOnSeekBarChangeListener(this);
 		mMinFreqValue = String.valueOf(mMinCpuFreqRaw);
 
 		// Min Freq TextView
 		mMinCpuFreqText = new TextView(getActivity());
-		mMinCpuFreqText.setText(String.valueOf(mMinCpuFreqRaw / 1000) + " MHz");
-		mMinCpuFreqText.setGravity(Gravity.CENTER);
+		LayoutStyle.setCenterText(mMinCpuFreqText,
+				String.valueOf(mMinCpuFreqRaw / 1000) + " MHz", getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_MIN_FREQ)) {
 			mLayout.addView(mMinCpuFreqTitle);
@@ -188,34 +174,28 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Max Freq Screen Off Title
 		TextView mMaxFreqScreenOffTitle = new TextView(getActivity());
-		mMaxFreqScreenOffTitle.setTypeface(null, Typeface.BOLD);
-		mMaxFreqScreenOffTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mMaxFreqScreenOffTitle.setText(getString(R.string.maxscreenoff));
+		LayoutStyle.setTextSubTitle(mMaxFreqScreenOffTitle,
+				getString(R.string.maxscreenoff), getActivity());
 
 		// Max Freq Screen Off Summary
 		TextView mMaxFreqScreenOffSummary = new TextView(getActivity());
-		mMaxFreqScreenOffSummary.setTypeface(null, Typeface.ITALIC);
-		mMaxFreqScreenOffSummary
-				.setText(getString(R.string.maxscreenoff_summary));
+		LayoutStyle.setTextSummary(mMaxFreqScreenOffSummary,
+				getString(R.string.maxscreenoff_summary), getActivity());
 
 		// Max Freq Screen Off SeekBar
 		mMaxScreenOffValue = String.valueOf(CpuValues.mMaxScreenOffFreq());
 		int mMaxScreenOff = mAvailableFreqList.indexOf(mMaxScreenOffValue);
 
 		mMaxScreenFreqOffBar = new SeekBar(getActivity());
-		if (CpuValues.mMaxScreenOffFreq() == 0)
-			Utils.runCommand("echo " + mAvailableFreq[0] + " > "
-					+ CpuValues.FILENAME_MAX_SCREEN_OFF);
-		mMaxScreenFreqOffBar.setMax(mAvailableFreq.length - 1);
-		mMaxScreenFreqOffBar.setProgress(mMaxScreenOff);
+		LayoutStyle.setSeekBar(mMaxScreenFreqOffBar, mAvailableFreq.length - 1,
+				mMaxScreenOff);
 		mMaxScreenFreqOffBar.setOnSeekBarChangeListener(this);
 
 		// Max Freq Screen Off TextView
 		mMaxFreqScreenOffText = new TextView(getActivity());
-		mMaxFreqScreenOffText.setText(String.valueOf(CpuValues
-				.mMaxScreenOffFreq() / 1000) + " MHz");
-		mMaxFreqScreenOffText.setGravity(Gravity.CENTER);
+		LayoutStyle.setCenterText(mMaxFreqScreenOffText,
+				String.valueOf(CpuValues.mMaxScreenOffFreq() / 1000) + " MHz",
+				getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_MAX_SCREEN_OFF)) {
 			mLayout.addView(mMaxFreqScreenOffTitle);
@@ -226,31 +206,28 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Min Freq Screen on Title
 		TextView mMinFreqScreenOnTitle = new TextView(getActivity());
-		mMinFreqScreenOnTitle.setTypeface(null, Typeface.BOLD);
-		mMinFreqScreenOnTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mMinFreqScreenOnTitle.setText(getString(R.string.minscreenon));
+		LayoutStyle.setTextSubTitle(mMinFreqScreenOnTitle,
+				getString(R.string.minscreenon), getActivity());
 
 		// Min Freq Screen On Summary
 		TextView mMinFreqScreenOnSummary = new TextView(getActivity());
-		mMinFreqScreenOnSummary.setTypeface(null, Typeface.ITALIC);
-		mMinFreqScreenOnSummary
-				.setText(getString(R.string.minscreenon_summary));
+		LayoutStyle.setTextSummary(mMinFreqScreenOnSummary,
+				getString(R.string.minscreenon_summary), getActivity());
 
 		// Min Freq Screen On SeekBar
 		mMinScreenOnValue = String.valueOf(CpuValues.mMinScreenOnFreq());
 		int mMinScreenOn = mAvailableFreqList.indexOf(mMinScreenOnValue);
 
 		mMinFreqScreenOnBar = new SeekBar(getActivity());
-		mMinFreqScreenOnBar.setMax(mAvailableFreq.length - 1);
-		mMinFreqScreenOnBar.setProgress(mMinScreenOn);
+		LayoutStyle.setSeekBar(mMinFreqScreenOnBar, mAvailableFreq.length - 1,
+				mMinScreenOn);
 		mMinFreqScreenOnBar.setOnSeekBarChangeListener(this);
 
 		// Min Freq Screen On TextView
 		mMinFreqScreenOnText = new TextView(getActivity());
-		mMinFreqScreenOnText.setText(String.valueOf(CpuValues
-				.mMinScreenOnFreq() / 1000) + " MHz");
-		mMinFreqScreenOnText.setGravity(Gravity.CENTER);
+		LayoutStyle.setCenterText(mMinFreqScreenOnText,
+				String.valueOf(CpuValues.mMinScreenOnFreq() / 1000) + " MHz",
+				getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON)) {
 			mLayout.addView(mMinFreqScreenOnTitle);
@@ -261,29 +238,27 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Governor Title
 		TextView mGovernorTitle = new TextView(getActivity());
-		mGovernorTitle.setBackgroundColor(getResources().getColor(
-				android.R.color.holo_blue_dark));
-		mGovernorTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mGovernorTitle.setTypeface(null, Typeface.BOLD);
-		mGovernorTitle.setText(getString(R.string.governor));
+		LayoutStyle.setTextTitle(mGovernorTitle, getString(R.string.governor),
+				getActivity());
 
 		// Governor Summary
 		TextView mGovernorSummary = new TextView(getActivity());
-		mGovernorSummary.setTypeface(null, Typeface.ITALIC);
-		mGovernorSummary.setText(getString(R.string.governor_summary));
+		LayoutStyle.setTextSummary(mGovernorSummary,
+				getString(R.string.governor_summary), getActivity());
 
 		// Governor Spinner
 		mAvailableGovernor = CpuValues.mAvailableGovernor().split(" ");
 		mAvailableGovernorList = Arrays.asList(mAvailableGovernor);
 		int mCurGovernor = mAvailableGovernorList.indexOf(mCurGovernorRaw);
 
+		ArrayAdapter<String> adapterGovernor = new ArrayAdapter<String>(
+				getActivity(), android.R.layout.simple_spinner_item,
+				mAvailableGovernor);
+		adapterGovernor
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 		mGovernorSpinner = new Spinner(getActivity());
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_spinner_item, mAvailableGovernor);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		mGovernorSpinner.setAdapter(adapter);
-		mGovernorSpinner.setSelection(mCurGovernor);
+		LayoutStyle.setSpinner(mGovernorSpinner, adapterGovernor, mCurGovernor);
 		mGovernorSpinner.setOnItemSelectedListener(this);
 
 		if (Utils.existFile(CpuValues.FILENAME_AVAILABLE_GOVERNOR)
@@ -295,17 +270,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Smartreflex Title
 		TextView mSmartreflexTitle = new TextView(getActivity());
-		mSmartreflexTitle.setBackgroundColor(getResources().getColor(
-				android.R.color.holo_blue_dark));
-		mSmartreflexTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mSmartreflexTitle.setTypeface(null, Typeface.BOLD);
-		mSmartreflexTitle.setText(getString(R.string.smartreflex));
+		LayoutStyle.setTextTitle(mSmartreflexTitle,
+				getString(R.string.smartreflex), getActivity());
 
 		// Smartreflex Summary
 		TextView mSmartreflexSummary = new TextView(getActivity());
-		mSmartreflexSummary.setTypeface(null, Typeface.ITALIC);
-		mSmartreflexSummary.setText(getString(R.string.smartreflex_summary));
+		LayoutStyle.setTextSummary(mSmartreflexSummary,
+				getString(R.string.smartreflex_summary), getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE)
 				|| Utils.existFile(CpuValues.FILENAME_IVA)
@@ -316,8 +287,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Smartreflex Core
 		mCore = new CheckBox(getActivity());
-		mCore.setText(getString(R.string.core));
-		mCore.setChecked(CpuValues.mCore());
+		LayoutStyle.setCheckBox(mCore, getString(R.string.core),
+				CpuValues.mCore());
 		mCore.setOnCheckedChangeListener(this);
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE))
@@ -325,8 +296,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Smartreflex IVA
 		mIVA = new CheckBox(getActivity());
-		mIVA.setText(getString(R.string.iva));
-		mIVA.setChecked(CpuValues.mIVA());
+		LayoutStyle
+				.setCheckBox(mIVA, getString(R.string.iva), CpuValues.mIVA());
 		mIVA.setOnCheckedChangeListener(this);
 
 		if (Utils.existFile(CpuValues.FILENAME_IVA))
@@ -334,8 +305,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Smartreflex mMPU
 		mMPU = new CheckBox(getActivity());
-		mMPU.setText(getString(R.string.mpu));
-		mMPU.setChecked(CpuValues.mMPU());
+		LayoutStyle
+				.setCheckBox(mMPU, getString(R.string.mpu), CpuValues.mMPU());
 		mMPU.setOnCheckedChangeListener(this);
 
 		if (Utils.existFile(CpuValues.FILENAME_MPU))
@@ -343,17 +314,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Core Voltages Title
 		TextView mCoreVoltagesTitle = new TextView(getActivity());
-		mCoreVoltagesTitle.setBackgroundColor(getResources().getColor(
-				android.R.color.holo_blue_dark));
-		mCoreVoltagesTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mCoreVoltagesTitle.setTypeface(null, Typeface.BOLD);
-		mCoreVoltagesTitle.setText(getString(R.string.corevoltages));
+		LayoutStyle.setTextTitle(mCoreVoltagesTitle,
+				getString(R.string.corevoltages), getActivity());
 
 		// Core Voltages Summary
 		TextView mCoreVoltagesSummary = new TextView(getActivity());
-		mCoreVoltagesSummary.setTypeface(null, Typeface.ITALIC);
-		mCoreVoltagesSummary.setText(getString(R.string.warning));
+		LayoutStyle.setTextSummary(mCoreVoltagesSummary,
+				getString(R.string.warning), getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
 			mLayout.addView(mCoreVoltagesTitle);
@@ -364,28 +331,26 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mCoreVoltagesBars = new SeekBar[mCoreVoltagesList.length];
 		mCoreVoltagesTexts = new TextView[mCoreVoltagesList.length];
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
+
 			// Core Voltages Subtitle
 			int mVoltageNumber = i + 1;
 			TextView mCoreVoltagesSubtitle = new TextView(getActivity());
-			mCoreVoltagesSubtitle.setTypeface(null, Typeface.BOLD);
-			mCoreVoltagesSubtitle.setTextColor(getResources().getColor(
-					android.R.color.white));
-			mCoreVoltagesSubtitle.setText(getString(R.string.voltage) + " "
-					+ mVoltageNumber);
+			LayoutStyle.setTextSubTitle(mCoreVoltagesSubtitle,
+					getString(R.string.voltage) + " " + mVoltageNumber,
+					getActivity());
 
 			// Core Voltages SeekBar
 			SeekBar mCoreVoltagesBar = new SeekBar(getActivity());
-			mCoreVoltagesBar
-					.setMax(Integer.parseInt(mCoreVoltagesList[0]) + 500);
-			mCoreVoltagesBar
-					.setProgress(Integer.parseInt(mCoreVoltagesList[i]));
+			LayoutStyle.setSeekBar(mCoreVoltagesBar,
+					Integer.parseInt(mCoreVoltagesList[0]) + 500,
+					Integer.parseInt(mCoreVoltagesList[i]));
 			mCoreVoltagesBar.setOnSeekBarChangeListener(this);
 			mCoreVoltagesBars[i] = mCoreVoltagesBar;
 
 			// Core Voltages TextView
 			TextView mCoreVoltagesText = new TextView(getActivity());
-			mCoreVoltagesText.setText(mCoreVoltagesList[i] + " mV");
-			mCoreVoltagesText.setGravity(Gravity.CENTER);
+			LayoutStyle.setCenterText(mCoreVoltagesText, mCoreVoltagesList[i]
+					+ " mV", getActivity());
 			mCoreVoltagesTexts[i] = mCoreVoltagesText;
 
 			if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
@@ -397,17 +362,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// IVA Voltages Title
 		TextView mIVAVoltagesTitle = new TextView(getActivity());
-		mIVAVoltagesTitle.setBackgroundColor(getResources().getColor(
-				android.R.color.holo_blue_dark));
-		mIVAVoltagesTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mIVAVoltagesTitle.setTypeface(null, Typeface.BOLD);
-		mIVAVoltagesTitle.setText(getString(R.string.ivavoltages));
+		LayoutStyle.setTextTitle(mIVAVoltagesTitle,
+				getString(R.string.ivavoltages), getActivity());
 
 		// IVA Voltages Summary
 		TextView mIVAVoltagesSummary = new TextView(getActivity());
-		mIVAVoltagesSummary.setTypeface(null, Typeface.ITALIC);
-		mIVAVoltagesSummary.setText(getString(R.string.warning));
+		LayoutStyle.setTextSummary(mIVAVoltagesSummary,
+				getString(R.string.warning), getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
 			mLayout.addView(mIVAVoltagesTitle);
@@ -418,26 +379,26 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mIVAVoltagesBars = new SeekBar[mIVAVoltagesList.length];
 		mIVAVoltagesTexts = new TextView[mIVAVoltagesList.length];
 		for (int i = 0; i < mIVAVoltagesList.length; i++) {
+
 			// IVA Voltages Subtitle
 			int mVoltageNumber = i + 1;
 			TextView mIVAVoltagesSubtitle = new TextView(getActivity());
-			mIVAVoltagesSubtitle.setTypeface(null, Typeface.BOLD);
-			mIVAVoltagesSubtitle.setTextColor(getResources().getColor(
-					android.R.color.white));
-			mIVAVoltagesSubtitle.setText(getString(R.string.voltage) + " "
-					+ mVoltageNumber);
+			LayoutStyle.setTextSubTitle(mIVAVoltagesSubtitle,
+					getString(R.string.voltage) + " " + mVoltageNumber,
+					getActivity());
 
 			// IVA Voltages SeekBar
 			SeekBar mIVAVoltagesBar = new SeekBar(getActivity());
-			mIVAVoltagesBar.setMax(Integer.parseInt(mIVAVoltagesList[0]) + 500);
-			mIVAVoltagesBar.setProgress(Integer.parseInt(mIVAVoltagesList[i]));
+			LayoutStyle.setSeekBar(mIVAVoltagesBar,
+					Integer.parseInt(mIVAVoltagesList[0]) + 500,
+					Integer.parseInt(mIVAVoltagesList[i]));
 			mIVAVoltagesBar.setOnSeekBarChangeListener(this);
 			mIVAVoltagesBars[i] = mIVAVoltagesBar;
 
 			// IVA Voltages TextView
 			TextView mIVAVoltagesText = new TextView(getActivity());
-			mIVAVoltagesText.setText(mIVAVoltagesList[i] + " mV");
-			mIVAVoltagesText.setGravity(Gravity.CENTER);
+			LayoutStyle.setCenterText(mIVAVoltagesText, mIVAVoltagesList[i]
+					+ " mV", getActivity());
 			mIVAVoltagesTexts[i] = mIVAVoltagesText;
 
 			if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
@@ -449,17 +410,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// MPU Voltages Title
 		TextView mMPUVoltagesTitle = new TextView(getActivity());
-		mMPUVoltagesTitle.setBackgroundColor(getResources().getColor(
-				android.R.color.holo_blue_dark));
-		mMPUVoltagesTitle.setTextColor(getResources().getColor(
-				android.R.color.white));
-		mMPUVoltagesTitle.setTypeface(null, Typeface.BOLD);
-		mMPUVoltagesTitle.setText(getString(R.string.mpuvoltages));
+		LayoutStyle.setTextTitle(mMPUVoltagesTitle,
+				getString(R.string.mpuvoltages), getActivity());
 
 		// MPU Voltages Summary
 		TextView mMPUVoltagesSummary = new TextView(getActivity());
-		mMPUVoltagesSummary.setTypeface(null, Typeface.ITALIC);
-		mMPUVoltagesSummary.setText(getString(R.string.warning));
+		LayoutStyle.setTextSummary(mMPUVoltagesSummary,
+				getString(R.string.warning), getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
 			mLayout.addView(mMPUVoltagesTitle);
@@ -470,28 +427,24 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mMPUVoltagesBars = new SeekBar[mMPUVoltagesList.length];
 		mMPUVoltagesTexts = new TextView[mMPUVoltagesList.length];
 		for (int i = 0; i < mMPUVoltagesList.length; i++) {
-			// MPU Voltages Subtitle
 
+			// MPU Voltages Subtitle
 			TextView mMPUVoltagesSubtitle = new TextView(getActivity());
-			mMPUVoltagesSubtitle.setTypeface(null, Typeface.BOLD);
-			mMPUVoltagesSubtitle.setTextColor(getResources().getColor(
-					android.R.color.white));
-			mMPUVoltagesSubtitle.setText(mMPUVoltagesList[i].split(" ")[0]
-					+ " mV");
+			LayoutStyle.setTextSubTitle(mMPUVoltagesSubtitle,
+					mMPUVoltagesList[i].split(" ")[0] + " mV", getActivity());
 
 			// MPU Voltages SeekBar
 			SeekBar mMPUVoltagesBar = new SeekBar(getActivity());
-			mMPUVoltagesBar.setMax(Integer.parseInt(mMPUVoltagesList[0]
-					.split(" ")[1]) + 500);
-			mMPUVoltagesBar.setProgress(Integer.parseInt(mMPUVoltagesList[i]
-					.split(" ")[1]));
+			LayoutStyle.setSeekBar(mMPUVoltagesBar,
+					Integer.parseInt(mMPUVoltagesList[0].split(" ")[1]) + 500,
+					Integer.parseInt(mMPUVoltagesList[i].split(" ")[1]));
 			mMPUVoltagesBar.setOnSeekBarChangeListener(this);
 			mMPUVoltagesBars[i] = mMPUVoltagesBar;
 
 			// MPU Voltages TextView
 			TextView mMPUVoltagesText = new TextView(getActivity());
-			mMPUVoltagesText.setText(mMPUVoltagesList[i].split(" ")[1] + " mV");
-			mMPUVoltagesText.setGravity(Gravity.CENTER);
+			LayoutStyle.setCenterText(mMPUVoltagesText,
+					mMPUVoltagesList[i].split(" ")[1] + " mV", getActivity());
 			mMPUVoltagesTexts[i] = mMPUVoltagesText;
 
 			if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {

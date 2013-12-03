@@ -36,65 +36,90 @@ public class Control {
 	public static void setValues(Context context) {
 
 		// Max Cpu
-		Utils.runCommand("echo " + MAX_CPU_FREQ + " > "
-				+ CpuValues.FILENAME_MAX_FREQ);
-		Utils.saveString("maxcpuvalue", MAX_CPU_FREQ, context);
+		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
+			Utils.runCommand("echo " + MAX_CPU_FREQ + " > "
+					+ CpuValues.FILENAME_MAX_FREQ);
+			Utils.saveString("maxcpuvalue", MAX_CPU_FREQ, context);
+		}
 
 		// Min Cpu
-		Utils.runCommand("echo " + MIN_CPU_FREQ + " > "
-				+ CpuValues.FILENAME_MIN_FREQ);
-		Utils.saveString("mincpuvalue", MIN_CPU_FREQ, context);
+		if (Utils.existFile(CpuValues.FILENAME_MIN_FREQ)) {
+			Utils.runCommand("echo " + MIN_CPU_FREQ + " > "
+					+ CpuValues.FILENAME_MIN_FREQ);
+			Utils.saveString("mincpuvalue", MIN_CPU_FREQ, context);
+		}
 
 		// Max Screen Off
-		Utils.runCommand("echo " + MAX_SCREEN_OFF + " > "
-				+ CpuValues.FILENAME_MAX_SCREEN_OFF);
-		Utils.saveString("maxscreenoff", MAX_SCREEN_OFF, context);
+		if (Utils.existFile(CpuValues.FILENAME_MAX_SCREEN_OFF)) {
+			Utils.runCommand("echo " + MAX_SCREEN_OFF + " > "
+					+ CpuValues.FILENAME_MAX_SCREEN_OFF);
+			Utils.saveString("maxscreenoff", MAX_SCREEN_OFF, context);
+		}
 
 		// Min Screen On
-		Utils.runCommand("touch " + CpuValues.FILENAME_MIN_SCREEN_ON
-				+ " && echo " + MIN_SCREEN_ON + " > "
-				+ CpuValues.FILENAME_MIN_SCREEN_ON);
-		Utils.saveString("minscreenon", MIN_SCREEN_ON, context);
+		if (Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON)) {
+			Utils.runCommand("touch " + CpuValues.FILENAME_MIN_SCREEN_ON
+					+ " && echo " + MIN_SCREEN_ON + " > "
+					+ CpuValues.FILENAME_MIN_SCREEN_ON);
+			Utils.saveString("minscreenon", MIN_SCREEN_ON, context);
+		}
 
 		// Governor
-		Utils.runCommand("echo " + GOVERNOR + " > "
-				+ CpuValues.FILENAME_CUR_GOVERNOR);
-		Utils.saveString("governor", GOVERNOR, context);
-		CpuFragment.mCurGovernorRaw = GOVERNOR;
+		if (Utils.existFile(CpuValues.FILENAME_CUR_GOVERNOR)) {
+			Utils.runCommand("echo " + GOVERNOR + " > "
+					+ CpuValues.FILENAME_CUR_GOVERNOR);
+			Utils.saveString("governor", GOVERNOR, context);
+			CpuFragment.mCurGovernorRaw = GOVERNOR;
+		}
 
 		// Smartreflex
-		if (CORE) {
-			Utils.runCommand("echo 1 > " + CpuValues.FILENAME_CORE);
-		} else {
-			Utils.runCommand("echo 0 > " + CpuValues.FILENAME_CORE);
-		}
+		if (Utils.existFile(CpuValues.FILENAME_CORE))
+			if (CORE) {
+				Utils.runCommand("echo 1 > " + CpuValues.FILENAME_CORE);
+				Utils.saveString("core", "1", context);
+			} else {
+				Utils.runCommand("echo 0 > " + CpuValues.FILENAME_CORE);
+				Utils.saveString("core", "0", context);
+			}
 
-		if (IVA) {
-			Utils.runCommand("echo 1 > " + CpuValues.FILENAME_IVA);
-		} else {
-			Utils.runCommand("echo 0 > " + CpuValues.FILENAME_IVA);
-		}
+		if (Utils.existFile(CpuValues.FILENAME_IVA))
+			if (IVA) {
+				Utils.runCommand("echo 1 > " + CpuValues.FILENAME_IVA);
+				Utils.saveString("iva", "1", context);
+			} else {
+				Utils.runCommand("echo 0 > " + CpuValues.FILENAME_IVA);
+				Utils.saveString("iva", "0", context);
+			}
 
-		if (MPU) {
-			Utils.runCommand("echo 1 > " + CpuValues.FILENAME_MPU);
-		} else {
-			Utils.runCommand("echo 0 > " + CpuValues.FILENAME_MPU);
-		}
+		if (Utils.existFile(CpuValues.FILENAME_MPU))
+			if (MPU) {
+				Utils.runCommand("echo 1 > " + CpuValues.FILENAME_MPU);
+				Utils.saveString("mpu", "1", context);
+			} else {
+				Utils.runCommand("echo 0 > " + CpuValues.FILENAME_MPU);
+				Utils.saveString("mpu", "0", context);
+			}
 
 		// Core Voltage
-		Utils.runCommand("echo " + CORE_VOLTAGE + " > "
-				+ CpuValues.FILENAME_CORE_VOLTAGES);
-		Utils.saveString("corevoltage", CORE_VOLTAGE, context);
+		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
+			Utils.runCommand("echo " + CORE_VOLTAGE + " > "
+					+ CpuValues.FILENAME_CORE_VOLTAGES);
+			Utils.saveString("corevoltage", CORE_VOLTAGE, context);
+		}
 
 		// IVA Voltage
-		Utils.runCommand("echo " + IVA_VOLTAGE + " > "
-				+ CpuValues.FILENAME_IVA_VOLTAGES);
-		Utils.saveString("ivavoltage", IVA_VOLTAGE, context);
+		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
+			Utils.runCommand("echo " + IVA_VOLTAGE + " > "
+					+ CpuValues.FILENAME_IVA_VOLTAGES);
+			Utils.saveString("ivavoltage", IVA_VOLTAGE, context);
+		}
 
 		// MPU Voltage
-		Utils.runCommand("echo " + MPU_VOLTAGE + " > "
-				+ CpuValues.FILENAME_MPU_VOLTAGES);
-		Utils.saveString("mpuvoltage", MPU_VOLTAGE, context);
+		if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
+			Utils.runCommand("echo " + MPU_VOLTAGE + " > "
+					+ CpuValues.FILENAME_MPU_VOLTAGES);
+			Utils.saveString("mpuvoltage", MPU_VOLTAGE, context);
+		}
 
 		Utils.toast(context.getString(R.string.valuesapplied),
 				context.getApplicationContext());

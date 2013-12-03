@@ -33,6 +33,7 @@
     <string name="corevoltages">Core Voltages</string>
     <string name="ivavoltages">IVA Voltages</string>
     <string name="mpuvoltages">MPU Voltages</string>
+    <string name="regulatorvoltages">Regulator Voltages</string>
     <string name="voltage">Voltage</string>
 
     <!-- Information -->
