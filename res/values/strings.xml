@@ -26,7 +26,7 @@
     <string name="governor">Governor</string>
     <string name="governor_summary">The CPU governor determines how your CPU behaves in response to changes in workload. Changing the governor will impact how your CPU scales through the freq steps available to you CPU.</string>
     <string name="smartreflex">Smartreflex</string>
-    <string name="smartreflex_summary">SR is a power management technology developed by Texas Instruments. It dynamically undervolts to what it determines is the lowest stable voltage at each frequency.</string>
+    <string name="smartreflex_summary">Smartreflex is a power management technology developed by Texas Instruments. It dynamically undervolts to what it determines is the lowest stable voltage at each frequency.</string>
     <string name="core">Core</string>
     <string name="iva">IVA</string>
     <string name="mpu">MPU</string>
