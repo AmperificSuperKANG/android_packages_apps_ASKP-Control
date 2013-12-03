@@ -325,7 +325,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Core Voltages Summary
 		TextView mCoreVoltagesSummary = new TextView(getActivity());
 		LayoutStyle.setTextSummary(mCoreVoltagesSummary,
-				getString(R.string.warning), getActivity());
+				getString(R.string.corevoltages_summary), getActivity());
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
 			mLayout.addView(mCoreVoltagesTitle);
