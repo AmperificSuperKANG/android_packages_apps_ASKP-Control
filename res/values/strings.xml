@@ -39,6 +39,9 @@
     <string name="regulatorvoltages">Regulator Voltages</string>
     <string name="voltage">Voltage</string>
 
+    <!-- GPU -->
+    <string name="gpu">Gpu</string>
+
     <!-- Information -->
     <string name="information">Information</string>
     <string name="device">Device</string>

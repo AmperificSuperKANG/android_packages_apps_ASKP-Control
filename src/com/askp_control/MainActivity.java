@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.askp_control.Fragments.CpuFragment;
+import com.askp_control.Fragments.GpuFragment;
 import com.askp_control.Fragments.InformationFragment;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
@@ -155,6 +156,9 @@ public class MainActivity extends FragmentActivity {
 				fragment = new CpuFragment();
 				break;
 			case 1:
+				fragment = new GpuFragment();
+				break;
+			case 2:
 				fragment = new InformationFragment();
 				break;
 			default:
@@ -167,7 +171,7 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -177,6 +181,8 @@ public class MainActivity extends FragmentActivity {
 			case 0:
 				return getString(R.string.cpu).toUpperCase(l);
 			case 1:
+				return getString(R.string.gpu).toUpperCase(l);
+			case 2:
 				return getString(R.string.information).toUpperCase(l);
 			}
 			return null;

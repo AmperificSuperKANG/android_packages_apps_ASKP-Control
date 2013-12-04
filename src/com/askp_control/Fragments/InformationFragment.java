@@ -27,10 +27,9 @@ public class InformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater
-				.inflate(R.layout.information, container, false);
+		View rootView = inflater.inflate(R.layout.layout, container, false);
 
-		mLayout = (LinearLayout) rootView.findViewById(R.id.informationlayout);
+		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 
 		mDevice = new TextView(getActivity());
 		mDevice.setText(getString(R.string.device) + ": "
