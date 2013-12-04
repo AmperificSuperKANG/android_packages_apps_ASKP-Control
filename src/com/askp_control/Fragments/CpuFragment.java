@@ -625,8 +625,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mIVAVoltagesValue.append(s);
 					mIVAVoltagesValue.append("\t");
 				}
-				Control.IVA_VOLTAGE = mIVAVoltagesValue.toString().replace(
-						"  ", " ");
+				Control.IVA_VOLTAGE = mIVAVoltagesValue.toString();
 			}
 		}
 		for (int i = 0; i < mMPUVoltagesList.length; i++) {
@@ -636,8 +635,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mMPUVoltagesValue.append(s);
 					mMPUVoltagesValue.append("\t");
 				}
-				Control.MPU_VOLTAGE = mMPUVoltagesValue.toString().replace(
-						"  ", " ");
+				Control.MPU_VOLTAGE = mMPUVoltagesValue.toString();
 			}
 		}
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
@@ -647,8 +645,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mRegulatorVoltagesValue.append(s);
 					mRegulatorVoltagesValue.append("\t");
 				}
-				Control.REGULATOR_VOLTAGE = mRegulatorVoltagesValue.toString()
-						.replace("  ", " ");
+				Control.REGULATOR_VOLTAGE = mRegulatorVoltagesValue.toString();
 			}
 		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
