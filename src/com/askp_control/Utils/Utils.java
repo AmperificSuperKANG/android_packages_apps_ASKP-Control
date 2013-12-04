@@ -20,6 +20,25 @@ public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
 
+	public static String getString(String name, Context context) {
+		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
+		String value = mPref.getString(name, "nothing");
+		return value;
+	}
+
+	public static boolean getBoolean(String name, Context context) {
+		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
+		boolean value = mPref.getBoolean(name, false);
+		return value;
+	}
+
+	public static void saveBoolean(String name, boolean value, Context context) {
+		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
+		SharedPreferences.Editor editorPref = mPref.edit();
+		editorPref.putBoolean(name, value);
+		editorPref.commit();
+	}
+
 	public static boolean existFile(String file) {
 		File mFile = new File(file);
 		if (mFile.exists())

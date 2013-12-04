@@ -190,7 +190,7 @@ public class CpuValues {
 		if (Utils.existFile(FILENAME_MIN_SCREEN_ON))
 			try {
 				if (Utils.readLine(FILENAME_MIN_SCREEN_ON).equals("0"))
-					Utils.runCommand("echo " + CpuFragment.mAvailableFreq[0]
+					Utils.runCommand("echo " + mAvailableFreq().split(" ")[0]
 							+ " > " + FILENAME_MIN_SCREEN_ON);
 				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
 			} catch (IOException e1) {
@@ -203,7 +203,7 @@ public class CpuValues {
 		if (Utils.existFile(FILENAME_MAX_SCREEN_OFF))
 			try {
 				if (Utils.readLine(FILENAME_MAX_SCREEN_OFF).equals("0"))
-					Utils.runCommand("echo " + CpuFragment.mAvailableFreq[0]
+					Utils.runCommand("echo " + mAvailableFreq().split(" ")[0]
 							+ " > " + CpuValues.FILENAME_MAX_SCREEN_OFF);
 				return Integer
 						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));

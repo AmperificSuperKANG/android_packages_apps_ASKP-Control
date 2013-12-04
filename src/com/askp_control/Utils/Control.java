@@ -2,7 +2,6 @@ package com.askp_control.Utils;
 
 import android.content.Context;
 
-import com.askp_control.R;
 import com.askp_control.Fragments.CpuFragment;
 
 public class Control {
@@ -130,9 +129,6 @@ public class Control {
 					+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
 			Utils.saveString("regulatorvoltage", REGULATOR_VOLTAGE, context);
 		}
-
-		Utils.toast(context.getString(R.string.valuesapplied),
-				context.getApplicationContext());
 	}
 
 	public static void setValuesback(Context context) {

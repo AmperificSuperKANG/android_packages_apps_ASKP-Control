@@ -39,6 +39,7 @@ public class MainActivity extends FragmentActivity {
 
 	private static MenuItem applyButton;
 	private static MenuItem cancelButton;
+	private static MenuItem setonbootBox;
 
 	public static boolean mChange = false;
 	public static String mAction = "";
@@ -98,6 +99,8 @@ public class MainActivity extends FragmentActivity {
 				| MenuItem.SHOW_AS_ACTION_ALWAYS);
 		applyButton.setVisible(false);
 		cancelButton.setVisible(false);
+		setonbootBox = menu.findItem(R.id.action_setonboot).setChecked(
+				Utils.getBoolean("setonboot", getApplicationContext()));
 		return true;
 	}
 
@@ -106,6 +109,8 @@ public class MainActivity extends FragmentActivity {
 		switch (item.getItemId()) {
 		case R.id.action_apply:
 			Control.setValues(getApplicationContext());
+			Utils.toast(getString(R.string.valuesapplied),
+					getApplicationContext());
 			Control.setValuesback(getApplicationContext());
 			applyButton.setVisible(false);
 			cancelButton.setVisible(false);
@@ -115,6 +120,15 @@ public class MainActivity extends FragmentActivity {
 			super.recreate();
 			applyButton.setVisible(false);
 			cancelButton.setVisible(false);
+			break;
+		case R.id.action_setonboot:
+			if (Utils.getBoolean("setonboot", getApplicationContext()) == true) {
+				setonbootBox.setChecked(false);
+				Utils.saveBoolean("setonboot", false, getApplicationContext());
+			} else {
+				setonbootBox.setChecked(true);
+				Utils.saveBoolean("setonboot", true, getApplicationContext());
+			}
 			break;
 		}
 		return super.onOptionsItemSelected(item);

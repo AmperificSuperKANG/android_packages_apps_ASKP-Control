@@ -7,9 +7,12 @@
     <string name="norootaccess">No root access!</string>
     <string name="nobusybox">No busybox!</string>
     <string name="action_apply">Apply</string>
-    <string name="action_cancel">Cancel</string>
     <string name="valuesapplied">Apply Successfully</string>
     <string name="warning">ONLY FOR ADVANCED USERS!</string>
+    <string name="action_setonboot">Set on boot</string>
+    <string name="abort_setonboot">Do you want to abort set on boot?</string>
+    <string name="setvaluesonboot">Your settings will get applied in</string>
+    <string name="seconds">Seconds</string>
 
     <!-- CPU -->
     <string name="cpu">Cpu</string>
