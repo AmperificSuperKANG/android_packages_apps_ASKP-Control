@@ -1,88 +1,30 @@
 package com.askp_control;
 
 import com.askp_control.Utils.CpuValues;
+import com.askp_control.Utils.GpuValues;
 import com.askp_control.Utils.Utils;
+import com.stericson.RootTools.RootTools;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.Builder;
 
 public class BootReceiver extends BroadcastReceiver {
-
-	private static NotificationManager notificationManager;
-	private static boolean forward = true;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (Utils.getBoolean("setonboot", context) == true) {
-			notifcation(context);
-		}
-	}
-
-	public static void notifcation(final Context context) {
-		notificationManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		Intent intent = new Intent(context, CancelActivity.class);
-		PendingIntent pIntent = PendingIntent
-				.getActivity(context, 0, intent, 0);
-
-		final Builder noti = new NotificationCompat.Builder(context)
-				.setTicker(context.getString(R.string.app_name))
-				.setContentTitle(context.getString(R.string.app_name))
-				.setContentText("")
-				.setAutoCancel(false)
-				.setOngoing(true)
-				.setSmallIcon(R.drawable.ic_launcher)
-				.addAction(R.drawable.navigation_cancel,
-						context.getString(android.R.string.cancel), pIntent);
-
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				for (int incr = 10; incr > 0; incr--) {
-					if (forward) {
-						noti.setProgress(10, incr, false).setContentText(
-								context.getString(R.string.setvaluesonboot)
-										+ " "
-										+ String.valueOf(incr)
-										+ " "
-										+ context.getString(R.string.seconds)
-												.toLowerCase());
-						notificationManager.notify(0, noti.build());
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-						}
-					}
+			if (RootTools.isAccessGiven() && RootTools.isBusyboxAvailable()) {
+				if (Utils.getFormattedKernelVersion().equals(
+						Utils.getString("kernelversion", context))) {
+					setOnBoot(context);
+					Utils.toast(context.getString(R.string.valuesapplied),
+							context);
+				} else {
+					Utils.toast(context.getString(R.string.newkernel), context);
 				}
-				if (forward)
-					setValues(context);
 			}
-		}).start();
-	}
-
-	private static void setValues(Context context) {
-		cancelSetValues();
-		setOnBoot(context);
-		finishNoti(context);
-	}
-
-	private static void finishNoti(Context context) {
-		Builder finishnoti = new NotificationCompat.Builder(context)
-				.setTicker(context.getString(R.string.valuesapplied))
-				.setContentTitle(context.getString(R.string.app_name))
-				.setContentText(context.getString(R.string.valuesapplied))
-				.setSmallIcon(R.drawable.ic_launcher);
-		notificationManager.notify(0, finishnoti.build());
-	}
-
-	public static void cancelSetValues() {
-		forward = false;
-		notificationManager.cancel(0);
+		}
 	}
 
 	private static void setOnBoot(Context context) {
@@ -164,5 +106,12 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("regulatorvoltage", context) + " > "
 						+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
+
+		// Gpu Variable
+		if (Utils.existFile(GpuValues.FILENAME_VARIABLE_GPU))
+			if (!Utils.getString("gpuvariable", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("gpuvariable", context) + " > "
+						+ GpuValues.FILENAME_VARIABLE_GPU);
 	}
 }

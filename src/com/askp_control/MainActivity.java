@@ -43,7 +43,6 @@ public class MainActivity extends FragmentActivity {
 	private static MenuItem setonbootBox;
 
 	public static boolean mChange = false;
-	public static String mAction = "";
 
 	private static ActionThread mActionThread;
 
@@ -202,7 +201,7 @@ public class MainActivity extends FragmentActivity {
 			try {
 				while (true) {
 					mActionHandler.sendMessage(mActionHandler.obtainMessage(0,
-							mAction));
+							""));
 					sleep(100);
 				}
 			} catch (InterruptedException e) {

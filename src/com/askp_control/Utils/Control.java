@@ -35,6 +35,9 @@ public class Control {
 	public static String REGULATOR_VOLTAGE = CpuValues
 			.mRegulatorVoltagesFreqRaw();
 
+	public static String GPU_VARIABLE = String
+			.valueOf(GpuValues.mVariableGpu());
+
 	public static void setValues(Context context) {
 
 		// Max Cpu
@@ -129,6 +132,13 @@ public class Control {
 					+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
 			Utils.saveString("regulatorvoltage", REGULATOR_VOLTAGE, context);
 		}
+
+		// Gpu Variable
+		if (Utils.existFile(GpuValues.FILENAME_VARIABLE_GPU)) {
+			Utils.runCommand("echo " + GPU_VARIABLE + " > "
+					+ GpuValues.FILENAME_VARIABLE_GPU);
+			Utils.saveString("gpuvariable", GPU_VARIABLE, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -141,5 +151,6 @@ public class Control {
 		IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
 		MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();
 		REGULATOR_VOLTAGE = CpuValues.mRegulatorVoltagesFreqRaw();
+		GPU_VARIABLE = String.valueOf(GpuValues.mVariableGpu());
 	}
 }

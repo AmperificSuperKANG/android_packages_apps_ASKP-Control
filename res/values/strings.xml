@@ -10,9 +10,7 @@
     <string name="valuesapplied">Apply Successfully</string>
     <string name="warning">ONLY FOR ADVANCED USERS!</string>
     <string name="action_setonboot">Set on boot</string>
-    <string name="abort_setonboot">Do you want to abort set on boot?</string>
-    <string name="setvaluesonboot">Your settings will get applied in</string>
-    <string name="seconds">Seconds</string>
+    <string name="newkernel">New Kernel detected. Your values will not get applied.</string>
 
     <!-- CPU -->
     <string name="cpu">Cpu</string>
@@ -41,6 +39,9 @@
 
     <!-- GPU -->
     <string name="gpu">Gpu</string>
+    <string name="gpuscaling">GPU Scaling</string>
+    <string name="gpumaxfreq">GPU Max Freq</string>
+    <string name="gpumaxfreq_summary">Set the maximum freqency the GPU scales up to.</string>
 
     <!-- Information -->
     <string name="information">Information</string>
