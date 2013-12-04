@@ -37,11 +37,15 @@
     <string name="regulatorvoltages">Regulator Voltages</string>
     <string name="voltage">Voltage</string>
 
-    <!-- GPU -->
+    <!-- GPU & Display -->
     <string name="gpu">Gpu</string>
+    <string name="display">Display</string>
     <string name="gpuscaling">GPU Scaling</string>
     <string name="gpumaxfreq">GPU Max Freq</string>
     <string name="gpumaxfreq_summary">Set the maximum freqency the GPU scales up to.</string>
+    <string name="trinitycontrast">Trinityss Contrast</string>
+    <string name="contrast">Set Contrast</string>
+    <string name="contrast_summary">Set the difference between dark and bright colors.</string>
 
     <!-- Information -->
     <string name="information">Information</string>

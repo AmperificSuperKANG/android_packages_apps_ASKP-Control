@@ -35,8 +35,11 @@ public class Control {
 	public static String REGULATOR_VOLTAGE = CpuValues
 			.mRegulatorVoltagesFreqRaw();
 
-	public static String GPU_VARIABLE = String
-			.valueOf(GpuValues.mVariableGpu());
+	public static String GPU_VARIABLE = String.valueOf(GpuDisplayValues
+			.mVariableGpu());
+
+	public static String TRINITY_CONTRAST = String.valueOf(GpuDisplayValues
+			.mTrinityContrast());
 
 	public static void setValues(Context context) {
 
@@ -134,10 +137,17 @@ public class Control {
 		}
 
 		// Gpu Variable
-		if (Utils.existFile(GpuValues.FILENAME_VARIABLE_GPU)) {
+		if (Utils.existFile(GpuDisplayValues.FILENAME_VARIABLE_GPU)) {
 			Utils.runCommand("echo " + GPU_VARIABLE + " > "
-					+ GpuValues.FILENAME_VARIABLE_GPU);
+					+ GpuDisplayValues.FILENAME_VARIABLE_GPU);
 			Utils.saveString("gpuvariable", GPU_VARIABLE, context);
+		}
+
+		// Trinity Contrast
+		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)) {
+			Utils.runCommand("echo " + TRINITY_CONTRAST + " > "
+					+ GpuDisplayValues.FILENAME_TRINITY_CONTRAST);
+			Utils.saveString("trinitycontrast", TRINITY_CONTRAST, context);
 		}
 	}
 
@@ -151,6 +161,7 @@ public class Control {
 		IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
 		MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();
 		REGULATOR_VOLTAGE = CpuValues.mRegulatorVoltagesFreqRaw();
-		GPU_VARIABLE = String.valueOf(GpuValues.mVariableGpu());
+		GPU_VARIABLE = String.valueOf(GpuDisplayValues.mVariableGpu());
+		TRINITY_CONTRAST = String.valueOf(GpuDisplayValues.mTrinityContrast());
 	}
 }

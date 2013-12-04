@@ -1,7 +1,7 @@
 package com.askp_control;
 
 import com.askp_control.Utils.CpuValues;
-import com.askp_control.Utils.GpuValues;
+import com.askp_control.Utils.GpuDisplayValues;
 import com.askp_control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
@@ -108,10 +108,17 @@ public class BootReceiver extends BroadcastReceiver {
 						+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
 
 		// Gpu Variable
-		if (Utils.existFile(GpuValues.FILENAME_VARIABLE_GPU))
+		if (Utils.existFile(GpuDisplayValues.FILENAME_VARIABLE_GPU))
 			if (!Utils.getString("gpuvariable", context).equals("nothing"))
 				Utils.runCommand("echo "
 						+ Utils.getString("gpuvariable", context) + " > "
-						+ GpuValues.FILENAME_VARIABLE_GPU);
+						+ GpuDisplayValues.FILENAME_VARIABLE_GPU);
+
+		// Gpu Variable
+		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST))
+			if (!Utils.getString("trinitycontrast", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("trinitycontrast", context) + " > "
+						+ GpuDisplayValues.FILENAME_TRINITY_CONTRAST);
 	}
 }

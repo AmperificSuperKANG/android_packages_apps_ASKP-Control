@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.askp_control.Fragments.CpuFragment;
-import com.askp_control.Fragments.GpuFragment;
+import com.askp_control.Fragments.GpuDisplayFragment;
 import com.askp_control.Fragments.InformationFragment;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
@@ -155,7 +155,7 @@ public class MainActivity extends FragmentActivity {
 				fragment = new CpuFragment();
 				break;
 			case 1:
-				fragment = new GpuFragment();
+				fragment = new GpuDisplayFragment();
 				break;
 			case 2:
 				fragment = new InformationFragment();
@@ -180,7 +180,8 @@ public class MainActivity extends FragmentActivity {
 			case 0:
 				return getString(R.string.cpu).toUpperCase(l);
 			case 1:
-				return getString(R.string.gpu).toUpperCase(l);
+				return getString(R.string.gpu).toUpperCase(l) + " & "
+						+ getString(R.string.display).toUpperCase(l);
 			case 2:
 				return getString(R.string.information).toUpperCase(l);
 			}

@@ -3,7 +3,7 @@ package com.askp_control.Fragments;
 import com.askp_control.MainActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.Control;
-import com.askp_control.Utils.GpuValues;
+import com.askp_control.Utils.GpuDisplayValues;
 import com.askp_control.Utils.LayoutStyle;
 import com.askp_control.Utils.Utils;
 
@@ -12,12 +12,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class GpuFragment extends Fragment implements OnSeekBarChangeListener {
+public class GpuDisplayFragment extends Fragment implements
+		OnSeekBarChangeListener {
 
 	private static LinearLayout mLayout;
 
@@ -25,6 +27,9 @@ public class GpuFragment extends Fragment implements OnSeekBarChangeListener {
 	private static TextView mGpuMaxFreqText;
 	private static String mGpuValue;
 	private static int mGpuValueRaw;
+
+	private static SeekBar mTrinityContrastBar;
+	private static TextView mTrinityContrastText;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,9 +43,6 @@ public class GpuFragment extends Fragment implements OnSeekBarChangeListener {
 		LayoutStyle.setTextTitle(mGpuScalingTitle,
 				getString(R.string.gpuscaling), getActivity());
 
-		if (Utils.existFile(GpuValues.FILENAME_VARIABLE_GPU))
-			mLayout.addView(mGpuScalingTitle);
-
 		// Gpu Max Freq SubTitle
 		TextView mGpuMaxFreqSubTitle = new TextView(getActivity());
 		LayoutStyle.setTextSubTitle(mGpuMaxFreqSubTitle,
@@ -53,12 +55,13 @@ public class GpuFragment extends Fragment implements OnSeekBarChangeListener {
 
 		// Gpu Max Freq SeekBar
 		mGpuMaxFreqBar = new SeekBar(getActivity());
-		LayoutStyle.setSeekBar(mGpuMaxFreqBar, 2, GpuValues.mVariableGpu());
+		LayoutStyle.setSeekBar(mGpuMaxFreqBar, 2,
+				GpuDisplayValues.mVariableGpu());
 		mGpuMaxFreqBar.setOnSeekBarChangeListener(this);
 
 		// Gpu Max Freq Text
 		mGpuValue = "";
-		switch (GpuValues.mVariableGpu()) {
+		switch (GpuDisplayValues.mVariableGpu()) {
 		case 0:
 			mGpuValue = "307";
 			break;
@@ -73,11 +76,55 @@ public class GpuFragment extends Fragment implements OnSeekBarChangeListener {
 		LayoutStyle.setCenterText(mGpuMaxFreqText, mGpuValue + " MHz",
 				getActivity());
 
-		if (Utils.existFile(GpuValues.FILENAME_VARIABLE_GPU)) {
+		if (Utils.existFile(GpuDisplayValues.FILENAME_VARIABLE_GPU)) {
+			mLayout.addView(mGpuScalingTitle);
 			mLayout.addView(mGpuMaxFreqSubTitle);
 			mLayout.addView(mGpuMaxFreqSummary);
 			mLayout.addView(mGpuMaxFreqBar);
 			mLayout.addView(mGpuMaxFreqText);
+		}
+
+		ImageView mColor = new ImageView(getActivity());
+		mColor.setImageResource(R.drawable.ic_color);
+
+		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)) {
+			mLayout.addView(mColor);
+		}
+
+		// Trinity Contrast Title
+		TextView mTrinityContrastTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mTrinityContrastTitle,
+				getString(R.string.trinitycontrast).replace("ss", "'s"),
+				getActivity());
+
+		// Trinity Contrast SubTitle
+		TextView mTrinityContrastSubTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mTrinityContrastSubTitle,
+				getString(R.string.contrast), getActivity());
+
+		// Trinity Constrast Summary
+		TextView mTrinityContrastSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mTrinityContrastSummary,
+				getString(R.string.contrast_summary), getActivity());
+
+		// Trinity Constrast SeekBar
+		mTrinityContrastBar = new SeekBar(getActivity());
+		LayoutStyle.setSeekBar(mTrinityContrastBar, 41,
+				GpuDisplayValues.mTrinityContrast() + 25);
+		mTrinityContrastBar.setOnSeekBarChangeListener(this);
+
+		// Trinity Constrast Text
+		mTrinityContrastText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mTrinityContrastText,
+				String.valueOf(GpuDisplayValues.mTrinityContrast()),
+				getActivity());
+
+		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)) {
+			mLayout.addView(mTrinityContrastTitle);
+			mLayout.addView(mTrinityContrastSubTitle);
+			mLayout.addView(mTrinityContrastSummary);
+			mLayout.addView(mTrinityContrastBar);
+			mLayout.addView(mTrinityContrastText);
 		}
 
 		return rootView;
@@ -100,12 +147,13 @@ public class GpuFragment extends Fragment implements OnSeekBarChangeListener {
 				break;
 			}
 			mGpuMaxFreqText.setText(mGpuValue + " MHz");
+		} else if (seekBar.equals(mTrinityContrastBar)) {
+			mTrinityContrastText.setText(String.valueOf(progress - 25));
 		}
 	}
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-
 	}
 
 	@Override
@@ -113,6 +161,9 @@ public class GpuFragment extends Fragment implements OnSeekBarChangeListener {
 		MainActivity.mChange = true;
 		if (seekBar.equals(mGpuMaxFreqBar)) {
 			Control.GPU_VARIABLE = String.valueOf(mGpuValueRaw);
+		} else if (seekBar.equals(mTrinityContrastBar)) {
+			Control.TRINITY_CONTRAST = mTrinityContrastText.getText()
+					.toString();
 		}
 	}
 }
