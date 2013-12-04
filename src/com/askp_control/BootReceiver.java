@@ -114,11 +114,18 @@ public class BootReceiver extends BroadcastReceiver {
 						+ Utils.getString("gpuvariable", context) + " > "
 						+ GpuDisplayValues.FILENAME_VARIABLE_GPU);
 
-		// Gpu Variable
+		// Trinity Contrast
 		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST))
 			if (!Utils.getString("trinitycontrast", context).equals("nothing"))
 				Utils.runCommand("echo "
 						+ Utils.getString("trinitycontrast", context) + " > "
 						+ GpuDisplayValues.FILENAME_TRINITY_CONTRAST);
+
+		// Gamma Control
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL))
+			if (!Utils.getString("gammacontrol", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("gammacontrol", context) + " > "
+						+ GpuDisplayValues.FILENAME_GAMMA_CONTROL);
 	}
 }

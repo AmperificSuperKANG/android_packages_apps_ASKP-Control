@@ -46,6 +46,9 @@
     <string name="trinitycontrast">Trinityss Contrast</string>
     <string name="contrast">Set Contrast</string>
     <string name="contrast_summary">Set the difference between dark and bright colors.</string>
+    <string name="gammacontrol">Gamma Control</string>
+    <string name="setgamma">Set Gamma Value</string>
+    <string name="gammacontrol_summary">Make dark regions brighter or bright regions darker</string>
 
     <!-- Information -->
     <string name="information">Information</string>

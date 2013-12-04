@@ -31,6 +31,9 @@ public class GpuDisplayFragment extends Fragment implements
 	private static SeekBar mTrinityContrastBar;
 	private static TextView mTrinityContrastText;
 
+	private static SeekBar mGammaControlBar;
+	private static TextView mGammaControlText;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -87,7 +90,8 @@ public class GpuDisplayFragment extends Fragment implements
 		ImageView mColor = new ImageView(getActivity());
 		mColor.setImageResource(R.drawable.ic_color);
 
-		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)) {
+		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)
+				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)) {
 			mLayout.addView(mColor);
 		}
 
@@ -127,6 +131,49 @@ public class GpuDisplayFragment extends Fragment implements
 			mLayout.addView(mTrinityContrastText);
 		}
 
+		ImageView mGray = new ImageView(getActivity());
+		mGray.setImageResource(R.drawable.ic_gray);
+
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)) {
+			mLayout.addView(mGray);
+		}
+
+		// Gamma Control Title
+		TextView mGammaControlTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mGammaControlTitle,
+				getString(R.string.gammacontrol), getActivity());
+
+		// Gamma Control SubTitle
+		TextView mGammaControlSubTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mGammaControlSubTitle,
+				getString(R.string.setgamma), getActivity());
+
+		// Gamma Control Summary
+		TextView mGammaControlSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mGammaControlSummary,
+				getString(R.string.gammacontrol_summary), getActivity());
+
+		// Gamma Control SeekBar
+		mGammaControlBar = new SeekBar(getActivity());
+		LayoutStyle.setSeekBar(mGammaControlBar, 10,
+				GpuDisplayValues.mGammaControl());
+		mGammaControlBar.setOnSeekBarChangeListener(this);
+
+		// Gamma Control Text
+		mGammaControlText = new TextView(getActivity());
+		LayoutStyle
+				.setCenterText(mGammaControlText,
+						String.valueOf(GpuDisplayValues.mGammaControl()),
+						getActivity());
+
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)) {
+			mLayout.addView(mGammaControlTitle);
+			mLayout.addView(mGammaControlSubTitle);
+			mLayout.addView(mGammaControlSummary);
+			mLayout.addView(mGammaControlBar);
+			mLayout.addView(mGammaControlText);
+		}
+
 		return rootView;
 	}
 
@@ -149,6 +196,8 @@ public class GpuDisplayFragment extends Fragment implements
 			mGpuMaxFreqText.setText(mGpuValue + " MHz");
 		} else if (seekBar.equals(mTrinityContrastBar)) {
 			mTrinityContrastText.setText(String.valueOf(progress - 25));
+		} else if (seekBar.equals(mGammaControlBar)) {
+			mGammaControlText.setText(String.valueOf(progress));
 		}
 	}
 
@@ -164,6 +213,8 @@ public class GpuDisplayFragment extends Fragment implements
 		} else if (seekBar.equals(mTrinityContrastBar)) {
 			Control.TRINITY_CONTRAST = mTrinityContrastText.getText()
 					.toString();
+		} else if (seekBar.equals(mGammaControlBar)) {
+			Control.GAMMA_CONTROL = mGammaControlText.getText().toString();
 		}
 	}
 }

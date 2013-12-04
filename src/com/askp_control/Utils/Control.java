@@ -41,6 +41,9 @@ public class Control {
 	public static String TRINITY_CONTRAST = String.valueOf(GpuDisplayValues
 			.mTrinityContrast());
 
+	public static String GAMMA_CONTROL = String.valueOf(GpuDisplayValues
+			.mGammaControl());
+
 	public static void setValues(Context context) {
 
 		// Max Cpu
@@ -149,6 +152,13 @@ public class Control {
 					+ GpuDisplayValues.FILENAME_TRINITY_CONTRAST);
 			Utils.saveString("trinitycontrast", TRINITY_CONTRAST, context);
 		}
+
+		// Gamma Control
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)) {
+			Utils.runCommand("echo " + GAMMA_CONTROL + " > "
+					+ GpuDisplayValues.FILENAME_GAMMA_CONTROL);
+			Utils.saveString("gammacontrol", GAMMA_CONTROL, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -163,5 +173,6 @@ public class Control {
 		REGULATOR_VOLTAGE = CpuValues.mRegulatorVoltagesFreqRaw();
 		GPU_VARIABLE = String.valueOf(GpuDisplayValues.mVariableGpu());
 		TRINITY_CONTRAST = String.valueOf(GpuDisplayValues.mTrinityContrast());
+		GAMMA_CONTROL = String.valueOf(GpuDisplayValues.mGammaControl());
 	}
 }
