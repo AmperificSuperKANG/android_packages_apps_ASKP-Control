@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import com.askp_control.Fragments.CpuFragment;
 import com.askp_control.Fragments.GpuDisplayFragment;
 import com.askp_control.Fragments.InformationFragment;
-import com.askp_control.Fragments.Ioalgorithm;
+import com.askp_control.Fragments.IoAlgorithmFragment;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
 import com.askp_control.Utils.Utils;
@@ -46,6 +46,7 @@ public class MainActivity extends FragmentActivity {
 	public static boolean mChange = false;
 	public static boolean mCpuAction = false;
 	public static boolean mGpuDisplayAction = false;
+	public static boolean mIoAlgorithmAction = false;
 
 	private static ActionThread mActionThread;
 
@@ -115,8 +116,11 @@ public class MainActivity extends FragmentActivity {
 				Control.setCpuValues(getApplicationContext());
 			if (mGpuDisplayAction)
 				Control.setGpuDisplayValues(getApplicationContext());
+			if (mIoAlgorithmAction)
+				Control.setIoAlgorithmValues(getApplicationContext());
 			mCpuAction = false;
 			mGpuDisplayAction = false;
+			mIoAlgorithmAction = false;
 			Utils.toast(getString(R.string.valuesapplied),
 					getApplicationContext());
 			Control.setValuesback(getApplicationContext());
@@ -166,7 +170,7 @@ public class MainActivity extends FragmentActivity {
 				fragment = new GpuDisplayFragment();
 				break;
 			case 2:
-				fragment = new Ioalgorithm();
+				fragment = new IoAlgorithmFragment();
 				break;
 			case 3:
 				fragment = new InformationFragment();

@@ -2,6 +2,7 @@ package com.askp_control;
 
 import com.askp_control.Utils.CpuValues;
 import com.askp_control.Utils.GpuDisplayValues;
+import com.askp_control.Utils.IoAlgorithmValues;
 import com.askp_control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
@@ -141,5 +142,11 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("colormultiplier", context) + " > "
 						+ GpuDisplayValues.FILENAME_COLOR_MULTIPLIER);
+
+		// TCP Congestion
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_TCP_CONGESTION))
+			if (!Utils.getString("tcpcongestion", context).equals("nothing"))
+				Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
+						+ Utils.getString("tcpcongestion", context));
 	}
 }

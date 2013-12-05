@@ -48,6 +48,9 @@ public class Control {
 
 	public static String COLOR_MULTIPLIER = GpuDisplayValues.mColorMultiplier();
 
+	public static String TCP_CONGESTION = IoAlgorithmValues.mTCPCongestion()
+			.split(" ")[0];
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -180,6 +183,15 @@ public class Control {
 		}
 	}
 
+	public static void setIoAlgorithmValues(Context context) {
+		// TCP Congestion
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_TCP_CONGESTION)) {
+			Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
+					+ TCP_CONGESTION);
+			Utils.saveString("tcpcongestion", TCP_CONGESTION, context);
+		}
+	}
+
 	public static void setValuesback(Context context) {
 		MAX_CPU_FREQ = String.valueOf(CpuFragment.mMaxCpuFreqRaw);
 		MIN_CPU_FREQ = String.valueOf(CpuFragment.mMinCpuFreqRaw);
@@ -195,5 +207,6 @@ public class Control {
 		GAMMA_CONTROL = String.valueOf(GpuDisplayValues.mGammaControl());
 		GAMMA_OFFSET = GpuDisplayValues.mGammaOffset();
 		COLOR_MULTIPLIER = GpuDisplayValues.mColorMultiplier();
+		TCP_CONGESTION = IoAlgorithmValues.mTCPCongestion().split(" ")[0];
 	}
 }

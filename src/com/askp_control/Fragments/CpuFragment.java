@@ -44,7 +44,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mMaxScreenFreqOffBar, mMinFreqScreenOnBar;
 
 	public static String[] mAvailableFreq;
-	private static List<String> mAvailableFreqList;
+	private static List<String> mAvailableFreqList = new ArrayList<String>();
 
 	public static int mMinCpuFreqRaw, mMaxCpuFreqRaw;
 
@@ -53,7 +53,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	private static Spinner mGovernorSpinner;
 	private static String[] mAvailableGovernor;
-	private static List<String> mAvailableGovernorList;
+	private static List<String> mAvailableGovernorList = new ArrayList<String>();
 	public static String mCurGovernorRaw;
 
 	private static CheckBox mCore, mIVA, mMPU;

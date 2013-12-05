@@ -4,11 +4,11 @@ import java.io.IOException;
 
 public class GpuDisplayValues {
 
-	public static String FILENAME_COLOR_MULTIPLIER = "/sys/class/misc/colorcontrol/multiplier";
-	public static String FILENAME_GAMMA_OFFSET = "/sys/class/misc/colorcontrol/v1_offset";
-	public static String FILENAME_GAMMA_CONTROL = "/sys/devices/platform/omapdss/manager0/gamma";
-	public static String FILENAME_TRINITY_CONTRAST = "/sys/module/panel_s6e8aa0/parameters/contrast";
-	public static String FILENAME_VARIABLE_GPU = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
+	public static final String FILENAME_COLOR_MULTIPLIER = "/sys/class/misc/colorcontrol/multiplier";
+	public static final String FILENAME_GAMMA_OFFSET = "/sys/class/misc/colorcontrol/v1_offset";
+	public static final String FILENAME_GAMMA_CONTROL = "/sys/devices/platform/omapdss/manager0/gamma";
+	public static final String FILENAME_TRINITY_CONTRAST = "/sys/module/panel_s6e8aa0/parameters/contrast";
+	public static final String FILENAME_VARIABLE_GPU = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
 
 	public static String mColorMultiplier() {
 		if (Utils.existFile(FILENAME_COLOR_MULTIPLIER))
