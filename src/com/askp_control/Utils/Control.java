@@ -51,6 +51,12 @@ public class Control {
 	public static String TCP_CONGESTION = IoAlgorithmValues.mTCPCongestion()
 			.split(" ")[0];
 
+	public static String INTERNAL_SCHEDULER = IoAlgorithmValues
+			.mCurInternalScheduler();
+
+	public static String EXTERNAL_SCHEDULER = IoAlgorithmValues
+			.mCurExternalScheduler();
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -190,6 +196,20 @@ public class Control {
 					+ TCP_CONGESTION);
 			Utils.saveString("tcpcongestion", TCP_CONGESTION, context);
 		}
+
+		// Internal Scheduler
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER)) {
+			Utils.runCommand("echo " + INTERNAL_SCHEDULER + " > "
+					+ IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER);
+			Utils.saveString("internalscheduler", INTERNAL_SCHEDULER, context);
+		}
+
+		// External Scheduler
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER)) {
+			Utils.runCommand("echo " + EXTERNAL_SCHEDULER + " > "
+					+ IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER);
+			Utils.saveString("externalscheduler", EXTERNAL_SCHEDULER, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -208,5 +228,7 @@ public class Control {
 		GAMMA_OFFSET = GpuDisplayValues.mGammaOffset();
 		COLOR_MULTIPLIER = GpuDisplayValues.mColorMultiplier();
 		TCP_CONGESTION = IoAlgorithmValues.mTCPCongestion().split(" ")[0];
+		INTERNAL_SCHEDULER = IoAlgorithmValues.mCurInternalScheduler();
+		EXTERNAL_SCHEDULER = IoAlgorithmValues.mCurExternalScheduler();
 	}
 }

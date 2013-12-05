@@ -148,5 +148,21 @@ public class BootReceiver extends BroadcastReceiver {
 			if (!Utils.getString("tcpcongestion", context).equals("nothing"))
 				Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
 						+ Utils.getString("tcpcongestion", context));
+
+		// Internal Scheduler
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER))
+			if (!Utils.getString("internalscheduler", context)
+					.equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("internalscheduler", context) + " > "
+						+ IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER);
+
+		// External Scheduler
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER))
+			if (!Utils.getString("externalscheduler", context)
+					.equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("externalscheduler", context) + " > "
+						+ IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER);
 	}
 }
