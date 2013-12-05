@@ -134,5 +134,12 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("gammaoffset", context) + " > "
 						+ GpuDisplayValues.FILENAME_GAMMA_OFFSET);
+
+		// Gamma Offset
+		if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER))
+			if (!Utils.getString("colormultiplier", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("colormultiplier", context) + " > "
+						+ GpuDisplayValues.FILENAME_COLOR_MULTIPLIER);
 	}
 }

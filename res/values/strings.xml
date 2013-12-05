@@ -51,6 +51,8 @@
     <string name="gammacontrol_summary">Set midtones (middle gray levels).</string>
     <string name="gammaoffset">Gamma Offset</string>
     <string name="gammaoffset_summary">Offset controls Shadows/Blacks of the display. It does this by changing the brightness/color levels while leaving midtones and highlight areas unaffected.</string>
+    <string name="colormultipliers">Color Multipliers</string>
+    <string name="colormultipliers_summary">Set multiplier for a specific color.</string>
     <string name="red">Red</string>
     <string name="green">Green</string>
     <string name="blue">Blue</string>

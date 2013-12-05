@@ -46,6 +46,8 @@ public class Control {
 
 	public static String GAMMA_OFFSET = GpuDisplayValues.mGammaOffset();
 
+	public static String COLOR_MULTIPLIER = GpuDisplayValues.mColorMultiplier();
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -169,6 +171,13 @@ public class Control {
 					+ GpuDisplayValues.FILENAME_GAMMA_OFFSET);
 			Utils.saveString("gammaoffset", GAMMA_OFFSET, context);
 		}
+
+		// Color Multiplier
+		if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER)) {
+			Utils.runCommand("echo " + COLOR_MULTIPLIER + " > "
+					+ GpuDisplayValues.FILENAME_COLOR_MULTIPLIER);
+			Utils.saveString("colormultiplier", COLOR_MULTIPLIER, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -184,5 +193,7 @@ public class Control {
 		GPU_VARIABLE = String.valueOf(GpuDisplayValues.mVariableGpu());
 		TRINITY_CONTRAST = String.valueOf(GpuDisplayValues.mTrinityContrast());
 		GAMMA_CONTROL = String.valueOf(GpuDisplayValues.mGammaControl());
+		GAMMA_OFFSET = GpuDisplayValues.mGammaOffset();
+		COLOR_MULTIPLIER = GpuDisplayValues.mColorMultiplier();
 	}
 }
