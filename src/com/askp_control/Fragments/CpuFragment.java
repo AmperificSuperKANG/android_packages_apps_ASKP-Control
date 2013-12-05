@@ -346,8 +346,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// Core Voltages SeekBar
 			SeekBar mCoreVoltagesBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mCoreVoltagesBar, 1627,
-					Integer.parseInt(mCoreVoltagesList[i]));
+			LayoutStyle.setSeekBar(mCoreVoltagesBar, 102, Integer
+					.parseInt(String.valueOf(Integer
+							.parseInt(mCoreVoltagesList[i]) - 700)) / 6);
 			mCoreVoltagesBar.setOnSeekBarChangeListener(this);
 			mCoreVoltagesBars[i] = mCoreVoltagesBar;
 
@@ -393,8 +394,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// IVA Voltages SeekBar
 			SeekBar mIVAVoltagesBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mIVAVoltagesBar, 1875,
-					Integer.parseInt(mIVAVoltagesList[i]));
+			LayoutStyle.setSeekBar(mIVAVoltagesBar, 102, Integer
+					.parseInt(String.valueOf(Integer
+							.parseInt(mIVAVoltagesList[i]) - 700)) / 8);
 			mIVAVoltagesBar.setOnSeekBarChangeListener(this);
 			mIVAVoltagesBars[i] = mIVAVoltagesBar;
 
@@ -438,8 +440,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// MPU Voltages SeekBar
 			SeekBar mMPUVoltagesBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mMPUVoltagesBar, 1950,
-					Integer.parseInt(mMPUVoltagesList[i].split(" ")[1]));
+			LayoutStyle
+					.setSeekBar(mMPUVoltagesBar, 102, Integer.parseInt(String
+							.valueOf(Integer.parseInt(mMPUVoltagesList[i]
+									.split(" ")[1]) - 700)) / 9);
 			mMPUVoltagesBar.setOnSeekBarChangeListener(this);
 			mMPUVoltagesBars[i] = mMPUVoltagesBar;
 
@@ -483,8 +487,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// Regulator Voltages SeekBar
 			SeekBar mRegulatorVoltagesBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mRegulatorVoltagesBar, 3800,
-					Integer.parseInt(mRegulatorVoltagesList[i].split(" ")[1]));
+			LayoutStyle
+					.setSeekBar(mRegulatorVoltagesBar, 100, Integer
+							.parseInt(String.valueOf(Integer
+									.parseInt(mRegulatorVoltagesList[i]
+											.split(" ")[1]) - 1500)) / 20);
 			mRegulatorVoltagesBar.setOnSeekBarChangeListener(this);
 			mRegulatorVoltagesBars[i] = mRegulatorVoltagesBar;
 
@@ -542,7 +549,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mCoreVoltagesValuesList.clear();
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
 			if (seekBar.equals(mCoreVoltagesBars[i])) {
-				mCoreVoltagesTexts[i].setText(String.valueOf(progress) + " mV");
+				mCoreVoltagesTexts[i].setText(String
+						.valueOf(progress * 6 + 700) + " mV");
 			}
 			mCoreVoltagesValuesList.add(mCoreVoltagesTexts[i].getText()
 					.toString());
@@ -550,7 +558,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mIVAVoltagesValuesList.clear();
 		for (int i = 0; i < mIVAVoltagesList.length; i++) {
 			if (seekBar.equals(mIVAVoltagesBars[i])) {
-				mIVAVoltagesTexts[i].setText(String.valueOf(progress) + " mV");
+				mIVAVoltagesTexts[i].setText(String.valueOf(progress * 8 + 700)
+						+ " mV");
 			}
 			mIVAVoltagesValuesList.add(mIVAVoltagesTexts[i].getText()
 					.toString());
@@ -558,7 +567,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mMPUVoltagesValuesList.clear();
 		for (int i = 0; i < mMPUVoltagesList.length; i++) {
 			if (seekBar.equals(mMPUVoltagesBars[i])) {
-				mMPUVoltagesTexts[i].setText(String.valueOf(progress) + " mV");
+				mMPUVoltagesTexts[i].setText(String.valueOf(progress * 9 + 700)
+						+ " mV");
 			}
 			mMPUVoltagesValuesList.add(mMPUVoltagesTexts[i].getText()
 					.toString().replace(" mV", ""));
@@ -566,8 +576,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mRegulatorVoltagesValuesList.clear();
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
 			if (seekBar.equals(mRegulatorVoltagesBars[i])) {
-				mRegulatorVoltagesTexts[i].setText(String.valueOf(progress)
-						+ " mV");
+				mRegulatorVoltagesTexts[i].setText(String
+						.valueOf(progress * 20 + 1500) + " mV");
 			}
 			mRegulatorVoltagesValuesList.add(mRegulatorVoltagesTexts[i]
 					.getText().toString().replace(" mV", ""));
