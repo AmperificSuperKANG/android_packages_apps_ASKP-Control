@@ -57,6 +57,9 @@
     <string name="green">Green</string>
     <string name="blue">Blue</string>
 
+    <!-- I/O Algorithm -->
+    <string name="ioalgorithm">I/O Algorithm</string>
+
     <!-- Information -->
     <string name="information">Information</string>
     <string name="device">Device</string>
