@@ -44,6 +44,8 @@ public class Control {
 	public static String GAMMA_CONTROL = String.valueOf(GpuDisplayValues
 			.mGammaControl());
 
+	public static String GAMMA_OFFSET = GpuDisplayValues.mGammaOffset();
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -159,6 +161,13 @@ public class Control {
 			Utils.runCommand("echo " + GAMMA_CONTROL + " > "
 					+ GpuDisplayValues.FILENAME_GAMMA_CONTROL);
 			Utils.saveString("gammacontrol", GAMMA_CONTROL, context);
+		}
+
+		// Gamma Offset
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)) {
+			Utils.runCommand("echo " + GAMMA_OFFSET + " > "
+					+ GpuDisplayValues.FILENAME_GAMMA_OFFSET);
+			Utils.saveString("gammaoffset", GAMMA_OFFSET, context);
 		}
 	}
 

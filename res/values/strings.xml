@@ -48,7 +48,12 @@
     <string name="contrast_summary">Set the difference between dark and bright colors.</string>
     <string name="gammacontrol">Gamma Control</string>
     <string name="setgamma">Set Gamma Value</string>
-    <string name="gammacontrol_summary">Make dark regions brighter or bright regions darker</string>
+    <string name="gammacontrol_summary">Set midtones (middle gray levels).</string>
+    <string name="gammaoffset">Gamma Offset</string>
+    <string name="gammaoffset_summary">Offset controls Shadows/Blacks of the display. It does this by changing the brightness/color levels while leaving midtones and highlight areas unaffected.</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
 
     <!-- Information -->
     <string name="information">Information</string>

@@ -1,5 +1,8 @@
 package com.askp_control.Fragments;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.askp_control.MainActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.Control;
@@ -33,6 +36,11 @@ public class GpuDisplayFragment extends Fragment implements
 
 	private static SeekBar mGammaControlBar;
 	private static TextView mGammaControlText;
+
+	private static String[] mAvailableGammaOffset;
+	private static SeekBar[] mGammaOffsetBars;
+	private static TextView[] mGammaOffsetTexts;
+	private static List<String> mGammaOffsetValueList = new ArrayList<String>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,9 +99,9 @@ public class GpuDisplayFragment extends Fragment implements
 		mColor.setImageResource(R.drawable.ic_color);
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)
-				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)) {
+				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)
+				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET))
 			mLayout.addView(mColor);
-		}
 
 		// Trinity Contrast Title
 		TextView mTrinityContrastTitle = new TextView(getActivity());
@@ -174,12 +182,70 @@ public class GpuDisplayFragment extends Fragment implements
 			mLayout.addView(mGammaControlText);
 		}
 
+		// Gamma Offset Title
+		TextView mGammaOffsetTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mGammaOffsetTitle,
+				getString(R.string.gammaoffset), getActivity());
+
+		// Gamma Offset Summary
+		TextView mGammaOffsetSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mGammaOffsetSummary,
+				getString(R.string.gammaoffset_summary), getActivity());
+
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)) {
+			mLayout.addView(mGammaOffsetTitle);
+			mLayout.addView(mGammaOffsetSummary);
+		}
+
+		mAvailableGammaOffset = GpuDisplayValues.mGammaOffset().split(" ");
+		mGammaOffsetBars = new SeekBar[mAvailableGammaOffset.length];
+		mGammaOffsetTexts = new TextView[mAvailableGammaOffset.length];
+		for (int i = 0; i < mAvailableGammaOffset.length; i++) {
+			// Gamma Offset SubTitle
+			TextView mGammaOffsetSubTitle = new TextView(getActivity());
+			LayoutStyle.setTextSubTitle(mGammaOffsetSubTitle,
+					getString(R.string.red), getActivity());
+			if (i == 1)
+				mGammaOffsetSubTitle.setText(getString(R.string.green));
+			if (i == 2)
+				mGammaOffsetSubTitle.setText(getString(R.string.blue));
+			if (i > 2)
+				mGammaOffsetSubTitle.setText(getString(R.string.unavailable));
+
+			// Gamma Offset SeekBar
+			SeekBar mGammaOffsetBar = new SeekBar(getActivity());
+			LayoutStyle.setSeekBar(mGammaOffsetBar, 455,
+					Integer.parseInt(mAvailableGammaOffset[i]) + 255);
+			mGammaOffsetBar.setOnSeekBarChangeListener(this);
+			mGammaOffsetBars[i] = mGammaOffsetBar;
+
+			// Gamma Offset Text
+			TextView mGammaOffsetText = new TextView(getActivity());
+			LayoutStyle.setCenterText(mGammaOffsetText,
+					mAvailableGammaOffset[i], getActivity());
+			mGammaOffsetTexts[i] = mGammaOffsetText;
+
+			if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)) {
+				mLayout.addView(mGammaOffsetSubTitle);
+				mLayout.addView(mGammaOffsetBar);
+				mLayout.addView(mGammaOffsetText);
+			}
+		}
+
 		return rootView;
 	}
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
+		mGammaOffsetValueList.clear();
+		for (int i = 0; i < mAvailableGammaOffset.length; i++) {
+			if (seekBar.equals(mGammaOffsetBars[i])) {
+				mGammaOffsetTexts[i].setText(String.valueOf(progress - 255));
+			}
+			mGammaOffsetValueList
+					.add(mGammaOffsetTexts[i].getText().toString());
+		}
 		if (seekBar.equals(mGpuMaxFreqBar)) {
 			mGpuValueRaw = progress;
 			switch (progress) {
@@ -209,6 +275,14 @@ public class GpuDisplayFragment extends Fragment implements
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		MainActivity.mChange = true;
 		MainActivity.mGpuDisplayAction = true;
+		for (int i = 0; i < mAvailableGammaOffset.length; i++) {
+			StringBuilder mGammaOffsetValue = new StringBuilder();
+			for (String s : mGammaOffsetValueList) {
+				mGammaOffsetValue.append(s);
+				mGammaOffsetValue.append("\t");
+			}
+			Control.GAMMA_OFFSET = mGammaOffsetValue.toString();
+		}
 		if (seekBar.equals(mGpuMaxFreqBar)) {
 			Control.GPU_VARIABLE = String.valueOf(mGpuValueRaw);
 		} else if (seekBar.equals(mTrinityContrastBar)) {

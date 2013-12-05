@@ -127,5 +127,12 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("gammacontrol", context) + " > "
 						+ GpuDisplayValues.FILENAME_GAMMA_CONTROL);
+
+		// Gamma Offset
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET))
+			if (!Utils.getString("gammaoffset", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("gammaoffset", context) + " > "
+						+ GpuDisplayValues.FILENAME_GAMMA_OFFSET);
 	}
 }
