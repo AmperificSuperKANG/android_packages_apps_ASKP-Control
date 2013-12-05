@@ -44,8 +44,7 @@ public class Control {
 	public static String GAMMA_CONTROL = String.valueOf(GpuDisplayValues
 			.mGammaControl());
 
-	public static void setValues(Context context) {
-
+	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
 			Utils.runCommand("echo " + MAX_CPU_FREQ + " > "
@@ -138,7 +137,9 @@ public class Control {
 					+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
 			Utils.saveString("regulatorvoltage", REGULATOR_VOLTAGE, context);
 		}
+	}
 
+	public static void setGpuDisplayValues(Context context) {
 		// Gpu Variable
 		if (Utils.existFile(GpuDisplayValues.FILENAME_VARIABLE_GPU)) {
 			Utils.runCommand("echo " + GPU_VARIABLE + " > "

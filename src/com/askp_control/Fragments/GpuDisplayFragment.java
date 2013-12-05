@@ -208,6 +208,7 @@ public class GpuDisplayFragment extends Fragment implements
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		MainActivity.mChange = true;
+		MainActivity.mGpuDisplayAction = true;
 		if (seekBar.equals(mGpuMaxFreqBar)) {
 			Control.GPU_VARIABLE = String.valueOf(mGpuValueRaw);
 		} else if (seekBar.equals(mTrinityContrastBar)) {

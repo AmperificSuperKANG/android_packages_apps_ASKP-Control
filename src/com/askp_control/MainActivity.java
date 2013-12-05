@@ -43,6 +43,8 @@ public class MainActivity extends FragmentActivity {
 	private static MenuItem setonbootBox;
 
 	public static boolean mChange = false;
+	public static boolean mCpuAction = false;
+	public static boolean mGpuDisplayAction = false;
 
 	private static ActionThread mActionThread;
 
@@ -108,7 +110,12 @@ public class MainActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_apply:
-			Control.setValues(getApplicationContext());
+			if (mCpuAction)
+				Control.setCpuValues(getApplicationContext());
+			if (mGpuDisplayAction)
+				Control.setGpuDisplayValues(getApplicationContext());
+			mCpuAction = false;
+			mGpuDisplayAction = false;
 			Utils.toast(getString(R.string.valuesapplied),
 					getApplicationContext());
 			Control.setValuesback(getApplicationContext());
