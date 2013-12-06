@@ -219,8 +219,8 @@ public class GpuDisplayFragment extends Fragment implements
 
 			// Gamma Offset SeekBar
 			SeekBar mGammaOffsetBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mGammaOffsetBar, 455,
-					Integer.parseInt(mAvailableGammaOffset[i]) + 255);
+			LayoutStyle.setSeekBar(mGammaOffsetBar, 30,
+					Integer.parseInt(mAvailableGammaOffset[i]) + 15);
 			mGammaOffsetBar.setOnSeekBarChangeListener(this);
 			mGammaOffsetBars[i] = mGammaOffsetBar;
 
@@ -257,7 +257,7 @@ public class GpuDisplayFragment extends Fragment implements
 		mColorMultiplierBars = new SeekBar[mAvailableColorMultiplier.length];
 		mColorMultiplierTexts = new TextView[mAvailableColorMultiplier.length];
 		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
-			// Gamma Offset SubTitle
+			// Color Multiplier SubTitle
 			TextView mColorMultiplierSubTitle = new TextView(getActivity());
 			LayoutStyle.setTextSubTitle(mColorMultiplierSubTitle,
 					getString(R.string.red), getActivity());
@@ -269,21 +269,19 @@ public class GpuDisplayFragment extends Fragment implements
 				mColorMultiplierSubTitle
 						.setText(getString(R.string.unavailable));
 
-			// Gamma Offset SeekBar
+			// Color Multiplier SeekBar
 			SeekBar mColorMultiplierBar = new SeekBar(getActivity());
-			LayoutStyle.setSeekBar(mColorMultiplierBar, 400,
-					Integer.parseInt(mAvailableColorMultiplier[i]) / 10000000);
+			LayoutStyle.setSeekBar(mColorMultiplierBar, 340, Integer
+					.parseInt(mAvailableColorMultiplier[i].replace("0000000",
+							"")) - 60);
 			mColorMultiplierBar.setOnSeekBarChangeListener(this);
 			mColorMultiplierBars[i] = mColorMultiplierBar;
 
-			// Gamma Offset Text
+			// Color Multiplier Text
 			TextView mColorMultiplierText = new TextView(getActivity());
-			LayoutStyle
-					.setCenterText(
-							mColorMultiplierText,
-							String.valueOf(Integer
-									.parseInt(mAvailableColorMultiplier[i]) / 10000000),
-							getActivity());
+			LayoutStyle.setCenterText(mColorMultiplierText, String
+					.valueOf(mAvailableColorMultiplier[i]
+							.replace("0000000", "")), getActivity());
 			mColorMultiplierTexts[i] = mColorMultiplierText;
 
 			if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER)) {
@@ -302,7 +300,7 @@ public class GpuDisplayFragment extends Fragment implements
 		mGammaOffsetValueList.clear();
 		for (int i = 0; i < mAvailableGammaOffset.length; i++) {
 			if (seekBar.equals(mGammaOffsetBars[i])) {
-				mGammaOffsetTexts[i].setText(String.valueOf(progress - 255));
+				mGammaOffsetTexts[i].setText(String.valueOf(progress - 15));
 			}
 			mGammaOffsetValueList
 					.add(mGammaOffsetTexts[i].getText().toString());
@@ -310,12 +308,11 @@ public class GpuDisplayFragment extends Fragment implements
 		mColorMultiplierValueList.clear();
 		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
 			if (seekBar.equals(mColorMultiplierBars[i])) {
-				mColorMultiplierTexts[i].setText(String.valueOf(progress));
+				mColorMultiplierTexts[i].setText(String.valueOf(progress + 60));
 			}
-			mColorMultiplierValueList
-					.add(String.valueOf(Integer
-							.parseInt(mColorMultiplierTexts[i].getText()
-									.toString()) * 10000000));
+			mColorMultiplierValueList.add(String
+					.valueOf(mColorMultiplierTexts[i].getText().toString())
+					+ "0000000");
 		}
 		if (seekBar.equals(mGpuMaxFreqBar)) {
 			mGpuValueRaw = progress;
