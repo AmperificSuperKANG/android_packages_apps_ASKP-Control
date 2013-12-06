@@ -214,5 +214,12 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("fastcharge", context) + " > "
 						+ MiscellaneousValues.FILENAME_FAST_CHARGE);
+
+		// Battery Extender
+		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER))
+			if (!Utils.getString("batteryextender", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("batteryextender", context) + " > "
+						+ MiscellaneousValues.FILENAME_BATTERY_EXTENDER);
 	}
 }

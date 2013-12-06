@@ -75,6 +75,9 @@ public class Control {
 	public static String FAST_CHARGE = String.valueOf(MiscellaneousValues
 			.mFastCharge());
 
+	public static String BATTERY_EXTENDER = String.valueOf(MiscellaneousValues
+			.mBatterExtender());
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -267,6 +270,13 @@ public class Control {
 					+ MiscellaneousValues.FILENAME_FAST_CHARGE);
 			Utils.saveString("fastcharge", FAST_CHARGE, context);
 		}
+
+		// Battery Extender
+		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)) {
+			Utils.runCommand("echo " + BATTERY_EXTENDER + " > "
+					+ MiscellaneousValues.FILENAME_BATTERY_EXTENDER);
+			Utils.saveString("batteryextender", BATTERY_EXTENDER, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -296,5 +306,7 @@ public class Control {
 		EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
 		WIFI_HIGH = MiscellaneousValues.mWifiHigh();
 		FAST_CHARGE = String.valueOf(MiscellaneousValues.mFastCharge());
+		BATTERY_EXTENDER = String
+				.valueOf(MiscellaneousValues.mBatterExtender());
 	}
 }

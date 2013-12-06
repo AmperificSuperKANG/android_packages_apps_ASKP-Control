@@ -82,6 +82,8 @@
     <string name="battery">Battery</string>
     <string name="fastcharge">Force Fast Charge</string>
     <string name="fastcharge_summary">Enable this will increase the charing rate with USB, but disable usb mass storage.</string>
+    <string name="batteryextender">Battery Life eXtender</string>
+    <string name="batteryextender_summary">Set a limit for the capacity to which the battery will be charged by passing a value between 0 and 100</string>
 
     <!-- Information -->
     <string name="information">Information</string>

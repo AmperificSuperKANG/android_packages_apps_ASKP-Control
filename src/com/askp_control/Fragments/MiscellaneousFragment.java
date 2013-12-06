@@ -14,18 +14,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 public class MiscellaneousFragment extends Fragment implements
-		OnCheckedChangeListener {
+		OnCheckedChangeListener, OnSeekBarChangeListener {
 
 	private static LinearLayout mLayout;
 
 	private static CheckBox mWifiHighBox;
 
 	private static CheckBox mFastChargeBox;
+
+	private static SeekBar mBatteryExtenderBar;
+	private static TextView mBatteryExtenderText;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,6 +110,35 @@ public class MiscellaneousFragment extends Fragment implements
 			mLayout.addView(mFastChargeBox);
 		}
 
+		// Battery Extender SubTitle
+		TextView mBatteryExtenderTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mBatteryExtenderTitle,
+				getString(R.string.batteryextender), getActivity());
+
+		// Battery Extender Summary
+		TextView mBatteryExtenderSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mBatteryExtenderSummary,
+				getString(R.string.batteryextender_summary), getActivity());
+
+		// Battery Extender SeekBar
+		mBatteryExtenderBar = new SeekBar(getActivity());
+		LayoutStyle.setSeekBar(mBatteryExtenderBar, 100,
+				MiscellaneousValues.mBatterExtender());
+		mBatteryExtenderBar.setOnSeekBarChangeListener(this);
+
+		// Battery Extender Text
+		mBatteryExtenderText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mBatteryExtenderText,
+				String.valueOf(MiscellaneousValues.mBatterExtender()),
+				getActivity());
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)) {
+			mLayout.addView(mBatteryExtenderTitle);
+			mLayout.addView(mBatteryExtenderSummary);
+			mLayout.addView(mBatteryExtenderBar);
+			mLayout.addView(mBatteryExtenderText);
+		}
+
 		return rootView;
 	}
 
@@ -124,6 +158,28 @@ public class MiscellaneousFragment extends Fragment implements
 			} else {
 				Control.FAST_CHARGE = "0";
 			}
+		}
+	}
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		if (seekBar.equals(mBatteryExtenderBar)) {
+			mBatteryExtenderText.setText(String.valueOf(progress));
+		}
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		MainActivity.enableButtons();
+		MainActivity.mMiscellaneousAction = true;
+		if (seekBar.equals(mBatteryExtenderBar)) {
+			Control.BATTERY_EXTENDER = mBatteryExtenderText.getText()
+					.toString();
 		}
 	}
 }
