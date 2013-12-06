@@ -116,6 +116,14 @@ public class BootReceiver extends BroadcastReceiver {
 						+ Utils.getString("gpuvariable", context) + " > "
 						+ GpuDisplayValues.FILENAME_VARIABLE_GPU);
 
+		// Adaptive Brightness
+		if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS))
+			if (!Utils.getString("adaptivebrightness", context).equals(
+					"nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("adaptivebrightness", context)
+						+ " > " + GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS);
+
 		// Trinity Contrast
 		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST))
 			if (!Utils.getString("trinitycontrast", context).equals("nothing"))
@@ -185,5 +193,12 @@ public class BootReceiver extends BroadcastReceiver {
 			if (!Utils.getString("wifihigh", context).equals("nothing"))
 				Utils.runCommand("echo " + Utils.getString("wifihigh", context)
 						+ " > " + MiscellaneousValues.FILENAME_WIFI_HIGH);
+
+		// Fast Charge
+		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE))
+			if (!Utils.getString("fastcharge", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("fastcharge", context) + " > "
+						+ MiscellaneousValues.FILENAME_FAST_CHARGE);
 	}
 }

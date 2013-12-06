@@ -25,6 +25,8 @@ public class MiscellaneousFragment extends Fragment implements
 
 	private static CheckBox mWifiHighBox;
 
+	private static CheckBox mFastChargeBox;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -68,6 +70,41 @@ public class MiscellaneousFragment extends Fragment implements
 			mLayout.addView(mWifiHighBox);
 		}
 
+		// Battery Title
+		TextView mBatteryTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mBatteryTitle, getString(R.string.battery),
+				getActivity());
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)) {
+			mLayout.addView(mBatteryTitle);
+		}
+
+		// Fast Charge SubTitle
+		TextView mFastChargeSubTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mFastChargeSubTitle,
+				getString(R.string.fastcharge), getActivity());
+
+		// Fast Charge Summary
+		TextView mFastChargeSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mFastChargeSummary,
+				getString(R.string.fastcharge_summary), getActivity());
+
+		// Fast Charge CheckBox
+		boolean mFastChargeBoolean = false;
+		if (MiscellaneousValues.mFastCharge() == 1)
+			mFastChargeBoolean = true;
+
+		mFastChargeBox = new CheckBox(getActivity());
+		LayoutStyle.setCheckBox(mFastChargeBox, getString(R.string.fastcharge),
+				mFastChargeBoolean);
+		mFastChargeBox.setOnCheckedChangeListener(this);
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)) {
+			mLayout.addView(mFastChargeSubTitle);
+			mLayout.addView(mFastChargeSummary);
+			mLayout.addView(mFastChargeBox);
+		}
+
 		return rootView;
 	}
 
@@ -75,11 +112,18 @@ public class MiscellaneousFragment extends Fragment implements
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		MainActivity.enableButtons();
 		MainActivity.mMiscellaneousAction = true;
-		if (buttonView.equals(mWifiHighBox))
+		if (buttonView.equals(mWifiHighBox)) {
 			if (isChecked) {
 				Control.WIFI_HIGH = "Y";
 			} else {
 				Control.WIFI_HIGH = "N";
 			}
+		} else if (buttonView.equals(mFastChargeBox)) {
+			if (isChecked) {
+				Control.FAST_CHARGE = "1";
+			} else {
+				Control.FAST_CHARGE = "0";
+			}
+		}
 	}
 }

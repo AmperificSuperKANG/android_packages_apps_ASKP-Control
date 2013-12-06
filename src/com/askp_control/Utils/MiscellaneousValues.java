@@ -4,7 +4,18 @@ import java.io.IOException;
 
 public class MiscellaneousValues {
 
+	public static final String FILENAME_FAST_CHARGE = "/sys/kernel/fast_charge/force_fast_charge";
 	public static final String FILENAME_WIFI_HIGH = "/sys/module/bcmdhd/parameters/wifi_fast";
+
+	public static int mFastCharge() {
+		if (Utils.existFile(FILENAME_FAST_CHARGE))
+			try {
+				return Integer.parseInt(Utils.readLine(FILENAME_FAST_CHARGE));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
 
 	public static String mWifiHigh() {
 		if (Utils.existFile(FILENAME_WIFI_HIGH))

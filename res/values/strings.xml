@@ -44,7 +44,7 @@
     <string name="gpumaxfreq">GPU Max Freq</string>
     <string name="gpumaxfreq_summary">Set the maximum freqency the GPU scales up to.</string>
     <string name="adaptivebrightness">Content Adaptive Brightness</string>
-    <string name="adaptivebrightness_summary">Disable this feature makes white looks brighter at low brightness.</string>
+    <string name="adaptivebrightness_summary">Disable this to make white looks brighter at low brightness.</string>
     <string name="trinitycontrast">Trinityss Contrast</string>
     <string name="contrast">Set Contrast</string>
     <string name="contrast_summary">Set the difference between dark and bright colors.</string>
@@ -75,6 +75,9 @@
     <string name="network">Network</string>
     <string name="wifihigh">Wifi High Performance</string>
     <string name="wifihigh_summary">Keep Wifi speed in sleep mode.</string>
+    <string name="battery">Battery</string>
+    <string name="fastcharge">Force Fast Charge</string>
+    <string name="fastcharge_summary">Enable this will increase the charing rate with USB, but disable usb mass storage.</string>
 
     <!-- Information -->
     <string name="information">Information</string>

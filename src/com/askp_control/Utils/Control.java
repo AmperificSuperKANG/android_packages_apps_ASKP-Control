@@ -67,6 +67,9 @@ public class Control {
 
 	public static String WIFI_HIGH = MiscellaneousValues.mWifiHigh();
 
+	public static String FAST_CHARGE = String.valueOf(MiscellaneousValues
+			.mFastCharge());
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -253,6 +256,13 @@ public class Control {
 					+ MiscellaneousValues.FILENAME_WIFI_HIGH);
 			Utils.saveString("wifihigh", WIFI_HIGH, context);
 		}
+
+		// Fast Charge
+		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)) {
+			Utils.runCommand("echo " + FAST_CHARGE + " > "
+					+ MiscellaneousValues.FILENAME_FAST_CHARGE);
+			Utils.saveString("fastcharge", FAST_CHARGE, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -278,5 +288,6 @@ public class Control {
 		INTERNAL_READ = IoAlgorithmValues.mInternalRead();
 		EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
 		WIFI_HIGH = MiscellaneousValues.mWifiHigh();
+		FAST_CHARGE = String.valueOf(MiscellaneousValues.mFastCharge());
 	}
 }
