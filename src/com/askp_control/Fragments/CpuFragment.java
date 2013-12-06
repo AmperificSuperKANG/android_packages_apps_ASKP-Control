@@ -617,7 +617,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.mChange = true;
+		MainActivity.applyButton.setVisible(true);
+		MainActivity.cancelButton.setVisible(true);
 		MainActivity.mCpuAction = true;
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
 			if (seekBar.equals(mCoreVoltagesBars[i])) {
@@ -676,7 +677,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		if (arg0.equals(mGovernorSpinner)) {
 			int mCurGovernor = mAvailableGovernorList.indexOf(mCurGovernorRaw);
 			if (arg2 != mCurGovernor) {
-				MainActivity.mChange = true;
+				MainActivity.applyButton.setVisible(true);
+				MainActivity.cancelButton.setVisible(true);
 				MainActivity.mCpuAction = true;
 				Control.GOVERNOR = mAvailableGovernor[arg2];
 			}
@@ -689,7 +691,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		MainActivity.mChange = true;
+		MainActivity.applyButton.setVisible(true);
+		MainActivity.cancelButton.setVisible(true);
 		MainActivity.mCpuAction = true;
 		if (buttonView.equals(mCore)) {
 			Control.CORE = isChecked;

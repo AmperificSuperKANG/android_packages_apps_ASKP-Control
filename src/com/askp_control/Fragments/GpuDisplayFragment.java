@@ -344,7 +344,8 @@ public class GpuDisplayFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.mChange = true;
+		MainActivity.applyButton.setVisible(true);
+		MainActivity.cancelButton.setVisible(true);
 		MainActivity.mGpuDisplayAction = true;
 		for (int i = 0; i < mAvailableGammaOffset.length; i++) {
 			if (seekBar.equals(mGammaOffsetBars[i])) {

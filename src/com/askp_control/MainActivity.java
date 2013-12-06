@@ -3,8 +3,6 @@ package com.askp_control;
 import java.util.Locale;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -39,16 +37,13 @@ public class MainActivity extends FragmentActivity {
 	 */
 	private static ViewPager mViewPager;
 
-	private static MenuItem applyButton;
-	private static MenuItem cancelButton;
+	public static MenuItem applyButton;
+	public static MenuItem cancelButton;
 	private static MenuItem setonbootBox;
 
-	public static boolean mChange = false;
 	public static boolean mCpuAction = false;
 	public static boolean mGpuDisplayAction = false;
 	public static boolean mIoAlgorithmAction = false;
-
-	private static ActionThread mActionThread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -205,35 +200,4 @@ public class MainActivity extends FragmentActivity {
 			return null;
 		}
 	}
-
-	@Override
-	public void onResume() {
-		mActionThread = new ActionThread();
-		mActionThread.start();
-		super.onResume();
-	}
-
-	protected class ActionThread extends Thread {
-		@Override
-		public void run() {
-			try {
-				while (true) {
-					mActionHandler.sendMessage(mActionHandler.obtainMessage(0,
-							""));
-					sleep(100);
-				}
-			} catch (InterruptedException e) {
-			}
-		}
-	}
-
-	protected Handler mActionHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			if (mChange) {
-				applyButton.setVisible(true);
-				cancelButton.setVisible(true);
-				mChange = false;
-			}
-		}
-	};
 }

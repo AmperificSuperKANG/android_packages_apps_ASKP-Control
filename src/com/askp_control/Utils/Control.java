@@ -3,6 +3,7 @@ package com.askp_control.Utils;
 import android.content.Context;
 
 import com.askp_control.Fragments.CpuFragment;
+import com.askp_control.Fragments.IoAlgorithmFragment;
 
 public class Control {
 
@@ -195,6 +196,7 @@ public class Control {
 			Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
 					+ TCP_CONGESTION);
 			Utils.saveString("tcpcongestion", TCP_CONGESTION, context);
+			IoAlgorithmFragment.mTCPCongestion = IoAlgorithmFragment.mTCPCongestionRaw;
 		}
 
 		// Internal Scheduler
@@ -202,6 +204,7 @@ public class Control {
 			Utils.runCommand("echo " + INTERNAL_SCHEDULER + " > "
 					+ IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER);
 			Utils.saveString("internalscheduler", INTERNAL_SCHEDULER, context);
+			IoAlgorithmFragment.mCurInternalScheduler = IoAlgorithmFragment.mCurInternalSchedulerRaw;
 		}
 
 		// External Scheduler
@@ -209,6 +212,7 @@ public class Control {
 			Utils.runCommand("echo " + EXTERNAL_SCHEDULER + " > "
 					+ IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER);
 			Utils.saveString("externalscheduler", EXTERNAL_SCHEDULER, context);
+			IoAlgorithmFragment.mCurExternalScheduler = IoAlgorithmFragment.mCurExternalSchedulerRaw;
 		}
 	}
 

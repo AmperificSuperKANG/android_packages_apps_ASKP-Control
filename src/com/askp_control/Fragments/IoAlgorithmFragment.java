@@ -30,14 +30,18 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	private static String[] mAvailableTCPCongestion;
 	private static Spinner mTCPCongestionSpinner;
+	public static int mTCPCongestion = 0;
+	public static int mTCPCongestionRaw;
 
 	private static String[] mAvailableInternalScheduler;
 	private static Spinner mInternalSchedulerSpinner;
-	private static int mCurInternalScheduler;
+	public static int mCurInternalScheduler;
+	public static int mCurInternalSchedulerRaw;
 
 	private static String[] mAvailableExternalScheduler;
 	private static Spinner mExternalSchedulerSpinner;
-	private static int mCurExternalScheduler;
+	public static int mCurExternalScheduler;
+	public static int mCurExternalSchedulerRaw;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -166,20 +170,26 @@ public class IoAlgorithmFragment extends Fragment implements
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 		if (arg0.equals(mTCPCongestionSpinner)) {
-			if (arg2 != 0) {
-				MainActivity.mChange = true;
+			mTCPCongestionRaw = arg2;
+			if (arg2 != mTCPCongestion) {
+				MainActivity.applyButton.setVisible(true);
+				MainActivity.cancelButton.setVisible(true);
 				MainActivity.mIoAlgorithmAction = true;
 				Control.TCP_CONGESTION = mAvailableTCPCongestion[arg2];
 			}
 		} else if (arg0.equals(mInternalSchedulerSpinner)) {
+			mCurInternalSchedulerRaw = arg2;
 			if (arg2 != mCurInternalScheduler) {
-				MainActivity.mChange = true;
+				MainActivity.applyButton.setVisible(true);
+				MainActivity.cancelButton.setVisible(true);
 				MainActivity.mIoAlgorithmAction = true;
 				Control.INTERNAL_SCHEDULER = mAvailableInternalScheduler[arg2];
 			}
 		} else if (arg0.equals(mExternalSchedulerSpinner)) {
+			mCurExternalSchedulerRaw = arg2;
 			if (arg2 != mCurExternalScheduler) {
-				MainActivity.mChange = true;
+				MainActivity.applyButton.setVisible(true);
+				MainActivity.cancelButton.setVisible(true);
 				MainActivity.mIoAlgorithmAction = true;
 				Control.EXTERNAL_SCHEDULER = mAvailableExternalScheduler[arg2];
 			}
