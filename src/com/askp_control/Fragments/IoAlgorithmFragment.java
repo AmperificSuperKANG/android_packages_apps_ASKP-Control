@@ -228,24 +228,21 @@ public class IoAlgorithmFragment extends Fragment implements
 		if (arg0.equals(mTCPCongestionSpinner)) {
 			mTCPCongestionRaw = arg2;
 			if (arg2 != mTCPCongestion) {
-				MainActivity.applyButton.setVisible(true);
-				MainActivity.cancelButton.setVisible(true);
+				MainActivity.enableButtons();
 				MainActivity.mIoAlgorithmAction = true;
 				Control.TCP_CONGESTION = mAvailableTCPCongestion[arg2];
 			}
 		} else if (arg0.equals(mInternalSchedulerSpinner)) {
 			mCurInternalSchedulerRaw = arg2;
 			if (arg2 != mCurInternalScheduler) {
-				MainActivity.applyButton.setVisible(true);
-				MainActivity.cancelButton.setVisible(true);
+				MainActivity.enableButtons();
 				MainActivity.mIoAlgorithmAction = true;
 				Control.INTERNAL_SCHEDULER = mAvailableInternalScheduler[arg2];
 			}
 		} else if (arg0.equals(mExternalSchedulerSpinner)) {
 			mCurExternalSchedulerRaw = arg2;
 			if (arg2 != mCurExternalScheduler) {
-				MainActivity.applyButton.setVisible(true);
-				MainActivity.cancelButton.setVisible(true);
+				MainActivity.enableButtons();
 				MainActivity.mIoAlgorithmAction = true;
 				Control.EXTERNAL_SCHEDULER = mAvailableExternalScheduler[arg2];
 			}
@@ -274,8 +271,7 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.applyButton.setVisible(true);
-		MainActivity.cancelButton.setVisible(true);
+		MainActivity.enableButtons();
 		MainActivity.mIoAlgorithmAction = true;
 		if (seekBar.equals(mInternalReadBar)) {
 			Control.INTERNAL_READ = mInternalReadText.getText().toString()

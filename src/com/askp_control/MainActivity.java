@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity {
 	public static boolean mCpuAction = false;
 	public static boolean mGpuDisplayAction = false;
 	public static boolean mIoAlgorithmAction = false;
+	public static boolean mMiscellaneousAction = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +98,7 @@ public class MainActivity extends FragmentActivity {
 				| MenuItem.SHOW_AS_ACTION_ALWAYS);
 		cancelButton.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_WITH_TEXT
 				| MenuItem.SHOW_AS_ACTION_ALWAYS);
-		applyButton.setVisible(false);
-		cancelButton.setVisible(false);
+		disableButtons();
 		setonbootBox = menu.findItem(R.id.action_setonboot).setChecked(
 				Utils.getBoolean("setonboot", getApplicationContext()));
 		return true;
@@ -114,20 +114,21 @@ public class MainActivity extends FragmentActivity {
 				Control.setGpuDisplayValues(getApplicationContext());
 			if (mIoAlgorithmAction)
 				Control.setIoAlgorithmValues(getApplicationContext());
+			if (mMiscellaneousAction)
+				Control.setMiscellaneousValues(getApplicationContext());
 			mCpuAction = false;
 			mGpuDisplayAction = false;
 			mIoAlgorithmAction = false;
+			mMiscellaneousAction = false;
 			Utils.toast(getString(R.string.valuesapplied),
 					getApplicationContext());
 			Control.setValuesback(getApplicationContext());
-			applyButton.setVisible(false);
-			cancelButton.setVisible(false);
+			disableButtons();
 			break;
 		case R.id.action_cancel:
 			Control.setValuesback(getApplicationContext());
 			super.recreate();
-			applyButton.setVisible(false);
-			cancelButton.setVisible(false);
+			disableButtons();
 			break;
 		case R.id.action_setonboot:
 			if (Utils.getBoolean("setonboot", getApplicationContext()) == true) {
@@ -205,5 +206,15 @@ public class MainActivity extends FragmentActivity {
 			}
 			return null;
 		}
+	}
+
+	public static void enableButtons() {
+		applyButton.setVisible(true);
+		cancelButton.setVisible(true);
+	}
+
+	public static void disableButtons() {
+		applyButton.setVisible(false);
+		cancelButton.setVisible(false);
 	}
 }

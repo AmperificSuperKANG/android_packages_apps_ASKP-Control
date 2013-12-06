@@ -3,6 +3,7 @@ package com.askp_control;
 import com.askp_control.Utils.CpuValues;
 import com.askp_control.Utils.GpuDisplayValues;
 import com.askp_control.Utils.IoAlgorithmValues;
+import com.askp_control.Utils.MiscellaneousValues;
 import com.askp_control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
@@ -178,5 +179,11 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("externalread", context) + " > "
 						+ IoAlgorithmValues.FILENAME_EXTERNAL_READ);
+
+		// Wifi High
+		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH))
+			if (!Utils.getString("wifihigh", context).equals("nothing"))
+				Utils.runCommand("echo " + Utils.getString("wifihigh", context)
+						+ " > " + MiscellaneousValues.FILENAME_WIFI_HIGH);
 	}
 }

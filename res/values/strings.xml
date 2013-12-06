@@ -70,6 +70,9 @@
 
     <!-- Miscellaneous -->
     <string name="miscellaneous">Miscellaneous</string>
+    <string name="network">Network</string>
+    <string name="wifihigh">Wifi High Performance</string>
+    <string name="wifihigh_summary">Keep Wifi speed in sleep mode.</string>
 
     <!-- Information -->
     <string name="information">Information</string>

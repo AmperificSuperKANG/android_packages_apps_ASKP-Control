@@ -62,6 +62,8 @@ public class Control {
 
 	public static String EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
 
+	public static String WIFI_HIGH = MiscellaneousValues.mWifiHigh();
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -234,6 +236,15 @@ public class Control {
 		}
 	}
 
+	public static void setMiscellaneousValues(Context context) {
+		// Wifi High
+		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH)) {
+			Utils.runCommand("echo " + WIFI_HIGH + " > "
+					+ MiscellaneousValues.FILENAME_WIFI_HIGH);
+			Utils.saveString("wifihigh", WIFI_HIGH, context);
+		}
+	}
+
 	public static void setValuesback(Context context) {
 		MAX_CPU_FREQ = String.valueOf(CpuFragment.mMaxCpuFreqRaw);
 		MIN_CPU_FREQ = String.valueOf(CpuFragment.mMinCpuFreqRaw);
@@ -254,5 +265,6 @@ public class Control {
 		EXTERNAL_SCHEDULER = IoAlgorithmValues.mCurExternalScheduler();
 		INTERNAL_READ = IoAlgorithmValues.mInternalRead();
 		EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
+		WIFI_HIGH = MiscellaneousValues.mWifiHigh();
 	}
 }
