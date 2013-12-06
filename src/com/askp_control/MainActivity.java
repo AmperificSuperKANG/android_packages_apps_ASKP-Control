@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.askp_control.Fragments.CpuFragment;
+import com.askp_control.Fragments.DownloadFragment;
 import com.askp_control.Fragments.GpuDisplayFragment;
 import com.askp_control.Fragments.InformationFragment;
 import com.askp_control.Fragments.IoAlgorithmFragment;
@@ -154,6 +155,9 @@ public class MainActivity extends FragmentActivity {
 			case 4:
 				fragment = new InformationFragment();
 				break;
+			case 5:
+				fragment = new DownloadFragment();
+				break;
 			default:
 				break;
 			}
@@ -164,7 +168,7 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return 5;
+			return 6;
 		}
 
 		@Override
@@ -177,11 +181,13 @@ public class MainActivity extends FragmentActivity {
 				return getString(R.string.gpu).toUpperCase(l) + " & "
 						+ getString(R.string.display).toUpperCase(l);
 			case 2:
-				return getString(R.string.ioalgorithm).toUpperCase();
+				return getString(R.string.ioalgorithm).toUpperCase(l);
 			case 3:
-				return getString(R.string.miscellaneous).toUpperCase();
+				return getString(R.string.miscellaneous).toUpperCase(l);
 			case 4:
 				return getString(R.string.information).toUpperCase(l);
+			case 5:
+				return getString(R.string.download).toUpperCase(l);
 			}
 			return null;
 		}

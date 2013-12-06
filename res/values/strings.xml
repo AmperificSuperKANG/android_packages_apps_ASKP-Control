@@ -99,6 +99,9 @@
     <string name="codename">Codename</string>
     <string name="kernelversion">Kernel Version</string>
 
+    <!-- Download -->
+    <string name="download">Download</string>
+
     <!-- Menu -->
     <string name="action_settings">Settings</string>
 
