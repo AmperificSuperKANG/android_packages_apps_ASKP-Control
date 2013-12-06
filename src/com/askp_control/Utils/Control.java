@@ -78,6 +78,12 @@ public class Control {
 	public static String BATTERY_EXTENDER = String.valueOf(MiscellaneousValues
 			.mBatterExtender());
 
+	public static String SOUND_HIGH = String.valueOf(MiscellaneousValues
+			.mSoundHigh());
+
+	public static String HEADPHONE_BOOST = String.valueOf(MiscellaneousValues
+			.mHeadphoneBoost());
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -277,6 +283,20 @@ public class Control {
 					+ MiscellaneousValues.FILENAME_BATTERY_EXTENDER);
 			Utils.saveString("batteryextender", BATTERY_EXTENDER, context);
 		}
+
+		// Sound High
+		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH)) {
+			Utils.runCommand("echo " + SOUND_HIGH + " > "
+					+ MiscellaneousValues.FILENAME_SOUND_HIGH);
+			Utils.saveString("soundhigh", SOUND_HIGH, context);
+		}
+
+		// Headphone Boost
+		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST)) {
+			Utils.runCommand("echo " + HEADPHONE_BOOST + " > "
+					+ MiscellaneousValues.FILENAME_HEADPHONE_BOOST);
+			Utils.saveString("headphoneboost", HEADPHONE_BOOST, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -308,5 +328,7 @@ public class Control {
 		FAST_CHARGE = String.valueOf(MiscellaneousValues.mFastCharge());
 		BATTERY_EXTENDER = String
 				.valueOf(MiscellaneousValues.mBatterExtender());
+		SOUND_HIGH = String.valueOf(MiscellaneousValues.mSoundHigh());
+		HEADPHONE_BOOST = String.valueOf(MiscellaneousValues.mHeadphoneBoost());
 	}
 }

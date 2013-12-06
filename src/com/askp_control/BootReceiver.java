@@ -221,5 +221,19 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("batteryextender", context) + " > "
 						+ MiscellaneousValues.FILENAME_BATTERY_EXTENDER);
+
+		// Sound High
+		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH))
+			if (!Utils.getString("soundhigh", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("soundhigh", context) + " > "
+						+ MiscellaneousValues.FILENAME_SOUND_HIGH);
+
+		// Headphone Boost
+		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST))
+			if (!Utils.getString("headphoneboost", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("headphoneboost", context) + " > "
+						+ MiscellaneousValues.FILENAME_HEADPHONE_BOOST);
 	}
 }

@@ -32,6 +32,11 @@ public class MiscellaneousFragment extends Fragment implements
 	private static SeekBar mBatteryExtenderBar;
 	private static TextView mBatteryExtenderText;
 
+	private static CheckBox mSoundHighBox;
+
+	private static SeekBar mHeadphoneBoostBar;
+	private static TextView mHeadphoneBoostText;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -44,14 +49,8 @@ public class MiscellaneousFragment extends Fragment implements
 		LayoutStyle.setTextTitle(mNetworkTitle, getString(R.string.network),
 				getActivity());
 
-		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH)) {
+		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH))
 			mLayout.addView(mNetworkTitle);
-		}
-
-		// Wifi High SubTitle
-		TextView mWifiHighTitle = new TextView(getActivity());
-		LayoutStyle.setTextSubTitle(mWifiHighTitle,
-				getString(R.string.wifihigh), getActivity());
 
 		// Wifi High Summary
 		TextView mWifiHighSummary = new TextView(getActivity());
@@ -70,9 +69,8 @@ public class MiscellaneousFragment extends Fragment implements
 		mWifiHighBox.setOnCheckedChangeListener(this);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH)) {
-			mLayout.addView(mWifiHighTitle);
-			mLayout.addView(mWifiHighSummary);
 			mLayout.addView(mWifiHighBox);
+			mLayout.addView(mWifiHighSummary);
 		}
 
 		// Battery Title
@@ -80,19 +78,10 @@ public class MiscellaneousFragment extends Fragment implements
 		LayoutStyle.setTextTitle(mBatteryTitle, getString(R.string.battery),
 				getActivity());
 
-		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)) {
+		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)
+				|| Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)) {
 			mLayout.addView(mBatteryTitle);
 		}
-
-		// Fast Charge SubTitle
-		TextView mFastChargeSubTitle = new TextView(getActivity());
-		LayoutStyle.setTextSubTitle(mFastChargeSubTitle,
-				getString(R.string.fastcharge), getActivity());
-
-		// Fast Charge Summary
-		TextView mFastChargeSummary = new TextView(getActivity());
-		LayoutStyle.setTextSummary(mFastChargeSummary,
-				getString(R.string.fastcharge_summary), getActivity());
 
 		// Fast Charge CheckBox
 		boolean mFastChargeBoolean = false;
@@ -104,10 +93,14 @@ public class MiscellaneousFragment extends Fragment implements
 				mFastChargeBoolean);
 		mFastChargeBox.setOnCheckedChangeListener(this);
 
+		// Fast Charge Summary
+		TextView mFastChargeSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mFastChargeSummary,
+				getString(R.string.fastcharge_summary), getActivity());
+
 		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)) {
-			mLayout.addView(mFastChargeSubTitle);
-			mLayout.addView(mFastChargeSummary);
 			mLayout.addView(mFastChargeBox);
+			mLayout.addView(mFastChargeSummary);
 		}
 
 		// Battery Extender SubTitle
@@ -139,6 +132,51 @@ public class MiscellaneousFragment extends Fragment implements
 			mLayout.addView(mBatteryExtenderText);
 		}
 
+		// Audio Title
+		TextView mAudioTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mAudioTitle, getString(R.string.audio),
+				getActivity());
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH)
+				|| Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST))
+			mLayout.addView(mAudioTitle);
+
+		// Sound High CheckBox
+		boolean mSoundHighBoolean = false;
+		if (MiscellaneousValues.mSoundHigh() == 1)
+			mSoundHighBoolean = true;
+
+		mSoundHighBox = new CheckBox(getActivity());
+		LayoutStyle.setCheckBox(mSoundHighBox, getString(R.string.soundhigh),
+				mSoundHighBoolean);
+		mSoundHighBox.setOnCheckedChangeListener(this);
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH))
+			mLayout.addView(mSoundHighBox);
+
+		// Headphone Boost SubTitle
+		TextView mHeadphoneBoostSubTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mHeadphoneBoostSubTitle,
+				getString(R.string.headphoneboost), getActivity());
+
+		// Headphone Boost SeekBar
+		mHeadphoneBoostBar = new SeekBar(getActivity());
+		LayoutStyle.setSeekBar(mHeadphoneBoostBar, 3,
+				MiscellaneousValues.mHeadphoneBoost());
+		mHeadphoneBoostBar.setOnSeekBarChangeListener(this);
+
+		// Headphone Boost Text
+		mHeadphoneBoostText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mHeadphoneBoostText,
+				String.valueOf(MiscellaneousValues.mHeadphoneBoost()),
+				getActivity());
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST)) {
+			mLayout.addView(mHeadphoneBoostSubTitle);
+			mLayout.addView(mHeadphoneBoostBar);
+			mLayout.addView(mHeadphoneBoostText);
+		}
+
 		return rootView;
 	}
 
@@ -158,6 +196,12 @@ public class MiscellaneousFragment extends Fragment implements
 			} else {
 				Control.FAST_CHARGE = "0";
 			}
+		} else if (buttonView.equals(mSoundHighBox)) {
+			if (isChecked) {
+				Control.SOUND_HIGH = "1";
+			} else {
+				Control.SOUND_HIGH = "0";
+			}
 		}
 	}
 
@@ -166,6 +210,8 @@ public class MiscellaneousFragment extends Fragment implements
 			boolean fromUser) {
 		if (seekBar.equals(mBatteryExtenderBar)) {
 			mBatteryExtenderText.setText(String.valueOf(progress));
+		} else if (seekBar.equals(mHeadphoneBoostBar)) {
+			mHeadphoneBoostText.setText(String.valueOf(progress));
 		}
 	}
 
@@ -180,6 +226,8 @@ public class MiscellaneousFragment extends Fragment implements
 		if (seekBar.equals(mBatteryExtenderBar)) {
 			Control.BATTERY_EXTENDER = mBatteryExtenderText.getText()
 					.toString();
+		} else if (seekBar.equals(mHeadphoneBoostBar)) {
+			Control.HEADPHONE_BOOST = mHeadphoneBoostText.getText().toString();
 		}
 	}
 }
