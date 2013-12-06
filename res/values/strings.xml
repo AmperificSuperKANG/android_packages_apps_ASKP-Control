@@ -44,7 +44,7 @@
     <string name="gpumaxfreq">GPU Max Freq</string>
     <string name="gpumaxfreq_summary">Set the maximum freqency the GPU scales up to.</string>
     <string name="adaptivebrightness">Content Adaptive Brightness</string>
-    <string name="adaptivebrightness_summary">Disable this to make white looks brighter at low brightness.</string>
+    <string name="adaptivebrightness_summary">Disable this to make white brighter at low brightness.</string>
     <string name="trinitycontrast">Trinityss Contrast</string>
     <string name="contrast">Set Contrast</string>
     <string name="contrast_summary">Set the difference between dark and bright colors.</string>
