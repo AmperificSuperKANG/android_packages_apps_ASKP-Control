@@ -21,11 +21,11 @@ public class Control {
 
 	public static String GOVERNOR = CpuFragment.mCurGovernorRaw;
 
-	public static boolean CORE = CpuValues.mCore();
+	public static String CORE = String.valueOf(CpuValues.mCore());
 
-	public static boolean IVA = CpuValues.mIVA();
+	public static String IVA = String.valueOf(CpuValues.mIVA());
 
-	public static boolean MPU = CpuValues.mMPU();
+	public static String MPU = String.valueOf(CpuValues.mMPU());
 
 	public static String CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
 
@@ -110,31 +110,16 @@ public class Control {
 
 		// Smartreflex
 		if (Utils.existFile(CpuValues.FILENAME_CORE))
-			if (CORE) {
-				Utils.runCommand("echo 1 > " + CpuValues.FILENAME_CORE);
-				Utils.saveString("core", "1", context);
-			} else {
-				Utils.runCommand("echo 0 > " + CpuValues.FILENAME_CORE);
-				Utils.saveString("core", "0", context);
-			}
+			Utils.runCommand("echo " + CORE + " > " + CpuValues.FILENAME_CORE);
+		Utils.saveString("core", CORE, context);
 
 		if (Utils.existFile(CpuValues.FILENAME_IVA))
-			if (IVA) {
-				Utils.runCommand("echo 1 > " + CpuValues.FILENAME_IVA);
-				Utils.saveString("iva", "1", context);
-			} else {
-				Utils.runCommand("echo 0 > " + CpuValues.FILENAME_IVA);
-				Utils.saveString("iva", "0", context);
-			}
+			Utils.runCommand("echo " + IVA + " > " + CpuValues.FILENAME_IVA);
+		Utils.saveString("iva", IVA, context);
 
 		if (Utils.existFile(CpuValues.FILENAME_MPU))
-			if (MPU) {
-				Utils.runCommand("echo 1 > " + CpuValues.FILENAME_MPU);
-				Utils.saveString("mpu", "1", context);
-			} else {
-				Utils.runCommand("echo 0 > " + CpuValues.FILENAME_MPU);
-				Utils.saveString("mpu", "0", context);
-			}
+			Utils.runCommand("echo " + MPU + " > " + CpuValues.FILENAME_MPU);
+		Utils.saveString("mpu", MPU, context);
 
 		// Core Voltage
 		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
@@ -271,6 +256,9 @@ public class Control {
 		MAX_SCREEN_OFF = String.valueOf(CpuValues.mMaxScreenOffFreq());
 		MIN_SCREEN_ON = String.valueOf(CpuValues.mMinScreenOnFreq());
 		GOVERNOR = CpuFragment.mCurGovernorRaw;
+		CORE = String.valueOf(CpuValues.mCore());
+		IVA = String.valueOf(CpuValues.mIVA());
+		MPU = String.valueOf(CpuValues.mMPU());
 		CORE_VOLTAGE = CpuValues.mCoreVoltagesFreq();
 		IVA_VOLTAGE = CpuValues.mIVAVoltagesFreq();
 		MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();

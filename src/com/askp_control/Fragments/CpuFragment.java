@@ -291,27 +291,36 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		}
 
 		// Smartreflex Core
+		boolean mCoreBoolean = false;
+		if (CpuValues.mCore() == 1)
+			mCoreBoolean = true;
+
 		mCore = new CheckBox(getActivity());
-		LayoutStyle.setCheckBox(mCore, getString(R.string.core),
-				CpuValues.mCore());
+		LayoutStyle.setCheckBox(mCore, getString(R.string.core), mCoreBoolean);
 		mCore.setOnCheckedChangeListener(this);
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE))
 			mLayout.addView(mCore);
 
 		// Smartreflex IVA
+		boolean mIVABoolean = false;
+		if (CpuValues.mIVA() == 1)
+			mIVABoolean = true;
+
 		mIVA = new CheckBox(getActivity());
-		LayoutStyle
-				.setCheckBox(mIVA, getString(R.string.iva), CpuValues.mIVA());
+		LayoutStyle.setCheckBox(mIVA, getString(R.string.iva), mIVABoolean);
 		mIVA.setOnCheckedChangeListener(this);
 
 		if (Utils.existFile(CpuValues.FILENAME_IVA))
 			mLayout.addView(mIVA);
 
 		// Smartreflex mMPU
+		boolean mMPUBoolean = false;
+		if (CpuValues.mMPU() == 1)
+			mMPUBoolean = true;
+
 		mMPU = new CheckBox(getActivity());
-		LayoutStyle
-				.setCheckBox(mMPU, getString(R.string.mpu), CpuValues.mMPU());
+		LayoutStyle.setCheckBox(mMPU, getString(R.string.mpu), mMPUBoolean);
 		mMPU.setOnCheckedChangeListener(this);
 
 		if (Utils.existFile(CpuValues.FILENAME_MPU))
@@ -692,11 +701,23 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		MainActivity.enableButtons();
 		MainActivity.mCpuAction = true;
 		if (buttonView.equals(mCore)) {
-			Control.CORE = isChecked;
+			if (isChecked) {
+				Control.CORE = "1";
+			} else {
+				Control.CORE = "0";
+			}
 		} else if (buttonView.equals(mIVA)) {
-			Control.IVA = isChecked;
+			if (isChecked) {
+				Control.IVA = "1";
+			} else {
+				Control.IVA = "0";
+			}
 		} else if (buttonView.equals(mMPU)) {
-			Control.MPU = isChecked;
+			if (isChecked) {
+				Control.MPU = "1";
+			} else {
+				Control.MPU = "0";
+			}
 		}
 	}
 }

@@ -153,37 +153,34 @@ public class CpuValues {
 		return "0 0";
 	}
 
-	public static boolean mMPU() {
+	public static int mMPU() {
 		if (Utils.existFile(FILENAME_MPU))
 			try {
-				if (Utils.readLine(FILENAME_MPU).equals("1"))
-					return true;
+				return Integer.parseInt(Utils.readLine(FILENAME_MPU));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		return false;
+		return 0;
 	}
 
-	public static boolean mIVA() {
+	public static int mIVA() {
 		if (Utils.existFile(FILENAME_IVA))
 			try {
-				if (Utils.readLine(FILENAME_IVA).equals("1"))
-					return true;
+				return Integer.parseInt(Utils.readLine(FILENAME_IVA));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		return false;
+		return 0;
 	}
 
-	public static boolean mCore() {
+	public static int mCore() {
 		if (Utils.existFile(FILENAME_CORE))
 			try {
-				if (Utils.readLine(FILENAME_CORE).equals("1"))
-					return true;
+				return Integer.parseInt(Utils.readLine(FILENAME_CORE));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		return false;
+		return 0;
 	}
 
 	public static int mMinScreenOnFreq() {
