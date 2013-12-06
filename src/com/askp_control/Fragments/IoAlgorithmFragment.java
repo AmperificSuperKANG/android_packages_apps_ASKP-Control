@@ -18,13 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class IoAlgorithmFragment extends Fragment implements
-		OnItemSelectedListener {
+		OnItemSelectedListener, OnSeekBarChangeListener {
 
 	private static LinearLayout mLayout;
 
@@ -42,6 +44,12 @@ public class IoAlgorithmFragment extends Fragment implements
 	private static Spinner mExternalSchedulerSpinner;
 	public static int mCurExternalScheduler;
 	public static int mCurExternalSchedulerRaw;
+
+	private static SeekBar mInternalReadBar;
+	private static TextView mInternalReadText;
+
+	private static SeekBar mExternalReadBar;
+	private static TextView mExternalReadText;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -163,6 +171,54 @@ public class IoAlgorithmFragment extends Fragment implements
 			mLayout.addView(mExternalSchedulerSpinner);
 		}
 
+		// Internal Read Title
+		TextView mInternalReadTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mInternalReadTitle,
+				getString(R.string.internalreadahead), getActivity());
+
+		// Internal Read SeekBar
+		mInternalReadBar = new SeekBar(getActivity());
+		LayoutStyle
+				.setSeekBar(mInternalReadBar, 31, Integer.parseInt(String
+						.valueOf(Integer.parseInt(IoAlgorithmValues
+								.mInternalRead()) - 128)) / 128);
+		mInternalReadBar.setOnSeekBarChangeListener(this);
+
+		// Internal Read Text
+		mInternalReadText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mInternalReadText,
+				IoAlgorithmValues.mInternalRead() + " kB", getActivity());
+
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ)) {
+			mLayout.addView(mInternalReadTitle);
+			mLayout.addView(mInternalReadBar);
+			mLayout.addView(mInternalReadText);
+		}
+
+		// External Read Title
+		TextView mExternalReadTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mExternalReadTitle,
+				getString(R.string.externalreadahead), getActivity());
+
+		// External Read SeekBar
+		mExternalReadBar = new SeekBar(getActivity());
+		LayoutStyle
+				.setSeekBar(mExternalReadBar, 31, Integer.parseInt(String
+						.valueOf(Integer.parseInt(IoAlgorithmValues
+								.mExternalRead()) - 128)) / 128);
+		mExternalReadBar.setOnSeekBarChangeListener(this);
+
+		// External Read Text
+		mExternalReadText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mExternalReadText,
+				IoAlgorithmValues.mExternalRead() + " kB", getActivity());
+
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ)) {
+			mLayout.addView(mExternalReadTitle);
+			mLayout.addView(mExternalReadBar);
+			mLayout.addView(mExternalReadText);
+		}
+
 		return rootView;
 	}
 
@@ -198,5 +254,35 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
+	}
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		if (seekBar.equals(mInternalReadBar)) {
+			mInternalReadText.setText(String.valueOf(progress * 128 + 128)
+					+ " kB");
+		} else if (seekBar.equals(mExternalReadBar)) {
+			mExternalReadText.setText(String.valueOf(progress * 128 + 128)
+					+ " kB");
+		}
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		MainActivity.applyButton.setVisible(true);
+		MainActivity.cancelButton.setVisible(true);
+		MainActivity.mIoAlgorithmAction = true;
+		if (seekBar.equals(mInternalReadBar)) {
+			Control.INTERNAL_READ = mInternalReadText.getText().toString()
+					.replace(" kB", "");
+		} else if (seekBar.equals(mExternalReadBar)) {
+			Control.EXTERNAL_READ = mExternalReadText.getText().toString()
+					.replace(" kB", "");
+		}
 	}
 }

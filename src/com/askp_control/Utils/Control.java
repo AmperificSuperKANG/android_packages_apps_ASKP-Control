@@ -58,6 +58,10 @@ public class Control {
 	public static String EXTERNAL_SCHEDULER = IoAlgorithmValues
 			.mCurExternalScheduler();
 
+	public static String INTERNAL_READ = IoAlgorithmValues.mInternalRead();
+
+	public static String EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -214,6 +218,20 @@ public class Control {
 			Utils.saveString("externalscheduler", EXTERNAL_SCHEDULER, context);
 			IoAlgorithmFragment.mCurExternalScheduler = IoAlgorithmFragment.mCurExternalSchedulerRaw;
 		}
+
+		// Internal Read
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ)) {
+			Utils.runCommand("echo " + INTERNAL_READ + " > "
+					+ IoAlgorithmValues.FILENAME_INTERNAL_READ);
+			Utils.saveString("internalread", INTERNAL_READ, context);
+		}
+
+		// External Read
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ)) {
+			Utils.runCommand("echo " + EXTERNAL_READ + " > "
+					+ IoAlgorithmValues.FILENAME_EXTERNAL_READ);
+			Utils.saveString("externalread", EXTERNAL_READ, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -234,5 +252,7 @@ public class Control {
 		TCP_CONGESTION = IoAlgorithmValues.mTCPCongestion().split(" ")[0];
 		INTERNAL_SCHEDULER = IoAlgorithmValues.mCurInternalScheduler();
 		EXTERNAL_SCHEDULER = IoAlgorithmValues.mCurExternalScheduler();
+		INTERNAL_READ = IoAlgorithmValues.mInternalRead();
+		EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
 	}
 }

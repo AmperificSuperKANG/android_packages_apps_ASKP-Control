@@ -164,5 +164,19 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("externalscheduler", context) + " > "
 						+ IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER);
+
+		// Internal Read
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ))
+			if (!Utils.getString("internalread", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("internalread", context) + " > "
+						+ IoAlgorithmValues.FILENAME_INTERNAL_READ);
+
+		// External Read
+		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ))
+			if (!Utils.getString("externalread", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("externalread", context) + " > "
+						+ IoAlgorithmValues.FILENAME_EXTERNAL_READ);
 	}
 }

@@ -7,9 +7,31 @@ import java.util.List;
 
 public class IoAlgorithmValues {
 
+	public static final String FILENAME_EXTERNAL_READ = "/sys/block/mmcblk1/queue/read_ahead_kb";
+	public static final String FILENAME_INTERNAL_READ = "/sys/block/mmcblk0/queue/read_ahead_kb";
 	public static final String FILENAME_EXTERNAL_SCHEDULER = "/sys/block/mmcblk1/queue/scheduler";
 	public static final String FILENAME_INTERNAL_SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
 	public static final String FILENAME_TCP_CONGESTION = "/proc/sys/net/ipv4/tcp_available_congestion_control";
+
+	public static String mExternalRead() {
+		if (Utils.existFile(FILENAME_EXTERNAL_READ))
+			try {
+				return Utils.readLine(FILENAME_EXTERNAL_READ);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return "0";
+	}
+
+	public static String mInternalRead() {
+		if (Utils.existFile(FILENAME_INTERNAL_READ))
+			try {
+				return Utils.readLine(FILENAME_INTERNAL_READ);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return "0";
+	}
 
 	public static String mCurExternalScheduler() {
 		String[] x = IoAlgorithmValues.mExternalScheduler().split(" ");

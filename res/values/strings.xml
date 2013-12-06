@@ -65,6 +65,8 @@
     <string name="ioscheduler_summary">Set the active I/O elevator algorithm. The scheduler decides how to handle I/O requests and how to handle them.</string>
     <string name="internalscheduler">Internal Storage Scheduler</string>
     <string name="externalscheduler">External Storage Scheduler</string>
+    <string name="internalreadahead">Internal Storage Read-ahead</string>
+    <string name="externalreadahead">External Storage Read-ahead</string>
 
     <!-- Information -->
     <string name="information">Information</string>
