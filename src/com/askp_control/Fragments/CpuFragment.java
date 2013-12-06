@@ -436,7 +436,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// MPU Voltages Subtitle
 			TextView mMPUVoltagesSubtitle = new TextView(getActivity());
 			LayoutStyle.setTextSubTitle(mMPUVoltagesSubtitle,
-					mMPUVoltagesList[i].split(" ")[0] + " mV", getActivity());
+					mMPUVoltagesList[i].split(" ")[0] + " MHz", getActivity());
 
 			// MPU Voltages SeekBar
 			SeekBar mMPUVoltagesBar = new SeekBar(getActivity());
