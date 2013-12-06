@@ -39,6 +39,9 @@ public class Control {
 	public static String GPU_VARIABLE = String.valueOf(GpuDisplayValues
 			.mVariableGpu());
 
+	public static String APAPTIVE_BRIGHTNESS = String.valueOf(GpuDisplayValues
+			.mAdaptiveBrightness());
+
 	public static String TRINITY_CONTRAST = String.valueOf(GpuDisplayValues
 			.mTrinityContrast());
 
@@ -167,6 +170,13 @@ public class Control {
 			Utils.saveString("gpuvariable", GPU_VARIABLE, context);
 		}
 
+		// Adaptive Brightness
+		if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS)) {
+			Utils.runCommand("echo " + APAPTIVE_BRIGHTNESS + " > "
+					+ GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS);
+			Utils.saveString("adaptivebrightness", APAPTIVE_BRIGHTNESS, context);
+		}
+
 		// Trinity Contrast
 		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)) {
 			Utils.runCommand("echo " + TRINITY_CONTRAST + " > "
@@ -256,6 +266,8 @@ public class Control {
 		MPU_VOLTAGE = CpuValues.mMPUVoltagesFreqRaw();
 		REGULATOR_VOLTAGE = CpuValues.mRegulatorVoltagesFreqRaw();
 		GPU_VARIABLE = String.valueOf(GpuDisplayValues.mVariableGpu());
+		APAPTIVE_BRIGHTNESS = String.valueOf(GpuDisplayValues
+				.mAdaptiveBrightness());
 		TRINITY_CONTRAST = String.valueOf(GpuDisplayValues.mTrinityContrast());
 		GAMMA_CONTROL = String.valueOf(GpuDisplayValues.mGammaControl());
 		GAMMA_OFFSET = GpuDisplayValues.mGammaOffset();

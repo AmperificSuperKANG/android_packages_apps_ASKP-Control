@@ -15,6 +15,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -22,7 +25,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 public class GpuDisplayFragment extends Fragment implements
-		OnSeekBarChangeListener {
+		OnSeekBarChangeListener, OnCheckedChangeListener {
 
 	private static LinearLayout mLayout;
 
@@ -30,6 +33,8 @@ public class GpuDisplayFragment extends Fragment implements
 	private static TextView mGpuMaxFreqText;
 	private static String mGpuValue;
 	private static int mGpuValueRaw;
+
+	private static CheckBox mAdaptiveBrightnessBox;
 
 	private static SeekBar mTrinityContrastBar;
 	private static TextView mTrinityContrastText;
@@ -103,11 +108,38 @@ public class GpuDisplayFragment extends Fragment implements
 		ImageView mColor = new ImageView(getActivity());
 		mColor.setImageResource(R.drawable.ic_color);
 
-		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)
+		if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS)
+				|| Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)
 				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)
 				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)
 				|| Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER))
 			mLayout.addView(mColor);
+
+		// Adaptive Brightness Title
+		TextView mAdaptiveBrightnessTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mAdaptiveBrightnessTitle,
+				getString(R.string.adaptivebrightness), getActivity());
+
+		// Adaptive Brightness Summary
+		TextView mAdaptiveBrightnessSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mAdaptiveBrightnessSummary,
+				getString(R.string.adaptivebrightness_summary), getActivity());
+
+		// Adaptive Brightness Summary
+		boolean mAdaptiveBrightnessBoolean = false;
+		if (GpuDisplayValues.mAdaptiveBrightness() == 1)
+			mAdaptiveBrightnessBoolean = true;
+		mAdaptiveBrightnessBox = new CheckBox(getActivity());
+		LayoutStyle.setCheckBox(mAdaptiveBrightnessBox,
+				getString(R.string.adaptivebrightness),
+				mAdaptiveBrightnessBoolean);
+		mAdaptiveBrightnessBox.setOnCheckedChangeListener(this);
+
+		if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS)) {
+			mLayout.addView(mAdaptiveBrightnessTitle);
+			mLayout.addView(mAdaptiveBrightnessSummary);
+			mLayout.addView(mAdaptiveBrightnessBox);
+		}
 
 		// Trinity Contrast Title
 		TextView mTrinityContrastTitle = new TextView(getActivity());
@@ -372,5 +404,17 @@ public class GpuDisplayFragment extends Fragment implements
 		} else if (seekBar.equals(mGammaControlBar)) {
 			Control.GAMMA_CONTROL = mGammaControlText.getText().toString();
 		}
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		MainActivity.enableButtons();
+		MainActivity.mGpuDisplayAction = true;
+		if (buttonView.equals(mAdaptiveBrightnessBox))
+			if (isChecked) {
+				Control.APAPTIVE_BRIGHTNESS = "1";
+			} else {
+				Control.APAPTIVE_BRIGHTNESS = "0";
+			}
 	}
 }

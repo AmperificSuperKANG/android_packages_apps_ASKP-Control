@@ -8,6 +8,7 @@ public class GpuDisplayValues {
 	public static final String FILENAME_GAMMA_OFFSET = "/sys/class/misc/colorcontrol/v1_offset";
 	public static final String FILENAME_GAMMA_CONTROL = "/sys/devices/platform/omapdss/manager0/gamma";
 	public static final String FILENAME_TRINITY_CONTRAST = "/sys/module/panel_s6e8aa0/parameters/contrast";
+	public static final String FILENAME_ADAPTIVE_BRIGHTNESS = "/sys/class/backlight/s6e8aa0/acl_set";
 	public static final String FILENAME_VARIABLE_GPU = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
 
 	public static String mColorMultiplier() {
@@ -45,6 +46,17 @@ public class GpuDisplayValues {
 			try {
 				return Integer.parseInt(Utils
 						.readLine(FILENAME_TRINITY_CONTRAST));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
+
+	public static int mAdaptiveBrightness() {
+		if (Utils.existFile(FILENAME_ADAPTIVE_BRIGHTNESS))
+			try {
+				return Integer.parseInt(Utils
+						.readLine(FILENAME_ADAPTIVE_BRIGHTNESS));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
