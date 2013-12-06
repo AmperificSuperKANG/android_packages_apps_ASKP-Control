@@ -68,6 +68,9 @@
     <string name="internalreadahead">Internal Storage Read-ahead</string>
     <string name="externalreadahead">External Storage Read-ahead</string>
 
+    <!-- Miscellaneous -->
+    <string name="miscellaneous">Miscellaneous</string>
+
     <!-- Information -->
     <string name="information">Information</string>
     <string name="device">Device</string>

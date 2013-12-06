@@ -15,6 +15,7 @@ import com.askp_control.Fragments.CpuFragment;
 import com.askp_control.Fragments.GpuDisplayFragment;
 import com.askp_control.Fragments.InformationFragment;
 import com.askp_control.Fragments.IoAlgorithmFragment;
+import com.askp_control.Fragments.MiscellaneousFragment;
 import com.askp_control.Utils.Control;
 import com.askp_control.Utils.CpuValues;
 import com.askp_control.Utils.Utils;
@@ -168,6 +169,9 @@ public class MainActivity extends FragmentActivity {
 				fragment = new IoAlgorithmFragment();
 				break;
 			case 3:
+				fragment = new MiscellaneousFragment();
+				break;
+			case 4:
 				fragment = new InformationFragment();
 				break;
 			default:
@@ -180,7 +184,7 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return 4;
+			return 5;
 		}
 
 		@Override
@@ -195,6 +199,8 @@ public class MainActivity extends FragmentActivity {
 			case 2:
 				return getString(R.string.ioalgorithm).toUpperCase();
 			case 3:
+				return getString(R.string.miscellaneous).toUpperCase();
+			case 4:
 				return getString(R.string.information).toUpperCase(l);
 			}
 			return null;

@@ -105,7 +105,8 @@ public class GpuDisplayFragment extends Fragment implements
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)
 				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)
-				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET))
+				|| Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)
+				|| Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER))
 			mLayout.addView(mColor);
 
 		// Trinity Contrast Title
