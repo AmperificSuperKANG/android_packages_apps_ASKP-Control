@@ -84,6 +84,9 @@ public class Control {
 	public static String HEADPHONE_BOOST = String.valueOf(MiscellaneousValues
 			.mHeadphoneBoost());
 
+	public static String DYNAMIC_FSYNC = String.valueOf(MiscellaneousValues
+			.mDynamicFsync());
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -297,6 +300,13 @@ public class Control {
 					+ MiscellaneousValues.FILENAME_HEADPHONE_BOOST);
 			Utils.saveString("headphoneboost", HEADPHONE_BOOST, context);
 		}
+
+		// Dynamic Fsync
+		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)) {
+			Utils.runCommand("echo " + DYNAMIC_FSYNC + " > "
+					+ MiscellaneousValues.FILENAME_DYNAMIC_FSYNC);
+			Utils.saveString("dynamicfsync", DYNAMIC_FSYNC, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -330,5 +340,6 @@ public class Control {
 				.valueOf(MiscellaneousValues.mBatterExtender());
 		SOUND_HIGH = String.valueOf(MiscellaneousValues.mSoundHigh());
 		HEADPHONE_BOOST = String.valueOf(MiscellaneousValues.mHeadphoneBoost());
+		DYNAMIC_FSYNC = String.valueOf(MiscellaneousValues.mDynamicFsync());
 	}
 }

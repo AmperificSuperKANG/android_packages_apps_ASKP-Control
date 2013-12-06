@@ -37,6 +37,8 @@ public class MiscellaneousFragment extends Fragment implements
 	private static SeekBar mHeadphoneBoostBar;
 	private static TextView mHeadphoneBoostText;
 
+	private static CheckBox mDynamicFsyncBox;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -177,6 +179,34 @@ public class MiscellaneousFragment extends Fragment implements
 			mLayout.addView(mHeadphoneBoostText);
 		}
 
+		// Other Settings Title
+		TextView mOtherSettingsTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mOtherSettingsTitle,
+				getString(R.string.othersettings), getActivity());
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC))
+			mLayout.addView(mOtherSettingsTitle);
+
+		// Dynamic Fsync CheckBox
+		boolean mDynamicFsyncBoolean = false;
+		if (MiscellaneousValues.mDynamicFsync() == 1)
+			mDynamicFsyncBoolean = true;
+
+		mDynamicFsyncBox = new CheckBox(getActivity());
+		LayoutStyle.setCheckBox(mDynamicFsyncBox,
+				getString(R.string.dynamicfsync), mDynamicFsyncBoolean);
+		mDynamicFsyncBox.setOnCheckedChangeListener(this);
+
+		// Dynamic Fsync Summary
+		TextView mDynamicFsyncSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mDynamicFsyncSummary,
+				getString(R.string.dynamicfsync_summary), getActivity());
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)) {
+			mLayout.addView(mDynamicFsyncBox);
+			mLayout.addView(mDynamicFsyncSummary);
+		}
+
 		return rootView;
 	}
 
@@ -201,6 +231,12 @@ public class MiscellaneousFragment extends Fragment implements
 				Control.SOUND_HIGH = "1";
 			} else {
 				Control.SOUND_HIGH = "0";
+			}
+		} else if (buttonView.equals(mDynamicFsyncBox)) {
+			if (isChecked) {
+				Control.DYNAMIC_FSYNC = "1";
+			} else {
+				Control.DYNAMIC_FSYNC = "0";
 			}
 		}
 	}

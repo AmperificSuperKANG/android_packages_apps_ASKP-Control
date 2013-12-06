@@ -235,5 +235,12 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("headphoneboost", context) + " > "
 						+ MiscellaneousValues.FILENAME_HEADPHONE_BOOST);
+
+		// Dynamic Fsync
+		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC))
+			if (!Utils.getString("dynamicfsync", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("dynamicfsync", context) + " > "
+						+ MiscellaneousValues.FILENAME_DYNAMIC_FSYNC);
 	}
 }
