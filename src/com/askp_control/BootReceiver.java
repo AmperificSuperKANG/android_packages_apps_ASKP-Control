@@ -242,5 +242,12 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.runCommand("echo "
 						+ Utils.getString("dynamicfsync", context) + " > "
 						+ MiscellaneousValues.FILENAME_DYNAMIC_FSYNC);
+
+		// Fsync Control
+		if (Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL))
+			if (!Utils.getString("fsynccontrol", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("fsynccontrol", context) + " > "
+						+ MiscellaneousValues.FILENAME_FSYNC_CONTROL);
 	}
 }

@@ -90,6 +90,8 @@
     <string name="othersettings">Other Settings</string>
     <string name="dynamicfsync">Dynamic Fsync</string>
     <string name="dynamicfsync_summary">While screen is on, file sync is disabled when screen is off, a file sync is called to flush all outstanding writes and restore file sync operation as normal.</string>
+    <string name="fsynccontrol">Fsync</string>
+    <string name="fsynccontrol_summary">Disable for better file system performance at the risk of data lost when phone crashes.</string>
 
     <!-- Information -->
     <string name="information">Information</string>

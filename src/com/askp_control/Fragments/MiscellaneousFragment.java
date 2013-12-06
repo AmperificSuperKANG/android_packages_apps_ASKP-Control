@@ -39,6 +39,8 @@ public class MiscellaneousFragment extends Fragment implements
 
 	private static CheckBox mDynamicFsyncBox;
 
+	private static CheckBox mFsyncControlBox;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -184,7 +186,8 @@ public class MiscellaneousFragment extends Fragment implements
 		LayoutStyle.setTextTitle(mOtherSettingsTitle,
 				getString(R.string.othersettings), getActivity());
 
-		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC))
+		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)
+				|| Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL))
 			mLayout.addView(mOtherSettingsTitle);
 
 		// Dynamic Fsync CheckBox
@@ -205,6 +208,26 @@ public class MiscellaneousFragment extends Fragment implements
 		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)) {
 			mLayout.addView(mDynamicFsyncBox);
 			mLayout.addView(mDynamicFsyncSummary);
+		}
+
+		// Fsync Control CheckBox
+		boolean mFsyncControlBoolean = false;
+		if (MiscellaneousValues.mFsyncControl() == 1)
+			mFsyncControlBoolean = true;
+
+		mFsyncControlBox = new CheckBox(getActivity());
+		LayoutStyle.setCheckBox(mFsyncControlBox,
+				getString(R.string.fsynccontrol), mFsyncControlBoolean);
+		mFsyncControlBox.setOnCheckedChangeListener(this);
+
+		// Fsync Control Summary
+		TextView mFsyncControlSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mFsyncControlSummary,
+				getString(R.string.fsynccontrol_summary), getActivity());
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL)) {
+			mLayout.addView(mFsyncControlBox);
+			mLayout.addView(mFsyncControlSummary);
 		}
 
 		return rootView;
@@ -237,6 +260,12 @@ public class MiscellaneousFragment extends Fragment implements
 				Control.DYNAMIC_FSYNC = "1";
 			} else {
 				Control.DYNAMIC_FSYNC = "0";
+			}
+		} else if (buttonView.equals(mFsyncControlBox)) {
+			if (isChecked) {
+				Control.FSYNC_CONTROL = "1";
+			} else {
+				Control.FSYNC_CONTROL = "0";
 			}
 		}
 	}
