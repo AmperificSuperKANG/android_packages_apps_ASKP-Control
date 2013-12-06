@@ -59,6 +59,20 @@ public class BootReceiver extends BroadcastReceiver {
 						+ " && echo " + Utils.getString("minscreenon", context)
 						+ " > " + CpuValues.FILENAME_MIN_SCREEN_ON);
 
+		// Multicore Saving
+		if (Utils.existFile(CpuValues.FILENAME_MULTICORE_SAVING))
+			if (!Utils.getString("multicoresaving", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("multicoresaving", context) + " > "
+						+ CpuValues.FILENAME_MULTICORE_SAVING);
+
+		// Temp Limit
+		if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT))
+			if (!Utils.getString("templimit", context).equals("nothing"))
+				Utils.runCommand("echo "
+						+ Utils.getString("templimit", context) + " > "
+						+ CpuValues.FILENAME_TEMP_LIMIT);
+
 		// Governor
 		if (Utils.existFile(CpuValues.FILENAME_CUR_GOVERNOR))
 			if (!Utils.getString("governor", context).equals("nothing"))

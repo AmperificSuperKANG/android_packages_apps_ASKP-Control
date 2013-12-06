@@ -24,6 +24,10 @@
     <string name="maxscreenoff_summary">Set the maximum frequency the CPU scales up to when the screen is off.</string>
     <string name="minscreenon">CPU Min Freq Screen On</string>
     <string name="minscreenon_summary">Set the minimum frequency the CPU scales up to when the screen is on.</string>
+    <string name="multicoresaving">Multicore Power Saving</string>
+    <string name="multicoresaving_summary">Try to group tasks into the least cores possible. The higher value, the more aggressive</string>
+    <string name="templimit">Temperature Limit</string>
+    <string name="templimit_summary">Limit SOC highest temperature</string>
     <string name="governor">Governor</string>
     <string name="governor_summary">The CPU governor determines how your CPU behaves in response to changes in workload. Changing the governor will impact how your CPU scales through the frequency steps available to you CPU.</string>
     <string name="smartreflex">Smartreflex</string>

@@ -22,11 +22,13 @@ public class CpuValues {
 	public static final String FILENAME_MPU = "/sys/kernel/debug/smartreflex/sr_mpu/autocomp";
 	public static final String FILENAME_IVA = "/sys/kernel/debug/smartreflex/sr_iva/autocomp";
 	public static final String FILENAME_CORE = "/sys/kernel/debug/smartreflex/sr_core/autocomp";
-	public static final String FILENAME_MIN_SCREEN_ON = "/sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq";
-	public static final String FILENAME_MAX_SCREEN_OFF = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
 	public static final String FILENAME_CUR_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
 	public static final String FILENAME_AVAILABLE_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
 	public static final String FILENAME_AVAILABLE_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+	public static final String FILENAME_TEMP_LIMIT = "/sys/devices/virtual/misc/tempcontrol/templimit";
+	public static final String FILENAME_MULTICORE_SAVING = "/sys/devices/system/cpu/sched_mc_power_savings";
+	public static final String FILENAME_MIN_SCREEN_ON = "/sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq";
+	public static final String FILENAME_MAX_SCREEN_OFF = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
 	public static final String FILENAME_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
@@ -183,33 +185,6 @@ public class CpuValues {
 		return 0;
 	}
 
-	public static int mMinScreenOnFreq() {
-		if (Utils.existFile(FILENAME_MIN_SCREEN_ON))
-			try {
-				if (Utils.readLine(FILENAME_MIN_SCREEN_ON).equals("0"))
-					Utils.runCommand("echo " + mAvailableFreq().split(" ")[0]
-							+ " > " + FILENAME_MIN_SCREEN_ON);
-				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		return 0;
-	}
-
-	public static int mMaxScreenOffFreq() {
-		if (Utils.existFile(FILENAME_MAX_SCREEN_OFF))
-			try {
-				if (Utils.readLine(FILENAME_MAX_SCREEN_OFF).equals("0"))
-					Utils.runCommand("echo " + mAvailableFreq().split(" ")[0]
-							+ " > " + CpuValues.FILENAME_MAX_SCREEN_OFF);
-				return Integer
-						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		return 0;
-	}
-
 	public static void mCurGovernor() {
 		Command command = new Command(0, "cat " + FILENAME_CUR_GOVERNOR) {
 			@Override
@@ -258,6 +233,54 @@ public class CpuValues {
 				e.printStackTrace();
 			}
 		return "0 0";
+	}
+
+	public static int mTempLimit() {
+		if (Utils.existFile(FILENAME_TEMP_LIMIT))
+			try {
+				return Integer.parseInt(Utils.readLine(FILENAME_TEMP_LIMIT));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
+
+	public static int mMulticoreSaving() {
+		if (Utils.existFile(FILENAME_MULTICORE_SAVING))
+			try {
+				return Integer.parseInt(Utils
+						.readLine(FILENAME_MULTICORE_SAVING));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
+
+	public static int mMinScreenOnFreq() {
+		if (Utils.existFile(FILENAME_MIN_SCREEN_ON))
+			try {
+				if (Utils.readLine(FILENAME_MIN_SCREEN_ON).equals("0"))
+					Utils.runCommand("echo " + mAvailableFreq().split(" ")[0]
+							+ " > " + FILENAME_MIN_SCREEN_ON);
+				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		return 0;
+	}
+
+	public static int mMaxScreenOffFreq() {
+		if (Utils.existFile(FILENAME_MAX_SCREEN_OFF))
+			try {
+				if (Utils.readLine(FILENAME_MAX_SCREEN_OFF).equals("0"))
+					Utils.runCommand("echo " + mAvailableFreq().split(" ")[0]
+							+ " > " + CpuValues.FILENAME_MAX_SCREEN_OFF);
+				return Integer
+						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return 0;
 	}
 
 	public static void mMaxFreq() {

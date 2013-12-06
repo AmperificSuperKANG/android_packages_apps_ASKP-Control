@@ -19,6 +19,11 @@ public class Control {
 	public static String MIN_SCREEN_ON = String.valueOf(CpuValues
 			.mMinScreenOnFreq());
 
+	public static String MULTICORE_SAVING = String.valueOf(CpuValues
+			.mMulticoreSaving());
+
+	public static String TEMP_LIMIT = String.valueOf(CpuValues.mTempLimit());
+
 	public static String GOVERNOR = CpuFragment.mCurGovernorRaw;
 
 	public static String CORE = String.valueOf(CpuValues.mCore());
@@ -98,6 +103,20 @@ public class Control {
 					+ " && echo " + MIN_SCREEN_ON + " > "
 					+ CpuValues.FILENAME_MIN_SCREEN_ON);
 			Utils.saveString("minscreenon", MIN_SCREEN_ON, context);
+		}
+
+		// Multicore Saving
+		if (Utils.existFile(CpuValues.FILENAME_MULTICORE_SAVING)) {
+			Utils.runCommand("echo " + MULTICORE_SAVING + " > "
+					+ CpuValues.FILENAME_MULTICORE_SAVING);
+			Utils.saveString("multicoresaving", MULTICORE_SAVING, context);
+		}
+
+		// Temp Limit
+		if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT)) {
+			Utils.runCommand("echo " + TEMP_LIMIT + " > "
+					+ CpuValues.FILENAME_TEMP_LIMIT);
+			Utils.saveString("templimit", TEMP_LIMIT, context);
 		}
 
 		// Governor

@@ -51,6 +51,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static String mMaxFreqValue, mMinFreqValue, mMaxScreenOffValue,
 			mMinScreenOnValue;
 
+	private static SeekBar mMulticoreSavingBar;
+	private static TextView mMulticoreSavingText;
+
+	private static SeekBar mTempLimitBar;
+	private static TextView mTempLimitText;
+
 	private static Spinner mGovernorSpinner;
 	private static String[] mAvailableGovernor;
 	private static List<String> mAvailableGovernorList = new ArrayList<String>();
@@ -239,6 +245,62 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mLayout.addView(mMinFreqScreenOnSummary);
 			mLayout.addView(mMinFreqScreenOnBar);
 			mLayout.addView(mMinFreqScreenOnText);
+		}
+
+		// Multicore Saving Title
+		TextView mMulticoreSavingTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mMulticoreSavingTitle,
+				getString(R.string.multicoresaving), getActivity());
+
+		// Multicore Saving Summary
+		TextView mMulticoreSavingSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mMulticoreSavingSummary,
+				getString(R.string.multicoresaving_summary), getActivity());
+
+		// Multicore Saving SeekBar
+		mMulticoreSavingBar = new SeekBar(getActivity());
+		LayoutStyle.setSeekBar(mMulticoreSavingBar, 2,
+				CpuValues.mMulticoreSaving());
+		mMulticoreSavingBar.setOnSeekBarChangeListener(this);
+
+		// Multicore Saving Text
+		mMulticoreSavingText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mMulticoreSavingText,
+				String.valueOf(CpuValues.mMulticoreSaving()), getActivity());
+
+		if (Utils.existFile(CpuValues.FILENAME_MULTICORE_SAVING)) {
+			mLayout.addView(mMulticoreSavingTitle);
+			mLayout.addView(mMulticoreSavingSummary);
+			mLayout.addView(mMulticoreSavingBar);
+			mLayout.addView(mMulticoreSavingText);
+		}
+
+		// Temp Limit Title
+		TextView mTempLimitTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mTempLimitTitle,
+				getString(R.string.templimit), getActivity());
+
+		// Temp Limit Summary
+		TextView mTempLimitSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mTempLimitSummary,
+				getString(R.string.templimit_summary), getActivity());
+
+		// Temp Limit SeekBar
+		mTempLimitBar = new SeekBar(getActivity());
+		LayoutStyle.setSeekBar(mTempLimitBar, 20,
+				CpuValues.mTempLimit() / 1000 - 60);
+		mTempLimitBar.setOnSeekBarChangeListener(this);
+
+		// Temp Limit Text
+		mTempLimitText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mTempLimitText,
+				String.valueOf(CpuValues.mTempLimit() / 1000), getActivity());
+
+		if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT)) {
+			mLayout.addView(mTempLimitTitle);
+			mLayout.addView(mTempLimitSummary);
+			mLayout.addView(mTempLimitBar);
+			mLayout.addView(mTempLimitText);
 		}
 
 		// Governor Title
@@ -617,6 +679,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mMinFreqScreenOnText.setText(String.valueOf(Integer
 					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
 			mMinScreenOnValue = mAvailableFreq[progress];
+		} else if (seekBar.equals(mMulticoreSavingBar)) {
+			mMulticoreSavingText.setText(String.valueOf(progress));
+		} else if (seekBar.equals(mTempLimitBar)) {
+			mTempLimitText.setText(String.valueOf(progress + 60));
 		}
 	}
 
@@ -676,6 +742,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			Control.MAX_SCREEN_OFF = mMaxScreenOffValue;
 		} else if (seekBar.equals(mMinFreqScreenOnBar)) {
 			Control.MIN_SCREEN_ON = mMinScreenOnValue;
+		} else if (seekBar.equals(mMulticoreSavingBar)) {
+			Control.MULTICORE_SAVING = mMulticoreSavingText.getText()
+					.toString();
+		} else if (seekBar.equals(mTempLimitBar)) {
+			Control.TEMP_LIMIT = mTempLimitText.getText().toString() + "000";
 		}
 	}
 
