@@ -118,6 +118,7 @@
 
     <!-- Download -->
     <string name="download">Download</string>
+    <string name="nointernet">No Internet Connection</string>
     <string name="nosupport">No Support</string>
     <string name="doyouwant">Do you want to</string>
     <string name="delete">Delete</string>

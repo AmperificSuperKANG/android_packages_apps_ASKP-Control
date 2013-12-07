@@ -85,12 +85,15 @@ public class DownloadFragment extends Fragment {
 		@Override
 		protected void onPostExecute(String result) {
 			mProgress.setVisibility(View.GONE);
+			TextView mNoSupport = new TextView(context);
+			mNoSupport.setTextSize(20);
+			LayoutStyle.setCenterText(mNoSupport,
+					context.getString(R.string.nointernet), context);
 
-			if (GetConnection.mHtmlstring.contains("Contact Support")) {
-				TextView mNoSupport = new TextView(context);
-				LayoutStyle.setCenterText(mNoSupport,
-						context.getString(R.string.nosupport), context);
-				mNoSupport.setTextSize(20);
+			if (GetConnection.mHtmlstring.isEmpty()) {
+				mLayout.addView(mNoSupport);
+			} else if (GetConnection.mHtmlstring.contains("Contact Support")) {
+				mNoSupport.setText(context.getString(R.string.nosupport));
 				mLayout.addView(mNoSupport);
 			} else {
 				mLayout.addView(mListView);
