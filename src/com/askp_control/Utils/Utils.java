@@ -8,6 +8,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ import com.stericson.RootTools.execution.CommandCapture;
 public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
+
+	private static ProgressDialog mProgressDialog;
 
 	public static String getString(String name, Context context) {
 		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);

@@ -21,7 +21,7 @@ public class InformationFragment extends Fragment {
 	private static TextView mDevice, mCodename, mKernelVersion;
 
 	private static final String mManufacturer = Build.MANUFACTURER;
-	private static final String mModel = Build.MODEL;
+	public static final String mModel = Build.MODEL;
 	private static final String mCode = Build.DEVICE;
 
 	@Override
