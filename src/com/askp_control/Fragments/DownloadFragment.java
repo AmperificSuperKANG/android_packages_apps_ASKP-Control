@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.askp_control.R;
 import com.askp_control.Utils.GetConnection;
+import com.askp_control.Utils.LayoutStyle;
 import com.askp_control.Utils.Utils;
 
 import android.content.Context;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class DownloadFragment extends Fragment {
 
@@ -60,37 +62,45 @@ public class DownloadFragment extends Fragment {
 		protected void onPostExecute(String result) {
 			mProgress.setVisibility(View.GONE);
 
-			String[] resultRaw = GetConnection.mHtmlstring.split(System
-					.getProperty("line.separator"));
+			if (GetConnection.mHtmlstring.contains("Contact Support")) {
+				TextView mNoSupport = new TextView(context);
+				LayoutStyle.setCenterText(mNoSupport,
+						context.getString(R.string.nosupport), context);
+				mNoSupport.setTextSize(20);
+				mLayout.addView(mNoSupport);
+			} else {
+				mLayout.addView(mListView);
+				String[] resultRaw = GetConnection.mHtmlstring.split(System
+						.getProperty("line.separator"));
 
-			List<String> valueNameList = new ArrayList<String>();
-			for (int i = 0; i < resultRaw.length; i++) {
-				valueNameList.add(resultRaw[i].split(": ")[0]);
-			}
-
-			final List<String> valueLinkList = new ArrayList<String>();
-			for (int i = 0; i < resultRaw.length; i++) {
-				valueLinkList.add(resultRaw[i].split(": ")[1]);
-			}
-
-			ListAdapter adapter = new ArrayAdapter<String>(context,
-					android.R.layout.simple_list_item_1, valueNameList);
-
-			mListView.setAdapter(adapter);
-
-			mListView.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					Utils.toast(valueLinkList.get(arg2), context);
+				List<String> valueNameList = new ArrayList<String>();
+				for (int i = 0; i < resultRaw.length; i++) {
+					valueNameList.add(resultRaw[i].split(": ")[0]);
 				}
-			});
+
+				final List<String> valueLinkList = new ArrayList<String>();
+				for (int i = 0; i < resultRaw.length; i++) {
+					valueLinkList.add(resultRaw[i].split(": ")[1]);
+				}
+
+				ListAdapter adapter = new ArrayAdapter<String>(context,
+						android.R.layout.simple_list_item_1, valueNameList);
+
+				mListView.setAdapter(adapter);
+
+				mListView.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						Utils.toast(valueLinkList.get(arg2), context);
+					}
+				});
+			}
 		}
 	}
 
 	public static void refresh() {
 		mLayout.addView(mProgress);
-		mLayout.addView(mListView);
 		GetConnection.getconnection(mLink
 				+ InformationFragment.mModel.replace(" ", "").toLowerCase());
 		DisplayString task = new DisplayString();

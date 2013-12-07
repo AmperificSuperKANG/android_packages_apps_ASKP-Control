@@ -101,6 +101,7 @@
 
     <!-- Download -->
     <string name="download">Download</string>
+    <string name="nosupport">No Support</string>
 
     <!-- Menu -->
     <string name="action_settings">Settings</string>
