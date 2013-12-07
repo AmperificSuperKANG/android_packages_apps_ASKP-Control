@@ -16,7 +16,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control.Utils;
+package com.askp.control.Utils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import com.askp_control.Fragments.CpuFragment;
+import com.askp.control.Fragments.CpuFragment;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.exceptions.RootDeniedException;
 import com.stericson.RootTools.execution.Command;

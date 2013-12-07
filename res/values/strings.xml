@@ -19,7 +19,7 @@
 
 <resources>
 
-    <string name="app_name">ASKP-Control</string>
+    <string name="app_name">ASKP Control</string>
     <string name="unavailable">Unavailable</string>
     <string name="noroot">No root!</string>
     <string name="norootaccess">No root access!</string>

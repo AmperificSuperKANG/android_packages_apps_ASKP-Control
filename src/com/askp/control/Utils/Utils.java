@@ -16,7 +16,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control.Utils;
+package com.askp.control.Utils;
 
 import java.io.BufferedReader;
 import java.io.File;

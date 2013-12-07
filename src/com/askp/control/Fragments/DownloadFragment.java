@@ -16,16 +16,16 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control.Fragments;
+package com.askp.control.Fragments;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.askp_control.DownloadActivity;
-import com.askp_control.R;
-import com.askp_control.Utils.GetConnection;
-import com.askp_control.Utils.LayoutStyle;
-import com.askp_control.Utils.Utils;
+import com.askp.control.DownloadActivity;
+import com.askp.control.R;
+import com.askp.control.Utils.GetConnection;
+import com.askp.control.Utils.LayoutStyle;
+import com.askp.control.Utils.Utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -36,7 +36,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,20 +57,15 @@ public class DownloadFragment extends Fragment {
 	private static ProgressBar mProgress;
 	private static ListView mListView;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.layout, container, false);
+		View rootView = inflater.inflate(R.layout.download, container, false);
 		context = getActivity();
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 		mProgress = new ProgressBar(getActivity());
-		mListView = new ListView(getActivity());
-		Display display = getActivity().getWindowManager().getDefaultDisplay();
-		int width = display.getWidth();
-		int height = display.getHeight();
-		mListView.setLayoutParams(new LinearLayout.LayoutParams(width,
-				height - 200));
+		mListView = (ListView) rootView.findViewById(R.id.listView);
+		mListView.setVisibility(View.GONE);
 		refresh();
 		return rootView;
 	}
@@ -85,18 +79,18 @@ public class DownloadFragment extends Fragment {
 		@Override
 		protected void onPostExecute(String result) {
 			mProgress.setVisibility(View.GONE);
-			TextView mNoSupport = new TextView(context);
-			mNoSupport.setTextSize(20);
-			LayoutStyle.setCenterText(mNoSupport,
+			TextView mError = new TextView(context);
+			mError.setTextSize(20);
+			LayoutStyle.setCenterText(mError,
 					context.getString(R.string.nointernet), context);
 
 			if (GetConnection.mHtmlstring.isEmpty()) {
-				mLayout.addView(mNoSupport);
+				mLayout.addView(mError);
 			} else if (GetConnection.mHtmlstring.contains("Contact Support")) {
-				mNoSupport.setText(context.getString(R.string.nosupport));
-				mLayout.addView(mNoSupport);
+				mError.setText(context.getString(R.string.nosupport));
+				mLayout.addView(mError);
 			} else {
-				mLayout.addView(mListView);
+				mListView.setVisibility(View.VISIBLE);
 				String[] resultRaw = GetConnection.mHtmlstring.split(System
 						.getProperty("line.separator"));
 

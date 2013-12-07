@@ -16,7 +16,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control.Fragments;
+package com.askp.control.Fragments;
 
 import java.io.IOException;
 
@@ -29,8 +29,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.askp_control.R;
-import com.askp_control.Utils.Utils;
+import com.askp.control.R;
+import com.askp.control.Utils.Utils;
 
 public class InformationFragment extends Fragment {
 

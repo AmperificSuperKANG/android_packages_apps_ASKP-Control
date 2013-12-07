@@ -19,7 +19,6 @@
 
 <resources>
 
-    <string name="app_name">ASKP-Control</string>
     <string name="unavailable">Nicht Verfügbar</string>
     <string name="noroot">Kein root!</string>
     <string name="norootaccess">Kein root Zugriff!</string>
@@ -30,12 +29,9 @@
     <string name="newkernel">Neuer Kernel erkannt. Ihre Werte werden nicht übernohmen.</string>
 
     <!-- CPU -->
-    <string name="cpu">Cpu</string>
     <string name="cpufreq">CPU Taktfrequenz</string>
     <string name="cpuscaling">Taktfrequenz verändern</string>
-    <string name="cpumaxfreq">CPU Max Freq</string>
     <string name="cpumaxfreq_summary">Ändere die maximale Taktfrequenz der CPU.</string>
-    <string name="cpuminfreq">CPU Min Freq</string>
     <string name="cpuminfreq_summary">Ändere die minimale Taktfrequenz der CPU.</string>
     <string name="maxscreenoff">CPU Max Freq Bildschirm Aus</string>
     <string name="maxscreenoff_summary">Ändere die maximale Taktfrequenz der CPU wenn der Bildschirm aus ist.</string>
@@ -45,32 +41,24 @@
     <string name="multicoresaving_summary">Gruppiert Aufgaben möglichst wenigen Kernen zu. Je höher der Wert desto aggressiver</string>
     <string name="templimit">Temperaturlimit</string>
     <string name="templimit_summary">Begrenze die Höchsttemperatur der SOC</string>
-    <string name="governor">Governor</string>
     <string name="governor_summary">Der CPU Governor beschließt wie sich die CPU verhält bei Auslastungen. Die Änderung des Governors hat Auswirkungen wie die CPU sich zwischen Taktfrequenzen entscheidet.</string>
-    <string name="smartreflex">Smartreflex</string>
     <string name="smartreflex_summary">Smartreflex ist ein Energiesparassistent entwickelt von Texas Instruments. Es untertaktet dynamisch die Spannug jeder Frequenz zu dem niedrigsten und stabilsten Wert</string>
-    <string name="core">Core</string>
-    <string name="iva">IVA</string>
-    <string name="mpu">MPU</string>
     <string name="corevoltages">Kern Spannungen</string>
     <string name="ivavoltages">IVA Spannungen</string>
     <string name="mpuvoltages">MPU Spannungen</string>
-    <string name="regulatorvoltages">Regulator Spannungen</string>
     <string name="voltage">Spannung</string>
 
     <!-- GPU & Display -->
-    <string name="gpu">Gpu</string>
     <string name="display">Bildschirm</string>
     <string name="gpuscaling">GPU Taktfrequenz verändern</string>
-    <string name="gpumaxfreq">GPU Max Freq</string>
     <string name="gpumaxfreq_summary">Setze die maximale Taktfrequenz der GPU.</string>
     <string name="adaptivebrightness">Inhaltspezifische Helligkeit</string>
     <string name="adaptivebrightness_summary">Deaktivere diese Funktion um Weiß heller bei niedriger Helligkeit zu machen.</string>
     <string name="trinitycontrast">Trinityss Kontrast</string>
-    <string name="contrast">Setze Kontrast</string>
+    <string name="contrast">Ändere Kontrast</string>
     <string name="contrast_summary">Ändere den Unterschied zwischen dunklen und hellen Farben.</string>
     <string name="gammacontrol">Gamma Kontrolle</string>
-    <string name="setgamma">Setze Gamma Wert</string>
+    <string name="setgamma">Ändere Gamma Wert</string>
     <string name="gammacontrol_summary">Ändere Mittelton (mittlere Grautöne).</string>
     <string name="gammaoffset">Gamma Abweichung</string>
     <string name="gammaoffset_summary">Gamma Abweichung kontrolliert Schatten bzw. Schwarztöne des Bildschirmes. Sie ändert die Helligkeit bzw. Farbstufen, aber Mitteltöne und Spitzlicht Bereiche werden nicht verändert.</string>
@@ -84,7 +72,6 @@
     <string name="ioalgorithm">I/O Algorhythmus</string>
     <string name="tcpcongestion">Übertragungssteuerungsprotokoll</string>
     <string name="tcpcongestion_summary">Das Übertragungssteuerungsprotokoll ist eine Vereinbarung darüber, auf welche Art und Weise Daten zwischen Computern ausgetauscht werden sollen.</string>
-    <string name="ioscheduler">I/O scheduler</string>
     <string name="ioscheduler_summary">Ändere den aktiven I/O Algorhythmus. Das Steuerprogramm (Scheduler) entscheidet wie mit I/0 Anfragen umgegangen wird.</string>
     <string name="internalscheduler">Interner Speicher Scheduler</string>
     <string name="externalscheduler">Externer Speicher Scheduler</string>
@@ -98,16 +85,14 @@
     <string name="wifihigh_summary">Behalte Wlan Geschwindigkeit auch im Ruhezustand.</string>
     <string name="battery">Batterie</string>
     <string name="fastcharge">Erzwinge Schnellladen</string>
-    <string name="fastcharge_summary">Aktivere diese Funktion um die Ladegeschwindigkeit mit USB Verbindung zu erhöhen, gleichzeitig aber wird USB Mass Storage deaktiviert.</string>
+    <string name="fastcharge_summary">Aktivere diese Funktion um die Ladegeschwindigkeit mit USB Verbindung zu erhöhen, gleichzeitig aber wird USB mass storage deaktiviert.</string>
     <string name="batteryextender">Akkulebensdauer erhöhen</string>
     <string name="batteryextender_summary">Bestimme eine Begrenzung für die Kapazität zu der die Batterie geladen wird, durch eine Eingabe zwischen den Werten 0 bis 100.</string>
-    <string name="audio">Audio</string>
     <string name="soundhigh">Hochleistungston</string>
     <string name="headphoneboost">Kopfhörerlautstärkenriegler</string>
     <string name="othersettings">Andere Einstellungen</string>
     <string name="dynamicfsync">Dynamisches Fsync</string>
     <string name="dynamicfsync_summary">Wenn aktiviert und Bildschirm an ist, ist der Fsync Ablauf asynchron. Wenn Bildschirm aus ist, wird der Ablauf synchron ausgeführt.</string>
-    <string name="fsynccontrol">Fsync</string>
     <string name="fsynccontrol_summary">Deaktivire für bessere Dateiübertragung, mit dem Risiko Daten zu verlieren wenn etwas abstürzt.</string>
 
     <!-- Information -->

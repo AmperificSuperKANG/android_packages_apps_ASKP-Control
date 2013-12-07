@@ -16,7 +16,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control;
+package com.askp.control;
 
 import java.util.Locale;
 
@@ -29,15 +29,15 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.askp_control.Fragments.CpuFragment;
-import com.askp_control.Fragments.DownloadFragment;
-import com.askp_control.Fragments.GpuDisplayFragment;
-import com.askp_control.Fragments.InformationFragment;
-import com.askp_control.Fragments.IoAlgorithmFragment;
-import com.askp_control.Fragments.MiscellaneousFragment;
-import com.askp_control.Utils.Control;
-import com.askp_control.Utils.CpuValues;
-import com.askp_control.Utils.Utils;
+import com.askp.control.Fragments.CpuFragment;
+import com.askp.control.Fragments.DownloadFragment;
+import com.askp.control.Fragments.GpuDisplayFragment;
+import com.askp.control.Fragments.InformationFragment;
+import com.askp.control.Fragments.IoAlgorithmFragment;
+import com.askp.control.Fragments.MiscellaneousFragment;
+import com.askp.control.Utils.Control;
+import com.askp.control.Utils.CpuValues;
+import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
 public class MainActivity extends FragmentActivity {

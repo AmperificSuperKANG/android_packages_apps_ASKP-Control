@@ -16,12 +16,12 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control.Utils;
+package com.askp.control.Utils;
 
 import android.content.Context;
 
-import com.askp_control.Fragments.CpuFragment;
-import com.askp_control.Fragments.IoAlgorithmFragment;
+import com.askp.control.Fragments.CpuFragment;
+import com.askp.control.Fragments.IoAlgorithmFragment;
 
 public class Control {
 

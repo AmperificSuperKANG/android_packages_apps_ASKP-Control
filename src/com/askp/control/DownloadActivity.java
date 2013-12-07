@@ -16,7 +16,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control;
+package com.askp.control;
 
 import static android.app.DownloadManager.COLUMN_REASON;
 import static android.app.DownloadManager.COLUMN_STATUS;
@@ -39,7 +39,7 @@ import static android.app.DownloadManager.STATUS_PENDING;
 import static android.app.DownloadManager.STATUS_RUNNING;
 import static android.app.DownloadManager.STATUS_SUCCESSFUL;
 
-import com.askp_control.Utils.Utils;
+import com.askp.control.Utils.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;

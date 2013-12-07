@@ -16,14 +16,14 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control.Fragments;
+package com.askp.control.Fragments;
 
-import com.askp_control.MainActivity;
-import com.askp_control.R;
-import com.askp_control.Utils.Control;
-import com.askp_control.Utils.LayoutStyle;
-import com.askp_control.Utils.MiscellaneousValues;
-import com.askp_control.Utils.Utils;
+import com.askp.control.MainActivity;
+import com.askp.control.R;
+import com.askp.control.Utils.Control;
+import com.askp.control.Utils.LayoutStyle;
+import com.askp.control.Utils.MiscellaneousValues;
+import com.askp.control.Utils.Utils;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

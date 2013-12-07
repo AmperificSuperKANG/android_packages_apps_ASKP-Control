@@ -16,13 +16,13 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp_control;
+package com.askp.control;
 
-import com.askp_control.Utils.CpuValues;
-import com.askp_control.Utils.GpuDisplayValues;
-import com.askp_control.Utils.IoAlgorithmValues;
-import com.askp_control.Utils.MiscellaneousValues;
-import com.askp_control.Utils.Utils;
+import com.askp.control.Utils.CpuValues;
+import com.askp.control.Utils.GpuDisplayValues;
+import com.askp.control.Utils.IoAlgorithmValues;
+import com.askp.control.Utils.MiscellaneousValues;
+import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
 import android.content.BroadcastReceiver;
