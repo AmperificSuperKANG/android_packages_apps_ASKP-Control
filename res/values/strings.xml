@@ -46,7 +46,7 @@
     <string name="templimit">Temperature Limit</string>
     <string name="templimit_summary">Limit SOC highest temperature</string>
     <string name="governor">Governor</string>
-    <string name="governor_summary">The CPU governor determines how your CPU behaves in response to changes in workload. Changing the governor will impact how your CPU scales through the frequency steps available to you CPU.</string>
+    <string name="governor_summary">The CPU governor determines how the CPU behaves in response to changes in workload. Changing the governor will impact how the CPU scales through the frequency steps available to you CPU.</string>
     <string name="smartreflex">Smartreflex</string>
     <string name="smartreflex_summary">Smartreflex is a power management technology developed by Texas Instruments. It dynamically undervolts to what it determines is the lowest stable voltage at each frequency.</string>
     <string name="core">Core</string>
@@ -73,7 +73,7 @@
     <string name="setgamma">Set Gamma Value</string>
     <string name="gammacontrol_summary">Set midtones (middle gray levels).</string>
     <string name="gammaoffset">Gamma Offset</string>
-    <string name="gammaoffset_summary">Offset controls Shadows/Blacks of the display. It does this by changing the brightness/color levels while leaving midtones and highlight areas unaffected.</string>
+    <string name="gammaoffset_summary">Gamma Offset controls Shadows/Blacks of the display. It does this by changing the brightness/color levels while leaving midtones and highlight areas unaffected.</string>
     <string name="colormultipliers">Color Multipliers</string>
     <string name="colormultipliers_summary">Set multiplier for a specific color.</string>
     <string name="red">Red</string>
@@ -98,7 +98,7 @@
     <string name="wifihigh_summary">Keep Wifi speed in sleep mode.</string>
     <string name="battery">Battery</string>
     <string name="fastcharge">Force Fast Charge</string>
-    <string name="fastcharge_summary">Enable this will increase the charing rate with USB, but disable usb mass storage.</string>
+    <string name="fastcharge_summary">Enable this will increase the charing speed with USB, but disable usb mass storage.</string>
     <string name="batteryextender">Battery Life eXtender</string>
     <string name="batteryextender_summary">Set a limit for the capacity to which the battery will be charged by passing a value between 0 and 100</string>
     <string name="audio">Audio</string>
@@ -106,7 +106,7 @@
     <string name="headphoneboost">Headphone Volume Boost</string>
     <string name="othersettings">Other Settings</string>
     <string name="dynamicfsync">Dynamic Fsync</string>
-    <string name="dynamicfsync_summary">While screen is on, file sync is disabled when screen is off, a file sync is called to flush all outstanding writes and restore file sync operation as normal.</string>
+    <string name="dynamicfsync_summary">When enabled and screen is on, fsync operation is asynchronous. When screen is off, this operation is committed synchronously.</string>
     <string name="fsynccontrol">Fsync</string>
     <string name="fsynccontrol_summary">Disable for better file system performance at the risk of data lost when phone crashes.</string>
 
@@ -120,14 +120,11 @@
     <string name="download">Download</string>
     <string name="nointernet">No Internet Connection</string>
     <string name="nosupport">No Support</string>
-    <string name="doyouwant">Do you want to</string>
+    <string name="doyouwantdownload">Do you want to download this File?</string>
     <string name="delete">Delete</string>
-    <string name="filealreadyexist">You already downloaded this file. Do you want to re-download it?</string>
+    <string name="filealreadyexist">You already downloaded this file. Do you want to re-load it?</string>
     <string name="downloading">Downloading</string>
     <string name="success">Success</string>
     <string name="fileislocatedin">File is located in</string>
-
-    <!-- Menu -->
-    <string name="action_settings">Settings</string>
 
 </resources>

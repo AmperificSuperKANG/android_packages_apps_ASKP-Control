@@ -143,11 +143,8 @@ public class DownloadFragment extends Fragment {
 		AlertDialog.Builder mConfirm = new AlertDialog.Builder(context);
 		mConfirm.setTitle(context.getString(R.string.download))
 				.setMessage(
-						context.getString(R.string.doyouwant)
-								+ " "
-								+ context.getString(R.string.download)
-										.toLowerCase() + " "
-								+ DownloadActivity.mDownloadname + "?")
+						context.getString(R.string.doyouwantdownload) + "\n"
+								+ DownloadActivity.mDownloadname)
 				.setNegativeButton(context.getString(android.R.string.no),
 						new OnClickListener() {
 							@Override
