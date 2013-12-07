@@ -50,7 +50,7 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	private static String[] mAvailableTCPCongestion;
 	private static Spinner mTCPCongestionSpinner;
-	public static int mTCPCongestion = 0;
+	public static int mTCPCongestion;
 	public static int mTCPCongestionRaw;
 
 	private static String[] mAvailableInternalScheduler;
@@ -88,6 +88,7 @@ public class IoAlgorithmFragment extends Fragment implements
 
 		// TCP Congestion Spinner
 		mAvailableTCPCongestion = IoAlgorithmValues.mTCPCongestion().split(" ");
+		mTCPCongestion = 0;
 
 		ArrayAdapter<String> adapterTCPCongestion = new ArrayAdapter<String>(
 				getActivity(), android.R.layout.simple_spinner_item,
@@ -96,7 +97,8 @@ public class IoAlgorithmFragment extends Fragment implements
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		mTCPCongestionSpinner = new Spinner(getActivity());
-		LayoutStyle.setSpinner(mTCPCongestionSpinner, adapterTCPCongestion, 0);
+		LayoutStyle.setSpinner(mTCPCongestionSpinner, adapterTCPCongestion,
+				mTCPCongestion);
 		mTCPCongestionSpinner.setOnItemSelectedListener(this);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_TCP_CONGESTION)) {
