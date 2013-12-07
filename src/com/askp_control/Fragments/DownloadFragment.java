@@ -3,15 +3,22 @@ package com.askp_control.Fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.askp_control.PackageDownloader;
+import com.askp_control.DownloadActivity;
 import com.askp_control.R;
 import com.askp_control.Utils.GetConnection;
 import com.askp_control.Utils.LayoutStyle;
+import com.askp_control.Utils.Utils;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -93,14 +100,12 @@ public class DownloadFragment extends Fragment {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
-						PackageDownloader.mDownloadlink = valueLinkList
+						DownloadActivity.mDownloadlink = valueLinkList
 								.get(arg2);
-						PackageDownloader.mDownloadname = mListView
-								.getAdapter().getItem(arg2).toString()
-								.replace(" ", "")
+						DownloadActivity.mDownloadname = mListView.getAdapter()
+								.getItem(arg2).toString().replace(" ", "")
 								+ ".zip";
-						Intent i = new Intent(context, PackageDownloader.class);
-						context.startActivity(i);
+						confirmDownload(context);
 					}
 				});
 			}
@@ -113,5 +118,68 @@ public class DownloadFragment extends Fragment {
 				+ InformationFragment.mModel.replace(" ", "").toLowerCase());
 		DisplayString task = new DisplayString();
 		task.execute();
+	}
+
+	private static void confirmDownload(final Context context) {
+		AlertDialog.Builder mConfirm = new AlertDialog.Builder(context);
+		mConfirm.setTitle(context.getString(R.string.download))
+				.setMessage(
+						context.getString(R.string.doyouwant)
+								+ " "
+								+ context.getString(R.string.download)
+										.toLowerCase() + " "
+								+ DownloadActivity.mDownloadname + "?")
+				.setNegativeButton(context.getString(android.R.string.no),
+						new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						})
+				.setPositiveButton(context.getString(android.R.string.yes),
+						new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								if (Utils.existFile(Environment
+										.getExternalStorageDirectory()
+										.toString()
+										+ "/askp-kernel/"
+										+ DownloadActivity.mDownloadname))
+									deleteFile(context);
+								else
+									startDownload(context);
+							}
+						}).show();
+	}
+
+	private static void deleteFile(final Context context) {
+		AlertDialog.Builder mDelete = new AlertDialog.Builder(context);
+		mDelete.setTitle(context.getString(R.string.delete))
+				.setMessage(context.getString(R.string.filealreadyexist))
+				.setNegativeButton(context.getString(android.R.string.no),
+						new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						})
+				.setPositiveButton(context.getString(android.R.string.yes),
+						new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Utils.runCommand("rm -f "
+										+ Environment
+												.getExternalStorageDirectory()
+												.toString() + "/askp-kernel/"
+										+ DownloadActivity.mDownloadname);
+								startDownload(context);
+							}
+						}).show();
+	}
+
+	private static void startDownload(Context context) {
+		context.startActivity(new Intent(context, DownloadActivity.class));
 	}
 }

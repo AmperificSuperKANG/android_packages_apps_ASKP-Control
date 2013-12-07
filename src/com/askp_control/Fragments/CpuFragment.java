@@ -772,23 +772,23 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		MainActivity.enableButtons();
 		MainActivity.mCpuAction = true;
 		if (buttonView.equals(mCore)) {
-			if (isChecked) {
+			if (isChecked)
 				Control.CORE = "1";
-			} else {
+			else
 				Control.CORE = "0";
-			}
+
 		} else if (buttonView.equals(mIVA)) {
-			if (isChecked) {
+			if (isChecked)
 				Control.IVA = "1";
-			} else {
+			else
 				Control.IVA = "0";
-			}
+
 		} else if (buttonView.equals(mMPU)) {
-			if (isChecked) {
+			if (isChecked)
 				Control.MPU = "1";
-			} else {
+			else
 				Control.MPU = "0";
-			}
+
 		}
 	}
 }

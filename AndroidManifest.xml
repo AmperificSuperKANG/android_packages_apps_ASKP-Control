@@ -28,7 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="PackageDownloader" >
+        <activity
+            android:name="DownloadActivity"
+            android:theme="@style/ThemeTransparent" >
         </activity>
 
         <receiver

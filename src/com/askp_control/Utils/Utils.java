@@ -8,7 +8,10 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
@@ -19,6 +22,27 @@ import com.stericson.RootTools.execution.CommandCapture;
 public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
+
+	private static ProgressDialog mProgressDialog;
+
+	public static void displayprogress(String message, final Context context) {
+		mProgressDialog = new ProgressDialog(context);
+		mProgressDialog.setMessage(message);
+		mProgressDialog.setIndeterminate(false);
+		mProgressDialog
+				.setOnDismissListener(new DialogInterface.OnDismissListener() {
+					@Override
+					public void onDismiss(DialogInterface dialog) {
+						((Activity) context).finish();
+					}
+				});
+		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		mProgressDialog.show();
+	}
+
+	public static void hideprogress() {
+		mProgressDialog.hide();
+	}
 
 	public static String getString(String name, Context context) {
 		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);

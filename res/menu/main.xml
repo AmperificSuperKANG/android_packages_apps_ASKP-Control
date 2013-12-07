@@ -8,7 +8,7 @@
     <item
         android:id="@+id/action_apply"
         android:icon="@drawable/navigation_accept"
-        android:title="@string/action_apply"/>
+        android:title="@android:string/ok"/>
     <item
         android:id="@+id/action_cancel"
         android:icon="@drawable/navigation_cancel"

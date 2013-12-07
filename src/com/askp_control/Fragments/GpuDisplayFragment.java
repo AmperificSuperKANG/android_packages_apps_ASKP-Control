@@ -411,10 +411,10 @@ public class GpuDisplayFragment extends Fragment implements
 		MainActivity.enableButtons();
 		MainActivity.mGpuDisplayAction = true;
 		if (buttonView.equals(mAdaptiveBrightnessBox))
-			if (isChecked) {
+			if (isChecked)
 				Control.APAPTIVE_BRIGHTNESS = "1";
-			} else {
+			else
 				Control.APAPTIVE_BRIGHTNESS = "0";
-			}
+
 	}
 }

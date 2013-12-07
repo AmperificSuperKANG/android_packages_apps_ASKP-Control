@@ -6,7 +6,6 @@
     <string name="noroot">No root!</string>
     <string name="norootaccess">No root access!</string>
     <string name="nobusybox">No busybox!</string>
-    <string name="action_apply">Apply</string>
     <string name="valuesapplied">Apply Successfully</string>
     <string name="warning">ONLY FOR ADVANCED USERS!</string>
     <string name="action_setonboot">Set on boot</string>
@@ -102,6 +101,12 @@
     <!-- Download -->
     <string name="download">Download</string>
     <string name="nosupport">No Support</string>
+    <string name="doyouwant">Do you want to</string>
+    <string name="delete">Delete</string>
+    <string name="filealreadyexist">You already downloaded this file. Do you want to re-download it?</string>
+    <string name="downloading">Downloading</string>
+    <string name="success">Success</string>
+    <string name="fileislocatedin">File is located in</string>
 
     <!-- Menu -->
     <string name="action_settings">Settings</string>

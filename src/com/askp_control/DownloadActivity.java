@@ -24,9 +24,13 @@ import static android.app.DownloadManager.STATUS_SUCCESSFUL;
 import com.askp_control.Utils.Utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -34,10 +38,11 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class PackageDownloader extends Activity {
+public class DownloadActivity extends Activity {
 
 	public static String mDownloadlink;
 	public static String mDownloadname;
@@ -50,21 +55,18 @@ public class PackageDownloader extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Utils.displayprogress(getString(R.string.downloading).toLowerCase()
+				+ "...", this);
 		preferenceManager = PreferenceManager
-				.getDefaultSharedPreferences(PackageDownloader.this);
+				.getDefaultSharedPreferences(getApplicationContext());
 		downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-
 		Download(mDownloadlink, mDownloadname);
-		finish();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 		CheckDwnloadStatus();
-
 		IntentFilter intentFilter = new IntentFilter(
 				DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 		registerReceiver(downloadReceiver, intentFilter);
@@ -172,14 +174,13 @@ public class PackageDownloader extends Activity {
 				break;
 
 			case STATUS_SUCCESSFUL:
-				Utils.toast("yes", getApplicationContext());
+				downloadSuccess(DownloadActivity.this);
 				break;
 			}
 		}
 	}
 
-	private void Download(String LINK, String NAME) {
-
+	private static void Download(String LINK, String NAME) {
 		Uri downloadUri = Uri.parse(LINK);
 		DownloadManager.Request request = new DownloadManager.Request(
 				downloadUri);
@@ -193,4 +194,30 @@ public class PackageDownloader extends Activity {
 		PrefEdit.putLong(strPref_Download_ID, id);
 		PrefEdit.commit();
 	}
+
+	private static void downloadSuccess(final Context context) {
+		AlertDialog.Builder mSuccess = new AlertDialog.Builder(context);
+		mSuccess.setTitle(context.getString(R.string.success))
+				.setMessage(
+						context.getString(R.string.fileislocatedin)
+								+ Environment.getExternalStorageDirectory()
+										.toString() + "/askp-kernel/"
+								+ mDownloadname)
+				.setOnCancelListener(new OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						((Activity) context).finish();
+					}
+				})
+				.setNeutralButton(context.getString(android.R.string.ok),
+						new OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								((Activity) context).finish();
+							}
+						}).show();
+	}
+
 }
