@@ -3,12 +3,13 @@ package com.askp_control.Fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.askp_control.PackageDownloader;
 import com.askp_control.R;
 import com.askp_control.Utils.GetConnection;
 import com.askp_control.Utils.LayoutStyle;
-import com.askp_control.Utils.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -92,7 +93,14 @@ public class DownloadFragment extends Fragment {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
-						Utils.toast(valueLinkList.get(arg2), context);
+						PackageDownloader.mDownloadlink = valueLinkList
+								.get(arg2);
+						PackageDownloader.mDownloadname = mListView
+								.getAdapter().getItem(arg2).toString()
+								.replace(" ", "")
+								+ ".zip";
+						Intent i = new Intent(context, PackageDownloader.class);
+						context.startActivity(i);
 					}
 				});
 			}
