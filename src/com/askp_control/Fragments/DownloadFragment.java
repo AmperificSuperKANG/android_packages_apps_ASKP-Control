@@ -47,7 +47,7 @@ public class DownloadFragment extends Fragment {
 		int width = display.getWidth();
 		int height = display.getHeight();
 		mListView.setLayoutParams(new LinearLayout.LayoutParams(width,
-				height - 300));
+				height - 200));
 		refresh();
 		return rootView;
 	}
