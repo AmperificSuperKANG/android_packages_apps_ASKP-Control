@@ -256,34 +256,15 @@ public class MiscellaneousFragment extends Fragment implements
 		MainActivity.enableButtons();
 		MainActivity.mMiscellaneousAction = true;
 		if (buttonView.equals(mWifiHighBox)) {
-			if (isChecked)
-				Control.WIFI_HIGH = "Y";
-			else
-				Control.WIFI_HIGH = "N";
-
+			Control.WIFI_HIGH = isChecked ? "Y" : "N";
 		} else if (buttonView.equals(mFastChargeBox)) {
-			if (isChecked)
-				Control.FAST_CHARGE = "1";
-			else
-				Control.FAST_CHARGE = "0";
-
+			Control.FAST_CHARGE = isChecked ? "1" : "0";
 		} else if (buttonView.equals(mSoundHighBox)) {
-			if (isChecked)
-				Control.SOUND_HIGH = "1";
-			else
-				Control.SOUND_HIGH = "0";
-
+			Control.SOUND_HIGH = isChecked ? "1" : "0";
 		} else if (buttonView.equals(mDynamicFsyncBox)) {
-			if (isChecked)
-				Control.DYNAMIC_FSYNC = "1";
-			else
-				Control.DYNAMIC_FSYNC = "0";
-
+			Control.DYNAMIC_FSYNC = isChecked ? "1" : "0";
 		} else if (buttonView.equals(mFsyncControlBox)) {
-			if (isChecked)
-				Control.FSYNC_CONTROL = "1";
-			else
-				Control.FSYNC_CONTROL = "0";
+			Control.FSYNC_CONTROL = isChecked ? "1" : "0";
 		}
 	}
 

@@ -54,9 +54,8 @@ public class GetConnection {
 					BufferedReader buffer = new BufferedReader(
 							new InputStreamReader(content));
 					String s = "";
-					while ((s = buffer.readLine()) != null) {
+					while ((s = buffer.readLine()) != null)
 						response += s;
-					}
 
 				} catch (Exception e) {
 					e.printStackTrace();

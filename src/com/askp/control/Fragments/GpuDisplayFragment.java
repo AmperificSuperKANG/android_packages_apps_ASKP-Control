@@ -100,17 +100,12 @@ public class GpuDisplayFragment extends Fragment implements
 
 		// Gpu Max Freq Text
 		mGpuValue = "";
-		switch (GpuDisplayValues.mVariableGpu()) {
-		case 0:
+		if (GpuDisplayValues.mVariableGpu() == 0)
 			mGpuValue = "307";
-			break;
-		case 1:
+		if (GpuDisplayValues.mVariableGpu() == 1)
 			mGpuValue = "384";
-			break;
-		case 2:
+		if (GpuDisplayValues.mVariableGpu() == 2)
 			mGpuValue = "512";
-			break;
-		}
 		mGpuMaxFreqText = new TextView(getActivity());
 		LayoutStyle.setCenterText(mGpuMaxFreqText, mGpuValue + " MHz",
 				getActivity());
@@ -198,9 +193,8 @@ public class GpuDisplayFragment extends Fragment implements
 		ImageView mGray = new ImageView(getActivity());
 		mGray.setImageResource(R.drawable.ic_gray);
 
-		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)) {
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL))
 			mLayout.addView(mGray);
-		}
 
 		// Gamma Control Title
 		TextView mGammaControlTitle = new TextView(getActivity());
@@ -350,34 +344,27 @@ public class GpuDisplayFragment extends Fragment implements
 			boolean fromUser) {
 		mGammaOffsetValueList.clear();
 		for (int i = 0; i < mAvailableGammaOffset.length; i++) {
-			if (seekBar.equals(mGammaOffsetBars[i])) {
+			if (seekBar.equals(mGammaOffsetBars[i]))
 				mGammaOffsetTexts[i].setText(String.valueOf(progress - 15));
-			}
 			mGammaOffsetValueList
 					.add(mGammaOffsetTexts[i].getText().toString());
 		}
 		mColorMultiplierValueList.clear();
 		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
-			if (seekBar.equals(mColorMultiplierBars[i])) {
+			if (seekBar.equals(mColorMultiplierBars[i]))
 				mColorMultiplierTexts[i].setText(String.valueOf(progress + 60));
-			}
 			mColorMultiplierValueList.add(String
 					.valueOf(mColorMultiplierTexts[i].getText().toString())
 					+ "0000000");
 		}
 		if (seekBar.equals(mGpuMaxFreqBar)) {
 			mGpuValueRaw = progress;
-			switch (progress) {
-			case 0:
+			if (progress == 0)
 				mGpuValue = "307";
-				break;
-			case 1:
+			if (progress == 1)
 				mGpuValue = "384";
-				break;
-			case 2:
+			if (progress == 2)
 				mGpuValue = "512";
-				break;
-			}
 			mGpuMaxFreqText.setText(mGpuValue + " MHz");
 		} else if (seekBar.equals(mTrinityContrastBar)) {
 			mTrinityContrastText.setText(String.valueOf(progress - 25));
@@ -429,10 +416,6 @@ public class GpuDisplayFragment extends Fragment implements
 		MainActivity.enableButtons();
 		MainActivity.mGpuDisplayAction = true;
 		if (buttonView.equals(mAdaptiveBrightnessBox))
-			if (isChecked)
-				Control.APAPTIVE_BRIGHTNESS = "1";
-			else
-				Control.APAPTIVE_BRIGHTNESS = "0";
-
+			Control.APAPTIVE_BRIGHTNESS = isChecked ? "1" : "0";
 	}
 }

@@ -95,14 +95,12 @@ public class DownloadFragment extends Fragment {
 						.getProperty("line.separator"));
 
 				List<String> valueNameList = new ArrayList<String>();
-				for (int i = 0; i < resultRaw.length; i++) {
+				for (int i = 0; i < resultRaw.length; i++)
 					valueNameList.add(resultRaw[i].split(": ")[0]);
-				}
 
 				final List<String> valueLinkList = new ArrayList<String>();
-				for (int i = 0; i < resultRaw.length; i++) {
+				for (int i = 0; i < resultRaw.length; i++)
 					valueLinkList.add(resultRaw[i].split(": ")[1]);
-				}
 
 				ListAdapter adapter = new ArrayAdapter<String>(context,
 						android.R.layout.simple_list_item_1, valueNameList);

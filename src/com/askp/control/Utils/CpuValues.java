@@ -56,9 +56,8 @@ public class CpuValues {
 			List<String> mValueString = new ArrayList<String>();
 			String[] mValueList = mRegulatorVoltagesFreq().split(";");
 			StringBuilder mValueBuilder = new StringBuilder();
-			for (int i = 0; i < mValueList.length; i++) {
+			for (int i = 0; i < mValueList.length; i++)
 				mValueString.add(mValueList[i].split(" ")[1]);
-			}
 			for (String s : mValueString) {
 				mValueBuilder.append(s);
 				mValueBuilder.append("\t");
@@ -77,9 +76,8 @@ public class CpuValues {
 				String line;
 				StringBuilder text = new StringBuilder();
 
-				while ((line = buffreader.readLine()) != null) {
+				while ((line = buffreader.readLine()) != null)
 					text.append(line);
-				}
 				buffreader.close();
 				return text.toString().replace(" mV", ";").replace(":", "");
 			} catch (FileNotFoundException e) {
@@ -95,9 +93,8 @@ public class CpuValues {
 			List<String> mValueString = new ArrayList<String>();
 			String[] mValueList = mMPUVoltagesFreq().split(";");
 			StringBuilder mValueBuilder = new StringBuilder();
-			for (int i = 0; i < mValueList.length; i++) {
+			for (int i = 0; i < mValueList.length; i++)
 				mValueString.add(mValueList[i].split(" ")[1]);
-			}
 			for (String s : mValueString) {
 				mValueBuilder.append(s);
 				mValueBuilder.append("\t");
@@ -116,9 +113,8 @@ public class CpuValues {
 				String line;
 				StringBuilder text = new StringBuilder();
 
-				while ((line = buffreader.readLine()) != null) {
+				while ((line = buffreader.readLine()) != null)
 					text.append(line);
-				}
 				buffreader.close();
 				return text.toString().replace(" mV", ";").replace("mhz:", "");
 			} catch (FileNotFoundException e) {
@@ -138,9 +134,8 @@ public class CpuValues {
 				String line;
 				StringBuilder text = new StringBuilder();
 
-				while ((line = buffreader.readLine()) != null) {
+				while ((line = buffreader.readLine()) != null)
 					text.append(line);
-				}
 				buffreader.close();
 				return text.toString().replace("mV", "");
 			} catch (FileNotFoundException e) {
@@ -160,9 +155,8 @@ public class CpuValues {
 				String line;
 				StringBuilder text = new StringBuilder();
 
-				while ((line = buffreader.readLine()) != null) {
+				while ((line = buffreader.readLine()) != null)
 					text.append(line);
-				}
 				buffreader.close();
 				return text.toString().replace("mV", "");
 			} catch (FileNotFoundException e) {
@@ -211,11 +205,8 @@ public class CpuValues {
 
 			@Override
 			public void commandOutput(int arg0, String arg1) {
-				if (Utils.existFile(FILENAME_CUR_GOVERNOR)) {
-					CpuFragment.mCurGovernorRaw = arg1;
-				} else {
-					CpuFragment.mCurGovernorRaw = "0";
-				}
+				CpuFragment.mCurGovernorRaw = Utils
+						.existFile(FILENAME_CUR_GOVERNOR) ? arg1 : "0";
 			}
 
 			@Override
@@ -309,11 +300,8 @@ public class CpuValues {
 
 			@Override
 			public void commandOutput(int arg0, String arg1) {
-				if (Utils.existFile(FILENAME_MAX_FREQ)) {
-					CpuFragment.mMaxCpuFreqRaw = Integer.parseInt(arg1);
-				} else {
-					CpuFragment.mMaxCpuFreqRaw = 0;
-				}
+				CpuFragment.mMaxCpuFreqRaw = Utils.existFile(FILENAME_MAX_FREQ) ? Integer
+						.parseInt(arg1) : 0;
 			}
 
 			@Override
@@ -339,11 +327,8 @@ public class CpuValues {
 
 			@Override
 			public void commandOutput(int arg0, String arg1) {
-				if (Utils.existFile(FILENAME_MIN_FREQ)) {
-					CpuFragment.mMinCpuFreqRaw = Integer.parseInt(arg1);
-				} else {
-					CpuFragment.mMinCpuFreqRaw = 0;
-				}
+				CpuFragment.mMinCpuFreqRaw = Utils.existFile(FILENAME_MIN_FREQ) ? Integer
+						.parseInt(arg1) : 0;
 			}
 
 			@Override

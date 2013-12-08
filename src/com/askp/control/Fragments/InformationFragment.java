@@ -58,12 +58,12 @@ public class InformationFragment extends Fragment {
 		mCodename.setText(getString(R.string.codename) + ": " + mCode);
 
 		mKernelVersion = new TextView(getActivity());
-		mKernelVersion.setText("");
 		try {
 			mKernelVersion.setText(getString(R.string.kernelversion) + ": "
 					+ Utils.readLine("/proc/version"));
 		} catch (IOException e) {
 			e.printStackTrace();
+			mKernelVersion.setText(getString(R.string.unavailable));
 		}
 
 		mLayout.addView(mDevice);

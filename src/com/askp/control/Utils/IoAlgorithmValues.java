@@ -54,24 +54,22 @@ public class IoAlgorithmValues {
 	public static String mCurExternalScheduler() {
 		String[] x = IoAlgorithmValues.mExternalScheduler().split(" ");
 		List<String> xList = new ArrayList<String>(Arrays.asList(x));
-		for (int i = 0; i < xList.size(); i++) {
+		for (int i = 0; i < xList.size(); i++)
 			if (xList.get(i).indexOf("[") != -1) {
 				x[i] = x[i].replace("[", "").replace("]", "");
 				return x[i];
 			}
-		}
 		return "0";
 	}
 
 	public static String mCurInternalScheduler() {
 		String[] x = IoAlgorithmValues.mInternalScheduler().split(" ");
 		List<String> xList = new ArrayList<String>(Arrays.asList(x));
-		for (int i = 0; i < xList.size(); i++) {
+		for (int i = 0; i < xList.size(); i++)
 			if (xList.get(i).indexOf("[") != -1) {
 				x[i] = x[i].replace("[", "").replace("]", "");
 				return x[i];
 			}
-		}
 		return "0";
 	}
 

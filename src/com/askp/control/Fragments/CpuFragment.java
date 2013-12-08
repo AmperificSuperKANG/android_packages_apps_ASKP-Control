@@ -624,11 +624,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	protected Handler mCurCPUHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			if (!String.valueOf(msg.obj).equals(0)) {
+			if (!String.valueOf(msg.obj).equals(0))
 				mCurCpuFreq
 						.setText(String.valueOf(CpuValues.mCurCpuFreq() / 1000)
 								+ " Mhz");
-			}
 		}
 	};
 
@@ -637,37 +636,33 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			boolean fromUser) {
 		mCoreVoltagesValuesList.clear();
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
-			if (seekBar.equals(mCoreVoltagesBars[i])) {
+			if (seekBar.equals(mCoreVoltagesBars[i]))
 				mCoreVoltagesTexts[i].setText(String
 						.valueOf(progress * 6 + 700) + " mV");
-			}
 			mCoreVoltagesValuesList.add(mCoreVoltagesTexts[i].getText()
 					.toString());
 		}
 		mIVAVoltagesValuesList.clear();
 		for (int i = 0; i < mIVAVoltagesList.length; i++) {
-			if (seekBar.equals(mIVAVoltagesBars[i])) {
+			if (seekBar.equals(mIVAVoltagesBars[i]))
 				mIVAVoltagesTexts[i].setText(String.valueOf(progress * 8 + 700)
 						+ " mV");
-			}
 			mIVAVoltagesValuesList.add(mIVAVoltagesTexts[i].getText()
 					.toString());
 		}
 		mMPUVoltagesValuesList.clear();
 		for (int i = 0; i < mMPUVoltagesList.length; i++) {
-			if (seekBar.equals(mMPUVoltagesBars[i])) {
+			if (seekBar.equals(mMPUVoltagesBars[i]))
 				mMPUVoltagesTexts[i].setText(String.valueOf(progress * 9 + 700)
 						+ " mV");
-			}
 			mMPUVoltagesValuesList.add(mMPUVoltagesTexts[i].getText()
 					.toString().replace(" mV", ""));
 		}
 		mRegulatorVoltagesValuesList.clear();
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
-			if (seekBar.equals(mRegulatorVoltagesBars[i])) {
+			if (seekBar.equals(mRegulatorVoltagesBars[i]))
 				mRegulatorVoltagesTexts[i].setText(String
 						.valueOf(progress * 20 + 1500) + " mV");
-			}
 			mRegulatorVoltagesValuesList.add(mRegulatorVoltagesTexts[i]
 					.getText().toString().replace(" mV", ""));
 		}
@@ -790,23 +785,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		MainActivity.enableButtons();
 		MainActivity.mCpuAction = true;
 		if (buttonView.equals(mCore)) {
-			if (isChecked)
-				Control.CORE = "1";
-			else
-				Control.CORE = "0";
-
+			Control.CORE = isChecked ? "1" : "0";
 		} else if (buttonView.equals(mIVA)) {
-			if (isChecked)
-				Control.IVA = "1";
-			else
-				Control.IVA = "0";
-
+			Control.IVA = isChecked ? "1" : "0";
 		} else if (buttonView.equals(mMPU)) {
-			if (isChecked)
-				Control.MPU = "1";
-			else
-				Control.MPU = "0";
-
+			Control.MPU = isChecked ? "1" : "0";
 		}
 	}
 }
