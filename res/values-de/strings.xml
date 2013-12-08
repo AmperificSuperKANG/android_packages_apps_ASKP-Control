@@ -53,7 +53,7 @@
     <string name="gpuscaling">GPU Taktfrequenz verändern</string>
     <string name="gpumaxfreq_summary">Setze die maximale Taktfrequenz der GPU.</string>
     <string name="adaptivebrightness">Inhaltspezifische Helligkeit</string>
-    <string name="adaptivebrightness_summary">Deaktivere diese Funktion um Weiß heller bei niedriger Helligkeit zu machen.</string>
+    <string name="adaptivebrightness_summary">Deaktiviere diese Funktion um Weiß heller bei niedriger Helligkeit zu machen.</string>
     <string name="trinitycontrast">Trinityss Kontrast</string>
     <string name="contrast">Ändere Kontrast</string>
     <string name="contrast_summary">Ändere den Unterschied zwischen dunklen und hellen Farben.</string>
@@ -61,7 +61,7 @@
     <string name="setgamma">Ändere Gamma Wert</string>
     <string name="gammacontrol_summary">Ändere Mittelton (mittlere Grautöne).</string>
     <string name="gammaoffset">Gamma Abweichung</string>
-    <string name="gammaoffset_summary">Gamma Abweichung kontrolliert Schatten bzw. Schwarztöne des Bildschirmes. Sie ändert die Helligkeit bzw. Farbstufen, aber Mitteltöne und Spitzlicht Bereiche werden nicht verändert.</string>
+    <string name="gammaoffset_summary">Gamma Abweichung kontrolliert Schatten bzw. Schwarztöne des Bildschirmes. Durch Änderungen der Helligkeit bzw. Farbstufen wird das möglich gemacht, Mitteltöne und Spitzlicht Bereiche werden nicht verändert.</string>
     <string name="colormultipliers">Farbmultiplikator</string>
     <string name="colormultipliers_summary">Ändere den Multiplikator einer spezifischen Farbe.</string>
     <string name="red">Rot</string>
@@ -85,7 +85,7 @@
     <string name="wifihigh_summary">Behalte Wlan Geschwindigkeit auch im Ruhezustand.</string>
     <string name="battery">Batterie</string>
     <string name="fastcharge">Erzwinge Schnellladen</string>
-    <string name="fastcharge_summary">Aktivere diese Funktion um die Ladegeschwindigkeit mit USB Verbindung zu erhöhen, gleichzeitig aber wird USB mass storage deaktiviert.</string>
+    <string name="fastcharge_summary">Aktiviere diese Funktion um die Ladegeschwindigkeit mit USB Verbindung zu erhöhen, gleichzeitig aber wird USB mass storage deaktiviert.</string>
     <string name="batteryextender">Akkulebensdauer erhöhen</string>
     <string name="batteryextender_summary">Bestimme eine Begrenzung für die Kapazität zu der die Batterie geladen wird, durch eine Eingabe zwischen den Werten 0 bis 100.</string>
     <string name="soundhigh">Hochleistungston</string>
@@ -93,7 +93,7 @@
     <string name="othersettings">Andere Einstellungen</string>
     <string name="dynamicfsync">Dynamisches Fsync</string>
     <string name="dynamicfsync_summary">Wenn aktiviert und Bildschirm an ist, ist der Fsync Ablauf asynchron. Wenn Bildschirm aus ist, wird der Ablauf synchron ausgeführt.</string>
-    <string name="fsynccontrol_summary">Deaktivire für bessere Dateiübertragung, mit dem Risiko Daten zu verlieren wenn etwas abstürzt.</string>
+    <string name="fsynccontrol_summary">Deaktiviere für bessere Dateiübertragung, mit dem Risiko Daten zu verlieren wenn etwas abstürzt.</string>
 
     <!-- Information -->
     <string name="information">Informationen</string>
