@@ -170,10 +170,10 @@ public class MainActivity extends FragmentActivity {
 				fragment = new MiscellaneousFragment();
 				break;
 			case 4:
-				fragment = new InformationFragment();
+				fragment = new DownloadFragment();
 				break;
 			case 5:
-				fragment = new DownloadFragment();
+				fragment = new InformationFragment();
 				break;
 			default:
 				break;
@@ -202,9 +202,9 @@ public class MainActivity extends FragmentActivity {
 			case 3:
 				return getString(R.string.miscellaneous).toUpperCase(l);
 			case 4:
-				return getString(R.string.information).toUpperCase(l);
-			case 5:
 				return getString(R.string.download).toUpperCase(l);
+			case 5:
+				return getString(R.string.information).toUpperCase(l);
 			}
 			return null;
 		}
