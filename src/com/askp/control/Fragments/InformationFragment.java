@@ -62,7 +62,6 @@ public class InformationFragment extends Fragment {
 			mKernelVersion.setText(getString(R.string.kernelversion) + ": "
 					+ Utils.readLine("/proc/version"));
 		} catch (IOException e) {
-			e.printStackTrace();
 			mKernelVersion.setText(getString(R.string.unavailable));
 		}
 

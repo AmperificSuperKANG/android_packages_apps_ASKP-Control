@@ -56,9 +56,7 @@ public class GetConnection {
 					String s = "";
 					while ((s = buffer.readLine()) != null)
 						response += s;
-
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 			return response;

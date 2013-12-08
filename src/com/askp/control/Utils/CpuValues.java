@@ -81,9 +81,7 @@ public class CpuValues {
 				buffreader.close();
 				return text.toString().replace(" mV", ";").replace(":", "");
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -118,9 +116,7 @@ public class CpuValues {
 				buffreader.close();
 				return text.toString().replace(" mV", ";").replace("mhz:", "");
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -139,9 +135,7 @@ public class CpuValues {
 				buffreader.close();
 				return text.toString().replace("mV", "");
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -160,9 +154,7 @@ public class CpuValues {
 				buffreader.close();
 				return text.toString().replace("mV", "");
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -172,7 +164,6 @@ public class CpuValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_MPU));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -182,7 +173,6 @@ public class CpuValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_IVA));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -192,7 +182,6 @@ public class CpuValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_CORE));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -216,11 +205,8 @@ public class CpuValues {
 		try {
 			RootTools.getShell(true).add(command);
 		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (TimeoutException e) {
-			e.printStackTrace();
 		} catch (RootDeniedException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -229,7 +215,6 @@ public class CpuValues {
 			try {
 				return Utils.readLine(FILENAME_AVAILABLE_GOVERNOR);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -239,7 +224,6 @@ public class CpuValues {
 			try {
 				return Utils.readLine(FILENAME_AVAILABLE_FREQ);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -249,7 +233,6 @@ public class CpuValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_TEMP_LIMIT));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -260,7 +243,6 @@ public class CpuValues {
 				return Integer.parseInt(Utils
 						.readLine(FILENAME_MULTICORE_SAVING));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -273,7 +255,6 @@ public class CpuValues {
 							+ " > " + FILENAME_MIN_SCREEN_ON);
 				return Integer.parseInt(Utils.readLine(FILENAME_MIN_SCREEN_ON));
 			} catch (IOException e1) {
-				e1.printStackTrace();
 			}
 		return 0;
 	}
@@ -287,7 +268,6 @@ public class CpuValues {
 				return Integer
 						.parseInt(Utils.readLine(FILENAME_MAX_SCREEN_OFF));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -311,11 +291,8 @@ public class CpuValues {
 		try {
 			RootTools.getShell(true).add(command);
 		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (TimeoutException e) {
-			e.printStackTrace();
 		} catch (RootDeniedException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -338,11 +315,8 @@ public class CpuValues {
 		try {
 			RootTools.getShell(true).add(command);
 		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (TimeoutException e) {
-			e.printStackTrace();
 		} catch (RootDeniedException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -351,7 +325,6 @@ public class CpuValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_CUR_CPU_FREQ));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}

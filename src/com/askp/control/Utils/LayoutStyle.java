@@ -68,5 +68,4 @@ public class LayoutStyle {
 		i.setTypeface(null, Typeface.BOLD);
 		i.setText(text);
 	}
-
 }

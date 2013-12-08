@@ -64,14 +64,12 @@ public class Utils {
 
 	public static String getString(String name, Context context) {
 		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
-		String value = mPref.getString(name, "nothing");
-		return value;
+		return mPref.getString(name, "nothing");
 	}
 
 	public static boolean getBoolean(String name, Context context) {
 		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
-		boolean value = mPref.getBoolean(name, false);
-		return value;
+		return mPref.getBoolean(name, false);
 	}
 
 	public static void saveBoolean(String name, boolean value, Context context) {

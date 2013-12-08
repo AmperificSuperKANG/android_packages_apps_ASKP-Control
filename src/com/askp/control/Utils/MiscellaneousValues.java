@@ -35,7 +35,6 @@ public class MiscellaneousValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_FSYNC_CONTROL));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -45,7 +44,6 @@ public class MiscellaneousValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_DYNAMIC_FSYNC));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -56,7 +54,6 @@ public class MiscellaneousValues {
 				return Integer.parseInt(Utils
 						.readLine(FILENAME_HEADPHONE_BOOST));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -66,7 +63,6 @@ public class MiscellaneousValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_SOUND_HIGH));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -77,7 +73,6 @@ public class MiscellaneousValues {
 				return Integer.parseInt(Utils
 						.readLine(FILENAME_BATTERY_EXTENDER));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -87,7 +82,6 @@ public class MiscellaneousValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_FAST_CHARGE));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -97,7 +91,6 @@ public class MiscellaneousValues {
 			try {
 				return Utils.readLine(FILENAME_WIFI_HIGH);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0";
 	}

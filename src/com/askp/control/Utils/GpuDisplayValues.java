@@ -34,7 +34,6 @@ public class GpuDisplayValues {
 			try {
 				return (Utils.readLine(FILENAME_COLOR_MULTIPLIER));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -44,7 +43,6 @@ public class GpuDisplayValues {
 			try {
 				return (Utils.readLine(FILENAME_GAMMA_OFFSET));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -54,7 +52,6 @@ public class GpuDisplayValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_GAMMA_CONTROL));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -65,7 +62,6 @@ public class GpuDisplayValues {
 				return Integer.parseInt(Utils
 						.readLine(FILENAME_TRINITY_CONTRAST));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -76,7 +72,6 @@ public class GpuDisplayValues {
 				return Integer.parseInt(Utils
 						.readLine(FILENAME_ADAPTIVE_BRIGHTNESS));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}
@@ -86,7 +81,6 @@ public class GpuDisplayValues {
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_VARIABLE_GPU));
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}

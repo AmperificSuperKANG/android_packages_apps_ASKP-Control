@@ -36,7 +36,6 @@ public class IoAlgorithmValues {
 			try {
 				return Utils.readLine(FILENAME_EXTERNAL_READ);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0";
 	}
@@ -46,7 +45,6 @@ public class IoAlgorithmValues {
 			try {
 				return Utils.readLine(FILENAME_INTERNAL_READ);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0";
 	}
@@ -78,7 +76,6 @@ public class IoAlgorithmValues {
 			try {
 				return Utils.readLine(FILENAME_EXTERNAL_SCHEDULER);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -88,7 +85,6 @@ public class IoAlgorithmValues {
 			try {
 				return Utils.readLine(FILENAME_INTERNAL_SCHEDULER);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
@@ -98,7 +94,6 @@ public class IoAlgorithmValues {
 			try {
 				return Utils.readLine(FILENAME_TCP_CONGESTION);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return "0 0";
 	}
