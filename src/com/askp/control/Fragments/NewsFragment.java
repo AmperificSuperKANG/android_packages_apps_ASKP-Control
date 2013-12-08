@@ -46,6 +46,7 @@ public class NewsFragment extends Fragment implements OnClickListener {
 	}
 
 	public static void refresh() {
+		GetConnection.mHtmlstring = "";
 		mLayout.removeAllViews();
 		mProgress = new ProgressBar(context);
 		mRefresh.setVisibility(View.GONE);

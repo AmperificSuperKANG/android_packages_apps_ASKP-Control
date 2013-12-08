@@ -83,6 +83,7 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 	}
 
 	public static void refresh() {
+		GetConnection.mHtmlstring = "";
 		mLayout.removeAllViews();
 		mProgress = new ProgressBar(context);
 		mRefresh.setVisibility(View.GONE);
