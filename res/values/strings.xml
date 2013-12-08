@@ -28,6 +28,7 @@
     <string name="warning">ONLY FOR ADVANCED USERS!</string>
     <string name="action_setonboot">Set on boot</string>
     <string name="newkernel">New Kernel detected. Your values will not get applied.</string>
+    <string name="refresh">Refresh</string>
 
     <!-- CPU -->
     <string name="cpu">Cpu</string>
@@ -119,7 +120,7 @@
     <string name="filealreadyexist">You already downloaded this file. Do you want to re-load it?</string>
     <string name="downloading">Downloading</string>
     <string name="success">Success</string>
-    <string name="fileislocatedin">File is located in</string>
+    <string name="fileislocatedin">File is located in </string>
 
     <!-- News -->
     <string name="news">News</string>

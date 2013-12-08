@@ -27,6 +27,7 @@
     <string name="warning">NUR FÜR ERFAHRENE BENUTZER!</string>
     <string name="action_setonboot">Beim Booten übernehmen</string>
     <string name="newkernel">Neuer Kernel erkannt. Ihre Werte werden nicht übernohmen.</string>
+    <string name="refresh">Aktualisieren</string>
 
     <!-- CPU -->
     <string name="cpufreq">CPU Taktfrequenz</string>
@@ -104,7 +105,7 @@
     <string name="filealreadyexist">Sie haben diese Datei bereits heruntergeladen. Möchten Sie es nochmal laden?</string>
     <string name="downloading">Herunterladen</string>
     <string name="success">Erfolgreich</string>
-    <string name="fileislocatedin">Datei befindet sich in</string>
+    <string name="fileislocatedin">Datei befindet sich in </string>
 
     <!-- News -->
     <string name="news">Neuigkeiten</string>
