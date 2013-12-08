@@ -22,12 +22,21 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class LayoutStyle {
+
+	public static int ColorBlue = android.R.color.holo_blue_dark;
+	public static int ColorWhite = android.R.color.white;
+
+	public static void setButton(Button i, String text, Context context) {
+		i.setBackgroundColor(context.getResources().getColor(ColorBlue));
+		i.setText(text);
+	}
 
 	public static void setCheckBox(CheckBox i, String text, boolean checked) {
 		i.setText(text);
@@ -56,14 +65,13 @@ public class LayoutStyle {
 	}
 
 	public static void setTextSubTitle(TextView i, String text, Context context) {
-		i.setTextColor(context.getResources().getColor(android.R.color.white));
+		i.setTextColor(context.getResources().getColor(ColorWhite));
 		i.setTypeface(null, Typeface.BOLD);
 		i.setText(text);
 	}
 
 	public static void setTextTitle(TextView i, String text, Context context) {
-		i.setBackgroundColor(context.getResources().getColor(
-				android.R.color.holo_blue_dark));
+		i.setBackgroundColor(context.getResources().getColor(ColorBlue));
 		i.setTextColor(context.getResources().getColor(android.R.color.white));
 		i.setTypeface(null, Typeface.BOLD);
 		i.setText(text);

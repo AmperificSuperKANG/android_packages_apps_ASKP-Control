@@ -71,7 +71,8 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 
 		mRefresh = (Button) rootView.findViewById(R.id.refresh);
-		mRefresh.setText(getString(R.string.refresh));
+		LayoutStyle.setButton(mRefresh, getString(R.string.refresh),
+				getActivity());
 		mRefresh.setOnClickListener(this);
 
 		mListView = (ListView) rootView.findViewById(R.id.listView);

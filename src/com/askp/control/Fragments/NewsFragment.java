@@ -41,7 +41,8 @@ public class NewsFragment extends Fragment implements OnClickListener {
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 
 		mRefresh = (Button) rootView.findViewById(R.id.refresh);
-		mRefresh.setText(getString(R.string.refresh));
+		LayoutStyle.setButton(mRefresh, getString(R.string.refresh),
+				getActivity());
 		mRefresh.setOnClickListener(this);
 
 		refresh();
@@ -82,15 +83,18 @@ public class NewsFragment extends Fragment implements OnClickListener {
 				String rawText = GetConnection.mHtmlstring;
 				String mDateText = rawText.split("Title: ")[0].replace(
 						"Date: ", "");
-				LayoutStyle.setTextTitle(mDate, mDateText, context);
+				LayoutStyle.setCenterText(mDate, mDateText, context);
+				mDate.setTextSize(20);
 				mLayout.addView(mDate);
 
 				String mTitleText = rawText.split("Title: ")[1].split("Text: ")[0];
 				LayoutStyle.setTextSubTitle(mTitle, mTitleText, context);
+				LayoutStyle.setCenterText(mTitle, mTitleText, context);
 				mLayout.addView(mTitle);
 
 				String mTextText = rawText.split("Title: ")[1].split("Text: ")[1];
 				LayoutStyle.setTextSummary(mText, mTextText, context);
+				LayoutStyle.setCenterText(mText, mTextText, context);
 				mLayout.addView(mText);
 			}
 		}
