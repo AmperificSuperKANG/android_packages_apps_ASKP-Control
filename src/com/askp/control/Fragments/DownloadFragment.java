@@ -52,7 +52,7 @@ public class DownloadFragment extends Fragment {
 
 	private static Context context;
 
-	private static final String mLink = "https://raw.github.com/AmperificSuperKANG/ASKP-Support/master/";
+	public static final String mLink = "https://raw.github.com/AmperificSuperKANG/ASKP-Support/master/";
 	private static LinearLayout mLayout;
 	private static ProgressBar mProgress;
 	private static ListView mListView;

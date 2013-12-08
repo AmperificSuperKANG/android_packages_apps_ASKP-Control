@@ -110,12 +110,6 @@
     <string name="fsynccontrol">Fsync</string>
     <string name="fsynccontrol_summary">Disable for better file system performance at the risk of data lost when phone crashes.</string>
 
-    <!-- Information -->
-    <string name="information">Information</string>
-    <string name="device">Device</string>
-    <string name="codename">Codename</string>
-    <string name="kernelversion">Kernel Version</string>
-
     <!-- Download -->
     <string name="download">Download</string>
     <string name="nointernet">No Internet Connection</string>
@@ -126,5 +120,14 @@
     <string name="downloading">Downloading</string>
     <string name="success">Success</string>
     <string name="fileislocatedin">File is located in</string>
+
+    <!-- News -->
+    <string name="news">News</string>
+
+    <!-- Information -->
+    <string name="information">Information</string>
+    <string name="device">Device</string>
+    <string name="codename">Codename</string>
+    <string name="kernelversion">Kernel Version</string>
 
 </resources>

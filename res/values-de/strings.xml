@@ -95,10 +95,6 @@
     <string name="dynamicfsync_summary">Wenn aktiviert und Bildschirm an ist, ist der Fsync Ablauf asynchron. Wenn Bildschirm aus ist, wird der Ablauf synchron ausgeführt.</string>
     <string name="fsynccontrol_summary">Deaktiviere für bessere Dateiübertragung, mit dem Risiko Daten zu verlieren wenn etwas abstürzt.</string>
 
-    <!-- Information -->
-    <string name="information">Informationen</string>
-    <string name="device">Gerät</string>
-
     <!-- Download -->
     <string name="download">Herunterladen</string>
     <string name="nointernet">Keine Internetverbindung</string>
@@ -109,5 +105,12 @@
     <string name="downloading">Herunterladen</string>
     <string name="success">Erfolgreich</string>
     <string name="fileislocatedin">Datei befindet sich in</string>
+
+    <!-- News -->
+    <string name="news">Neuigkeiten</string>
+
+    <!-- Information -->
+    <string name="information">Informationen</string>
+    <string name="device">Gerät</string>
 
 </resources>
