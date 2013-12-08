@@ -28,6 +28,7 @@ public class MiscellaneousValues {
 	public static final String FILENAME_SOUND_HIGH = "/sys/devices/virtual/misc/soundcontrol/highperf_enabled";
 	public static final String FILENAME_BATTERY_EXTENDER = "/sys/devices/virtual/misc/batterylifeextender/charging_limit";
 	public static final String FILENAME_FAST_CHARGE = "/sys/kernel/fast_charge/force_fast_charge";
+	public static final String FILENAME_TCP_CONGESTION = "/proc/sys/net/ipv4/tcp_available_congestion_control";
 	public static final String FILENAME_WIFI_HIGH = "/sys/module/bcmdhd/parameters/wifi_fast";
 
 	public static int mFsyncControl() {
@@ -84,6 +85,15 @@ public class MiscellaneousValues {
 			} catch (IOException e) {
 			}
 		return 0;
+	}
+
+	public static String mTCPCongestion() {
+		if (Utils.existFile(FILENAME_TCP_CONGESTION))
+			try {
+				return Utils.readLine(FILENAME_TCP_CONGESTION);
+			} catch (IOException e) {
+			}
+		return "0 0";
 	}
 
 	public static String mWifiHigh() {

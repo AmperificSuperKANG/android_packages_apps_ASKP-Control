@@ -22,6 +22,7 @@ import android.content.Context;
 
 import com.askp.control.Fragments.CpuFragment;
 import com.askp.control.Fragments.IoAlgorithmFragment;
+import com.askp.control.Fragments.MiscellaneousFragment;
 
 public class Control {
 
@@ -75,9 +76,6 @@ public class Control {
 
 	public static String COLOR_MULTIPLIER = GpuDisplayValues.mColorMultiplier();
 
-	public static String TCP_CONGESTION = IoAlgorithmValues.mTCPCongestion()
-			.split(" ")[0];
-
 	public static String INTERNAL_SCHEDULER = IoAlgorithmValues
 			.mCurInternalScheduler();
 
@@ -89,6 +87,9 @@ public class Control {
 	public static String EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
 
 	public static String WIFI_HIGH = MiscellaneousValues.mWifiHigh();
+
+	public static String TCP_CONGESTION = MiscellaneousValues.mTCPCongestion()
+			.split(" ")[0];
 
 	public static String FAST_CHARGE = String.valueOf(MiscellaneousValues
 			.mFastCharge());
@@ -247,14 +248,6 @@ public class Control {
 	}
 
 	public static void setIoAlgorithmValues(Context context) {
-		// TCP Congestion
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_TCP_CONGESTION)) {
-			Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
-					+ TCP_CONGESTION);
-			Utils.saveString("tcpcongestion", TCP_CONGESTION, context);
-			IoAlgorithmFragment.mTCPCongestion = IoAlgorithmFragment.mTCPCongestionRaw;
-		}
-
 		// Internal Scheduler
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER)) {
 			Utils.runCommand("echo " + INTERNAL_SCHEDULER + " > "
@@ -292,6 +285,14 @@ public class Control {
 			Utils.runCommand("echo " + WIFI_HIGH + " > "
 					+ MiscellaneousValues.FILENAME_WIFI_HIGH);
 			Utils.saveString("wifihigh", WIFI_HIGH, context);
+		}
+
+		// TCP Congestion
+		if (Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION)) {
+			Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
+					+ TCP_CONGESTION);
+			Utils.saveString("tcpcongestion", TCP_CONGESTION, context);
+			MiscellaneousFragment.mTCPCongestion = MiscellaneousFragment.mTCPCongestionRaw;
 		}
 
 		// Fast Charge
@@ -357,12 +358,12 @@ public class Control {
 		GAMMA_CONTROL = String.valueOf(GpuDisplayValues.mGammaControl());
 		GAMMA_OFFSET = GpuDisplayValues.mGammaOffset();
 		COLOR_MULTIPLIER = GpuDisplayValues.mColorMultiplier();
-		TCP_CONGESTION = IoAlgorithmValues.mTCPCongestion().split(" ")[0];
 		INTERNAL_SCHEDULER = IoAlgorithmValues.mCurInternalScheduler();
 		EXTERNAL_SCHEDULER = IoAlgorithmValues.mCurExternalScheduler();
 		INTERNAL_READ = IoAlgorithmValues.mInternalRead();
 		EXTERNAL_READ = IoAlgorithmValues.mExternalRead();
 		WIFI_HIGH = MiscellaneousValues.mWifiHigh();
+		TCP_CONGESTION = MiscellaneousValues.mTCPCongestion().split(" ")[0];
 		FAST_CHARGE = String.valueOf(MiscellaneousValues.mFastCharge());
 		BATTERY_EXTENDER = String
 				.valueOf(MiscellaneousValues.mBatterExtender());

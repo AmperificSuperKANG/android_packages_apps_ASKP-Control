@@ -175,12 +175,6 @@ public class BootReceiver extends BroadcastReceiver {
 					+ Utils.getString("colormultiplier", context) + " > "
 					+ GpuDisplayValues.FILENAME_COLOR_MULTIPLIER);
 
-		// TCP Congestion
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_TCP_CONGESTION)
-				&& !Utils.getString("tcpcongestion", context).equals("nothing"))
-			Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
-					+ Utils.getString("tcpcongestion", context));
-
 		// Internal Scheduler
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER)
 				&& !Utils.getString("internalscheduler", context).equals(
@@ -214,6 +208,12 @@ public class BootReceiver extends BroadcastReceiver {
 				&& !Utils.getString("wifihigh", context).equals("nothing"))
 			Utils.runCommand("echo " + Utils.getString("wifihigh", context)
 					+ " > " + MiscellaneousValues.FILENAME_WIFI_HIGH);
+
+		// TCP Congestion
+		if (Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION)
+				&& !Utils.getString("tcpcongestion", context).equals("nothing"))
+			Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
+					+ Utils.getString("tcpcongestion", context));
 
 		// Fast Charge
 		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)

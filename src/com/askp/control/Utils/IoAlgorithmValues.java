@@ -29,7 +29,6 @@ public class IoAlgorithmValues {
 	public static final String FILENAME_INTERNAL_READ = "/sys/block/mmcblk0/queue/read_ahead_kb";
 	public static final String FILENAME_EXTERNAL_SCHEDULER = "/sys/block/mmcblk1/queue/scheduler";
 	public static final String FILENAME_INTERNAL_SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
-	public static final String FILENAME_TCP_CONGESTION = "/proc/sys/net/ipv4/tcp_available_congestion_control";
 
 	public static String mExternalRead() {
 		if (Utils.existFile(FILENAME_EXTERNAL_READ))
@@ -84,15 +83,6 @@ public class IoAlgorithmValues {
 		if (Utils.existFile(FILENAME_INTERNAL_SCHEDULER))
 			try {
 				return Utils.readLine(FILENAME_INTERNAL_SCHEDULER);
-			} catch (IOException e) {
-			}
-		return "0 0";
-	}
-
-	public static String mTCPCongestion() {
-		if (Utils.existFile(FILENAME_TCP_CONGESTION))
-			try {
-				return Utils.readLine(FILENAME_TCP_CONGESTION);
 			} catch (IOException e) {
 			}
 		return "0 0";

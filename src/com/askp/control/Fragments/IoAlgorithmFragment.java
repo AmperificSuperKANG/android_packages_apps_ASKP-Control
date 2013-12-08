@@ -48,11 +48,6 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	private static LinearLayout mLayout;
 
-	private static String[] mAvailableTCPCongestion;
-	private static Spinner mTCPCongestionSpinner;
-	public static int mTCPCongestion;
-	public static int mTCPCongestionRaw;
-
 	private static String[] mAvailableInternalScheduler;
 	private static Spinner mInternalSchedulerSpinner;
 	public static int mCurInternalScheduler;
@@ -75,37 +70,6 @@ public class IoAlgorithmFragment extends Fragment implements
 		View rootView = inflater.inflate(R.layout.layout, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
-
-		// TCP Congestion Title
-		TextView mTCPCongestionTitle = new TextView(getActivity());
-		LayoutStyle.setTextTitle(mTCPCongestionTitle,
-				getString(R.string.tcpcongestion), getActivity());
-
-		// TCP Congestion Summary
-		TextView mTCPCongestionSummary = new TextView(getActivity());
-		LayoutStyle.setTextSummary(mTCPCongestionSummary,
-				getString(R.string.tcpcongestion_summary), getActivity());
-
-		// TCP Congestion Spinner
-		mAvailableTCPCongestion = IoAlgorithmValues.mTCPCongestion().split(" ");
-		mTCPCongestion = 0;
-
-		ArrayAdapter<String> adapterTCPCongestion = new ArrayAdapter<String>(
-				getActivity(), android.R.layout.simple_spinner_item,
-				mAvailableTCPCongestion);
-		adapterTCPCongestion
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-		mTCPCongestionSpinner = new Spinner(getActivity());
-		LayoutStyle.setSpinner(mTCPCongestionSpinner, adapterTCPCongestion,
-				mTCPCongestion);
-		mTCPCongestionSpinner.setOnItemSelectedListener(this);
-
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_TCP_CONGESTION)) {
-			mLayout.addView(mTCPCongestionTitle);
-			mLayout.addView(mTCPCongestionSummary);
-			mLayout.addView(mTCPCongestionSpinner);
-		}
 
 		// I/O Scheduler Title
 		TextView mIOSchedulerTitle = new TextView(getActivity());
@@ -245,14 +209,7 @@ public class IoAlgorithmFragment extends Fragment implements
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		if (arg0.equals(mTCPCongestionSpinner)) {
-			mTCPCongestionRaw = arg2;
-			if (arg2 != mTCPCongestion) {
-				MainActivity.enableButtons();
-				MainActivity.mIoAlgorithmAction = true;
-				Control.TCP_CONGESTION = mAvailableTCPCongestion[arg2];
-			}
-		} else if (arg0.equals(mInternalSchedulerSpinner)) {
+		if (arg0.equals(mInternalSchedulerSpinner)) {
 			mCurInternalSchedulerRaw = arg2;
 			if (arg2 != mCurInternalScheduler) {
 				MainActivity.enableButtons();

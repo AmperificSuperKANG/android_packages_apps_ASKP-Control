@@ -30,20 +30,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 public class MiscellaneousFragment extends Fragment implements
-		OnCheckedChangeListener, OnSeekBarChangeListener {
+		OnCheckedChangeListener, OnItemSelectedListener,
+		OnSeekBarChangeListener {
 
 	private static LinearLayout mLayout;
 
 	private static CheckBox mWifiHighBox;
+
+	private static String[] mAvailableTCPCongestion;
+	private static Spinner mTCPCongestionSpinner;
+	public static int mTCPCongestion;
+	public static int mTCPCongestionRaw;
 
 	private static CheckBox mFastChargeBox;
 
@@ -93,6 +103,38 @@ public class MiscellaneousFragment extends Fragment implements
 		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH)) {
 			mLayout.addView(mWifiHighBox);
 			mLayout.addView(mWifiHighSummary);
+		}
+
+		// TCP Congestion SubTitle
+		TextView mTCPCongestionTitle = new TextView(getActivity());
+		LayoutStyle.setTextSubTitle(mTCPCongestionTitle,
+				getString(R.string.tcpcongestion), getActivity());
+
+		// TCP Congestion Summary
+		TextView mTCPCongestionSummary = new TextView(getActivity());
+		LayoutStyle.setTextSummary(mTCPCongestionSummary,
+				getString(R.string.tcpcongestion_summary), getActivity());
+
+		// TCP Congestion Spinner
+		mAvailableTCPCongestion = MiscellaneousValues.mTCPCongestion().split(
+				" ");
+		mTCPCongestion = 0;
+
+		ArrayAdapter<String> adapterTCPCongestion = new ArrayAdapter<String>(
+				getActivity(), android.R.layout.simple_spinner_item,
+				mAvailableTCPCongestion);
+		adapterTCPCongestion
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		mTCPCongestionSpinner = new Spinner(getActivity());
+		LayoutStyle.setSpinner(mTCPCongestionSpinner, adapterTCPCongestion,
+				mTCPCongestion);
+		mTCPCongestionSpinner.setOnItemSelectedListener(this);
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION)) {
+			mLayout.addView(mTCPCongestionTitle);
+			mLayout.addView(mTCPCongestionSummary);
+			mLayout.addView(mTCPCongestionSpinner);
 		}
 
 		// Battery Title
@@ -292,5 +334,22 @@ public class MiscellaneousFragment extends Fragment implements
 		} else if (seekBar.equals(mHeadphoneBoostBar)) {
 			Control.HEADPHONE_BOOST = mHeadphoneBoostText.getText().toString();
 		}
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		if (arg0.equals(mTCPCongestionSpinner)) {
+			mTCPCongestionRaw = arg2;
+			if (arg2 != mTCPCongestion) {
+				MainActivity.enableButtons();
+				MainActivity.mMiscellaneousAction = true;
+				Control.TCP_CONGESTION = mAvailableTCPCongestion[arg2];
+			}
+		}
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
 	}
 }
