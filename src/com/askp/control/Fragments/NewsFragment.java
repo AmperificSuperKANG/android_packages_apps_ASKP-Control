@@ -28,10 +28,6 @@ public class NewsFragment extends Fragment implements OnClickListener {
 
 	private static Button mRefresh;
 
-	private static TextView mDate;
-	private static TextView mTitle;
-	private static TextView mText;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -53,9 +49,6 @@ public class NewsFragment extends Fragment implements OnClickListener {
 		mLayout.removeAllViews();
 		mProgress = new ProgressBar(context);
 		mRefresh.setVisibility(View.GONE);
-		mDate = new TextView(context);
-		mTitle = new TextView(context);
-		mText = new TextView(context);
 		mLayout.addView(mProgress);
 
 		GetConnection.getconnection(mNewsLink);
@@ -75,27 +68,39 @@ public class NewsFragment extends Fragment implements OnClickListener {
 			mProgress.setVisibility(View.GONE);
 
 			if (GetConnection.mHtmlstring.isEmpty()) {
-				LayoutStyle.setCenterText(mText,
+				TextView mError = new TextView(context);
+				LayoutStyle.setCenterText(mError,
 						context.getString(R.string.nointernet), context);
-				mText.setTextSize(20);
-				mLayout.addView(mText);
+				mError.setTextSize(20);
+				mLayout.addView(mError);
 			} else {
 				String rawText = GetConnection.mHtmlstring;
-				String mDateText = rawText.split("Title: ")[0].replace(
-						"Date: ", "");
-				LayoutStyle.setCenterText(mDate, mDateText, context);
-				mDate.setTextSize(20);
-				mLayout.addView(mDate);
+				for (int i = 1; i < rawText.split("Date: ").length; i++) {
+					TextView mDate = new TextView(context);
+					LayoutStyle.setCenterText(mDate,
+							rawText.split("Date: ")[i].split("Title: ")[0],
+							context);
+					mDate.setTextSize(20);
 
-				String mTitleText = rawText.split("Title: ")[1].split("Text: ")[0];
-				LayoutStyle.setTextSubTitle(mTitle, mTitleText, context);
-				LayoutStyle.setCenterText(mTitle, mTitleText, context);
-				mLayout.addView(mTitle);
+					TextView mTitle = new TextView(context);
+					LayoutStyle.setTextSubTitle(mTitle, "", context);
+					LayoutStyle.setCenterText(mTitle,
+							rawText.split("Date: ")[i].split("Title: ")[1]
+									.split("Text: ")[0], context);
 
-				String mTextText = rawText.split("Title: ")[1].split("Text: ")[1];
-				LayoutStyle.setTextSummary(mText, mTextText, context);
-				LayoutStyle.setCenterText(mText, mTextText, context);
-				mLayout.addView(mText);
+					TextView mText = new TextView(context);
+					LayoutStyle.setTextSummary(mText, "", context);
+					LayoutStyle.setCenterText(mText, rawText.split("Date: ")[i]
+							.split("Title: ")[1].split("Text: ")[1], context);
+
+					TextView mPlaceHolder = new TextView(context);
+
+					mLayout.addView(mDate);
+					mLayout.addView(mTitle);
+					mLayout.addView(mText);
+					if (i != rawText.split("Date: ").length - 1)
+						mLayout.addView(mPlaceHolder);
+				}
 			}
 		}
 	}
