@@ -70,6 +70,7 @@
     <string name="blue">Blau</string>
 
     <!-- I/O Algorithm -->
+    <string name="ioalgorithm">I/O Algorhythmus</string>
     <string name="ioscheduler_summary">Ändere den aktiven I/O Algorhythmus. Das Steuerprogramm (Scheduler) entscheidet wie mit I/0 Anfragen umgegangen wird.</string>
     <string name="internalscheduler">Interner Speicher Scheduler</string>
     <string name="externalscheduler">Externer Speicher Scheduler</string>
@@ -80,7 +81,6 @@
     <string name="miscellaneous">Sonstige</string>
     <string name="network">Netzwerk</string>
     <string name="wifihigh">Wlan Hochleistung</string>
-    <string name="ioalgorithm">I/O Algorhythmus</string>
     <string name="tcpcongestion">Übertragungssteuerungsprotokoll</string>
     <string name="tcpcongestion_summary">Das Übertragungssteuerungsprotokoll ist eine Vereinbarung darüber, auf welche Art und Weise Daten zwischen Computern ausgetauscht werden sollen.</string>
     <string name="wifihigh_summary">Behalte Wlan Geschwindigkeit auch im Ruhezustand.</string>
