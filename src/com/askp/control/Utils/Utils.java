@@ -83,7 +83,7 @@ public class Utils {
 
 	public static boolean existFile(String file) {
 		File mFile = new File(file);
-		return mFile.exists() ? true : false;
+		return mFile.exists();
 	}
 
 	public static void saveString(String name, String value, Context context) {
