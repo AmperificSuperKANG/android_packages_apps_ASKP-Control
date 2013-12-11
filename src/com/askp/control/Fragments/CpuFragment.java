@@ -615,7 +615,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				while (true) {
 					mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,
 							CpuValues.mCurCpuFreq()));
-					sleep(1000);
+					sleep(500);
 				}
 			} catch (InterruptedException e) {
 			}
@@ -747,9 +747,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				Control.REGULATOR_VOLTAGE = mRegulatorVoltagesValue.toString();
 			}
 		}
-		if (seekBar.equals(mMaxCpuFreqBar)) {
+		if (seekBar.equals(mMaxCpuFreqBar) || seekBar.equals(mMinCpuFreqBar)) {
 			Control.MAX_CPU_FREQ = mMaxFreqValue;
-		} else if (seekBar.equals(mMinCpuFreqBar)) {
 			Control.MIN_CPU_FREQ = mMinFreqValue;
 		} else if (seekBar.equals(mMaxScreenFreqOffBar)) {
 			Control.MAX_SCREEN_OFF = mMaxScreenOffValue;
