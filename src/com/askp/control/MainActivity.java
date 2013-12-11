@@ -132,11 +132,18 @@ public class MainActivity extends FragmentActivity {
 			break;
 		case R.id.action_cancel:
 			Control.setValuesback(getApplicationContext());
-			super.recreate();
+			if (mCpuAction)
+				CpuFragment.setValues();
+			if (mGpuDisplayAction)
+				GpuDisplayFragment.setValues();
+			if (mIoAlgorithmAction)
+				IoAlgorithmFragment.setValues();
+			if (mMiscellaneousAction)
+				MiscellaneousFragment.setValues();
 			disableButtons();
 			break;
 		case R.id.action_setonboot:
-			if (Utils.getBoolean("setonboot", getApplicationContext()) == true) {
+			if (Utils.getBoolean("setonboot", getApplicationContext())) {
 				setonbootBox.setChecked(false);
 				Utils.saveBoolean("setonboot", false, getApplicationContext());
 			} else {
