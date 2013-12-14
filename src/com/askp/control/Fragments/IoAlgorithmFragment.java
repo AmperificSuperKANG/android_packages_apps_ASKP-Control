@@ -29,7 +29,6 @@ import com.askp.control.Utils.IoAlgorithmValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -46,7 +45,6 @@ import android.widget.TextView;
 
 public class IoAlgorithmFragment extends Fragment implements
 		OnItemSelectedListener, OnSeekBarChangeListener {
-	private static Context context;
 
 	private static LinearLayout mLayout;
 
@@ -54,13 +52,11 @@ public class IoAlgorithmFragment extends Fragment implements
 	private static Spinner mInternalSchedulerSpinner;
 	public static int mCurInternalScheduler;
 	public static int mCurInternalSchedulerRaw;
-	private static ArrayAdapter<String> adapterInternalScheduler;
 
 	private static String[] mAvailableExternalScheduler;
 	private static Spinner mExternalSchedulerSpinner;
 	public static int mCurExternalScheduler;
 	public static int mCurExternalSchedulerRaw;
-	private static ArrayAdapter<String> adapterExternalScheduler;
 
 	private static SeekBar mInternalReadBar;
 	private static TextView mInternalReadText;
@@ -108,7 +104,7 @@ public class IoAlgorithmFragment extends Fragment implements
 			if (mAvailableInternalSchedulerList.get(i).indexOf("[") != -1) {
 				mAvailableInternalScheduler[i] = mAvailableInternalScheduler[i]
 						.replace("[", "").replace("]", "");
-				adapterInternalScheduler = new ArrayAdapter<String>(
+				ArrayAdapter<String> adapterInternalScheduler = new ArrayAdapter<String>(
 						getActivity(), android.R.layout.simple_spinner_item,
 						mAvailableInternalScheduler);
 				adapterInternalScheduler
@@ -142,7 +138,7 @@ public class IoAlgorithmFragment extends Fragment implements
 			if (mAvailableExternalSchedulerList.get(i).indexOf("[") != -1) {
 				mAvailableExternalScheduler[i] = mAvailableExternalScheduler[i]
 						.replace("[", "").replace("]", "");
-				adapterExternalScheduler = new ArrayAdapter<String>(
+				ArrayAdapter<String> adapterExternalScheduler = new ArrayAdapter<String>(
 						getActivity(), android.R.layout.simple_spinner_item,
 						mAvailableExternalScheduler);
 				adapterExternalScheduler
@@ -166,10 +162,16 @@ public class IoAlgorithmFragment extends Fragment implements
 
 		// Internal Read SeekBar
 		mInternalReadBar = new SeekBar(getActivity());
+		LayoutStyle
+				.setSeekBar(mInternalReadBar, 31, Integer.parseInt(String
+						.valueOf(Integer.parseInt(IoAlgorithmValues
+								.mInternalRead()) - 128)) / 128);
 		mInternalReadBar.setOnSeekBarChangeListener(this);
 
 		// Internal Read Text
 		mInternalReadText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mInternalReadText,
+				IoAlgorithmValues.mInternalRead() + " kB", getActivity());
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ)) {
 			mLayout.addView(mInternalReadTitle);
@@ -184,10 +186,16 @@ public class IoAlgorithmFragment extends Fragment implements
 
 		// External Read SeekBar
 		mExternalReadBar = new SeekBar(getActivity());
+		LayoutStyle
+				.setSeekBar(mExternalReadBar, 31, Integer.parseInt(String
+						.valueOf(Integer.parseInt(IoAlgorithmValues
+								.mExternalRead()) - 128)) / 128);
 		mExternalReadBar.setOnSeekBarChangeListener(this);
 
 		// External Read Text
 		mExternalReadText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mExternalReadText,
+				IoAlgorithmValues.mExternalRead() + " kB", getActivity());
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ)) {
 			mLayout.addView(mExternalReadTitle);
@@ -196,32 +204,6 @@ public class IoAlgorithmFragment extends Fragment implements
 		}
 
 		return rootView;
-	}
-
-	public static void setValues() {
-		// Internal Scheduler
-		LayoutStyle.setSpinner(mInternalSchedulerSpinner,
-				adapterInternalScheduler, mCurInternalScheduler);
-
-		// External Scheduler
-		LayoutStyle.setSpinner(mExternalSchedulerSpinner,
-				adapterExternalScheduler, mCurExternalScheduler);
-
-		// Internal Read
-		LayoutStyle
-				.setSeekBar(mInternalReadBar, 31, Integer.parseInt(String
-						.valueOf(Integer.parseInt(IoAlgorithmValues
-								.mInternalRead()) - 128)) / 128);
-		LayoutStyle.setCenterText(mInternalReadText,
-				IoAlgorithmValues.mInternalRead() + " kB", context);
-
-		// External Read
-		LayoutStyle
-				.setSeekBar(mExternalReadBar, 31, Integer.parseInt(String
-						.valueOf(Integer.parseInt(IoAlgorithmValues
-								.mExternalRead()) - 128)) / 128);
-		LayoutStyle.setCenterText(mExternalReadText,
-				IoAlgorithmValues.mExternalRead() + " kB", context);
 	}
 
 	@Override
