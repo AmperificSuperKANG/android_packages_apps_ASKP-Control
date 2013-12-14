@@ -27,12 +27,14 @@ import com.askp.control.Utils.Control;
 import com.askp.control.Utils.GpuDisplayValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
+import com.askp.control.Utils.ValueEditor;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -44,11 +46,12 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 public class GpuDisplayFragment extends Fragment implements
-		OnSeekBarChangeListener, OnCheckedChangeListener {
+		OnSeekBarChangeListener, OnCheckedChangeListener, OnClickListener {
 	private static Context context;
 
 	private static OnSeekBarChangeListener SeekBarChangeListener;
 	private static OnCheckedChangeListener CheckedChangeListener;
+	private static OnClickListener OnClickListener;
 
 	private static LinearLayout mLayout;
 
@@ -84,6 +87,7 @@ public class GpuDisplayFragment extends Fragment implements
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 		SeekBarChangeListener = this;
 		CheckedChangeListener = this;
+		OnClickListener = this;
 		setContent();
 
 		return rootView;
@@ -105,7 +109,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Gpu Max Freq Summary
 		TextView mGpuMaxFreqSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mGpuMaxFreqSummary,
-				context.getString(R.string.gpumaxfreq_summary), context);
+				context.getString(R.string.gpumaxfreq_summary));
 
 		// Gpu Max Freq SeekBar
 		mGpuMaxFreqBar = new SeekBar(context);
@@ -122,7 +126,7 @@ public class GpuDisplayFragment extends Fragment implements
 		if (GpuDisplayValues.mVariableGpu() == 2)
 			mGpuValue = "512";
 		mGpuMaxFreqText = new TextView(context);
-		LayoutStyle.setCenterText(mGpuMaxFreqText, mGpuValue + " MHz", context);
+		LayoutStyle.setCenterText(mGpuMaxFreqText, mGpuValue + " MHz");
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_VARIABLE_GPU)) {
 			mLayout.addView(mGpuScalingTitle);
@@ -149,10 +153,8 @@ public class GpuDisplayFragment extends Fragment implements
 
 		// Adaptive Brightness Summary
 		TextView mAdaptiveBrightnessSummary = new TextView(context);
-		LayoutStyle
-				.setTextSummary(mAdaptiveBrightnessSummary,
-						context.getString(R.string.adaptivebrightness_summary),
-						context);
+		LayoutStyle.setTextSummary(mAdaptiveBrightnessSummary,
+				context.getString(R.string.adaptivebrightness_summary));
 
 		// Adaptive Brightness Summary
 		mAdaptiveBrightnessBox = new CheckBox(context);
@@ -184,7 +186,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Trinity Constrast Summary
 		TextView mTrinityContrastSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mTrinityContrastSummary,
-				context.getString(R.string.contrast_summary), context);
+				context.getString(R.string.contrast_summary));
 
 		// Trinity Constrast SeekBar
 		mTrinityContrastBar = new SeekBar(context);
@@ -195,7 +197,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Trinity Constrast Text
 		mTrinityContrastText = new TextView(context);
 		LayoutStyle.setCenterText(mTrinityContrastText,
-				String.valueOf(GpuDisplayValues.mTrinityContrast()), context);
+				String.valueOf(GpuDisplayValues.mTrinityContrast()));
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)) {
 			mLayout.addView(mTrinityContrastTitle);
@@ -224,7 +226,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Gamma Control Summary
 		TextView mGammaControlSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mGammaControlSummary,
-				context.getString(R.string.gammacontrol_summary), context);
+				context.getString(R.string.gammacontrol_summary));
 
 		// Gamma Control SeekBar
 		mGammaControlBar = new SeekBar(context);
@@ -235,7 +237,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Gamma Control Text
 		mGammaControlText = new TextView(context);
 		LayoutStyle.setCenterText(mGammaControlText,
-				String.valueOf(GpuDisplayValues.mGammaControl()), context);
+				String.valueOf(GpuDisplayValues.mGammaControl()));
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)) {
 			mLayout.addView(mGammaControlTitle);
@@ -253,7 +255,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Gamma Offset Summary
 		TextView mGammaOffsetSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mGammaOffsetSummary,
-				context.getString(R.string.gammaoffset_summary), context);
+				context.getString(R.string.gammaoffset_summary));
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)) {
 			mLayout.addView(mGammaOffsetTitle);
@@ -286,7 +288,7 @@ public class GpuDisplayFragment extends Fragment implements
 			// Gamma Offset Text
 			TextView mGammaOffsetText = new TextView(context);
 			LayoutStyle.setCenterText(mGammaOffsetText,
-					mAvailableGammaOffset[i], context);
+					mAvailableGammaOffset[i]);
 			mGammaOffsetTexts[i] = mGammaOffsetText;
 
 			if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)) {
@@ -304,7 +306,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Color Multiplier Summary
 		TextView mColorMultiplierSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mColorMultiplierSummary,
-				context.getString(R.string.colormultipliers_summary), context);
+				context.getString(R.string.colormultipliers_summary));
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER)) {
 			mLayout.addView(mColorMultiplierTitle);
@@ -343,7 +345,8 @@ public class GpuDisplayFragment extends Fragment implements
 			TextView mColorMultiplierText = new TextView(context);
 			LayoutStyle.setCenterText(mColorMultiplierText, String
 					.valueOf(mAvailableColorMultiplier[i]
-							.replace("0000000", "")), context);
+							.replace("0000000", "")));
+			mColorMultiplierText.setOnClickListener(OnClickListener);
 			mColorMultiplierTexts[i] = mColorMultiplierText;
 
 			if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER)) {
@@ -432,5 +435,18 @@ public class GpuDisplayFragment extends Fragment implements
 		MainActivity.mGpuDisplayAction = true;
 		if (buttonView.equals(mAdaptiveBrightnessBox))
 			Control.APAPTIVE_BRIGHTNESS = isChecked ? "1" : "0";
+	}
+
+	@Override
+	public void onClick(View v) {
+		MainActivity.mGpuDisplayAction = true;
+		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
+			if (v.equals(mColorMultiplierTexts[i])) {
+				ValueEditor.showSeekBarEditor(mColorMultiplierBars[i],
+						mColorMultiplierTexts[i].getText().toString(),
+						context.getString(R.string.colormultipliers), 60, 1,
+						context);
+			}
+		}
 	}
 }

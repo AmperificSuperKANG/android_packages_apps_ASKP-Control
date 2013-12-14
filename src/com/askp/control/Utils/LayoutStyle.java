@@ -49,7 +49,7 @@ public class LayoutStyle {
 		i.setSelection(selection);
 	}
 
-	public static void setCenterText(TextView i, String text, Context context) {
+	public static void setCenterText(TextView i, String text) {
 		i.setText(text);
 		i.setGravity(Gravity.CENTER);
 	}
@@ -59,7 +59,7 @@ public class LayoutStyle {
 		i.setProgress(progress);
 	}
 
-	public static void setTextSummary(TextView i, String text, Context context) {
+	public static void setTextSummary(TextView i, String text) {
 		i.setTypeface(null, Typeface.ITALIC);
 		i.setText(text);
 	}

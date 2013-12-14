@@ -94,7 +94,7 @@ public class IoAlgorithmFragment extends Fragment implements
 		// I/O Scheduler Summary
 		TextView mIOSchedulerSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mIOSchedulerSummary,
-				context.getString(R.string.ioscheduler_summary), context);
+				context.getString(R.string.ioscheduler_summary));
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER)
 				|| Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER)) {
@@ -188,7 +188,7 @@ public class IoAlgorithmFragment extends Fragment implements
 		// Internal Read Text
 		mInternalReadText = new TextView(context);
 		LayoutStyle.setCenterText(mInternalReadText,
-				IoAlgorithmValues.mInternalRead() + " kB", context);
+				IoAlgorithmValues.mInternalRead() + " kB");
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ)) {
 			mLayout.addView(mInternalReadTitle);
@@ -212,7 +212,7 @@ public class IoAlgorithmFragment extends Fragment implements
 		// External Read Text
 		mExternalReadText = new TextView(context);
 		LayoutStyle.setCenterText(mExternalReadText,
-				IoAlgorithmValues.mExternalRead() + " kB", context);
+				IoAlgorithmValues.mExternalRead() + " kB");
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ)) {
 			mLayout.addView(mExternalReadTitle);

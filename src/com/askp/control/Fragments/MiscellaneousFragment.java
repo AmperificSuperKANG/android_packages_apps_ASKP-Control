@@ -104,7 +104,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Wifi High Summary
 		TextView mWifiHighSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mWifiHighSummary,
-				context.getString(R.string.wifihigh_summary), context);
+				context.getString(R.string.wifihigh_summary));
 
 		// Wifi High CheckBox
 		mWifiHighBox = new CheckBox(context);
@@ -126,7 +126,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// TCP Congestion Summary
 		TextView mTCPCongestionSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mTCPCongestionSummary,
-				context.getString(R.string.tcpcongestion_summary), context);
+				context.getString(R.string.tcpcongestion_summary));
 
 		// TCP Congestion Spinner
 		mAvailableTCPCongestion = MiscellaneousValues.mTCPCongestion().split(
@@ -170,7 +170,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Fast Charge Summary
 		TextView mFastChargeSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mFastChargeSummary,
-				context.getString(R.string.fastcharge_summary), context);
+				context.getString(R.string.fastcharge_summary));
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)) {
 			mLayout.addView(mFastChargeBox);
@@ -185,7 +185,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Battery Extender Summary
 		TextView mBatteryExtenderSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mBatteryExtenderSummary,
-				context.getString(R.string.batteryextender_summary), context);
+				context.getString(R.string.batteryextender_summary));
 
 		// Battery Extender SeekBar
 		mBatteryExtenderBar = new SeekBar(context);
@@ -196,7 +196,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Battery Extender Text
 		mBatteryExtenderText = new TextView(context);
 		LayoutStyle.setCenterText(mBatteryExtenderText,
-				String.valueOf(MiscellaneousValues.mBatterExtender()), context);
+				String.valueOf(MiscellaneousValues.mBatterExtender()));
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)) {
 			mLayout.addView(mBatteryExtenderTitle);
@@ -238,7 +238,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Headphone Boost Text
 		mHeadphoneBoostText = new TextView(context);
 		LayoutStyle.setCenterText(mHeadphoneBoostText,
-				String.valueOf(MiscellaneousValues.mHeadphoneBoost()), context);
+				String.valueOf(MiscellaneousValues.mHeadphoneBoost()));
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST)) {
 			mLayout.addView(mHeadphoneBoostSubTitle);
@@ -265,7 +265,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Dynamic Fsync Summary
 		TextView mDynamicFsyncSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mDynamicFsyncSummary,
-				context.getString(R.string.dynamicfsync_summary), context);
+				context.getString(R.string.dynamicfsync_summary));
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)) {
 			mLayout.addView(mDynamicFsyncBox);
@@ -282,7 +282,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Fsync Control Summary
 		TextView mFsyncControlSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mFsyncControlSummary,
-				context.getString(R.string.fsynccontrol_summary), context);
+				context.getString(R.string.fsynccontrol_summary));
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL)) {
 			mLayout.addView(mFsyncControlBox);

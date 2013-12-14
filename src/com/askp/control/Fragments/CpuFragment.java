@@ -29,6 +29,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -48,14 +49,16 @@ import com.askp.control.Utils.Control;
 import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
+import com.askp.control.Utils.ValueEditor;
 
 public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
-		OnItemSelectedListener, OnCheckedChangeListener {
+		OnItemSelectedListener, OnCheckedChangeListener, OnClickListener {
 	private static Context context;
 
 	private static OnSeekBarChangeListener SeekBarChangeListener;
 	private static OnItemSelectedListener ItemSelectedListener;
 	private static OnCheckedChangeListener CheckedChangeListener;
+	private static OnClickListener ClickListener;
 
 	private static LinearLayout mLayout;
 
@@ -118,6 +121,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		SeekBarChangeListener = this;
 		ItemSelectedListener = this;
 		CheckedChangeListener = this;
+		ClickListener = this;
 		setContent();
 
 		return rootView;
@@ -133,7 +137,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Current Freq
 		mCurCpuFreq = new TextView(context);
-		LayoutStyle.setCenterText(mCurCpuFreq, "", context);
+		LayoutStyle.setCenterText(mCurCpuFreq, "");
 		mCurCpuFreq.setTextSize(40);
 		mCurCpuFreq.setTextColor(context.getResources().getColor(
 				android.R.color.white));
@@ -163,7 +167,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Max Freq Summary
 		TextView mMaxCpuFreqSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mMaxCpuFreqSummary,
-				context.getString(R.string.cpumaxfreq_summary), context);
+				context.getString(R.string.cpumaxfreq_summary));
 
 		// Max Freq SeekBar
 		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
@@ -180,7 +184,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Max Freq TextView
 		mMaxCpuFreqText = new TextView(context);
 		LayoutStyle.setCenterText(mMaxCpuFreqText,
-				String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz", context);
+				String.valueOf(mMaxCpuFreqRaw / 1000) + " MHz");
 
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
 			mLayout.addView(mMaxCpuFreqTitle);
@@ -197,7 +201,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Min Freq Summary
 		TextView mMinCpuFreqSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mMinCpuFreqSummary,
-				context.getString(R.string.cpuminfreq_summary), context);
+				context.getString(R.string.cpuminfreq_summary));
 
 		// Min Freq SeekBar
 		mMinCpuFreqBar = new SeekBar(context);
@@ -208,7 +212,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Min Freq TextView
 		mMinCpuFreqText = new TextView(context);
 		LayoutStyle.setCenterText(mMinCpuFreqText,
-				String.valueOf(mMinCpuFreqRaw / 1000) + " MHz", context);
+				String.valueOf(mMinCpuFreqRaw / 1000) + " MHz");
 
 		if (Utils.existFile(CpuValues.FILENAME_MIN_FREQ)) {
 			mLayout.addView(mMinCpuFreqTitle);
@@ -225,7 +229,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Max Freq Screen Off Summary
 		TextView mMaxFreqScreenOffSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mMaxFreqScreenOffSummary,
-				context.getString(R.string.maxscreenoff_summary), context);
+				context.getString(R.string.maxscreenoff_summary));
 
 		// Max Freq Screen Off SeekBar
 		mMaxScreenOffValue = String.valueOf(CpuValues.mMaxScreenOffFreq());
@@ -239,8 +243,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Max Freq Screen Off TextView
 		mMaxFreqScreenOffText = new TextView(context);
 		LayoutStyle.setCenterText(mMaxFreqScreenOffText,
-				String.valueOf(CpuValues.mMaxScreenOffFreq() / 1000) + " MHz",
-				context);
+				String.valueOf(CpuValues.mMaxScreenOffFreq() / 1000) + " MHz");
 
 		if (Utils.existFile(CpuValues.FILENAME_MAX_SCREEN_OFF)) {
 			mLayout.addView(mMaxFreqScreenOffTitle);
@@ -257,7 +260,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Min Freq Screen On Summary
 		TextView mMinFreqScreenOnSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mMinFreqScreenOnSummary,
-				context.getString(R.string.minscreenon_summary), context);
+				context.getString(R.string.minscreenon_summary));
 
 		// Min Freq Screen On SeekBar
 		mMinScreenOnValue = String.valueOf(CpuValues.mMinScreenOnFreq());
@@ -271,8 +274,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Min Freq Screen On TextView
 		mMinFreqScreenOnText = new TextView(context);
 		LayoutStyle.setCenterText(mMinFreqScreenOnText,
-				String.valueOf(CpuValues.mMinScreenOnFreq() / 1000) + " MHz",
-				context);
+				String.valueOf(CpuValues.mMinScreenOnFreq() / 1000) + " MHz");
 
 		if (Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON)) {
 			mLayout.addView(mMinFreqScreenOnTitle);
@@ -289,7 +291,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Multicore Saving Summary
 		TextView mMulticoreSavingSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mMulticoreSavingSummary,
-				context.getString(R.string.multicoresaving_summary), context);
+				context.getString(R.string.multicoresaving_summary));
 
 		// Multicore Saving SeekBar
 		mMulticoreSavingBar = new SeekBar(context);
@@ -300,7 +302,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Multicore Saving Text
 		mMulticoreSavingText = new TextView(context);
 		LayoutStyle.setCenterText(mMulticoreSavingText,
-				String.valueOf(CpuValues.mMulticoreSaving()), context);
+				String.valueOf(CpuValues.mMulticoreSaving()));
 
 		if (Utils.existFile(CpuValues.FILENAME_MULTICORE_SAVING)) {
 			mLayout.addView(mMulticoreSavingTitle);
@@ -317,7 +319,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Temp Limit Summary
 		TextView mTempLimitSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mTempLimitSummary,
-				context.getString(R.string.templimit_summary), context);
+				context.getString(R.string.templimit_summary));
 
 		// Temp Limit SeekBar
 		mTempLimitBar = new SeekBar(context);
@@ -328,7 +330,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Temp Limit Text
 		mTempLimitText = new TextView(context);
 		LayoutStyle.setCenterText(mTempLimitText,
-				String.valueOf(CpuValues.mTempLimit() / 1000), context);
+				String.valueOf(CpuValues.mTempLimit() / 1000));
+		mTempLimitText.setOnClickListener(ClickListener);
 
 		if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT)) {
 			mLayout.addView(mTempLimitTitle);
@@ -345,7 +348,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Governor Summary
 		TextView mGovernorSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mGovernorSummary,
-				context.getString(R.string.governor_summary), context);
+				context.getString(R.string.governor_summary));
 
 		// Governor Spinner
 		mAvailableGovernor = CpuValues.mAvailableGovernor().split(" ");
@@ -377,7 +380,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Smartreflex Summary
 		TextView mSmartreflexSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mSmartreflexSummary,
-				context.getString(R.string.smartreflex_summary), context);
+				context.getString(R.string.smartreflex_summary));
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE)
 				|| Utils.existFile(CpuValues.FILENAME_IVA)
@@ -422,7 +425,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Core Voltages Summary
 		TextView mCoreVoltagesSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mCoreVoltagesSummary,
-				context.getString(R.string.warning), context);
+				context.getString(R.string.warning));
 
 		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
 			mLayout.addView(mCoreVoltagesTitle);
@@ -452,7 +455,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// Core Voltages TextView
 			TextView mCoreVoltagesText = new TextView(context);
 			LayoutStyle.setCenterText(mCoreVoltagesText, mCoreVoltagesList[i]
-					+ " mV", context);
+					+ " mV");
+			mCoreVoltagesText.setOnClickListener(ClickListener);
 			mCoreVoltagesTexts[i] = mCoreVoltagesText;
 
 			if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
@@ -470,7 +474,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// IVA Voltages Summary
 		TextView mIVAVoltagesSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mIVAVoltagesSummary,
-				context.getString(R.string.warning), context);
+				context.getString(R.string.warning));
 
 		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
 			mLayout.addView(mIVAVoltagesTitle);
@@ -500,7 +504,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// IVA Voltages TextView
 			TextView mIVAVoltagesText = new TextView(context);
 			LayoutStyle.setCenterText(mIVAVoltagesText, mIVAVoltagesList[i]
-					+ " mV", context);
+					+ " mV");
+			mIVAVoltagesText.setOnClickListener(ClickListener);
 			mIVAVoltagesTexts[i] = mIVAVoltagesText;
 
 			if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
@@ -518,7 +523,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// MPU Voltages Summary
 		TextView mMPUVoltagesSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mMPUVoltagesSummary,
-				context.getString(R.string.warning), context);
+				context.getString(R.string.warning));
 
 		if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
 			mLayout.addView(mMPUVoltagesTitle);
@@ -547,7 +552,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// MPU Voltages TextView
 			TextView mMPUVoltagesText = new TextView(context);
 			LayoutStyle.setCenterText(mMPUVoltagesText,
-					mMPUVoltagesList[i].split(" ")[1] + " mV", context);
+					mMPUVoltagesList[i].split(" ")[1] + " mV");
+			mMPUVoltagesText.setOnClickListener(ClickListener);
 			mMPUVoltagesTexts[i] = mMPUVoltagesText;
 
 			if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
@@ -565,7 +571,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Regulator Voltages Summary
 		TextView mRegulatorVoltagesSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mRegulatorVoltagesSummary,
-				context.getString(R.string.warning), context);
+				context.getString(R.string.warning));
 
 		if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES)) {
 			mLayout.addView(mRegulatorVoltagesTitle);
@@ -596,7 +602,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// Regulator Voltages TextView
 			TextView mRegulatorVoltagesText = new TextView(context);
 			LayoutStyle.setCenterText(mRegulatorVoltagesText,
-					mRegulatorVoltagesList[i].split(" ")[1] + " mV", context);
+					mRegulatorVoltagesList[i].split(" ")[1] + " mV");
+			mRegulatorVoltagesText.setOnClickListener(ClickListener);
 			mRegulatorVoltagesTexts[i] = mRegulatorVoltagesText;
 
 			if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES)) {
@@ -796,5 +803,44 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		} else if (buttonView.equals(mMPU)) {
 			Control.MPU = isChecked ? "1" : "0";
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		for (int i = 0; i < mCoreVoltagesList.length; i++)
+			if (v.equals(mCoreVoltagesTexts[i]))
+				ValueEditor.showSeekBarEditor(
+						mCoreVoltagesBars[i],
+						mCoreVoltagesTexts[i].getText().toString()
+								.replace(" mV", ""),
+						context.getString(R.string.corevoltages), 700, 6,
+						context);
+		for (int i = 0; i < mIVAVoltagesList.length; i++)
+			if (v.equals(mIVAVoltagesTexts[i]))
+				ValueEditor.showSeekBarEditor(
+						mIVAVoltagesBars[i],
+						mIVAVoltagesTexts[i].getText().toString()
+								.replace(" mV", ""),
+						context.getString(R.string.ivavoltages), 700, 8,
+						context);
+		for (int i = 0; i < mMPUVoltagesList.length; i++)
+			if (v.equals(mMPUVoltagesTexts[i]))
+				ValueEditor.showSeekBarEditor(
+						mMPUVoltagesBars[i],
+						mMPUVoltagesTexts[i].getText().toString()
+								.replace(" mV", ""),
+						context.getString(R.string.mpuvoltages), 700, 9,
+						context);
+		for (int i = 0; i < mRegulatorVoltagesList.length; i++)
+			if (v.equals(mRegulatorVoltagesTexts[i]))
+				ValueEditor.showSeekBarEditor(mRegulatorVoltagesBars[i],
+						mRegulatorVoltagesTexts[i].getText().toString()
+								.replace(" mV", ""),
+						context.getString(R.string.regulatorvoltages), 1500,
+						20, context);
+		if (v.equals(mTempLimitText))
+			ValueEditor.showSeekBarEditor(mTempLimitBar, mTempLimitText
+					.getText().toString(), context
+					.getString(R.string.templimit), 60, 1, context);
 	}
 }

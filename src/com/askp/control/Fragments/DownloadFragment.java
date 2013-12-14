@@ -109,7 +109,7 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 			TextView mError = new TextView(context);
 			mError.setTextSize(20);
 			LayoutStyle.setCenterText(mError,
-					context.getString(R.string.nointernet), context);
+					context.getString(R.string.nointernet));
 
 			if (GetConnection.mHtmlstring.isEmpty()) {
 				mLayout.addView(mError);

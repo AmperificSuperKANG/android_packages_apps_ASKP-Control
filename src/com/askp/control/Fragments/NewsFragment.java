@@ -71,7 +71,7 @@ public class NewsFragment extends Fragment implements OnClickListener {
 			if (GetConnection.mHtmlstring.isEmpty()) {
 				TextView mError = new TextView(context);
 				LayoutStyle.setCenterText(mError,
-						context.getString(R.string.nointernet), context);
+						context.getString(R.string.nointernet));
 				mError.setTextSize(20);
 				mLayout.addView(mError);
 			} else {
@@ -79,20 +79,19 @@ public class NewsFragment extends Fragment implements OnClickListener {
 				for (int i = 1; i < rawText.split("Date: ").length; i++) {
 					TextView mDate = new TextView(context);
 					LayoutStyle.setCenterText(mDate,
-							rawText.split("Date: ")[i].split("Title: ")[0],
-							context);
+							rawText.split("Date: ")[i].split("Title: ")[0]);
 					mDate.setTextSize(20);
 
 					TextView mTitle = new TextView(context);
 					LayoutStyle.setTextSubTitle(mTitle, "", context);
 					LayoutStyle.setCenterText(mTitle,
 							rawText.split("Date: ")[i].split("Title: ")[1]
-									.split("Text: ")[0], context);
+									.split("Text: ")[0]);
 
 					TextView mText = new TextView(context);
-					LayoutStyle.setTextSummary(mText, "", context);
+					LayoutStyle.setTextSummary(mText, "");
 					LayoutStyle.setCenterText(mText, rawText.split("Date: ")[i]
-							.split("Title: ")[1].split("Text: ")[1], context);
+							.split("Title: ")[1].split("Text: ")[1]);
 
 					TextView mPlaceHolder = new TextView(context);
 
