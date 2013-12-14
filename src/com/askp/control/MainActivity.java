@@ -132,7 +132,14 @@ public class MainActivity extends FragmentActivity {
 			break;
 		case R.id.action_cancel:
 			Control.setValuesback(getApplicationContext());
-			super.recreate();
+			if (mCpuAction)
+				CpuFragment.setContent();
+			if (mGpuDisplayAction)
+				GpuDisplayFragment.setContent();
+			if (mIoAlgorithmAction)
+				IoAlgorithmFragment.setContent();
+			if (mMiscellaneousAction)
+				MiscellaneousFragment.setContent();
 			disableButtons();
 			break;
 		case R.id.action_setonboot:

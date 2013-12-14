@@ -29,6 +29,7 @@ import com.askp.control.Utils.IoAlgorithmValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -45,6 +46,10 @@ import android.widget.TextView;
 
 public class IoAlgorithmFragment extends Fragment implements
 		OnItemSelectedListener, OnSeekBarChangeListener {
+	private static Context context;
+
+	private static OnItemSelectedListener ItemSelectedListener;
+	private static OnSeekBarChangeListener SeekBarChangeListener;
 
 	private static LinearLayout mLayout;
 
@@ -70,16 +75,26 @@ public class IoAlgorithmFragment extends Fragment implements
 		View rootView = inflater.inflate(R.layout.layout, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
+		context = getActivity();
+		ItemSelectedListener = this;
+		SeekBarChangeListener = this;
+		setContent();
+
+		return rootView;
+	}
+
+	public static void setContent() {
+		mLayout.removeAllViews();
 
 		// I/O Scheduler Title
-		TextView mIOSchedulerTitle = new TextView(getActivity());
+		TextView mIOSchedulerTitle = new TextView(context);
 		LayoutStyle.setTextTitle(mIOSchedulerTitle,
-				getString(R.string.ioscheduler), getActivity());
+				context.getString(R.string.ioscheduler), context);
 
 		// I/O Scheduler Summary
-		TextView mIOSchedulerSummary = new TextView(getActivity());
+		TextView mIOSchedulerSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mIOSchedulerSummary,
-				getString(R.string.ioscheduler_summary), getActivity());
+				context.getString(R.string.ioscheduler_summary), context);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER)
 				|| Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER)) {
@@ -88,9 +103,9 @@ public class IoAlgorithmFragment extends Fragment implements
 		}
 
 		// Internal Scheduler Title
-		TextView mInternalSchedulerTitle = new TextView(getActivity());
+		TextView mInternalSchedulerTitle = new TextView(context);
 		LayoutStyle.setTextSubTitle(mInternalSchedulerTitle,
-				getString(R.string.internalscheduler), getActivity());
+				context.getString(R.string.internalscheduler), context);
 
 		// Internal Scheduler Spinner
 		mAvailableInternalScheduler = IoAlgorithmValues.mInternalScheduler()
@@ -99,13 +114,13 @@ public class IoAlgorithmFragment extends Fragment implements
 		List<String> mAvailableInternalSchedulerList = new ArrayList<String>(
 				Arrays.asList(mAvailableInternalScheduler));
 
-		mInternalSchedulerSpinner = new Spinner(getActivity());
+		mInternalSchedulerSpinner = new Spinner(context);
 		for (int i = 0; i < mAvailableInternalSchedulerList.size(); i++) {
 			if (mAvailableInternalSchedulerList.get(i).indexOf("[") != -1) {
 				mAvailableInternalScheduler[i] = mAvailableInternalScheduler[i]
 						.replace("[", "").replace("]", "");
 				ArrayAdapter<String> adapterInternalScheduler = new ArrayAdapter<String>(
-						getActivity(), android.R.layout.simple_spinner_item,
+						context, android.R.layout.simple_spinner_item,
 						mAvailableInternalScheduler);
 				adapterInternalScheduler
 						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -114,7 +129,8 @@ public class IoAlgorithmFragment extends Fragment implements
 				mCurInternalScheduler = i;
 			}
 		}
-		mInternalSchedulerSpinner.setOnItemSelectedListener(this);
+		mInternalSchedulerSpinner
+				.setOnItemSelectedListener(ItemSelectedListener);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER)) {
 			mLayout.addView(mInternalSchedulerTitle);
@@ -122,9 +138,9 @@ public class IoAlgorithmFragment extends Fragment implements
 		}
 
 		// External Scheduler Title
-		TextView mExternalSchedulerTitle = new TextView(getActivity());
+		TextView mExternalSchedulerTitle = new TextView(context);
 		LayoutStyle.setTextSubTitle(mExternalSchedulerTitle,
-				getString(R.string.externalscheduler), getActivity());
+				context.getString(R.string.externalscheduler), context);
 
 		// External Scheduler Spinner
 		mAvailableExternalScheduler = IoAlgorithmValues.mExternalScheduler()
@@ -133,13 +149,13 @@ public class IoAlgorithmFragment extends Fragment implements
 		List<String> mAvailableExternalSchedulerList = new ArrayList<String>(
 				Arrays.asList(mAvailableExternalScheduler));
 
-		mExternalSchedulerSpinner = new Spinner(getActivity());
+		mExternalSchedulerSpinner = new Spinner(context);
 		for (int i = 0; i < mAvailableExternalSchedulerList.size(); i++) {
 			if (mAvailableExternalSchedulerList.get(i).indexOf("[") != -1) {
 				mAvailableExternalScheduler[i] = mAvailableExternalScheduler[i]
 						.replace("[", "").replace("]", "");
 				ArrayAdapter<String> adapterExternalScheduler = new ArrayAdapter<String>(
-						getActivity(), android.R.layout.simple_spinner_item,
+						context, android.R.layout.simple_spinner_item,
 						mAvailableExternalScheduler);
 				adapterExternalScheduler
 						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -148,7 +164,8 @@ public class IoAlgorithmFragment extends Fragment implements
 				mCurExternalScheduler = i;
 			}
 		}
-		mExternalSchedulerSpinner.setOnItemSelectedListener(this);
+		mExternalSchedulerSpinner
+				.setOnItemSelectedListener(ItemSelectedListener);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER)) {
 			mLayout.addView(mExternalSchedulerTitle);
@@ -156,22 +173,22 @@ public class IoAlgorithmFragment extends Fragment implements
 		}
 
 		// Internal Read Title
-		TextView mInternalReadTitle = new TextView(getActivity());
+		TextView mInternalReadTitle = new TextView(context);
 		LayoutStyle.setTextSubTitle(mInternalReadTitle,
-				getString(R.string.internalreadahead), getActivity());
+				context.getString(R.string.internalreadahead), context);
 
 		// Internal Read SeekBar
-		mInternalReadBar = new SeekBar(getActivity());
+		mInternalReadBar = new SeekBar(context);
 		LayoutStyle
 				.setSeekBar(mInternalReadBar, 31, Integer.parseInt(String
 						.valueOf(Integer.parseInt(IoAlgorithmValues
 								.mInternalRead()) - 128)) / 128);
-		mInternalReadBar.setOnSeekBarChangeListener(this);
+		mInternalReadBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Internal Read Text
-		mInternalReadText = new TextView(getActivity());
+		mInternalReadText = new TextView(context);
 		LayoutStyle.setCenterText(mInternalReadText,
-				IoAlgorithmValues.mInternalRead() + " kB", getActivity());
+				IoAlgorithmValues.mInternalRead() + " kB", context);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ)) {
 			mLayout.addView(mInternalReadTitle);
@@ -180,30 +197,28 @@ public class IoAlgorithmFragment extends Fragment implements
 		}
 
 		// External Read Title
-		TextView mExternalReadTitle = new TextView(getActivity());
+		TextView mExternalReadTitle = new TextView(context);
 		LayoutStyle.setTextSubTitle(mExternalReadTitle,
-				getString(R.string.externalreadahead), getActivity());
+				context.getString(R.string.externalreadahead), context);
 
 		// External Read SeekBar
-		mExternalReadBar = new SeekBar(getActivity());
+		mExternalReadBar = new SeekBar(context);
 		LayoutStyle
 				.setSeekBar(mExternalReadBar, 31, Integer.parseInt(String
 						.valueOf(Integer.parseInt(IoAlgorithmValues
 								.mExternalRead()) - 128)) / 128);
-		mExternalReadBar.setOnSeekBarChangeListener(this);
+		mExternalReadBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// External Read Text
-		mExternalReadText = new TextView(getActivity());
+		mExternalReadText = new TextView(context);
 		LayoutStyle.setCenterText(mExternalReadText,
-				IoAlgorithmValues.mExternalRead() + " kB", getActivity());
+				IoAlgorithmValues.mExternalRead() + " kB", context);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ)) {
 			mLayout.addView(mExternalReadTitle);
 			mLayout.addView(mExternalReadBar);
 			mLayout.addView(mExternalReadText);
 		}
-
-		return rootView;
 	}
 
 	@Override

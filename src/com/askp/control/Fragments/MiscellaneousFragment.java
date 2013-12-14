@@ -25,6 +25,7 @@ import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.MiscellaneousValues;
 import com.askp.control.Utils.Utils;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -45,6 +46,11 @@ import android.widget.TextView;
 public class MiscellaneousFragment extends Fragment implements
 		OnCheckedChangeListener, OnItemSelectedListener,
 		OnSeekBarChangeListener {
+	private static Context context;
+
+	private static OnCheckedChangeListener CheckedChangeListener;
+	private static OnItemSelectedListener ItemSelectedListener;
+	private static OnSeekBarChangeListener SeekBarChangeListener;
 
 	private static LinearLayout mLayout;
 
@@ -73,32 +79,39 @@ public class MiscellaneousFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.layout, container, false);
+		context = getActivity();
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
+		CheckedChangeListener = this;
+		ItemSelectedListener = this;
+		SeekBarChangeListener = this;
+		setContent();
+
+		return rootView;
+	}
+
+	public static void setContent() {
+		mLayout.removeAllViews();
 
 		// Network Title
-		TextView mNetworkTitle = new TextView(getActivity());
-		LayoutStyle.setTextTitle(mNetworkTitle, getString(R.string.network),
-				getActivity());
+		TextView mNetworkTitle = new TextView(context);
+		LayoutStyle.setTextTitle(mNetworkTitle,
+				context.getString(R.string.network), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH))
 			mLayout.addView(mNetworkTitle);
 
 		// Wifi High Summary
-		TextView mWifiHighSummary = new TextView(getActivity());
+		TextView mWifiHighSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mWifiHighSummary,
-				getString(R.string.wifihigh_summary), getActivity());
+				context.getString(R.string.wifihigh_summary), context);
 
 		// Wifi High CheckBox
-		boolean mWifiHighBoolean = false;
-		if (MiscellaneousValues.mWifiHigh().equals("Y")
-				|| MiscellaneousValues.mWifiHigh().equals("y"))
-			mWifiHighBoolean = true;
-
-		mWifiHighBox = new CheckBox(getActivity());
-		LayoutStyle.setCheckBox(mWifiHighBox, getString(R.string.wifihigh),
-				mWifiHighBoolean);
-		mWifiHighBox.setOnCheckedChangeListener(this);
+		mWifiHighBox = new CheckBox(context);
+		LayoutStyle.setCheckBox(mWifiHighBox, context
+				.getString(R.string.wifihigh), MiscellaneousValues.mWifiHigh()
+				.equals("Y") || MiscellaneousValues.mWifiHigh().equals("y"));
+		mWifiHighBox.setOnCheckedChangeListener(CheckedChangeListener);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH)) {
 			mLayout.addView(mWifiHighBox);
@@ -106,30 +119,29 @@ public class MiscellaneousFragment extends Fragment implements
 		}
 
 		// TCP Congestion SubTitle
-		TextView mTCPCongestionTitle = new TextView(getActivity());
+		TextView mTCPCongestionTitle = new TextView(context);
 		LayoutStyle.setTextSubTitle(mTCPCongestionTitle,
-				getString(R.string.tcpcongestion), getActivity());
+				context.getString(R.string.tcpcongestion), context);
 
 		// TCP Congestion Summary
-		TextView mTCPCongestionSummary = new TextView(getActivity());
+		TextView mTCPCongestionSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mTCPCongestionSummary,
-				getString(R.string.tcpcongestion_summary), getActivity());
+				context.getString(R.string.tcpcongestion_summary), context);
 
 		// TCP Congestion Spinner
 		mAvailableTCPCongestion = MiscellaneousValues.mTCPCongestion().split(
 				" ");
-		mTCPCongestion = 0;
 
 		ArrayAdapter<String> adapterTCPCongestion = new ArrayAdapter<String>(
-				getActivity(), android.R.layout.simple_spinner_item,
+				context, android.R.layout.simple_spinner_item,
 				mAvailableTCPCongestion);
 		adapterTCPCongestion
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		mTCPCongestionSpinner = new Spinner(getActivity());
-		LayoutStyle.setSpinner(mTCPCongestionSpinner, adapterTCPCongestion,
-				mTCPCongestion);
-		mTCPCongestionSpinner.setOnItemSelectedListener(this);
+		mTCPCongestion = 0;
+		mTCPCongestionSpinner = new Spinner(context);
+		LayoutStyle.setSpinner(mTCPCongestionSpinner, adapterTCPCongestion, 0);
+		mTCPCongestionSpinner.setOnItemSelectedListener(ItemSelectedListener);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION)) {
 			mLayout.addView(mTCPCongestionTitle);
@@ -138,9 +150,9 @@ public class MiscellaneousFragment extends Fragment implements
 		}
 
 		// Battery Title
-		TextView mBatteryTitle = new TextView(getActivity());
-		LayoutStyle.setTextTitle(mBatteryTitle, getString(R.string.battery),
-				getActivity());
+		TextView mBatteryTitle = new TextView(context);
+		LayoutStyle.setTextTitle(mBatteryTitle,
+				context.getString(R.string.battery), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)
 				|| Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)) {
@@ -148,19 +160,17 @@ public class MiscellaneousFragment extends Fragment implements
 		}
 
 		// Fast Charge CheckBox
-		boolean mFastChargeBoolean = false;
-		if (MiscellaneousValues.mFastCharge() == 1)
-			mFastChargeBoolean = true;
 
-		mFastChargeBox = new CheckBox(getActivity());
-		LayoutStyle.setCheckBox(mFastChargeBox, getString(R.string.fastcharge),
-				mFastChargeBoolean);
-		mFastChargeBox.setOnCheckedChangeListener(this);
+		mFastChargeBox = new CheckBox(context);
+		LayoutStyle.setCheckBox(mFastChargeBox,
+				context.getString(R.string.fastcharge),
+				MiscellaneousValues.mFastCharge() == 1);
+		mFastChargeBox.setOnCheckedChangeListener(CheckedChangeListener);
 
 		// Fast Charge Summary
-		TextView mFastChargeSummary = new TextView(getActivity());
+		TextView mFastChargeSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mFastChargeSummary,
-				getString(R.string.fastcharge_summary), getActivity());
+				context.getString(R.string.fastcharge_summary), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)) {
 			mLayout.addView(mFastChargeBox);
@@ -168,26 +178,25 @@ public class MiscellaneousFragment extends Fragment implements
 		}
 
 		// Battery Extender SubTitle
-		TextView mBatteryExtenderTitle = new TextView(getActivity());
+		TextView mBatteryExtenderTitle = new TextView(context);
 		LayoutStyle.setTextSubTitle(mBatteryExtenderTitle,
-				getString(R.string.batteryextender), getActivity());
+				context.getString(R.string.batteryextender), context);
 
 		// Battery Extender Summary
-		TextView mBatteryExtenderSummary = new TextView(getActivity());
+		TextView mBatteryExtenderSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mBatteryExtenderSummary,
-				getString(R.string.batteryextender_summary), getActivity());
+				context.getString(R.string.batteryextender_summary), context);
 
 		// Battery Extender SeekBar
-		mBatteryExtenderBar = new SeekBar(getActivity());
+		mBatteryExtenderBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mBatteryExtenderBar, 100,
 				MiscellaneousValues.mBatterExtender());
-		mBatteryExtenderBar.setOnSeekBarChangeListener(this);
+		mBatteryExtenderBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Battery Extender Text
-		mBatteryExtenderText = new TextView(getActivity());
+		mBatteryExtenderText = new TextView(context);
 		LayoutStyle.setCenterText(mBatteryExtenderText,
-				String.valueOf(MiscellaneousValues.mBatterExtender()),
-				getActivity());
+				String.valueOf(MiscellaneousValues.mBatterExtender()), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)) {
 			mLayout.addView(mBatteryExtenderTitle);
@@ -197,43 +206,39 @@ public class MiscellaneousFragment extends Fragment implements
 		}
 
 		// Audio Title
-		TextView mAudioTitle = new TextView(getActivity());
-		LayoutStyle.setTextTitle(mAudioTitle, getString(R.string.audio),
-				getActivity());
+		TextView mAudioTitle = new TextView(context);
+		LayoutStyle.setTextTitle(mAudioTitle,
+				context.getString(R.string.audio), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH)
 				|| Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST))
 			mLayout.addView(mAudioTitle);
 
 		// Sound High CheckBox
-		boolean mSoundHighBoolean = false;
-		if (MiscellaneousValues.mSoundHigh() == 1)
-			mSoundHighBoolean = true;
-
-		mSoundHighBox = new CheckBox(getActivity());
-		LayoutStyle.setCheckBox(mSoundHighBox, getString(R.string.soundhigh),
-				mSoundHighBoolean);
-		mSoundHighBox.setOnCheckedChangeListener(this);
+		mSoundHighBox = new CheckBox(context);
+		LayoutStyle.setCheckBox(mSoundHighBox,
+				context.getString(R.string.soundhigh),
+				MiscellaneousValues.mSoundHigh() == 1);
+		mSoundHighBox.setOnCheckedChangeListener(CheckedChangeListener);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH))
 			mLayout.addView(mSoundHighBox);
 
 		// Headphone Boost SubTitle
-		TextView mHeadphoneBoostSubTitle = new TextView(getActivity());
+		TextView mHeadphoneBoostSubTitle = new TextView(context);
 		LayoutStyle.setTextSubTitle(mHeadphoneBoostSubTitle,
-				getString(R.string.headphoneboost), getActivity());
+				context.getString(R.string.headphoneboost), context);
 
 		// Headphone Boost SeekBar
-		mHeadphoneBoostBar = new SeekBar(getActivity());
+		mHeadphoneBoostBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mHeadphoneBoostBar, 3,
 				MiscellaneousValues.mHeadphoneBoost());
-		mHeadphoneBoostBar.setOnSeekBarChangeListener(this);
+		mHeadphoneBoostBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Headphone Boost Text
-		mHeadphoneBoostText = new TextView(getActivity());
+		mHeadphoneBoostText = new TextView(context);
 		LayoutStyle.setCenterText(mHeadphoneBoostText,
-				String.valueOf(MiscellaneousValues.mHeadphoneBoost()),
-				getActivity());
+				String.valueOf(MiscellaneousValues.mHeadphoneBoost()), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST)) {
 			mLayout.addView(mHeadphoneBoostSubTitle);
@@ -242,28 +247,25 @@ public class MiscellaneousFragment extends Fragment implements
 		}
 
 		// Other Settings Title
-		TextView mOtherSettingsTitle = new TextView(getActivity());
+		TextView mOtherSettingsTitle = new TextView(context);
 		LayoutStyle.setTextTitle(mOtherSettingsTitle,
-				getString(R.string.othersettings), getActivity());
+				context.getString(R.string.othersettings), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)
 				|| Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL))
 			mLayout.addView(mOtherSettingsTitle);
 
 		// Dynamic Fsync CheckBox
-		boolean mDynamicFsyncBoolean = false;
-		if (MiscellaneousValues.mDynamicFsync() == 1)
-			mDynamicFsyncBoolean = true;
-
-		mDynamicFsyncBox = new CheckBox(getActivity());
+		mDynamicFsyncBox = new CheckBox(context);
 		LayoutStyle.setCheckBox(mDynamicFsyncBox,
-				getString(R.string.dynamicfsync), mDynamicFsyncBoolean);
-		mDynamicFsyncBox.setOnCheckedChangeListener(this);
+				context.getString(R.string.dynamicfsync),
+				MiscellaneousValues.mDynamicFsync() == 1);
+		mDynamicFsyncBox.setOnCheckedChangeListener(CheckedChangeListener);
 
 		// Dynamic Fsync Summary
-		TextView mDynamicFsyncSummary = new TextView(getActivity());
+		TextView mDynamicFsyncSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mDynamicFsyncSummary,
-				getString(R.string.dynamicfsync_summary), getActivity());
+				context.getString(R.string.dynamicfsync_summary), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)) {
 			mLayout.addView(mDynamicFsyncBox);
@@ -271,26 +273,21 @@ public class MiscellaneousFragment extends Fragment implements
 		}
 
 		// Fsync Control CheckBox
-		boolean mFsyncControlBoolean = false;
-		if (MiscellaneousValues.mFsyncControl() == 1)
-			mFsyncControlBoolean = true;
-
-		mFsyncControlBox = new CheckBox(getActivity());
+		mFsyncControlBox = new CheckBox(context);
 		LayoutStyle.setCheckBox(mFsyncControlBox,
-				getString(R.string.fsynccontrol), mFsyncControlBoolean);
-		mFsyncControlBox.setOnCheckedChangeListener(this);
+				context.getString(R.string.fsynccontrol),
+				MiscellaneousValues.mFsyncControl() == 1);
+		mFsyncControlBox.setOnCheckedChangeListener(CheckedChangeListener);
 
 		// Fsync Control Summary
-		TextView mFsyncControlSummary = new TextView(getActivity());
+		TextView mFsyncControlSummary = new TextView(context);
 		LayoutStyle.setTextSummary(mFsyncControlSummary,
-				getString(R.string.fsynccontrol_summary), getActivity());
+				context.getString(R.string.fsynccontrol_summary), context);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL)) {
 			mLayout.addView(mFsyncControlBox);
 			mLayout.addView(mFsyncControlSummary);
 		}
-
-		return rootView;
 	}
 
 	@Override
