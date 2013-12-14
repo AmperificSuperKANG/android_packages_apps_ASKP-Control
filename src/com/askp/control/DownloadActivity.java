@@ -73,7 +73,7 @@ public class DownloadActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Utils.displayprogress(getString(R.string.downloading).toLowerCase()
+		Utils.displayprogress(getString(R.string.downloading, mDownloadname)
 				+ "...", this);
 		preferenceManager = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
@@ -217,10 +217,9 @@ public class DownloadActivity extends Activity {
 		AlertDialog.Builder mSuccess = new AlertDialog.Builder(context);
 		mSuccess.setTitle(context.getString(R.string.success))
 				.setMessage(
-						context.getString(R.string.fileislocatedin)
-								+ Environment.getExternalStorageDirectory()
-										.toString() + "/askp-kernel/"
-								+ mDownloadname)
+						context.getString(R.string.fileislocatedin, Environment
+								.getExternalStorageDirectory().toString()
+								+ "/askp-kernel/" + mDownloadname))
 				.setOnCancelListener(new OnCancelListener() {
 					@Override
 					public void onCancel(DialogInterface dialog) {

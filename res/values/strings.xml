@@ -115,12 +115,12 @@
     <string name="download">Download</string>
     <string name="nointernet">No Internet Connection</string>
     <string name="nosupport">No Support</string>
-    <string name="doyouwantdownload">Do you want to download this File?</string>
+    <string name="doyouwantdownload">Do you want to download %s?</string>
     <string name="delete">Delete</string>
     <string name="filealreadyexist">You already downloaded this file. Do you want to re-load it?</string>
-    <string name="downloading">Downloading</string>
+    <string name="downloading">Downloading %s</string>
     <string name="success">Success</string>
-    <string name="fileislocatedin">File is located in </string>
+    <string name="fileislocatedin">File is located in %s.</string>
 
     <!-- News -->
     <string name="news">News</string>

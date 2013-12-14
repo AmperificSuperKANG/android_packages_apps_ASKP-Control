@@ -140,8 +140,8 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 		AlertDialog.Builder mConfirm = new AlertDialog.Builder(context);
 		mConfirm.setTitle(context.getString(R.string.download))
 				.setMessage(
-						context.getString(R.string.doyouwantdownload) + "\n"
-								+ DownloadActivity.mDownloadname)
+						context.getString(R.string.doyouwantdownload,
+								DownloadActivity.mDownloadname))
 				.setNegativeButton(context.getString(android.R.string.no),
 						new DialogInterface.OnClickListener() {
 							@Override
