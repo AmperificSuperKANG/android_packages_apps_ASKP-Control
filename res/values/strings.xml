@@ -113,6 +113,7 @@
 
     <!-- Download -->
     <string name="download">Download</string>
+    <string name="downloads">Downloads</string>
     <string name="nointernet">No Internet Connection</string>
     <string name="nosupport">No Support</string>
     <string name="doyouwantdownload">Do you want to download %s?</string>
@@ -121,6 +122,10 @@
     <string name="downloading">Downloading %s</string>
     <string name="success">Success</string>
     <string name="fileislocatedin">File is located in %s.</string>
+
+    <!-- Download List -->
+    <string name="install">Install</string>
+    <string name="confirminstall">Do you want to install %s? The installation will only work on TWRP recovery!</string>
 
     <!-- News -->
     <string name="news">News</string>

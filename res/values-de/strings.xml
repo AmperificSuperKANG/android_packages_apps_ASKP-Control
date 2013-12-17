@@ -98,6 +98,7 @@
 
     <!-- Download -->
     <string name="download">Herunterladen</string>
+    <string name="downloads">Heruntergeladen</string>
     <string name="nointernet">Keine Internetverbindung</string>
     <string name="nosupport">Keine Unterstützung</string>
     <string name="doyouwantdownload">Möchten Sie %s herunterladen?</string>
@@ -106,6 +107,10 @@
     <string name="downloading">Lade %s herunter</string>
     <string name="success">Erfolgreich</string>
     <string name="fileislocatedin">Datei befindet sich in %s.</string>
+
+    <!-- Download List -->
+    <string name="install">Installieren</string>
+    <string name="confirminstall">Möchten Sie %s intallieren? Die Installation wird nur mit TWRP Recovery funktionieren!</string>
 
     <!-- News -->
     <string name="news">Neuigkeiten</string>
