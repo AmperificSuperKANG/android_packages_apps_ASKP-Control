@@ -46,6 +46,7 @@ public class ValueEditor {
 		mValue.setText(value);
 
 		mPlus = (Button) btn.findViewById(R.id.plus);
+		mPlus.setText("+");
 		mPlus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -54,6 +55,7 @@ public class ValueEditor {
 			}
 		});
 		mMinus = (Button) btn.findViewById(R.id.minus);
+		mMinus.setText("-");
 		mMinus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
