@@ -37,8 +37,7 @@ public class ValueEditor {
 	private static Button mMinus;
 
 	public static void showSeekBarEditor(final SeekBar seekbar, String value,
-			String title, final int calculate, final int calculate2,
-			Context context) {
+			String title, final int calculate, Context context) {
 		LayoutInflater factory = LayoutInflater.from(context);
 		final View btn = factory.inflate(R.layout.editor, null);
 
@@ -51,7 +50,7 @@ public class ValueEditor {
 			@Override
 			public void onClick(View v) {
 				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
-						.toString()) + calculate2));
+						.toString()) + 1));
 			}
 		});
 		mMinus = (Button) btn.findViewById(R.id.minus);
@@ -60,7 +59,7 @@ public class ValueEditor {
 			@Override
 			public void onClick(View v) {
 				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
-						.toString()) - calculate2));
+						.toString()) - 1));
 			}
 		});
 
@@ -79,11 +78,8 @@ public class ValueEditor {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								seekbar.setProgress(Integer.parseInt(String
-										.valueOf(Integer.parseInt(mValue
-												.getText().toString())
-												- calculate))
-										/ calculate2);
+								seekbar.setProgress(Integer.parseInt(mValue
+										.getText().toString()) - calculate);
 							}
 						}).show();
 	}
