@@ -23,25 +23,28 @@ import com.askp.control.R;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 public class ValueEditor {
 
-	private static TextView mValue;
+	private static EditText mValue;
 	private static Button mPlus;
 	private static Button mMinus;
 
 	public static void showSeekBarEditor(final SeekBar seekbar, String value,
-			String title, final int calculate, Context context) {
+			String title, final int calculate, final Context context) {
 		LayoutInflater factory = LayoutInflater.from(context);
 		final View btn = factory.inflate(R.layout.editor, null);
 
-		mValue = (TextView) btn.findViewById(R.id.value);
+		mValue = (EditText) btn.findViewById(R.id.value);
+		mValue.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED
+				| InputType.TYPE_CLASS_NUMBER);
 		mValue.setText(value);
 
 		mPlus = (Button) btn.findViewById(R.id.plus);
@@ -78,8 +81,11 @@ public class ValueEditor {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								seekbar.setProgress(Integer.parseInt(mValue
-										.getText().toString()) - calculate);
+								if (mValue.getText().toString()
+										.matches("[0-9]+")) {
+									seekbar.setProgress(Integer.parseInt(mValue
+											.getText().toString()) - calculate);
+								}
 							}
 						}).show();
 	}
