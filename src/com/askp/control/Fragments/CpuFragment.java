@@ -645,8 +645,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mCoreVoltagesValuesList.clear();
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
 			if (seekBar.equals(mCoreVoltagesBars[i]))
-				mCoreVoltagesTexts[i].setText(String
-						.valueOf(progress * 6 + 700) + " mV");
+				mCoreVoltagesTexts[i].setText(String.valueOf(progress + 700)
+						+ " mV");
 			mCoreVoltagesValuesList.add(mCoreVoltagesTexts[i].getText()
 					.toString());
 		}
