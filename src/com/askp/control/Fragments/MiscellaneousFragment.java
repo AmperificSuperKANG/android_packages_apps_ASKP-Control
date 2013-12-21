@@ -24,12 +24,14 @@ import com.askp.control.Utils.Control;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.MiscellaneousValues;
 import com.askp.control.Utils.Utils;
+import com.askp.control.Utils.ValueEditor;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -45,12 +47,13 @@ import android.widget.TextView;
 
 public class MiscellaneousFragment extends Fragment implements
 		OnCheckedChangeListener, OnItemSelectedListener,
-		OnSeekBarChangeListener {
+		OnSeekBarChangeListener, OnClickListener {
 	private static Context context;
 
 	private static OnCheckedChangeListener CheckedChangeListener;
 	private static OnItemSelectedListener ItemSelectedListener;
 	private static OnSeekBarChangeListener SeekBarChangeListener;
+	private static OnClickListener OnClickListener;
 
 	private static LinearLayout mLayout;
 
@@ -75,6 +78,9 @@ public class MiscellaneousFragment extends Fragment implements
 
 	private static CheckBox mFsyncControlBox;
 
+	private static SeekBar mVibrationStrengthBar;
+	private static TextView mVibrationStrengthText;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -85,6 +91,7 @@ public class MiscellaneousFragment extends Fragment implements
 		CheckedChangeListener = this;
 		ItemSelectedListener = this;
 		SeekBarChangeListener = this;
+		OnClickListener = this;
 		setContent();
 
 		return rootView;
@@ -197,6 +204,7 @@ public class MiscellaneousFragment extends Fragment implements
 		mBatteryExtenderText = new TextView(context);
 		LayoutStyle.setCenterText(mBatteryExtenderText,
 				String.valueOf(MiscellaneousValues.mBatterExtender()));
+		mBatteryExtenderText.setOnClickListener(OnClickListener);
 
 		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)) {
 			mLayout.addView(mBatteryExtenderTitle);
@@ -288,6 +296,35 @@ public class MiscellaneousFragment extends Fragment implements
 			mLayout.addView(mFsyncControlBox);
 			mLayout.addView(mFsyncControlSummary);
 		}
+
+		// Vibration Strength SubTitle
+		TextView mVibrationStrengthSubTitle = new TextView(context);
+		LayoutStyle.setTextSubTitle(mVibrationStrengthSubTitle,
+				context.getString(R.string.vibrationstrength), context);
+
+		// Vibration Strength Summary
+		TextView mVibrationStrengthSummary = new TextView(context);
+		LayoutStyle.setTextSummary(mVibrationStrengthSummary,
+				context.getString(R.string.vibrationstrength_summary));
+
+		// Vibration Strength SeekBar
+		mVibrationStrengthBar = new SeekBar(context);
+		LayoutStyle.setSeekBar(mVibrationStrengthBar, 127,
+				MiscellaneousValues.mVibrationStrength());
+		mVibrationStrengthBar.setOnSeekBarChangeListener(SeekBarChangeListener);
+
+		// Vibration Strength Text
+		mVibrationStrengthText = new TextView(context);
+		LayoutStyle.setCenterText(mVibrationStrengthText,
+				String.valueOf(MiscellaneousValues.mVibrationStrength()));
+		mVibrationStrengthText.setOnClickListener(OnClickListener);
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH)) {
+			mLayout.addView(mVibrationStrengthSubTitle);
+			mLayout.addView(mVibrationStrengthSummary);
+			mLayout.addView(mVibrationStrengthBar);
+			mLayout.addView(mVibrationStrengthText);
+		}
 	}
 
 	@Override
@@ -310,11 +347,12 @@ public class MiscellaneousFragment extends Fragment implements
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
-		if (seekBar.equals(mBatteryExtenderBar)) {
+		if (seekBar.equals(mBatteryExtenderBar))
 			mBatteryExtenderText.setText(String.valueOf(progress));
-		} else if (seekBar.equals(mHeadphoneBoostBar)) {
+		else if (seekBar.equals(mHeadphoneBoostBar))
 			mHeadphoneBoostText.setText(String.valueOf(progress));
-		}
+		else if (seekBar.equals(mVibrationStrengthBar))
+			mVibrationStrengthText.setText(String.valueOf(progress));
 	}
 
 	@Override
@@ -325,12 +363,14 @@ public class MiscellaneousFragment extends Fragment implements
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		MainActivity.enableButtons();
 		MainActivity.mMiscellaneousAction = true;
-		if (seekBar.equals(mBatteryExtenderBar)) {
+		if (seekBar.equals(mBatteryExtenderBar))
 			Control.BATTERY_EXTENDER = mBatteryExtenderText.getText()
 					.toString();
-		} else if (seekBar.equals(mHeadphoneBoostBar)) {
+		else if (seekBar.equals(mHeadphoneBoostBar))
 			Control.HEADPHONE_BOOST = mHeadphoneBoostText.getText().toString();
-		}
+		else if (seekBar.equals(mVibrationStrengthBar))
+			Control.VIBRATION_STRENGTH = mVibrationStrengthText.getText()
+					.toString();
 	}
 
 	@Override
@@ -348,5 +388,17 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v.equals(mBatteryExtenderText))
+			ValueEditor.showSeekBarEditor(mBatteryExtenderBar,
+					mBatteryExtenderText.getText().toString(),
+					context.getString(R.string.batteryextender), 0, context);
+		else if (v.equals(mVibrationStrengthText))
+			ValueEditor.showSeekBarEditor(mVibrationStrengthBar,
+					mVibrationStrengthText.getText().toString(),
+					context.getString(R.string.vibrationstrength), 0, context);
 	}
 }

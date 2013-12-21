@@ -254,5 +254,13 @@ public class BootReceiver extends BroadcastReceiver {
 				&& !Utils.getString("fsynccontrol", context).equals("nothing"))
 			Utils.runCommand("echo " + Utils.getString("fsynccontrol", context)
 					+ " > " + MiscellaneousValues.FILENAME_FSYNC_CONTROL);
+
+		// Vibration Strength
+		if (Utils.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH)
+				&& !Utils.getString("vibrationstrength", context).equals(
+						"nothing"))
+			Utils.runCommand("echo "
+					+ Utils.getString("vibrationstrength", context) + " > "
+					+ MiscellaneousValues.FILENAME_VIBRATION_STRENGTH);
 	}
 }

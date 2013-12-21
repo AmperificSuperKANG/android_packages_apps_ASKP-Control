@@ -110,6 +110,8 @@
     <string name="dynamicfsync_summary">When enabled and screen is on, fsync operation is asynchronous. When screen is off, this operation is committed synchronously.</string>
     <string name="fsynccontrol">Fsync</string>
     <string name="fsynccontrol_summary">Disable for better file system performance at the risk of data lost when phone crashes.</string>
+    <string name="vibrationstrength">Vibration Strength</string>
+    <string name="vibrationstrength_summary">Control the vibration strength of your phone.</string>
 
     <!-- Download -->
     <string name="download">Download</string>

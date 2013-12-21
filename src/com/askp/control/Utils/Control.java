@@ -109,6 +109,9 @@ public class Control {
 	public static String FSYNC_CONTROL = String.valueOf(MiscellaneousValues
 			.mFsyncControl());
 
+	public static String VIBRATION_STRENGTH = String
+			.valueOf(MiscellaneousValues.mVibrationStrength());
+
 	public static void setCpuValues(Context context) {
 		// Max Cpu
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)) {
@@ -336,6 +339,13 @@ public class Control {
 					+ MiscellaneousValues.FILENAME_FSYNC_CONTROL);
 			Utils.saveString("fsynccontrol", FSYNC_CONTROL, context);
 		}
+
+		// Vibration Strength
+		if (Utils.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH)) {
+			Utils.runCommand("echo " + VIBRATION_STRENGTH + " > "
+					+ MiscellaneousValues.FILENAME_VIBRATION_STRENGTH);
+			Utils.saveString("vibrationstrength", VIBRATION_STRENGTH, context);
+		}
 	}
 
 	public static void setValuesback(Context context) {
@@ -371,5 +381,7 @@ public class Control {
 		HEADPHONE_BOOST = String.valueOf(MiscellaneousValues.mHeadphoneBoost());
 		DYNAMIC_FSYNC = String.valueOf(MiscellaneousValues.mDynamicFsync());
 		FSYNC_CONTROL = String.valueOf(MiscellaneousValues.mFsyncControl());
+		VIBRATION_STRENGTH = String.valueOf(MiscellaneousValues
+				.mVibrationStrength());
 	}
 }
