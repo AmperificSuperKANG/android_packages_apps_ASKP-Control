@@ -22,14 +22,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-
-import com.askp.control.Fragments.CpuFragment;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.exceptions.RootDeniedException;
-import com.stericson.RootTools.execution.Command;
 
 public class CpuValues {
 
@@ -47,25 +39,9 @@ public class CpuValues {
 	public static final String FILENAME_MULTICORE_SAVING = "/sys/devices/system/cpu/sched_mc_power_savings";
 	public static final String FILENAME_MIN_SCREEN_ON = "/sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq";
 	public static final String FILENAME_MAX_SCREEN_OFF = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
-	public static final String FILENAME_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
+	public static final String FILENAME_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
 	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-
-	public static String mRegulatorVoltagesFreqRaw() {
-		if (Utils.existFile(FILENAME_REGULATOR_VOLTAGES)) {
-			List<String> mValueString = new ArrayList<String>();
-			String[] mValueList = mRegulatorVoltagesFreq().split(";");
-			StringBuilder mValueBuilder = new StringBuilder();
-			for (int i = 0; i < mValueList.length; i++)
-				mValueString.add(mValueList[i].split(" ")[1]);
-			for (String s : mValueString) {
-				mValueBuilder.append(s);
-				mValueBuilder.append("\t");
-			}
-			return mValueBuilder.toString();
-		}
-		return "0 0";
-	}
 
 	public static String mRegulatorVoltagesFreq() {
 		if (Utils.existFile(FILENAME_REGULATOR_VOLTAGES))
@@ -83,22 +59,6 @@ public class CpuValues {
 			} catch (FileNotFoundException e) {
 			} catch (IOException e) {
 			}
-		return "0 0";
-	}
-
-	public static String mMPUVoltagesFreqRaw() {
-		if (Utils.existFile(FILENAME_MPU_VOLTAGES)) {
-			List<String> mValueString = new ArrayList<String>();
-			String[] mValueList = mMPUVoltagesFreq().split(";");
-			StringBuilder mValueBuilder = new StringBuilder();
-			for (int i = 0; i < mValueList.length; i++)
-				mValueString.add(mValueList[i].split(" ")[1]);
-			for (String s : mValueString) {
-				mValueBuilder.append(s);
-				mValueBuilder.append("\t");
-			}
-			return mValueBuilder.toString();
-		}
 		return "0 0";
 	}
 
@@ -186,28 +146,13 @@ public class CpuValues {
 		return 0;
 	}
 
-	public static void mCurGovernor() {
-		Command command = new Command(0, "cat " + FILENAME_CUR_GOVERNOR) {
-			@Override
-			public void commandCompleted(int arg0, int arg1) {
+	public static String mCurGovernor() {
+		if (Utils.existFile(FILENAME_CUR_GOVERNOR))
+			try {
+				return Utils.readLine(FILENAME_CUR_GOVERNOR);
+			} catch (IOException e) {
 			}
-
-			@Override
-			public void commandOutput(int arg0, String arg1) {
-				CpuFragment.mCurGovernorRaw = Utils
-						.existFile(FILENAME_CUR_GOVERNOR) ? arg1 : "0";
-			}
-
-			@Override
-			public void commandTerminated(int arg0, String arg1) {
-			}
-		};
-		try {
-			RootTools.getShell(true).add(command);
-		} catch (IOException e) {
-		} catch (TimeoutException e) {
-		} catch (RootDeniedException e) {
-		}
+		return "0";
 	}
 
 	public static String mAvailableGovernor() {
@@ -272,52 +217,24 @@ public class CpuValues {
 		return 0;
 	}
 
-	public static void mMaxFreq() {
-		Command command = new Command(0, "cat " + FILENAME_MAX_FREQ) {
-			@Override
-			public void commandCompleted(int arg0, int arg1) {
+	public static int mMinFreq() {
+		if (Utils.existFile(FILENAME_MIN_FREQ))
+			try {
+				return Integer.parseInt(Utils.readLine(FILENAME_MIN_FREQ));
+			} catch (NumberFormatException e) {
+			} catch (IOException e) {
 			}
-
-			@Override
-			public void commandOutput(int arg0, String arg1) {
-				CpuFragment.mMaxCpuFreqRaw = Utils.existFile(FILENAME_MAX_FREQ) ? Integer
-						.parseInt(arg1) : 0;
-			}
-
-			@Override
-			public void commandTerminated(int arg0, String arg1) {
-			}
-		};
-		try {
-			RootTools.getShell(true).add(command);
-		} catch (IOException e) {
-		} catch (TimeoutException e) {
-		} catch (RootDeniedException e) {
-		}
+		return 0;
 	}
 
-	public static void mMinFreq() {
-		Command command = new Command(0, "cat " + FILENAME_MIN_FREQ) {
-			@Override
-			public void commandCompleted(int arg0, int arg1) {
+	public static int mMaxFreq() {
+		if (Utils.existFile(FILENAME_MAX_FREQ))
+			try {
+				return Integer.parseInt(Utils.readLine(FILENAME_MAX_FREQ));
+			} catch (NumberFormatException e) {
+			} catch (IOException e) {
 			}
-
-			@Override
-			public void commandOutput(int arg0, String arg1) {
-				CpuFragment.mMinCpuFreqRaw = Utils.existFile(FILENAME_MIN_FREQ) ? Integer
-						.parseInt(arg1) : 0;
-			}
-
-			@Override
-			public void commandTerminated(int arg0, String arg1) {
-			}
-		};
-		try {
-			RootTools.getShell(true).add(command);
-		} catch (IOException e) {
-		} catch (TimeoutException e) {
-		} catch (RootDeniedException e) {
-		}
+		return 0;
 	}
 
 	public static int mCurCpuFreq() {

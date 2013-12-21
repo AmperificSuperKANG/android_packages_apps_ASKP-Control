@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.askp.control.MainActivity;
 import com.askp.control.R;
-import com.askp.control.Utils.Control;
 import com.askp.control.Utils.IoAlgorithmValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
@@ -53,21 +52,19 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	private static LinearLayout mLayout;
 
-	private static String[] mAvailableInternalScheduler;
-	private static Spinner mInternalSchedulerSpinner;
+	public static String[] mAvailableInternalScheduler;
+	public static Spinner mInternalSchedulerSpinner;
 	public static int mCurInternalScheduler;
-	public static int mCurInternalSchedulerRaw;
 
-	private static String[] mAvailableExternalScheduler;
-	private static Spinner mExternalSchedulerSpinner;
+	public static String[] mAvailableExternalScheduler;
+	public static Spinner mExternalSchedulerSpinner;
 	public static int mCurExternalScheduler;
-	public static int mCurExternalSchedulerRaw;
 
 	private static SeekBar mInternalReadBar;
-	private static TextView mInternalReadText;
+	public static TextView mInternalReadText;
 
 	private static SeekBar mExternalReadBar;
-	private static TextView mExternalReadText;
+	public static TextView mExternalReadText;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -225,18 +222,14 @@ public class IoAlgorithmFragment extends Fragment implements
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 		if (arg0.equals(mInternalSchedulerSpinner)) {
-			mCurInternalSchedulerRaw = arg2;
 			if (arg2 != mCurInternalScheduler) {
-				MainActivity.enableButtons();
+				MainActivity.showButtons(true);
 				MainActivity.mIoAlgorithmAction = true;
-				Control.INTERNAL_SCHEDULER = mAvailableInternalScheduler[arg2];
 			}
 		} else if (arg0.equals(mExternalSchedulerSpinner)) {
-			mCurExternalSchedulerRaw = arg2;
 			if (arg2 != mCurExternalScheduler) {
-				MainActivity.enableButtons();
+				MainActivity.showButtons(true);
 				MainActivity.mIoAlgorithmAction = true;
-				Control.EXTERNAL_SCHEDULER = mAvailableExternalScheduler[arg2];
 			}
 		}
 	}
@@ -263,14 +256,7 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.enableButtons();
+		MainActivity.showButtons(true);
 		MainActivity.mIoAlgorithmAction = true;
-		if (seekBar.equals(mInternalReadBar)) {
-			Control.INTERNAL_READ = mInternalReadText.getText().toString()
-					.replace(" kB", "");
-		} else if (seekBar.equals(mExternalReadBar)) {
-			Control.EXTERNAL_READ = mExternalReadText.getText().toString()
-					.replace(" kB", "");
-		}
 	}
 }

@@ -20,7 +20,6 @@ package com.askp.control.Fragments;
 
 import com.askp.control.MainActivity;
 import com.askp.control.R;
-import com.askp.control.Utils.Control;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.MiscellaneousValues;
 import com.askp.control.Utils.Utils;
@@ -57,29 +56,28 @@ public class MiscellaneousFragment extends Fragment implements
 
 	private static LinearLayout mLayout;
 
-	private static CheckBox mWifiHighBox;
+	public static CheckBox mWifiHighBox;
 
-	private static String[] mAvailableTCPCongestion;
-	private static Spinner mTCPCongestionSpinner;
+	public static String[] mAvailableTCPCongestion;
+	public static Spinner mTCPCongestionSpinner;
 	public static int mTCPCongestion;
-	public static int mTCPCongestionRaw;
 
-	private static CheckBox mFastChargeBox;
+	public static CheckBox mFastChargeBox;
 
 	private static SeekBar mBatteryExtenderBar;
-	private static TextView mBatteryExtenderText;
+	public static TextView mBatteryExtenderText;
 
-	private static CheckBox mSoundHighBox;
+	public static CheckBox mSoundHighBox;
 
 	private static SeekBar mHeadphoneBoostBar;
-	private static TextView mHeadphoneBoostText;
+	public static TextView mHeadphoneBoostText;
 
-	private static CheckBox mDynamicFsyncBox;
+	public static CheckBox mDynamicFsyncBox;
 
-	private static CheckBox mFsyncControlBox;
+	public static CheckBox mFsyncControlBox;
 
 	private static SeekBar mVibrationStrengthBar;
-	private static TextView mVibrationStrengthText;
+	public static TextView mVibrationStrengthText;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -329,19 +327,8 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		MainActivity.enableButtons();
+		MainActivity.showButtons(true);
 		MainActivity.mMiscellaneousAction = true;
-		if (buttonView.equals(mWifiHighBox)) {
-			Control.WIFI_HIGH = isChecked ? "Y" : "N";
-		} else if (buttonView.equals(mFastChargeBox)) {
-			Control.FAST_CHARGE = isChecked ? "1" : "0";
-		} else if (buttonView.equals(mSoundHighBox)) {
-			Control.SOUND_HIGH = isChecked ? "1" : "0";
-		} else if (buttonView.equals(mDynamicFsyncBox)) {
-			Control.DYNAMIC_FSYNC = isChecked ? "1" : "0";
-		} else if (buttonView.equals(mFsyncControlBox)) {
-			Control.FSYNC_CONTROL = isChecked ? "1" : "0";
-		}
 	}
 
 	@Override
@@ -361,27 +348,17 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.enableButtons();
+		MainActivity.showButtons(true);
 		MainActivity.mMiscellaneousAction = true;
-		if (seekBar.equals(mBatteryExtenderBar))
-			Control.BATTERY_EXTENDER = mBatteryExtenderText.getText()
-					.toString();
-		else if (seekBar.equals(mHeadphoneBoostBar))
-			Control.HEADPHONE_BOOST = mHeadphoneBoostText.getText().toString();
-		else if (seekBar.equals(mVibrationStrengthBar))
-			Control.VIBRATION_STRENGTH = mVibrationStrengthText.getText()
-					.toString();
 	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 		if (arg0.equals(mTCPCongestionSpinner)) {
-			mTCPCongestionRaw = arg2;
 			if (arg2 != mTCPCongestion) {
-				MainActivity.enableButtons();
+				MainActivity.showButtons(true);
 				MainActivity.mMiscellaneousAction = true;
-				Control.TCP_CONGESTION = mAvailableTCPCongestion[arg2];
 			}
 		}
 	}
@@ -392,6 +369,7 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onClick(View v) {
+		MainActivity.mMiscellaneousAction = true;
 		if (v.equals(mBatteryExtenderText))
 			ValueEditor.showSeekBarEditor(mBatteryExtenderBar,
 					mBatteryExtenderText.getText().toString(),

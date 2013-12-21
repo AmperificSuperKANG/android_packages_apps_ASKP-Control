@@ -27,7 +27,7 @@ public class GpuDisplayValues {
 	public static final String FILENAME_GAMMA_CONTROL = "/sys/devices/platform/omapdss/manager0/gamma";
 	public static final String FILENAME_TRINITY_CONTRAST = "/sys/module/panel_s6e8aa0/parameters/contrast";
 	public static final String FILENAME_ADAPTIVE_BRIGHTNESS = "/sys/class/backlight/s6e8aa0/acl_set";
-	public static final String FILENAME_VARIABLE_GPU = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
+	public static final String FILENAME_GPU_VARIABLE = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
 
 	public static String mColorMultiplier() {
 		if (Utils.existFile(FILENAME_COLOR_MULTIPLIER))
@@ -77,9 +77,9 @@ public class GpuDisplayValues {
 	}
 
 	public static int mVariableGpu() {
-		if (Utils.existFile(FILENAME_VARIABLE_GPU))
+		if (Utils.existFile(FILENAME_GPU_VARIABLE))
 			try {
-				return Integer.parseInt(Utils.readLine(FILENAME_VARIABLE_GPU));
+				return Integer.parseInt(Utils.readLine(FILENAME_GPU_VARIABLE));
 			} catch (IOException e) {
 			}
 		return 0;

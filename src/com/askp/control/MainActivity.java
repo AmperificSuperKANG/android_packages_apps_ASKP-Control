@@ -37,7 +37,6 @@ import com.askp.control.Fragments.IoAlgorithmFragment;
 import com.askp.control.Fragments.MiscellaneousFragment;
 import com.askp.control.Fragments.NewsFragment;
 import com.askp.control.Utils.Control;
-import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
@@ -60,10 +59,6 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		CpuValues.mMaxFreq();
-		CpuValues.mMinFreq();
-		CpuValues.mCurGovernor();
 
 		if (RootTools.isRootAvailable()) {
 			if (RootTools.isAccessGiven()) {
@@ -103,7 +98,7 @@ public class MainActivity extends FragmentActivity {
 				| MenuItem.SHOW_AS_ACTION_ALWAYS);
 		cancelButton.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_WITH_TEXT
 				| MenuItem.SHOW_AS_ACTION_ALWAYS);
-		disableButtons();
+		showButtons(false);
 		setonbootBox = menu.findItem(R.id.action_setonboot).setChecked(
 				Utils.getBoolean("setonboot", getApplicationContext()));
 		return true;
@@ -113,43 +108,17 @@ public class MainActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_apply:
-			if (mCpuAction)
-				Control.setCpuValues(getApplicationContext());
-			if (mGpuDisplayAction)
-				Control.setGpuDisplayValues(getApplicationContext());
-			if (mIoAlgorithmAction)
-				Control.setIoAlgorithmValues(getApplicationContext());
-			if (mMiscellaneousAction)
-				Control.setMiscellaneousValues(getApplicationContext());
-			mCpuAction = false;
-			mGpuDisplayAction = false;
-			mIoAlgorithmAction = false;
-			mMiscellaneousAction = false;
-			Utils.toast(getString(R.string.valuesapplied),
-					getApplicationContext());
-			Control.setValuesback(getApplicationContext());
-			disableButtons();
+			Control.initControl(getApplicationContext());
 			break;
 		case R.id.action_cancel:
-			Control.setValuesback(getApplicationContext());
-			if (mCpuAction)
-				CpuFragment.setContent();
-			if (mGpuDisplayAction)
-				GpuDisplayFragment.setContent();
-			if (mIoAlgorithmAction)
-				IoAlgorithmFragment.setContent();
-			if (mMiscellaneousAction)
-				MiscellaneousFragment.setContent();
-			disableButtons();
+			Control.exitControl(getApplicationContext());
 			break;
 		case R.id.action_setonboot:
-			if (Utils.getBoolean("setonboot", getApplicationContext()) == true) {
-				setonbootBox.setChecked(false);
-				Utils.saveBoolean("setonboot", false, getApplicationContext());
-			} else {
-				setonbootBox.setChecked(true);
-				Utils.saveBoolean("setonboot", true, getApplicationContext());
-			}
+			setonbootBox.setChecked(Utils.getBoolean("setonboot",
+					getApplicationContext()) ? false : true);
+			Utils.saveBoolean("setonboot", Utils.getBoolean("setonboot",
+					getApplicationContext()) ? false : true,
+					getApplicationContext());
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -223,13 +192,8 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
-	public static void enableButtons() {
-		applyButton.setVisible(true);
-		cancelButton.setVisible(true);
-	}
-
-	public static void disableButtons() {
-		applyButton.setVisible(false);
-		cancelButton.setVisible(false);
+	public static void showButtons(boolean visible) {
+		applyButton.setVisible(visible);
+		cancelButton.setVisible(visible);
 	}
 }

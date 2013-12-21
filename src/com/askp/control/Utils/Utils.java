@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,6 +43,15 @@ public class Utils {
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
 
 	private static ProgressDialog mProgressDialog;
+
+	public static String listSplit(List<String> value) {
+		StringBuilder mValue = new StringBuilder();
+		for (String s : value) {
+			mValue.append(s);
+			mValue.append("\t");
+		}
+		return mValue.toString();
+	}
 
 	public static void displayprogress(String message, final Context context) {
 		mProgressDialog = new ProgressDialog(context);
@@ -109,6 +119,7 @@ public class Utils {
 	}
 
 	public static String readLine(String filename) throws IOException {
+		runCommand("chmod 777 " + filename);
 		BufferedReader reader = new BufferedReader(new FileReader(filename),
 				256);
 		try {

@@ -134,10 +134,10 @@ public class BootReceiver extends BroadcastReceiver {
 					+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
 
 		// Gpu Variable
-		if (Utils.existFile(GpuDisplayValues.FILENAME_VARIABLE_GPU)
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GPU_VARIABLE)
 				&& !Utils.getString("gpuvariable", context).equals("nothing"))
 			Utils.runCommand("echo " + Utils.getString("gpuvariable", context)
-					+ " > " + GpuDisplayValues.FILENAME_VARIABLE_GPU);
+					+ " > " + GpuDisplayValues.FILENAME_GPU_VARIABLE);
 
 		// Adaptive Brightness
 		if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS)

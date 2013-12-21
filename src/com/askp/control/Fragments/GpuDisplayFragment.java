@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.askp.control.MainActivity;
 import com.askp.control.R;
-import com.askp.control.Utils.Control;
 import com.askp.control.Utils.GpuDisplayValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
@@ -58,25 +57,25 @@ public class GpuDisplayFragment extends Fragment implements
 	private static SeekBar mGpuMaxFreqBar;
 	private static TextView mGpuMaxFreqText;
 	private static String mGpuValue;
-	private static int mGpuValueRaw;
+	public static int mGpuValueRaw;
 
-	private static CheckBox mAdaptiveBrightnessBox;
+	public static CheckBox mAdaptiveBrightnessBox;
 
 	private static SeekBar mTrinityContrastBar;
-	private static TextView mTrinityContrastText;
+	public static TextView mTrinityContrastText;
 
 	private static SeekBar mGammaControlBar;
-	private static TextView mGammaControlText;
+	public static TextView mGammaControlText;
 
 	private static String[] mAvailableGammaOffset;
 	private static SeekBar[] mGammaOffsetBars;
 	private static TextView[] mGammaOffsetTexts;
-	private static List<String> mGammaOffsetValueList = new ArrayList<String>();
+	public static List<String> mGammaOffsetValueList = new ArrayList<String>();
 
 	private static String[] mAvailableColorMultiplier;
 	private static SeekBar[] mColorMultiplierBars;
 	private static TextView[] mColorMultiplierTexts;
-	private static List<String> mColorMultiplierValueList = new ArrayList<String>();
+	public static List<String> mColorMultiplierValueList = new ArrayList<String>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,17 +117,16 @@ public class GpuDisplayFragment extends Fragment implements
 		mGpuMaxFreqBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Gpu Max Freq Text
-		mGpuValue = "";
 		if (GpuDisplayValues.mVariableGpu() == 0)
 			mGpuValue = "307";
-		if (GpuDisplayValues.mVariableGpu() == 1)
+		else if (GpuDisplayValues.mVariableGpu() == 1)
 			mGpuValue = "384";
-		if (GpuDisplayValues.mVariableGpu() == 2)
+		else if (GpuDisplayValues.mVariableGpu() == 2)
 			mGpuValue = "512";
 		mGpuMaxFreqText = new TextView(context);
 		LayoutStyle.setCenterText(mGpuMaxFreqText, mGpuValue + " MHz");
 
-		if (Utils.existFile(GpuDisplayValues.FILENAME_VARIABLE_GPU)) {
+		if (Utils.existFile(GpuDisplayValues.FILENAME_GPU_VARIABLE)) {
 			mLayout.addView(mGpuScalingTitle);
 			mLayout.addView(mGpuMaxFreqSubTitle);
 			mLayout.addView(mGpuMaxFreqSummary);
@@ -397,44 +395,14 @@ public class GpuDisplayFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.enableButtons();
+		MainActivity.showButtons(true);
 		MainActivity.mGpuDisplayAction = true;
-		for (int i = 0; i < mAvailableGammaOffset.length; i++) {
-			if (seekBar.equals(mGammaOffsetBars[i])) {
-				StringBuilder mGammaOffsetValue = new StringBuilder();
-				for (String s : mGammaOffsetValueList) {
-					mGammaOffsetValue.append(s);
-					mGammaOffsetValue.append("\t");
-				}
-				Control.GAMMA_OFFSET = mGammaOffsetValue.toString();
-			}
-		}
-		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
-			if (seekBar.equals(mColorMultiplierBars[i])) {
-				StringBuilder mColorMultiplierValue = new StringBuilder();
-				for (String s : mColorMultiplierValueList) {
-					mColorMultiplierValue.append(s);
-					mColorMultiplierValue.append("\t");
-				}
-				Control.COLOR_MULTIPLIER = mColorMultiplierValue.toString();
-			}
-		}
-		if (seekBar.equals(mGpuMaxFreqBar)) {
-			Control.GPU_VARIABLE = String.valueOf(mGpuValueRaw);
-		} else if (seekBar.equals(mTrinityContrastBar)) {
-			Control.TRINITY_CONTRAST = mTrinityContrastText.getText()
-					.toString();
-		} else if (seekBar.equals(mGammaControlBar)) {
-			Control.GAMMA_CONTROL = mGammaControlText.getText().toString();
-		}
 	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		MainActivity.enableButtons();
+		MainActivity.showButtons(true);
 		MainActivity.mGpuDisplayAction = true;
-		if (buttonView.equals(mAdaptiveBrightnessBox))
-			Control.APAPTIVE_BRIGHTNESS = isChecked ? "1" : "0";
 	}
 
 	@Override
