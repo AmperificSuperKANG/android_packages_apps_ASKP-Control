@@ -29,7 +29,7 @@ import com.askp.control.Fragments.MiscellaneousFragment;
 
 public class Control {
 
-	public static String MAX_CPU_FREQ = "", MIN_CPU_FREQ = "",
+	private static String MAX_CPU_FREQ = "", MIN_CPU_FREQ = "",
 			MAX_SCREEN_OFF = "", MIN_SCREEN_ON = "", MULTICORE_SAVING = "",
 			TEMP_LIMIT = "", GOVERNOR = "", CORE = "", IVA = "", MPU = "",
 			CORE_VOLTAGE = "", IVA_VOLTAGE = "", MPU_VOLTAGE = "",
@@ -73,65 +73,110 @@ public class Control {
 	}
 
 	public static void setValues() {
-		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ))
-			MAX_CPU_FREQ = CpuFragment.mMaxFreqValue;
-		if (Utils.existFile(CpuValues.FILENAME_MIN_FREQ))
-			MIN_CPU_FREQ = CpuFragment.mMinFreqValue;
-		if (Utils.existFile(CpuValues.FILENAME_MAX_SCREEN_OFF))
-			MAX_SCREEN_OFF = CpuFragment.mMaxScreenOffValue;
-		if (Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON))
-			MIN_SCREEN_ON = CpuFragment.mMinScreenOnValue;
-		if (Utils.existFile(CpuValues.FILENAME_MULTICORE_SAVING))
-			MULTICORE_SAVING = CpuFragment.mMulticoreSavingText.getText()
-					.toString();
-		if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT))
-			TEMP_LIMIT = CpuFragment.mTempLimitText.getText().toString()
-					+ "000";
-		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES))
-			CORE_VOLTAGE = Utils.listSplit(CpuFragment.mCoreVoltagesValuesList)
-					.replace(" mV", "");
-		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES))
-			IVA_VOLTAGE = Utils.listSplit(CpuFragment.mIVAVoltagesValuesList)
-					.replace(" mV", "");
-		if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES))
-			MPU_VOLTAGE = Utils.listSplit(CpuFragment.mMPUVoltagesValuesList)
-					.replace(" mV", "");
-		if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES))
-			REGULATOR_VOLTAGE = Utils.listSplit(
-					CpuFragment.mRegulatorVoltagesValuesList)
-					.replace(" mV", "");
+		if (MainActivity.mCpuAction) {
+			if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ))
+				MAX_CPU_FREQ = CpuFragment.mMaxFreqValue;
+			if (Utils.existFile(CpuValues.FILENAME_MIN_FREQ))
+				MIN_CPU_FREQ = CpuFragment.mMinFreqValue;
+			if (Utils.existFile(CpuValues.FILENAME_MAX_SCREEN_OFF))
+				MAX_SCREEN_OFF = CpuFragment.mMaxScreenOffValue;
+			if (Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON))
+				MIN_SCREEN_ON = CpuFragment.mMinScreenOnValue;
+			if (Utils.existFile(CpuValues.FILENAME_MULTICORE_SAVING))
+				MULTICORE_SAVING = CpuFragment.mMulticoreSavingText.getText()
+						.toString();
+			if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT))
+				TEMP_LIMIT = CpuFragment.mTempLimitText.getText().toString()
+						+ "000";
+			if (Utils.existFile(CpuValues.FILENAME_AVAILABLE_GOVERNOR))
+				GOVERNOR = CpuFragment.mAvailableGovernor[CpuFragment.mGovernorSpinner
+						.getSelectedItemPosition()];
+			if (Utils.existFile(CpuValues.FILENAME_CORE))
+				CORE = CpuFragment.mCore.isChecked() ? "1" : "0";
+			if (Utils.existFile(CpuValues.FILENAME_IVA))
+				IVA = CpuFragment.mIVA.isChecked() ? "1" : "0";
+			if (Utils.existFile(CpuValues.FILENAME_MPU))
+				MPU = CpuFragment.mMPU.isChecked() ? "1" : "0";
+			if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES))
+				CORE_VOLTAGE = Utils.listSplit(
+						CpuFragment.mCoreVoltagesValuesList).replace(" mV", "");
+			if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES))
+				IVA_VOLTAGE = Utils.listSplit(
+						CpuFragment.mIVAVoltagesValuesList).replace(" mV", "");
+			if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES))
+				MPU_VOLTAGE = Utils.listSplit(
+						CpuFragment.mMPUVoltagesValuesList).replace(" mV", "");
+			if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES))
+				REGULATOR_VOLTAGE = Utils.listSplit(
+						CpuFragment.mRegulatorVoltagesValuesList).replace(
+						" mV", "");
+		}
 
-		if (Utils.existFile(GpuDisplayValues.FILENAME_GPU_VARIABLE))
-			GPU_VARIABLE = String.valueOf(GpuDisplayFragment.mGpuValueRaw);
-		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST))
-			TRINITY_CONTRAST = GpuDisplayFragment.mTrinityContrastText
-					.getText().toString();
-		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL))
-			GAMMA_CONTROL = GpuDisplayFragment.mGammaControlText.getText()
-					.toString();
-		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET))
-			GAMMA_OFFSET = Utils
-					.listSplit(GpuDisplayFragment.mGammaOffsetValueList);
-		if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER))
-			COLOR_MULTIPLIER = Utils
-					.listSplit(GpuDisplayFragment.mColorMultiplierValueList);
+		if (MainActivity.mGpuDisplayAction) {
+			if (Utils.existFile(GpuDisplayValues.FILENAME_GPU_VARIABLE))
+				GPU_VARIABLE = String.valueOf(GpuDisplayFragment.mGpuValueRaw);
+			if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS))
+				ADAPTIVE_BRIGHTNESS = GpuDisplayFragment.mAdaptiveBrightnessBox
+						.isChecked() ? "1" : "0";
+			if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST))
+				TRINITY_CONTRAST = GpuDisplayFragment.mTrinityContrastText
+						.getText().toString();
+			if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL))
+				GAMMA_CONTROL = GpuDisplayFragment.mGammaControlText.getText()
+						.toString();
+			if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET))
+				GAMMA_OFFSET = Utils
+						.listSplit(GpuDisplayFragment.mGammaOffsetValueList);
+			if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER))
+				COLOR_MULTIPLIER = Utils
+						.listSplit(GpuDisplayFragment.mColorMultiplierValueList);
+		}
 
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ))
-			INTERNAL_READ = IoAlgorithmFragment.mInternalReadText.getText()
-					.toString().replace(" kB", "");
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ))
-			EXTERNAL_READ = IoAlgorithmFragment.mExternalReadText.getText()
-					.toString().replace(" kB", "");
+		if (MainActivity.mIoAlgorithmAction) {
+			if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER))
+				INTERNAL_SCHEDULER = IoAlgorithmFragment.mAvailableInternalScheduler[IoAlgorithmFragment.mInternalSchedulerSpinner
+						.getSelectedItemPosition()];
+			if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER))
+				EXTERNAL_SCHEDULER = IoAlgorithmFragment.mAvailableExternalScheduler[IoAlgorithmFragment.mExternalSchedulerSpinner
+						.getSelectedItemPosition()];
+			if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ))
+				INTERNAL_READ = IoAlgorithmFragment.mInternalReadText.getText()
+						.toString().replace(" kB", "");
+			if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ))
+				EXTERNAL_READ = IoAlgorithmFragment.mExternalReadText.getText()
+						.toString().replace(" kB", "");
+		}
 
-		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER))
-			BATTERY_EXTENDER = MiscellaneousFragment.mBatteryExtenderText
-					.getText().toString();
-		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST))
-			HEADPHONE_BOOST = MiscellaneousFragment.mHeadphoneBoostText
-					.getText().toString();
-		if (Utils.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH))
-			VIBRATION_STRENGTH = MiscellaneousFragment.mVibrationStrengthText
-					.getText().toString();
+		if (MainActivity.mMiscellaneousAction) {
+			if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH))
+				WIFI_HIGH = MiscellaneousFragment.mWifiHighBox.isChecked() ? "Y"
+						: "N";
+			if (Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION))
+				TCP_CONGESTION = MiscellaneousFragment.mAvailableTCPCongestion[MiscellaneousFragment.mTCPCongestionSpinner
+						.getSelectedItemPosition()];
+			if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE))
+				FAST_CHARGE = MiscellaneousFragment.mFastChargeBox.isChecked() ? "1"
+						: "0";
+			if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER))
+				BATTERY_EXTENDER = MiscellaneousFragment.mBatteryExtenderText
+						.getText().toString();
+			if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH))
+				SOUND_HIGH = MiscellaneousFragment.mSoundHighBox.isChecked() ? "1"
+						: "0";
+			if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST))
+				HEADPHONE_BOOST = MiscellaneousFragment.mHeadphoneBoostText
+						.getText().toString();
+			if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC))
+				DYNAMIC_FSYNC = MiscellaneousFragment.mDynamicFsyncBox
+						.isChecked() ? "1" : "0";
+			if (Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL))
+				FSYNC_CONTROL = MiscellaneousFragment.mFsyncControlBox
+						.isChecked() ? "1" : "0";
+			if (Utils
+					.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH))
+				VIBRATION_STRENGTH = MiscellaneousFragment.mVibrationStrengthText
+						.getText().toString();
+		}
 	}
 
 	public static void setCpuValues(Context context) {

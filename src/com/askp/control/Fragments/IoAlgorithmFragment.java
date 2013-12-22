@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.askp.control.MainActivity;
 import com.askp.control.R;
-import com.askp.control.Utils.Control;
 import com.askp.control.Utils.IoAlgorithmValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
@@ -53,11 +52,11 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	private static LinearLayout mLayout;
 
-	private static String[] mAvailableInternalScheduler;
+	public static String[] mAvailableInternalScheduler;
 	public static Spinner mInternalSchedulerSpinner;
 	public static int mCurInternalScheduler;
 
-	private static String[] mAvailableExternalScheduler;
+	public static String[] mAvailableExternalScheduler;
 	public static Spinner mExternalSchedulerSpinner;
 	public static int mCurExternalScheduler;
 
@@ -226,13 +225,11 @@ public class IoAlgorithmFragment extends Fragment implements
 			if (arg2 != mCurInternalScheduler) {
 				MainActivity.showButtons(true);
 				MainActivity.mIoAlgorithmAction = true;
-				Control.INTERNAL_SCHEDULER = mAvailableInternalScheduler[arg2];
 			}
 		} else if (arg0.equals(mExternalSchedulerSpinner)) {
 			if (arg2 != mCurExternalScheduler) {
 				MainActivity.showButtons(true);
 				MainActivity.mIoAlgorithmAction = true;
-				Control.EXTERNAL_SCHEDULER = mAvailableExternalScheduler[arg2];
 			}
 		}
 	}

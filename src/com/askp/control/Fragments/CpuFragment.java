@@ -45,7 +45,6 @@ import android.widget.TextView;
 
 import com.askp.control.MainActivity;
 import com.askp.control.R;
-import com.askp.control.Utils.Control;
 import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
@@ -82,11 +81,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static SeekBar mTempLimitBar;
 	public static TextView mTempLimitText;
 
-	private static Spinner mGovernorSpinner;
-	private static String[] mAvailableGovernor;
+	public static Spinner mGovernorSpinner;
+	public static String[] mAvailableGovernor;
 	private static List<String> mAvailableGovernorList = new ArrayList<String>();
 
-	private static CheckBox mCore, mIVA, mMPU;
+	public static CheckBox mCore, mIVA, mMPU;
 
 	public static TextView[] mCoreVoltagesTexts;
 	private static String[] mCoreVoltagesList;
@@ -723,7 +722,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					.indexOf(CpuValues.mCurGovernor())) {
 				MainActivity.showButtons(true);
 				MainActivity.mCpuAction = true;
-				Control.GOVERNOR = mAvailableGovernor[arg2];
 			}
 		}
 	}
@@ -736,12 +734,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		MainActivity.showButtons(true);
 		MainActivity.mCpuAction = true;
-		if (buttonView.equals(mCore))
-			Control.CORE = isChecked ? "1" : "0";
-		else if (buttonView.equals(mIVA))
-			Control.IVA = isChecked ? "1" : "0";
-		else if (buttonView.equals(mMPU))
-			Control.MPU = isChecked ? "1" : "0";
 	}
 
 	@Override
