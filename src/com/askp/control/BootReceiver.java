@@ -47,167 +47,88 @@ public class BootReceiver extends BroadcastReceiver {
 
 	private static void setOnBoot(Context context) {
 		// Max Cpu
-		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)
-				&& !Utils.getString("maxcpuvalue", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("maxcpuvalue", context)
-					+ " > " + CpuValues.FILENAME_MAX_FREQ);
+		setValue(CpuValues.FILENAME_MAX_FREQ, "maxcpuvalue", context);
 
 		// Min Cpu
-		if (Utils.existFile(CpuValues.FILENAME_MIN_FREQ)
-				&& !Utils.getString("mincpuvalue", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("mincpuvalue", context)
-					+ " > " + CpuValues.FILENAME_MIN_FREQ);
+		setValue(CpuValues.FILENAME_MIN_FREQ, "mincpuvalue", context);
 
 		// Max Screen Off
-		if (Utils.existFile(CpuValues.FILENAME_MAX_SCREEN_OFF)
-				&& !Utils.getString("maxscreenoff", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("maxscreenoff", context)
-					+ " > " + CpuValues.FILENAME_MAX_SCREEN_OFF);
+		setValue(CpuValues.FILENAME_MAX_SCREEN_OFF, "maxscreenoff", context);
 
 		// Min Screen On
 		if (Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON)
 				&& !Utils.getString("minscreenon", context).equals("nothing"))
-			Utils.runCommand("touch " + CpuValues.FILENAME_MIN_SCREEN_ON
-					+ " && echo " + Utils.getString("minscreenon", context)
-					+ " > " + CpuValues.FILENAME_MIN_SCREEN_ON);
+			Utils.runCommand("touch " + CpuValues.FILENAME_MIN_SCREEN_ON);
+		setValue(CpuValues.FILENAME_MIN_SCREEN_ON, "minscreenon", context);
 
 		// Multicore Saving
-		if (Utils.existFile(CpuValues.FILENAME_MULTICORE_SAVING)
-				&& !Utils.getString("multicoresaving", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("multicoresaving", context) + " > "
-					+ CpuValues.FILENAME_MULTICORE_SAVING);
+		setValue(CpuValues.FILENAME_MULTICORE_SAVING, "multicoresaving",
+				context);
 
 		// Temp Limit
-		if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT)
-				&& !Utils.getString("templimit", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("templimit", context)
-					+ " > " + CpuValues.FILENAME_TEMP_LIMIT);
+		setValue(CpuValues.FILENAME_TEMP_LIMIT, "templimit", context);
 
 		// Governor
-		if (Utils.existFile(CpuValues.FILENAME_CUR_GOVERNOR)
-				&& !Utils.getString("governor", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("governor", context)
-					+ " > " + CpuValues.FILENAME_CUR_GOVERNOR);
+		setValue(CpuValues.FILENAME_CUR_GOVERNOR, "governor", context);
 
 		// Smartreflex
-		if (Utils.existFile(CpuValues.FILENAME_CORE)
-				&& !Utils.getString("core", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("core", context) + " > "
-					+ CpuValues.FILENAME_CORE);
-
-		if (Utils.existFile(CpuValues.FILENAME_IVA)
-				&& !Utils.getString("iva", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("iva", context) + " > "
-					+ CpuValues.FILENAME_IVA);
-
-		if (Utils.existFile(CpuValues.FILENAME_MPU)
-				&& !Utils.getString("mpu", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("mpu", context) + " > "
-					+ CpuValues.FILENAME_MPU);
+		setValue(CpuValues.FILENAME_CORE, "core", context);
+		setValue(CpuValues.FILENAME_IVA, "iva", context);
+		setValue(CpuValues.FILENAME_MPU, "mpu", context);
 
 		// Core Voltage
-		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)
-				&& !Utils.getString("corevoltage", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("corevoltage", context)
-					+ " > " + CpuValues.FILENAME_CORE_VOLTAGES);
+		setValue(CpuValues.FILENAME_CORE_VOLTAGES, "corevoltage", context);
 
 		// IVA Voltage
-		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)
-				&& !Utils.getString("ivavoltage", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("ivavoltage", context)
-					+ " > " + CpuValues.FILENAME_IVA_VOLTAGES);
+		setValue(CpuValues.FILENAME_IVA_VOLTAGES, "ivavoltage", context);
 
 		// MPU Voltage
-		if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)
-				&& !Utils.getString("mpuvoltage", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("mpuvoltage", context)
-					+ " > " + CpuValues.FILENAME_MPU_VOLTAGES);
+		setValue(CpuValues.FILENAME_MPU_VOLTAGES, "mpuvoltage", context);
 
 		// Regulator Voltage
-		if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES)
-				&& !Utils.getString("regulatorvoltage", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("regulatorvoltage", context) + " > "
-					+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
+		setValue(CpuValues.FILENAME_REGULATOR_VOLTAGES, "regulatorvoltage",
+				context);
 
 		// Gpu Variable
-		if (Utils.existFile(GpuDisplayValues.FILENAME_GPU_VARIABLE)
-				&& !Utils.getString("gpuvariable", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("gpuvariable", context)
-					+ " > " + GpuDisplayValues.FILENAME_GPU_VARIABLE);
+		setValue(GpuDisplayValues.FILENAME_GPU_VARIABLE, "gpuvariable", context);
 
 		// Adaptive Brightness
-		if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS)
-				&& !Utils.getString("adaptivebrightness", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("adaptivebrightness", context) + " > "
-					+ GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS);
+		setValue(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS,
+				"adaptivebrightness", context);
 
 		// Trinity Contrast
-		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST)
-				&& !Utils.getString("trinitycontrast", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("trinitycontrast", context) + " > "
-					+ GpuDisplayValues.FILENAME_TRINITY_CONTRAST);
+		setValue(GpuDisplayValues.FILENAME_TRINITY_CONTRAST, "trinitycontrast",
+				context);
 
 		// Gamma Control
-		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_CONTROL)
-				&& !Utils.getString("gammacontrol", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("gammacontrol", context)
-					+ " > " + GpuDisplayValues.FILENAME_GAMMA_CONTROL);
+		setValue(GpuDisplayValues.FILENAME_GAMMA_CONTROL, "gammacontrol",
+				context);
 
 		// Gamma Offset
-		if (Utils.existFile(GpuDisplayValues.FILENAME_GAMMA_OFFSET)
-				&& !Utils.getString("gammaoffset", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("gammaoffset", context)
-					+ " > " + GpuDisplayValues.FILENAME_GAMMA_OFFSET);
+		setValue(GpuDisplayValues.FILENAME_GAMMA_OFFSET, "gammaoffset", context);
 
 		// Gamma Offset
-		if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER)
-				&& !Utils.getString("colormultiplier", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("colormultiplier", context) + " > "
-					+ GpuDisplayValues.FILENAME_COLOR_MULTIPLIER);
+		setValue(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER, "colormultiplier",
+				context);
 
 		// Internal Scheduler
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER)
-				&& !Utils.getString("internalscheduler", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("internalscheduler", context) + " > "
-					+ IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER);
+		setValue(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER,
+				"internalscheduler", context);
 
 		// External Scheduler
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER)
-				&& !Utils.getString("externalscheduler", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("externalscheduler", context) + " > "
-					+ IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER);
+		setValue(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER,
+				"externalscheduler", context);
 
 		// Internal Read
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ)
-				&& !Utils.getString("internalread", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("internalread", context)
-					+ " > " + IoAlgorithmValues.FILENAME_INTERNAL_READ);
+		setValue(IoAlgorithmValues.FILENAME_INTERNAL_READ, "internalread",
+				context);
 
 		// External Read
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ)
-				&& !Utils.getString("externalread", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("externalread", context)
-					+ " > " + IoAlgorithmValues.FILENAME_EXTERNAL_READ);
+		setValue(IoAlgorithmValues.FILENAME_EXTERNAL_READ, "externalread",
+				context);
 
 		// Wifi High
-		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH)
-				&& !Utils.getString("wifihigh", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("wifihigh", context)
-					+ " > " + MiscellaneousValues.FILENAME_WIFI_HIGH);
+		setValue(MiscellaneousValues.FILENAME_WIFI_HIGH, "wifihigh", context);
 
 		// TCP Congestion
 		if (Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION)
@@ -216,51 +137,37 @@ public class BootReceiver extends BroadcastReceiver {
 					+ Utils.getString("tcpcongestion", context));
 
 		// Fast Charge
-		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE)
-				&& !Utils.getString("fastcharge", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("fastcharge", context)
-					+ " > " + MiscellaneousValues.FILENAME_FAST_CHARGE);
+		setValue(MiscellaneousValues.FILENAME_FAST_CHARGE, "fastcharge",
+				context);
 
 		// Battery Extender
-		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER)
-				&& !Utils.getString("batteryextender", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("batteryextender", context) + " > "
-					+ MiscellaneousValues.FILENAME_BATTERY_EXTENDER);
+		setValue(MiscellaneousValues.FILENAME_BATTERY_EXTENDER,
+				"batteryextender", context);
 
 		// Sound High
-		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH)
-				&& !Utils.getString("soundhigh", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("soundhigh", context)
-					+ " > " + MiscellaneousValues.FILENAME_SOUND_HIGH);
+		setValue(MiscellaneousValues.FILENAME_SOUND_HIGH, "soundhigh", context);
 
 		// Headphone Boost
-		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST)
-				&& !Utils.getString("headphoneboost", context)
-						.equals("nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("headphoneboost", context) + " > "
-					+ MiscellaneousValues.FILENAME_HEADPHONE_BOOST);
+		setValue(MiscellaneousValues.FILENAME_HEADPHONE_BOOST,
+				"headphoneboost", context);
 
 		// Dynamic Fsync
-		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC)
-				&& !Utils.getString("dynamicfsync", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("dynamicfsync", context)
-					+ " > " + MiscellaneousValues.FILENAME_DYNAMIC_FSYNC);
+		setValue(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC, "dynamicfsync",
+				context);
 
 		// Fsync Control
-		if (Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL)
-				&& !Utils.getString("fsynccontrol", context).equals("nothing"))
-			Utils.runCommand("echo " + Utils.getString("fsynccontrol", context)
-					+ " > " + MiscellaneousValues.FILENAME_FSYNC_CONTROL);
+		setValue(MiscellaneousValues.FILENAME_FSYNC_CONTROL, "fsynccontrol",
+				context);
 
 		// Vibration Strength
-		if (Utils.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH)
-				&& !Utils.getString("vibrationstrength", context).equals(
-						"nothing"))
-			Utils.runCommand("echo "
-					+ Utils.getString("vibrationstrength", context) + " > "
-					+ MiscellaneousValues.FILENAME_VIBRATION_STRENGTH);
+		setValue(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH,
+				"vibrationstrength", context);
+	}
+
+	private static void setValue(String file, String name, Context context) {
+		if (Utils.existFile(file)
+				&& !Utils.getString(name, context).equals("nothing"))
+			Utils.runCommand("echo " + Utils.getString(name, context) + " > "
+					+ file);
 	}
 }
