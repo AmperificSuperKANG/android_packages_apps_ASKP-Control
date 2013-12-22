@@ -83,10 +83,11 @@ public class ValueEditor {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								if (mValue.getText().toString()
-										.matches("[0-9]+"))
+										.matches("[0-9]+")) {
 									seekbar.setProgress(Integer.parseInt(mValue
 											.getText().toString()) - calculate);
-								MainActivity.showButtons(true);
+									MainActivity.showButtons(true);
+								}
 							}
 						}).show();
 	}
