@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.askp.control.MainActivity;
 import com.askp.control.R;
+import com.askp.control.Utils.Control;
 import com.askp.control.Utils.GpuDisplayValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
@@ -59,7 +60,7 @@ public class GpuDisplayFragment extends Fragment implements
 	private static String mGpuValue;
 	public static int mGpuValueRaw;
 
-	public static CheckBox mAdaptiveBrightnessBox;
+	private static CheckBox mAdaptiveBrightnessBox;
 
 	private static SeekBar mTrinityContrastBar;
 	public static TextView mTrinityContrastText;
@@ -403,6 +404,8 @@ public class GpuDisplayFragment extends Fragment implements
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		MainActivity.showButtons(true);
 		MainActivity.mGpuDisplayAction = true;
+		if (buttonView.equals(mAdaptiveBrightnessBox))
+			Control.ADAPTIVE_BRIGHTNESS = isChecked ? "1" : "0";
 	}
 
 	@Override

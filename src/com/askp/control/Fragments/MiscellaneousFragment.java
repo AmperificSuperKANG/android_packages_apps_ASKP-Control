@@ -20,6 +20,7 @@ package com.askp.control.Fragments;
 
 import com.askp.control.MainActivity;
 import com.askp.control.R;
+import com.askp.control.Utils.Control;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.MiscellaneousValues;
 import com.askp.control.Utils.Utils;
@@ -56,25 +57,25 @@ public class MiscellaneousFragment extends Fragment implements
 
 	private static LinearLayout mLayout;
 
-	public static CheckBox mWifiHighBox;
+	private static CheckBox mWifiHighBox;
 
-	public static String[] mAvailableTCPCongestion;
+	private static String[] mAvailableTCPCongestion;
 	public static Spinner mTCPCongestionSpinner;
 	public static int mTCPCongestion;
 
-	public static CheckBox mFastChargeBox;
+	private static CheckBox mFastChargeBox;
 
 	private static SeekBar mBatteryExtenderBar;
 	public static TextView mBatteryExtenderText;
 
-	public static CheckBox mSoundHighBox;
+	private static CheckBox mSoundHighBox;
 
 	private static SeekBar mHeadphoneBoostBar;
 	public static TextView mHeadphoneBoostText;
 
-	public static CheckBox mDynamicFsyncBox;
+	private static CheckBox mDynamicFsyncBox;
 
-	public static CheckBox mFsyncControlBox;
+	private static CheckBox mFsyncControlBox;
 
 	private static SeekBar mVibrationStrengthBar;
 	public static TextView mVibrationStrengthText;
@@ -329,6 +330,16 @@ public class MiscellaneousFragment extends Fragment implements
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		MainActivity.showButtons(true);
 		MainActivity.mMiscellaneousAction = true;
+		if (buttonView.equals(mWifiHighBox))
+			Control.WIFI_HIGH = isChecked ? "Y" : "N";
+		else if (buttonView.equals(mFastChargeBox))
+			Control.FAST_CHARGE = isChecked ? "1" : "0";
+		else if (buttonView.equals(mSoundHighBox))
+			Control.SOUND_HIGH = isChecked ? "1" : "0";
+		else if (buttonView.equals(mDynamicFsyncBox))
+			Control.DYNAMIC_FSYNC = isChecked ? "1" : "0";
+		else if (buttonView.equals(mFsyncControlBox))
+			Control.FSYNC_CONTROL = isChecked ? "1" : "0";
 	}
 
 	@Override
@@ -359,6 +370,7 @@ public class MiscellaneousFragment extends Fragment implements
 			if (arg2 != mTCPCongestion) {
 				MainActivity.showButtons(true);
 				MainActivity.mMiscellaneousAction = true;
+				Control.TCP_CONGESTION = mAvailableTCPCongestion[arg2];
 			}
 		}
 	}

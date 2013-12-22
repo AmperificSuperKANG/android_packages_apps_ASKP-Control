@@ -29,7 +29,7 @@ import com.askp.control.Fragments.MiscellaneousFragment;
 
 public class Control {
 
-	private static String MAX_CPU_FREQ = "", MIN_CPU_FREQ = "",
+	public static String MAX_CPU_FREQ = "", MIN_CPU_FREQ = "",
 			MAX_SCREEN_OFF = "", MIN_SCREEN_ON = "", MULTICORE_SAVING = "",
 			TEMP_LIMIT = "", GOVERNOR = "", CORE = "", IVA = "", MPU = "",
 			CORE_VOLTAGE = "", IVA_VOLTAGE = "", MPU_VOLTAGE = "",
@@ -87,15 +87,6 @@ public class Control {
 		if (Utils.existFile(CpuValues.FILENAME_TEMP_LIMIT))
 			TEMP_LIMIT = CpuFragment.mTempLimitText.getText().toString()
 					+ "000";
-		if (Utils.existFile(CpuValues.FILENAME_AVAILABLE_GOVERNOR))
-			GOVERNOR = CpuFragment.mAvailableGovernor[CpuFragment.mGovernorSpinner
-					.getSelectedItemPosition()];
-		if (Utils.existFile(CpuValues.FILENAME_CORE))
-			CORE = CpuFragment.mCore.isChecked() ? "1" : "0";
-		if (Utils.existFile(CpuValues.FILENAME_IVA))
-			IVA = CpuFragment.mIVA.isChecked() ? "1" : "0";
-		if (Utils.existFile(CpuValues.FILENAME_MPU))
-			MPU = CpuFragment.mMPU.isChecked() ? "1" : "0";
 		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES))
 			CORE_VOLTAGE = Utils.listSplit(CpuFragment.mCoreVoltagesValuesList)
 					.replace(" mV", "");
@@ -112,9 +103,6 @@ public class Control {
 
 		if (Utils.existFile(GpuDisplayValues.FILENAME_GPU_VARIABLE))
 			GPU_VARIABLE = String.valueOf(GpuDisplayFragment.mGpuValueRaw);
-		if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS))
-			ADAPTIVE_BRIGHTNESS = GpuDisplayFragment.mAdaptiveBrightnessBox
-					.isChecked() ? "1" : "0";
 		if (Utils.existFile(GpuDisplayValues.FILENAME_TRINITY_CONTRAST))
 			TRINITY_CONTRAST = GpuDisplayFragment.mTrinityContrastText
 					.getText().toString();
@@ -128,12 +116,6 @@ public class Control {
 			COLOR_MULTIPLIER = Utils
 					.listSplit(GpuDisplayFragment.mColorMultiplierValueList);
 
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER))
-			INTERNAL_SCHEDULER = IoAlgorithmFragment.mAvailableInternalScheduler[IoAlgorithmFragment.mInternalSchedulerSpinner
-					.getSelectedItemPosition()];
-		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER))
-			EXTERNAL_SCHEDULER = IoAlgorithmFragment.mAvailableExternalScheduler[IoAlgorithmFragment.mExternalSchedulerSpinner
-					.getSelectedItemPosition()];
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ))
 			INTERNAL_READ = IoAlgorithmFragment.mInternalReadText.getText()
 					.toString().replace(" kB", "");
@@ -141,30 +123,12 @@ public class Control {
 			EXTERNAL_READ = IoAlgorithmFragment.mExternalReadText.getText()
 					.toString().replace(" kB", "");
 
-		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH))
-			WIFI_HIGH = MiscellaneousFragment.mWifiHighBox.isChecked() ? "Y"
-					: "N";
-		if (Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION))
-			TCP_CONGESTION = MiscellaneousFragment.mAvailableTCPCongestion[MiscellaneousFragment.mTCPCongestionSpinner
-					.getSelectedItemPosition()];
-		if (Utils.existFile(MiscellaneousValues.FILENAME_FAST_CHARGE))
-			FAST_CHARGE = MiscellaneousFragment.mFastChargeBox.isChecked() ? "1"
-					: "0";
 		if (Utils.existFile(MiscellaneousValues.FILENAME_BATTERY_EXTENDER))
 			BATTERY_EXTENDER = MiscellaneousFragment.mBatteryExtenderText
 					.getText().toString();
-		if (Utils.existFile(MiscellaneousValues.FILENAME_SOUND_HIGH))
-			SOUND_HIGH = MiscellaneousFragment.mSoundHighBox.isChecked() ? "1"
-					: "0";
 		if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST))
 			HEADPHONE_BOOST = MiscellaneousFragment.mHeadphoneBoostText
 					.getText().toString();
-		if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC))
-			DYNAMIC_FSYNC = MiscellaneousFragment.mDynamicFsyncBox.isChecked() ? "1"
-					: "0";
-		if (Utils.existFile(MiscellaneousValues.FILENAME_FSYNC_CONTROL))
-			FSYNC_CONTROL = MiscellaneousFragment.mFsyncControlBox.isChecked() ? "1"
-					: "0";
 		if (Utils.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH))
 			VIBRATION_STRENGTH = MiscellaneousFragment.mVibrationStrengthText
 					.getText().toString();
@@ -172,183 +136,97 @@ public class Control {
 
 	public static void setCpuValues(Context context) {
 		// Max Cpu
-		if (!MAX_CPU_FREQ.isEmpty()) {
-			Utils.runCommand("echo " + MAX_CPU_FREQ + " > "
-					+ CpuValues.FILENAME_MAX_FREQ);
-			Utils.saveString("maxcpuvalue", MAX_CPU_FREQ, context);
-		}
-
+		setFileValue(MAX_CPU_FREQ, CpuValues.FILENAME_MAX_FREQ, "maxcpuvalue",
+				context);
 		// Min Cpu
-		if (!MIN_CPU_FREQ.isEmpty()) {
-			Utils.runCommand("echo " + MIN_CPU_FREQ + " > "
-					+ CpuValues.FILENAME_MIN_FREQ);
-			Utils.saveString("mincpuvalue", MIN_CPU_FREQ, context);
-		}
-
+		setFileValue(MIN_CPU_FREQ, CpuValues.FILENAME_MIN_FREQ, "mincpuvalue",
+				context);
 		// Max Screen Off
-		if (!MAX_SCREEN_OFF.isEmpty()) {
-			Utils.runCommand("echo " + MAX_SCREEN_OFF + " > "
-					+ CpuValues.FILENAME_MAX_SCREEN_OFF);
-			Utils.saveString("maxscreenoff", MAX_SCREEN_OFF, context);
-		}
-
+		setFileValue(MAX_SCREEN_OFF, CpuValues.FILENAME_MAX_SCREEN_OFF,
+				"maxscreenoff", context);
 		// Min Screen On
-		if (!MIN_SCREEN_ON.isEmpty()) {
-			Utils.runCommand("touch " + CpuValues.FILENAME_MIN_SCREEN_ON
-					+ " && echo " + MIN_SCREEN_ON + " > "
-					+ CpuValues.FILENAME_MIN_SCREEN_ON);
-			Utils.saveString("minscreenon", MIN_SCREEN_ON, context);
-		}
-
+		if (!MIN_SCREEN_ON.isEmpty())
+			Utils.runCommand("touch " + CpuValues.FILENAME_MIN_SCREEN_ON);
+		setFileValue(MIN_SCREEN_ON, CpuValues.FILENAME_MIN_SCREEN_ON,
+				"minscreenon", context);
 		// Multicore Saving
-		if (!MULTICORE_SAVING.isEmpty()) {
-			Utils.runCommand("echo " + MULTICORE_SAVING + " > "
-					+ CpuValues.FILENAME_MULTICORE_SAVING);
-			Utils.saveString("multicoresaving", MULTICORE_SAVING, context);
-		}
-
+		setFileValue(MULTICORE_SAVING, CpuValues.FILENAME_MULTICORE_SAVING,
+				"multicoresaving", context);
 		// Temp Limit
-		if (!TEMP_LIMIT.isEmpty()) {
-			Utils.runCommand("echo " + TEMP_LIMIT + " > "
-					+ CpuValues.FILENAME_TEMP_LIMIT);
-			Utils.saveString("templimit", TEMP_LIMIT, context);
-		}
-
+		setFileValue(TEMP_LIMIT, CpuValues.FILENAME_TEMP_LIMIT, "templimit",
+				context);
 		// Governor
-		if (!GOVERNOR.isEmpty()) {
-			Utils.runCommand("echo " + GOVERNOR + " > "
-					+ CpuValues.FILENAME_CUR_GOVERNOR);
-			Utils.saveString("governor", GOVERNOR, context);
-		}
-
+		setFileValue(GOVERNOR, CpuValues.FILENAME_CUR_GOVERNOR, "governor",
+				context);
 		// Smartreflex
-		if (!CORE.isEmpty())
-			Utils.runCommand("echo " + CORE + " > " + CpuValues.FILENAME_CORE);
-		Utils.saveString("core", CORE, context);
-
-		if (!IVA.isEmpty())
-			Utils.runCommand("echo " + IVA + " > " + CpuValues.FILENAME_IVA);
-		Utils.saveString("iva", IVA, context);
-
-		if (!MPU.isEmpty())
-			Utils.runCommand("echo " + MPU + " > " + CpuValues.FILENAME_MPU);
-		Utils.saveString("mpu", MPU, context);
-
+		setFileValue(CORE, CpuValues.FILENAME_CORE, "core", context);
+		setFileValue(IVA, CpuValues.FILENAME_IVA, "iva", context);
+		setFileValue(MPU, CpuValues.FILENAME_MPU, "mpu", context);
 		// Core Voltage
-		if (!CORE_VOLTAGE.isEmpty()) {
-			Utils.runCommand("echo " + CORE_VOLTAGE + " > "
-					+ CpuValues.FILENAME_CORE_VOLTAGES);
-			Utils.saveString("corevoltage", CORE_VOLTAGE, context);
-		}
-
+		setFileValue(CORE_VOLTAGE, CpuValues.FILENAME_CORE_VOLTAGES,
+				"corevoltage", context);
 		// IVA Voltage
-		if (!IVA_VOLTAGE.isEmpty()) {
-			Utils.runCommand("echo " + IVA_VOLTAGE + " > "
-					+ CpuValues.FILENAME_IVA_VOLTAGES);
-			Utils.saveString("ivavoltage", IVA_VOLTAGE, context);
-		}
-
+		setFileValue(IVA_VOLTAGE, CpuValues.FILENAME_IVA_VOLTAGES,
+				"ivavoltage", context);
 		// MPU Voltage
-		if (!MPU_VOLTAGE.isEmpty()) {
-			Utils.runCommand("echo " + MPU_VOLTAGE + " > "
-					+ CpuValues.FILENAME_MPU_VOLTAGES);
-			Utils.saveString("mpuvoltage", MPU_VOLTAGE, context);
-		}
-
+		setFileValue(MPU_VOLTAGE, CpuValues.FILENAME_MPU_VOLTAGES,
+				"mpuvoltage", context);
 		// Regulator Voltage
-		if (!REGULATOR_VOLTAGE.isEmpty()) {
-			Utils.runCommand("echo " + REGULATOR_VOLTAGE + " > "
-					+ CpuValues.FILENAME_REGULATOR_VOLTAGES);
-			Utils.saveString("regulatorvoltage", REGULATOR_VOLTAGE, context);
-		}
+		setFileValue(REGULATOR_VOLTAGE, CpuValues.FILENAME_REGULATOR_VOLTAGES,
+				"regulatorvoltage", context);
 	}
 
 	public static void setGpuDisplayValues(Context context) {
 		// Gpu Variable
-		if (!GPU_VARIABLE.isEmpty()) {
-			Utils.runCommand("echo " + GPU_VARIABLE + " > "
-					+ GpuDisplayValues.FILENAME_GPU_VARIABLE);
-			Utils.saveString("gpuvariable", GPU_VARIABLE, context);
-		}
-
+		setFileValue(GPU_VARIABLE, GpuDisplayValues.FILENAME_GPU_VARIABLE,
+				"gpuvariable", context);
 		// Adaptive Brightness
-		if (!ADAPTIVE_BRIGHTNESS.isEmpty()) {
-			Utils.runCommand("echo " + ADAPTIVE_BRIGHTNESS + " > "
-					+ GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS);
-			Utils.saveString("adaptivebrightness", ADAPTIVE_BRIGHTNESS, context);
-		}
-
+		setFileValue(ADAPTIVE_BRIGHTNESS,
+				GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS,
+				"adaptivebrightness", context);
 		// Trinity Contrast
-		if (!TRINITY_CONTRAST.isEmpty()) {
-			Utils.runCommand("echo " + TRINITY_CONTRAST + " > "
-					+ GpuDisplayValues.FILENAME_TRINITY_CONTRAST);
-			Utils.saveString("trinitycontrast", TRINITY_CONTRAST, context);
-		}
-
+		setFileValue(TRINITY_CONTRAST,
+				GpuDisplayValues.FILENAME_TRINITY_CONTRAST, "trinitycontrast",
+				context);
 		// Gamma Control
-		if (!GAMMA_CONTROL.isEmpty()) {
-			Utils.runCommand("echo " + GAMMA_CONTROL + " > "
-					+ GpuDisplayValues.FILENAME_GAMMA_CONTROL);
-			Utils.saveString("gammacontrol", GAMMA_CONTROL, context);
-		}
-
+		setFileValue(GAMMA_CONTROL, GpuDisplayValues.FILENAME_GAMMA_CONTROL,
+				"gammacontrol", context);
 		// Gamma Offset
-		if (!GAMMA_OFFSET.isEmpty()) {
-			Utils.runCommand("echo " + GAMMA_OFFSET + " > "
-					+ GpuDisplayValues.FILENAME_GAMMA_OFFSET);
-			Utils.saveString("gammaoffset", GAMMA_OFFSET, context);
-		}
-
+		setFileValue(GAMMA_OFFSET, GpuDisplayValues.FILENAME_GAMMA_OFFSET,
+				"gammaoffset", context);
 		// Color Multiplier
-		if (!COLOR_MULTIPLIER.isEmpty()) {
-			Utils.runCommand("echo " + COLOR_MULTIPLIER + " > "
-					+ GpuDisplayValues.FILENAME_COLOR_MULTIPLIER);
-			Utils.saveString("colormultiplier", COLOR_MULTIPLIER, context);
-		}
+		setFileValue(COLOR_MULTIPLIER,
+				GpuDisplayValues.FILENAME_COLOR_MULTIPLIER, "colormultiplier",
+				context);
 	}
 
 	public static void setIoAlgorithmValues(Context context) {
 		// Internal Scheduler
-		if (!INTERNAL_SCHEDULER.isEmpty()) {
-			Utils.runCommand("echo " + INTERNAL_SCHEDULER + " > "
-					+ IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER);
-			Utils.saveString("internalscheduler", INTERNAL_SCHEDULER, context);
+		if (!INTERNAL_SCHEDULER.isEmpty())
 			IoAlgorithmFragment.mCurInternalScheduler = IoAlgorithmFragment.mInternalSchedulerSpinner
 					.getSelectedItemPosition();
-		}
-
+		setFileValue(INTERNAL_SCHEDULER,
+				IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER,
+				"internalscheduler", context);
 		// External Scheduler
-		if (!EXTERNAL_SCHEDULER.isEmpty()) {
-			Utils.runCommand("echo " + EXTERNAL_SCHEDULER + " > "
-					+ IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER);
-			Utils.saveString("externalscheduler", EXTERNAL_SCHEDULER, context);
+		if (!EXTERNAL_SCHEDULER.isEmpty())
 			IoAlgorithmFragment.mCurExternalScheduler = IoAlgorithmFragment.mExternalSchedulerSpinner
 					.getSelectedItemPosition();
-		}
-
+		setFileValue(EXTERNAL_SCHEDULER,
+				IoAlgorithmValues.FILENAME_EXTERNAL_SCHEDULER,
+				"externalscheduler", context);
 		// Internal Read
-		if (!INTERNAL_READ.isEmpty()) {
-			Utils.runCommand("echo " + INTERNAL_READ + " > "
-					+ IoAlgorithmValues.FILENAME_INTERNAL_READ);
-			Utils.saveString("internalread", INTERNAL_READ, context);
-		}
-
+		setFileValue(INTERNAL_READ, IoAlgorithmValues.FILENAME_INTERNAL_READ,
+				"internalread", context);
 		// External Read
-		if (!EXTERNAL_READ.isEmpty()) {
-			Utils.runCommand("echo " + EXTERNAL_READ + " > "
-					+ IoAlgorithmValues.FILENAME_EXTERNAL_READ);
-			Utils.saveString("externalread", EXTERNAL_READ, context);
-		}
+		setFileValue(EXTERNAL_READ, IoAlgorithmValues.FILENAME_EXTERNAL_READ,
+				"externalread", context);
 	}
 
 	public static void setMiscellaneousValues(Context context) {
 		// Wifi High
-		if (!WIFI_HIGH.isEmpty()) {
-			Utils.runCommand("echo " + WIFI_HIGH + " > "
-					+ MiscellaneousValues.FILENAME_WIFI_HIGH);
-			Utils.saveString("wifihigh", WIFI_HIGH, context);
-		}
-
+		setFileValue(WIFI_HIGH, MiscellaneousValues.FILENAME_WIFI_HIGH,
+				"wifihigh", context);
 		// TCP Congestion
 		if (!TCP_CONGESTION.isEmpty()) {
 			Utils.runCommand("sysctl -w net.ipv4.tcp_congestion_control="
@@ -357,54 +235,37 @@ public class Control {
 			MiscellaneousFragment.mTCPCongestion = MiscellaneousFragment.mTCPCongestionSpinner
 					.getSelectedItemPosition();
 		}
-
 		// Fast Charge
-		if (!FAST_CHARGE.isEmpty()) {
-			Utils.runCommand("echo " + FAST_CHARGE + " > "
-					+ MiscellaneousValues.FILENAME_FAST_CHARGE);
-			Utils.saveString("fastcharge", FAST_CHARGE, context);
-		}
-
+		setFileValue(FAST_CHARGE, MiscellaneousValues.FILENAME_FAST_CHARGE,
+				"fastcharge", context);
 		// Battery Extender
-		if (!BATTERY_EXTENDER.isEmpty()) {
-			Utils.runCommand("echo " + BATTERY_EXTENDER + " > "
-					+ MiscellaneousValues.FILENAME_BATTERY_EXTENDER);
-			Utils.saveString("batteryextender", BATTERY_EXTENDER, context);
-		}
-
+		setFileValue(BATTERY_EXTENDER,
+				MiscellaneousValues.FILENAME_BATTERY_EXTENDER,
+				"batteryextender", context);
 		// Sound High
-		if (!SOUND_HIGH.isEmpty()) {
-			Utils.runCommand("echo " + SOUND_HIGH + " > "
-					+ MiscellaneousValues.FILENAME_SOUND_HIGH);
-			Utils.saveString("soundhigh", SOUND_HIGH, context);
-		}
-
+		setFileValue(SOUND_HIGH, MiscellaneousValues.FILENAME_SOUND_HIGH,
+				"soundhigh", context);
 		// Headphone Boost
-		if (!HEADPHONE_BOOST.isEmpty()) {
-			Utils.runCommand("echo " + HEADPHONE_BOOST + " > "
-					+ MiscellaneousValues.FILENAME_HEADPHONE_BOOST);
-			Utils.saveString("headphoneboost", HEADPHONE_BOOST, context);
-		}
-
+		setFileValue(HEADPHONE_BOOST,
+				MiscellaneousValues.FILENAME_HEADPHONE_BOOST, "headphoneboost",
+				context);
 		// Dynamic Fsync
-		if (!DYNAMIC_FSYNC.isEmpty()) {
-			Utils.runCommand("echo " + DYNAMIC_FSYNC + " > "
-					+ MiscellaneousValues.FILENAME_DYNAMIC_FSYNC);
-			Utils.saveString("dynamicfsync", DYNAMIC_FSYNC, context);
-		}
-
+		setFileValue(DYNAMIC_FSYNC, MiscellaneousValues.FILENAME_DYNAMIC_FSYNC,
+				"dynamicfsync", context);
 		// Fsync Control
-		if (!FSYNC_CONTROL.isEmpty()) {
-			Utils.runCommand("echo " + FSYNC_CONTROL + " > "
-					+ MiscellaneousValues.FILENAME_FSYNC_CONTROL);
-			Utils.saveString("fsynccontrol", FSYNC_CONTROL, context);
-		}
-
+		setFileValue(FSYNC_CONTROL, MiscellaneousValues.FILENAME_FSYNC_CONTROL,
+				"fsynccontrol", context);
 		// Vibration Strength
-		if (!VIBRATION_STRENGTH.isEmpty()) {
-			Utils.runCommand("echo " + VIBRATION_STRENGTH + " > "
-					+ MiscellaneousValues.FILENAME_VIBRATION_STRENGTH);
-			Utils.saveString("vibrationstrength", VIBRATION_STRENGTH, context);
+		setFileValue(VIBRATION_STRENGTH,
+				MiscellaneousValues.FILENAME_VIBRATION_STRENGTH,
+				"vibrationstrength", context);
+	}
+
+	private static void setFileValue(String value, String file,
+			String prefname, Context context) {
+		if (!value.isEmpty()) {
+			Utils.runCommand("echo " + value + " > " + file);
+			Utils.saveString(prefname, value, context);
 		}
 	}
 }
