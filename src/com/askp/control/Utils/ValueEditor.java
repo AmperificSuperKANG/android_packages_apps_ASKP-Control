@@ -18,8 +18,8 @@
 
 package com.askp.control.Utils;
 
-import com.askp.control.MainActivity;
 import com.askp.control.R;
+import com.askp.control.Fragments.KernelControlFragment;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -86,7 +86,7 @@ public class ValueEditor {
 										.matches("[0-9]+")) {
 									seekbar.setProgress(Integer.parseInt(mValue
 											.getText().toString()) - calculate);
-									MainActivity.showButtons(true);
+									KernelControlFragment.showButtons(true);
 								}
 							}
 						}).show();

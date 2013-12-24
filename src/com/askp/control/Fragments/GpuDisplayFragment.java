@@ -21,7 +21,6 @@ package com.askp.control.Fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.GpuDisplayValues;
 import com.askp.control.Utils.LayoutStyle;
@@ -80,8 +79,8 @@ public class GpuDisplayFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.layout, container, false);
 		context = getActivity();
+		View rootView = inflater.inflate(R.layout.layout, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 		SeekBarChangeListener = this;
@@ -395,19 +394,19 @@ public class GpuDisplayFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.showButtons(true);
-		MainActivity.mGpuDisplayAction = true;
+		KernelControlFragment.showButtons(true);
+		KernelControlFragment.mGpuDisplayAction = true;
 	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		MainActivity.showButtons(true);
-		MainActivity.mGpuDisplayAction = true;
+		KernelControlFragment.showButtons(true);
+		KernelControlFragment.mGpuDisplayAction = true;
 	}
 
 	@Override
 	public void onClick(View v) {
-		MainActivity.mGpuDisplayAction = true;
+		KernelControlFragment.mGpuDisplayAction = true;
 		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
 			if (v.equals(mColorMultiplierTexts[i])) {
 				ValueEditor.showSeekBarEditor(mColorMultiplierBars[i],

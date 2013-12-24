@@ -17,22 +17,14 @@
      MA  02110-1301, USA.
 -->
 
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#111"
-        android:choiceMode="singleChoice" />
-
-</android.support.v4.widget.DrawerLayout>
+    android:layout_height="wrap_content"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:textColor="#fff" />

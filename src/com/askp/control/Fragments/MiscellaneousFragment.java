@@ -18,7 +18,6 @@
 
 package com.askp.control.Fragments;
 
-import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.MiscellaneousValues;
@@ -82,8 +81,8 @@ public class MiscellaneousFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.layout, container, false);
 		context = getActivity();
+		View rootView = inflater.inflate(R.layout.layout, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 		CheckedChangeListener = this;
@@ -327,8 +326,8 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		MainActivity.showButtons(true);
-		MainActivity.mMiscellaneousAction = true;
+		KernelControlFragment.showButtons(true);
+		KernelControlFragment.mMiscellaneousAction = true;
 	}
 
 	@Override
@@ -348,8 +347,8 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.showButtons(true);
-		MainActivity.mMiscellaneousAction = true;
+		KernelControlFragment.showButtons(true);
+		KernelControlFragment.mMiscellaneousAction = true;
 	}
 
 	@Override
@@ -357,8 +356,8 @@ public class MiscellaneousFragment extends Fragment implements
 			long arg3) {
 		if (arg0.equals(mTCPCongestionSpinner)) {
 			if (arg2 != mTCPCongestion) {
-				MainActivity.showButtons(true);
-				MainActivity.mMiscellaneousAction = true;
+				KernelControlFragment.showButtons(true);
+				KernelControlFragment.mMiscellaneousAction = true;
 			}
 		}
 	}
@@ -369,7 +368,7 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onClick(View v) {
-		MainActivity.mMiscellaneousAction = true;
+		KernelControlFragment.mMiscellaneousAction = true;
 		if (v.equals(mBatteryExtenderText))
 			ValueEditor.showSeekBarEditor(mBatteryExtenderBar,
 					mBatteryExtenderText.getText().toString(),

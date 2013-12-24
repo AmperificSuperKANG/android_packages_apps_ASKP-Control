@@ -17,22 +17,20 @@
      MA  02110-1301, USA.
 -->
 
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <item
+        android:id="@+id/action_setonboot"
+        android:checkable="true"
+        android:title="@string/action_setonboot">
+    </item>
+    <item
+        android:id="@+id/action_apply"
+        android:icon="@drawable/navigation_accept"
+        android:title="@android:string/ok"/>
+    <item
+        android:id="@+id/action_cancel"
+        android:icon="@drawable/navigation_cancel"
+        android:title="@android:string/cancel"/>
 
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#111"
-        android:choiceMode="singleChoice" />
-
-</android.support.v4.widget.DrawerLayout>
+</menu>

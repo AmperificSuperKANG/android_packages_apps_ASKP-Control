@@ -31,8 +31,8 @@ public class NewsFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.news, container, false);
 		context = getActivity();
+		View rootView = inflater.inflate(R.layout.news, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 

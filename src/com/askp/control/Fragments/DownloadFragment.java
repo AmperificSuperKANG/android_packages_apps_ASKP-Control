@@ -66,8 +66,8 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.download, container, false);
 		context = getActivity();
+		View rootView = inflater.inflate(R.layout.download, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 

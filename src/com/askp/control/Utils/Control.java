@@ -20,11 +20,11 @@ package com.askp.control.Utils;
 
 import android.content.Context;
 
-import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Fragments.CpuFragment;
 import com.askp.control.Fragments.GpuDisplayFragment;
 import com.askp.control.Fragments.IoAlgorithmFragment;
+import com.askp.control.Fragments.KernelControlFragment;
 import com.askp.control.Fragments.MiscellaneousFragment;
 
 public class Control {
@@ -44,36 +44,36 @@ public class Control {
 
 	public static void initControl(Context context) {
 		Control.setValues();
-		if (MainActivity.mCpuAction)
+		if (KernelControlFragment.mCpuAction)
 			Control.setCpuValues(context);
-		if (MainActivity.mGpuDisplayAction)
+		if (KernelControlFragment.mGpuDisplayAction)
 			Control.setGpuDisplayValues(context);
-		if (MainActivity.mIoAlgorithmAction)
+		if (KernelControlFragment.mIoAlgorithmAction)
 			Control.setIoAlgorithmValues(context);
-		if (MainActivity.mMiscellaneousAction)
+		if (KernelControlFragment.mMiscellaneousAction)
 			Control.setMiscellaneousValues(context);
-		MainActivity.mCpuAction = false;
-		MainActivity.mGpuDisplayAction = false;
-		MainActivity.mIoAlgorithmAction = false;
-		MainActivity.mMiscellaneousAction = false;
+		KernelControlFragment.mCpuAction = false;
+		KernelControlFragment.mGpuDisplayAction = false;
+		KernelControlFragment.mIoAlgorithmAction = false;
+		KernelControlFragment.mMiscellaneousAction = false;
 		Utils.toast(context.getString(R.string.valuesapplied), context);
-		MainActivity.showButtons(false);
+		KernelControlFragment.showButtons(false);
 	}
 
 	public static void exitControl(Context context) {
-		if (MainActivity.mCpuAction)
+		if (KernelControlFragment.mCpuAction)
 			CpuFragment.setContent();
-		if (MainActivity.mGpuDisplayAction)
+		if (KernelControlFragment.mGpuDisplayAction)
 			GpuDisplayFragment.setContent();
-		if (MainActivity.mIoAlgorithmAction)
+		if (KernelControlFragment.mIoAlgorithmAction)
 			IoAlgorithmFragment.setContent();
-		if (MainActivity.mMiscellaneousAction)
+		if (KernelControlFragment.mMiscellaneousAction)
 			MiscellaneousFragment.setContent();
-		MainActivity.showButtons(false);
+		KernelControlFragment.showButtons(false);
 	}
 
 	public static void setValues() {
-		if (MainActivity.mCpuAction) {
+		if (KernelControlFragment.mCpuAction) {
 			if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ))
 				MAX_CPU_FREQ = CpuFragment.mMaxFreqValue;
 			if (Utils.existFile(CpuValues.FILENAME_MIN_FREQ))
@@ -112,7 +112,7 @@ public class Control {
 						" mV", "");
 		}
 
-		if (MainActivity.mGpuDisplayAction) {
+		if (KernelControlFragment.mGpuDisplayAction) {
 			if (Utils.existFile(GpuDisplayValues.FILENAME_GPU_VARIABLE))
 				GPU_VARIABLE = String.valueOf(GpuDisplayFragment.mGpuValueRaw);
 			if (Utils.existFile(GpuDisplayValues.FILENAME_ADAPTIVE_BRIGHTNESS))
@@ -132,7 +132,7 @@ public class Control {
 						.listSplit(GpuDisplayFragment.mColorMultiplierValueList);
 		}
 
-		if (MainActivity.mIoAlgorithmAction) {
+		if (KernelControlFragment.mIoAlgorithmAction) {
 			if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_SCHEDULER))
 				INTERNAL_SCHEDULER = IoAlgorithmFragment.mAvailableInternalScheduler[IoAlgorithmFragment.mInternalSchedulerSpinner
 						.getSelectedItemPosition()];
@@ -147,7 +147,7 @@ public class Control {
 						.toString().replace(" kB", "");
 		}
 
-		if (MainActivity.mMiscellaneousAction) {
+		if (KernelControlFragment.mMiscellaneousAction) {
 			if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH))
 				WIFI_HIGH = MiscellaneousFragment.mWifiHighBox.isChecked() ? "Y"
 						: "N";

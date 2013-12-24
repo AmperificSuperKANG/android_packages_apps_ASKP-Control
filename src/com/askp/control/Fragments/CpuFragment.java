@@ -43,7 +43,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.LayoutStyle;
@@ -110,8 +109,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.layout, container, false);
 		context = getActivity();
+		View rootView = inflater.inflate(R.layout.layout, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 		SeekBarChangeListener = this;
@@ -710,8 +709,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.showButtons(true);
-		MainActivity.mCpuAction = true;
+		KernelControlFragment.showButtons(true);
+		KernelControlFragment.mCpuAction = true;
 	}
 
 	@Override
@@ -720,8 +719,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		if (arg0.equals(mGovernorSpinner)) {
 			if (arg2 != mAvailableGovernorList
 					.indexOf(CpuValues.mCurGovernor())) {
-				MainActivity.showButtons(true);
-				MainActivity.mCpuAction = true;
+				KernelControlFragment.showButtons(true);
+				KernelControlFragment.mCpuAction = true;
 			}
 		}
 	}
@@ -732,13 +731,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		MainActivity.showButtons(true);
-		MainActivity.mCpuAction = true;
+		KernelControlFragment.showButtons(true);
+		KernelControlFragment.mCpuAction = true;
 	}
 
 	@Override
 	public void onClick(View v) {
-		MainActivity.mCpuAction = true;
+		KernelControlFragment.mCpuAction = true;
 		for (int i = 0; i < mCoreVoltagesList.length; i++)
 			if (v.equals(mCoreVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(

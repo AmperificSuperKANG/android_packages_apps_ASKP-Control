@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.IoAlgorithmValues;
 import com.askp.control.Utils.LayoutStyle;
@@ -69,10 +68,10 @@ public class IoAlgorithmFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		context = getActivity();
 		View rootView = inflater.inflate(R.layout.layout, container, false);
 
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
-		context = getActivity();
 		ItemSelectedListener = this;
 		SeekBarChangeListener = this;
 		setContent();
@@ -223,13 +222,13 @@ public class IoAlgorithmFragment extends Fragment implements
 			long arg3) {
 		if (arg0.equals(mInternalSchedulerSpinner)) {
 			if (arg2 != mCurInternalScheduler) {
-				MainActivity.showButtons(true);
-				MainActivity.mIoAlgorithmAction = true;
+				KernelControlFragment.showButtons(true);
+				KernelControlFragment.mIoAlgorithmAction = true;
 			}
 		} else if (arg0.equals(mExternalSchedulerSpinner)) {
 			if (arg2 != mCurExternalScheduler) {
-				MainActivity.showButtons(true);
-				MainActivity.mIoAlgorithmAction = true;
+				KernelControlFragment.showButtons(true);
+				KernelControlFragment.mIoAlgorithmAction = true;
 			}
 		}
 	}
@@ -256,7 +255,7 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		MainActivity.showButtons(true);
-		MainActivity.mIoAlgorithmAction = true;
+		KernelControlFragment.showButtons(true);
+		KernelControlFragment.mIoAlgorithmAction = true;
 	}
 }
