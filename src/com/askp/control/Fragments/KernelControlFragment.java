@@ -33,7 +33,6 @@ import android.view.ViewGroup;
 import com.askp.control.R;
 import com.askp.control.Utils.Control;
 import com.askp.control.Utils.Utils;
-import com.stericson.RootTools.RootTools;
 
 public class KernelControlFragment extends Fragment {
 
@@ -57,24 +56,6 @@ public class KernelControlFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.kernelcontrol, container,
 				false);
 
-		if (RootTools.isRootAvailable()) {
-			if (RootTools.isAccessGiven()) {
-				if (!RootTools.isBusyboxAvailable()) {
-					Utils.toast(getString(R.string.nobusybox), getActivity());
-					RootTools.offerBusyBox(getActivity());
-					getActivity().finish();
-				}
-			} else {
-				Utils.toast(getString(R.string.norootaccess), getActivity());
-				getActivity().finish();
-			}
-		} else {
-			Utils.toast(getString(R.string.noroot), getActivity());
-			RootTools.offerSuperUser(getActivity());
-			getActivity().finish();
-		}
-
-		RootTools.debugMode = true;
 		Utils.saveString("kernelversion", Utils.getFormattedKernelVersion(),
 				getActivity());
 

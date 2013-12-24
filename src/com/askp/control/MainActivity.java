@@ -22,6 +22,8 @@ import com.askp.control.Fragments.DownloadFragment;
 import com.askp.control.Fragments.InformationFragment;
 import com.askp.control.Fragments.KernelControlFragment;
 import com.askp.control.Fragments.NewsFragment;
+import com.askp.control.Utils.Utils;
+import com.stericson.RootTools.RootTools;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -53,6 +55,24 @@ public class MainActivity extends FragmentActivity {
 		getActionBar().setBackgroundDrawable(
 				getResources().getDrawable(android.R.color.transparent));
 		setContentView(R.layout.activity_main);
+
+		RootTools.debugMode = true;
+		if (RootTools.isRootAvailable()) {
+			if (RootTools.isAccessGiven()) {
+				if (!RootTools.isBusyboxAvailable()) {
+					Utils.toast(getString(R.string.nobusybox), this);
+					RootTools.offerBusyBox(this);
+					finish();
+				}
+			} else {
+				Utils.toast(getString(R.string.norootaccess), this);
+				finish();
+			}
+		} else {
+			Utils.toast(getString(R.string.noroot), this);
+			RootTools.offerSuperUser(this);
+			finish();
+		}
 
 		mTitle = getTitle();
 		mMenuTitles = getResources().getStringArray(R.array.menu_arrays);
