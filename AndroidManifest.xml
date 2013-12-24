@@ -31,8 +31,6 @@
             android:name="DownloadActivity"
             android:theme="@style/ThemeTransparent" >
         </activity>
-        <activity android:name="DownloadListActivity" >
-        </activity>
 
         <receiver android:name="BootReceiver" >
             <intent-filter>

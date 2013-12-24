@@ -130,8 +130,8 @@
     <string name="success">Success</string>
     <string name="fileislocatedin">File is located in %s.</string>
 
-    <!-- Download List -->
-    <string name="install">Install</string>
+    <!-- Install Kernel -->
+    <string name="installkernel">Install Kernel</string>
     <string name="confirminstall">Do you want to install %s? The installation will only work on TWRP recovery!</string>
 
     <!-- News -->

@@ -23,6 +23,7 @@
         <item>@string/information</item>
         <item>@string/kernelcontrol</item>
         <item>@string/download</item>
+        <item>@string/installkernel</item>
         <item>@string/news</item>
     </string-array>
 

@@ -19,7 +19,7 @@
 
 <resources>
 
-    <string name="app_name">ASKP Control</string>
+    <string name="app_name">ASKP Regulierung</string>
     <string name="unavailable">Nicht Verfügbar</string>
     <string name="noroot">Kein root!</string>
     <string name="norootaccess">Kein root Zugriff!</string>
@@ -29,6 +29,9 @@
     <string name="action_setonboot">Beim Booten übernehmen</string>
     <string name="newkernel">Neuer Kernel erkannt. Ihre Werte werden nicht übernohmen.</string>
     <string name="refresh">Aktualisieren</string>
+
+    <!-- Kernel Control -->
+    <string name="kernelcontrol">Kernel Regulierung</string>
 
     <!-- CPU -->
     <string name="cpu">Cpu</string>
@@ -125,8 +128,8 @@
     <string name="success">Erfolgreich</string>
     <string name="fileislocatedin">Datei befindet sich in %s.</string>
 
-    <!-- Download List -->
-    <string name="install">Installieren</string>
+    <!-- Install Kernel -->
+    <string name="installkernel">Kernel Installation</string>
     <string name="confirminstall">Möchten Sie %s intallieren? Die Installation wird nur mit TWRP Recovery funktionieren!</string>
 
     <!-- News -->

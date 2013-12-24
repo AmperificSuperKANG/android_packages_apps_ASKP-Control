@@ -20,6 +20,7 @@ package com.askp.control;
 
 import com.askp.control.Fragments.DownloadFragment;
 import com.askp.control.Fragments.InformationFragment;
+import com.askp.control.Fragments.InstallKernelFragment;
 import com.askp.control.Fragments.KernelControlFragment;
 import com.askp.control.Fragments.NewsFragment;
 import com.askp.control.Utils.Utils;
@@ -152,6 +153,9 @@ public class MainActivity extends FragmentActivity {
 			fragment = new DownloadFragment();
 			break;
 		case 3:
+			fragment = new InstallKernelFragment();
+			break;
+		case 4:
 			fragment = new NewsFragment();
 			break;
 		}

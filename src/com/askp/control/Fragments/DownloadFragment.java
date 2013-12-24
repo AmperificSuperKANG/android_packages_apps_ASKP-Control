@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.askp.control.DownloadActivity;
-import com.askp.control.DownloadListActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.GetConnection;
 import com.askp.control.Utils.LayoutStyle;
@@ -58,7 +57,7 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 	public static final String mLink = "https://raw.github.com/AmperificSuperKANG/ASKP-Support/master/";
 	private static LinearLayout mLayout;
 	private static ProgressBar mProgress;
-	private static Button mRefresh, mDownloadList;
+	private static Button mRefresh;
 	private static ListView mListView;
 
 	private static List<String> valueLinkList = new ArrayList<String>();
@@ -76,11 +75,6 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 				getActivity());
 		mRefresh.setOnClickListener(this);
 
-		mDownloadList = (Button) rootView.findViewById(R.id.downloadlist);
-		LayoutStyle.setButton(mDownloadList, getString(R.string.downloads),
-				context);
-		mDownloadList.setOnClickListener(this);
-
 		mListView = (ListView) rootView.findViewById(R.id.listView);
 		mListView.setOnItemClickListener(this);
 
@@ -93,7 +87,6 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 		mLayout.removeAllViews();
 		mProgress = new ProgressBar(context);
 		mRefresh.setVisibility(View.GONE);
-		mDownloadList.setVisibility(View.GONE);
 		mListView.setVisibility(View.GONE);
 		mLayout.addView(mProgress);
 		GetConnection.getconnection(mLink
@@ -111,7 +104,6 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 		@Override
 		protected void onPostExecute(String result) {
 			mRefresh.setVisibility(View.VISIBLE);
-			mDownloadList.setVisibility(View.VISIBLE);
 			mProgress.setVisibility(View.GONE);
 
 			TextView mError = new TextView(context);
@@ -219,7 +211,5 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 	public void onClick(View v) {
 		if (v.equals(mRefresh))
 			refresh();
-		else if (v.equals(mDownloadList))
-			startActivity(new Intent(getActivity(), DownloadListActivity.class));
 	}
 }
