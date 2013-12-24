@@ -161,7 +161,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction()
+		fragmentManager.beginTransaction().remove(fragment)
 				.replace(R.id.content_frame, fragment).commit();
 
 		mDrawerList.setItemChecked(position, true);
