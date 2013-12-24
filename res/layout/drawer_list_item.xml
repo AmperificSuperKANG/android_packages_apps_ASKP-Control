@@ -16,7 +16,6 @@
      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
      MA  02110-1301, USA.
 -->
-
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
@@ -25,6 +24,4 @@
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:textColor="#fff" />
+    android:paddingRight="16dp" />

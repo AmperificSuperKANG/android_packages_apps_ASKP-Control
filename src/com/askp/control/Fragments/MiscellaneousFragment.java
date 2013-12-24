@@ -102,7 +102,8 @@ public class MiscellaneousFragment extends Fragment implements
 		LayoutStyle.setTextTitle(mNetworkTitle,
 				context.getString(R.string.network), context);
 
-		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH))
+		if (Utils.existFile(MiscellaneousValues.FILENAME_WIFI_HIGH)
+				|| Utils.existFile(MiscellaneousValues.FILENAME_TCP_CONGESTION))
 			mLayout.addView(mNetworkTitle);
 
 		// Wifi High Summary
