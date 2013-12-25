@@ -56,12 +56,9 @@ public class KernelControlFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.kernelcontrol, container,
 				false);
 
-		Utils.saveString("kernelversion", Utils.getFormattedKernelVersion(),
-				getActivity());
-
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
-		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+		mViewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		return rootView;
 	}

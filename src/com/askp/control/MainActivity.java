@@ -76,6 +76,9 @@ public class MainActivity extends FragmentActivity {
 			finish();
 		}
 
+		Utils.saveString("kernelversion", Utils.getFormattedKernelVersion(),
+				this);
+
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MAX_FREQ);
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_FREQ);
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MAX_SCREEN_OFF);
