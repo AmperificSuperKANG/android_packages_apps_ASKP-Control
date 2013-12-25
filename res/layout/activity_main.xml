@@ -16,23 +16,27 @@
      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
      MA  02110-1301, USA.
 -->
-
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <FrameLayout
-        android:id="@+id/content_frame"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
 
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#111"
-        android:choiceMode="singleChoice" />
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</android.support.v4.widget.DrawerLayout>
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#111"
+            android:choiceMode="singleChoice" />
+    </android.support.v4.widget.DrawerLayout>
+
+</FrameLayout>

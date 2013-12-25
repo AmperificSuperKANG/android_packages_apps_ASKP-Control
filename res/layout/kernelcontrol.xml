@@ -16,20 +16,25 @@
      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
      MA  02110-1301, USA.
 -->
-
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pager"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".KernelControlFragment" >
+    android:layout_height="match_parent" >
 
-    <android.support.v4.view.PagerTitleStrip
-        android:id="@+id/pager_title_strip"
+    <android.support.v4.view.ViewPager
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp" />
+        android:layout_height="match_parent"
+        tools:context=".KernelControlFragment" >
 
-</android.support.v4.view.ViewPager>
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pagerTabStrip"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="top"
+            android:background="@drawable/pager_background"
+            android:textColor="@android:color/holo_blue_light"
+            android:textStyle="bold" />
+    </android.support.v4.view.ViewPager>
+
+</FrameLayout>
