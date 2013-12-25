@@ -122,8 +122,6 @@ public class KernelControlFragment extends Fragment {
 				fragment = new MiscellaneousFragment();
 				break;
 			}
-			getActivity().getSupportFragmentManager().beginTransaction()
-					.remove(fragment).commit();
 			return fragment;
 		}
 

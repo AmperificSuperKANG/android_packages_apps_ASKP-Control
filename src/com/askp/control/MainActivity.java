@@ -172,7 +172,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction().remove(fragment)
+		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
 		mDrawerList.setItemChecked(position, true);
