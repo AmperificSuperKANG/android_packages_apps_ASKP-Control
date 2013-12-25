@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.askp.control.R;
+import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
 
 import android.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class InstallKernelFragment extends Fragment {
 
@@ -32,6 +35,7 @@ public class InstallKernelFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		LinearLayout mLayout = new LinearLayout(getActivity());
+		Utils.mkdir(Environment.getExternalStorageDirectory() + "/askp-kernel");
 
 		ListView mList = new ListView(getActivity());
 		mList.setLayoutParams(new LinearLayout.LayoutParams(
@@ -49,6 +53,13 @@ public class InstallKernelFragment extends Fragment {
 		ListAdapter adapter = new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_1, fileList);
 		mList.setAdapter(adapter);
+		if (fileList.size() == 0) {
+			TextView mNoFile = new TextView(getActivity());
+			LayoutStyle.setTextSubTitle(mNoFile, getString(R.string.nofiles),
+					getActivity());
+			mLayout.removeAllViews();
+			mLayout.addView(mNoFile);
+		}
 
 		mList.setOnItemClickListener(new OnItemClickListener() {
 			@Override

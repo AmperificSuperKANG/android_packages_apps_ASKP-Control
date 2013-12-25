@@ -44,6 +44,11 @@ public class Utils {
 
 	private static ProgressDialog mProgressDialog;
 
+	public static void mkdir(String file) {
+		File folder = new File(file);
+		folder.mkdirs();
+	}
+
 	public static String listSplit(List<String> value) {
 		StringBuilder mValue = new StringBuilder();
 		for (String s : value) {

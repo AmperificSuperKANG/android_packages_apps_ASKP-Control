@@ -131,6 +131,7 @@
     <!-- Install Kernel -->
     <string name="installkernel">Kernel Installation</string>
     <string name="confirminstall">Möchten Sie %s intallieren? Die Installation wird nur mit TWRP Recovery funktionieren!</string>
+    <string name="nofiles">Keine Dateien gefunden.</string>
 
     <!-- News -->
     <string name="news">Neuigkeiten</string>
