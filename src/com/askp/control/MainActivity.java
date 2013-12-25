@@ -23,6 +23,7 @@ import com.askp.control.Fragments.InformationFragment;
 import com.askp.control.Fragments.InstallKernelFragment;
 import com.askp.control.Fragments.KernelControlFragment;
 import com.askp.control.Fragments.NewsFragment;
+import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
@@ -74,6 +75,13 @@ public class MainActivity extends FragmentActivity {
 			RootTools.offerSuperUser(this);
 			finish();
 		}
+
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MAX_FREQ);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_FREQ);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MAX_SCREEN_OFF);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_SCREEN_ON);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_SCREEN_ON);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_CUR_GOVERNOR);
 
 		mTitle = getTitle();
 		mMenuTitles = getResources().getStringArray(R.array.menu_arrays);
