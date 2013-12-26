@@ -107,22 +107,18 @@ public class KernelControlFragment extends Fragment {
 
 		@Override
 		public Fragment getItem(int position) {
-			Fragment fragment = null;
 			switch (position) {
 			case 0:
-				fragment = new CpuFragment();
-				break;
+				return new CpuFragment();
 			case 1:
-				fragment = new GpuDisplayFragment();
-				break;
+				return new GpuDisplayFragment();
 			case 2:
-				fragment = new IoAlgorithmFragment();
-				break;
+				return new IoAlgorithmFragment();
 			case 3:
-				fragment = new MiscellaneousFragment();
-				break;
+				return new MiscellaneousFragment();
+			default:
+				return new CpuFragment();
 			}
-			return fragment;
 		}
 
 		@Override
@@ -142,8 +138,9 @@ public class KernelControlFragment extends Fragment {
 				return getString(R.string.ioalgorithm).toUpperCase();
 			case 3:
 				return getString(R.string.miscellaneous).toUpperCase();
+			default:
+				return getString(R.string.unavailable);
 			}
-			return getString(R.string.unavailable);
 		}
 	}
 
