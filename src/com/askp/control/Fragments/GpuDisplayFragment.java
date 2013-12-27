@@ -345,7 +345,6 @@ public class GpuDisplayFragment extends Fragment implements
 					Utils.replaceLastChar(mAvailableColorMultiplier[i], 7));
 			mColorMultiplierText.setOnClickListener(OnClickListener);
 			mColorMultiplierTexts[i] = mColorMultiplierText;
-			Utils.toast(mAvailableColorMultiplier[i], context);
 
 			if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER)) {
 				mLayout.addView(mColorMultiplierSubTitle);
@@ -369,9 +368,8 @@ public class GpuDisplayFragment extends Fragment implements
 		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
 			if (seekBar.equals(mColorMultiplierBars[i]))
 				mColorMultiplierTexts[i].setText(String.valueOf(progress + 60));
-			mColorMultiplierValueList.add(String
-					.valueOf(mColorMultiplierTexts[i].getText().toString())
-					+ "0000000");
+			mColorMultiplierValueList.add(mColorMultiplierTexts[i].getText()
+					.toString() + "0000000");
 		}
 		if (seekBar.equals(mGpuMaxFreqBar)) {
 			mGpuValueRaw = progress;

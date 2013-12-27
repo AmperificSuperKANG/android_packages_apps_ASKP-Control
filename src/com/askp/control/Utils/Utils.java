@@ -131,7 +131,6 @@ public class Utils {
 	}
 
 	public static String readBlock(String filename) throws IOException {
-		runCommand("chmod 777 " + filename);
 		BufferedReader buffreader = new BufferedReader(
 				new FileReader(filename), 256);
 		String line;
@@ -144,7 +143,6 @@ public class Utils {
 	}
 
 	public static String readLine(String filename) throws IOException {
-		runCommand("chmod 777 " + filename);
 		BufferedReader reader = new BufferedReader(new FileReader(filename),
 				256);
 		try {

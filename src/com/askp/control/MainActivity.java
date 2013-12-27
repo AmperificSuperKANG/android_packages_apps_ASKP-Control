@@ -27,6 +27,7 @@ import com.askp.control.Fragments.IoAlgorithmFragment;
 import com.askp.control.Fragments.MiscellaneousFragment;
 import com.askp.control.Fragments.NewsFragment;
 import com.askp.control.Utils.Control;
+import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
@@ -90,6 +91,13 @@ public class MainActivity extends FragmentActivity {
 
 		Utils.saveString("kernelversion", Utils.getFormattedKernelVersion(),
 				this);
+
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MAX_FREQ);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_FREQ);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MAX_SCREEN_OFF);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_SCREEN_ON);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_SCREEN_ON);
+		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_CUR_GOVERNOR);
 
 		mTitle = getTitle();
 		mMenuTitles = new String[] { getString(R.string.information),

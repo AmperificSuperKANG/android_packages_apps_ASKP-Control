@@ -30,11 +30,13 @@ public class GpuDisplayValues {
 	public static final String FILENAME_GPU_VARIABLE = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_oc";
 
 	public static String mColorMultiplier() {
-		if (Utils.existFile(FILENAME_COLOR_MULTIPLIER))
+		if (Utils.existFile(FILENAME_COLOR_MULTIPLIER)) {
+			Utils.runCommand("echo 0 > /sys/class/misc/colorcontrol/safety_enabled");
 			try {
 				return (Utils.readLine(FILENAME_COLOR_MULTIPLIER));
 			} catch (IOException e) {
 			}
+		}
 		return "0 0";
 	}
 
