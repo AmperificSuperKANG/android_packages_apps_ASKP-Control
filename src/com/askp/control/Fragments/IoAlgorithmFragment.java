@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.IoAlgorithmValues;
 import com.askp.control.Utils.LayoutStyle;
@@ -222,13 +223,13 @@ public class IoAlgorithmFragment extends Fragment implements
 			long arg3) {
 		if (arg0.equals(mInternalSchedulerSpinner)) {
 			if (arg2 != mCurInternalScheduler) {
-				KernelControlFragment.showButtons(true);
-				KernelControlFragment.mIoAlgorithmAction = true;
+				MainActivity.showButtons(true);
+				MainActivity.mIoAlgorithmAction = true;
 			}
 		} else if (arg0.equals(mExternalSchedulerSpinner)) {
 			if (arg2 != mCurExternalScheduler) {
-				KernelControlFragment.showButtons(true);
-				KernelControlFragment.mIoAlgorithmAction = true;
+				MainActivity.showButtons(true);
+				MainActivity.mIoAlgorithmAction = true;
 			}
 		}
 	}
@@ -255,7 +256,7 @@ public class IoAlgorithmFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		KernelControlFragment.showButtons(true);
-		KernelControlFragment.mIoAlgorithmAction = true;
+		MainActivity.showButtons(true);
+		MainActivity.mIoAlgorithmAction = true;
 	}
 }

@@ -21,6 +21,7 @@ package com.askp.control.Fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.GpuDisplayValues;
 import com.askp.control.Utils.LayoutStyle;
@@ -394,19 +395,19 @@ public class GpuDisplayFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		KernelControlFragment.showButtons(true);
-		KernelControlFragment.mGpuDisplayAction = true;
+		MainActivity.showButtons(true);
+		MainActivity.mGpuDisplayAction = true;
 	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		KernelControlFragment.showButtons(true);
-		KernelControlFragment.mGpuDisplayAction = true;
+		MainActivity.showButtons(true);
+		MainActivity.mGpuDisplayAction = true;
 	}
 
 	@Override
 	public void onClick(View v) {
-		KernelControlFragment.mGpuDisplayAction = true;
+		MainActivity.mGpuDisplayAction = true;
 		for (int i = 0; i < mAvailableColorMultiplier.length; i++) {
 			if (v.equals(mColorMultiplierTexts[i])) {
 				ValueEditor.showSeekBarEditor(mColorMultiplierBars[i],

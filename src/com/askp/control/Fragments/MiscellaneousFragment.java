@@ -18,6 +18,7 @@
 
 package com.askp.control.Fragments;
 
+import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.MiscellaneousValues;
@@ -327,8 +328,8 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		KernelControlFragment.showButtons(true);
-		KernelControlFragment.mMiscellaneousAction = true;
+		MainActivity.showButtons(true);
+		MainActivity.mMiscellaneousAction = true;
 	}
 
 	@Override
@@ -348,8 +349,8 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		KernelControlFragment.showButtons(true);
-		KernelControlFragment.mMiscellaneousAction = true;
+		MainActivity.showButtons(true);
+		MainActivity.mMiscellaneousAction = true;
 	}
 
 	@Override
@@ -357,8 +358,8 @@ public class MiscellaneousFragment extends Fragment implements
 			long arg3) {
 		if (arg0.equals(mTCPCongestionSpinner)) {
 			if (arg2 != mTCPCongestion) {
-				KernelControlFragment.showButtons(true);
-				KernelControlFragment.mMiscellaneousAction = true;
+				MainActivity.showButtons(true);
+				MainActivity.mMiscellaneousAction = true;
 			}
 		}
 	}
@@ -369,7 +370,7 @@ public class MiscellaneousFragment extends Fragment implements
 
 	@Override
 	public void onClick(View v) {
-		KernelControlFragment.mMiscellaneousAction = true;
+		MainActivity.mMiscellaneousAction = true;
 		if (v.equals(mBatteryExtenderText))
 			ValueEditor.showSeekBarEditor(mBatteryExtenderBar,
 					mBatteryExtenderText.getText().toString(),

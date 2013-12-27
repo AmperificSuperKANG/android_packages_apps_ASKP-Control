@@ -18,11 +18,15 @@
 
 package com.askp.control;
 
+import com.askp.control.Fragments.CpuFragment;
 import com.askp.control.Fragments.DownloadFragment;
+import com.askp.control.Fragments.GpuDisplayFragment;
 import com.askp.control.Fragments.InformationFragment;
 import com.askp.control.Fragments.InstallKernelFragment;
-import com.askp.control.Fragments.KernelControlFragment;
+import com.askp.control.Fragments.IoAlgorithmFragment;
+import com.askp.control.Fragments.MiscellaneousFragment;
 import com.askp.control.Fragments.NewsFragment;
+import com.askp.control.Utils.Control;
 import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
@@ -50,6 +54,15 @@ public class MainActivity extends FragmentActivity {
 
 	private static CharSequence mTitle;
 	private static String[] mMenuTitles;
+
+	public static MenuItem applyButton;
+	public static MenuItem cancelButton;
+	private static MenuItem setonbootBox;
+
+	public static boolean mCpuAction = false;
+	public static boolean mGpuDisplayAction = false;
+	public static boolean mIoAlgorithmAction = false;
+	public static boolean mMiscellaneousAction = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +100,13 @@ public class MainActivity extends FragmentActivity {
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_CUR_GOVERNOR);
 
 		mTitle = getTitle();
-		mMenuTitles = getResources().getStringArray(R.array.menu_arrays);
+		mMenuTitles = new String[] { getString(R.string.information),
+				getString(R.string.cpu),
+				getString(R.string.gpu) + " & " + getString(R.string.display),
+				getString(R.string.ioalgorithm),
+				getString(R.string.miscellaneous),
+				getString(R.string.download),
+				getString(R.string.installkernel), getString(R.string.news) };
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -134,6 +153,15 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
+		applyButton = menu.findItem(R.id.action_apply);
+		cancelButton = menu.findItem(R.id.action_cancel);
+		applyButton.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_WITH_TEXT
+				| MenuItem.SHOW_AS_ACTION_ALWAYS);
+		cancelButton.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_WITH_TEXT
+				| MenuItem.SHOW_AS_ACTION_ALWAYS);
+		showButtons(false);
+		setonbootBox = menu.findItem(R.id.action_setonboot).setChecked(
+				Utils.getBoolean("setonboot", getApplicationContext()));
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -144,11 +172,25 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		} else {
-			return false;
+		switch (item.getItemId()) {
+		case R.id.action_apply:
+			Control.initControl(getApplicationContext());
+			break;
+		case R.id.action_cancel:
+			Control.exitControl(getApplicationContext());
+			break;
+		case R.id.action_setonboot:
+			setonbootBox.setChecked(Utils.getBoolean("setonboot",
+					getApplicationContext()) ? false : true);
+			Utils.saveBoolean("setonboot", Utils.getBoolean("setonboot",
+					getApplicationContext()) ? false : true,
+					getApplicationContext());
+			break;
 		}
+		if (mDrawerToggle.onOptionsItemSelected(item))
+			return true;
+		else
+			return false;
 	}
 
 	private void selectItem(int position) {
@@ -158,15 +200,24 @@ public class MainActivity extends FragmentActivity {
 			fragment = new InformationFragment();
 			break;
 		case 1:
-			fragment = new KernelControlFragment();
+			fragment = new CpuFragment();
 			break;
 		case 2:
-			fragment = new DownloadFragment();
+			fragment = new GpuDisplayFragment();
 			break;
 		case 3:
-			fragment = new InstallKernelFragment();
+			fragment = new IoAlgorithmFragment();
 			break;
 		case 4:
+			fragment = new MiscellaneousFragment();
+			break;
+		case 5:
+			fragment = new DownloadFragment();
+			break;
+		case 6:
+			fragment = new InstallKernelFragment();
+			break;
+		case 7:
 			fragment = new NewsFragment();
 			break;
 		}
@@ -196,5 +247,10 @@ public class MainActivity extends FragmentActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	public static void showButtons(boolean visible) {
+		applyButton.setVisible(visible);
+		cancelButton.setVisible(visible);
 	}
 }

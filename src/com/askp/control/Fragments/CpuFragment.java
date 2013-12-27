@@ -43,6 +43,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.askp.control.MainActivity;
 import com.askp.control.R;
 import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.LayoutStyle;
@@ -709,8 +710,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		KernelControlFragment.showButtons(true);
-		KernelControlFragment.mCpuAction = true;
+		MainActivity.showButtons(true);
+		MainActivity.mCpuAction = true;
 	}
 
 	@Override
@@ -719,8 +720,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		if (arg0.equals(mGovernorSpinner)) {
 			if (arg2 != mAvailableGovernorList
 					.indexOf(CpuValues.mCurGovernor())) {
-				KernelControlFragment.showButtons(true);
-				KernelControlFragment.mCpuAction = true;
+				MainActivity.showButtons(true);
+				MainActivity.mCpuAction = true;
 			}
 		}
 	}
@@ -731,13 +732,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		KernelControlFragment.showButtons(true);
-		KernelControlFragment.mCpuAction = true;
+		MainActivity.showButtons(true);
+		MainActivity.mCpuAction = true;
 	}
 
 	@Override
 	public void onClick(View v) {
-		KernelControlFragment.mCpuAction = true;
+		MainActivity.mCpuAction = true;
 		for (int i = 0; i < mCoreVoltagesList.length; i++)
 			if (v.equals(mCoreVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(
