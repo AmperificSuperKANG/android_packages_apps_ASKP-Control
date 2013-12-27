@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
