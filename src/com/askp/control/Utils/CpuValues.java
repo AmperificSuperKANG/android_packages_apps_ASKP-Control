@@ -38,7 +38,8 @@ public class CpuValues {
 	public static final String FILENAME_MAX_SCREEN_OFF = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
 	public static final String FILENAME_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
 	public static final String FILENAME_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
-	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+	public static final String FILENAME_CUR_CPU_FREQ = "/sys/devices/system/cpu/presentcpu/cpufreq/scaling_cur_freq";
+	public static final String FILENAME_PRESENT_CPU = "/sys/devices/system/cpu/present";
 
 	public static String mRegulatorVoltagesFreq() {
 		if (Utils.existFile(FILENAME_REGULATOR_VOLTAGES))
@@ -197,12 +198,12 @@ public class CpuValues {
 		return 0;
 	}
 
-	public static int mCurCpuFreq() {
-		if (Utils.existFile(FILENAME_CUR_CPU_FREQ))
+	public static String mPresentCpu() {
+		if (Utils.existFile(FILENAME_PRESENT_CPU))
 			try {
-				return Integer.parseInt(Utils.readLine(FILENAME_CUR_CPU_FREQ));
+				return Utils.readLine(FILENAME_PRESENT_CPU);
 			} catch (IOException e) {
 			}
-		return 0;
+		return "0";
 	}
 }

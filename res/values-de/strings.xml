@@ -36,6 +36,7 @@
 
     <!-- CPU -->
     <string name="cpufreq">CPU Taktfrequenz</string>
+    <string name="offline">Nicht in Verwendung</string>
     <string name="cpuscaling">Taktfrequenz verwalten</string>
     <string name="cpumaxfreq_summary">Ändere die maximale Taktfrequenz der CPU.</string>
     <string name="cpuminfreq_summary">Ändere die minimale Taktfrequenz der CPU.</string>
@@ -50,6 +51,7 @@
     <string name="governor_summary">Der CPU Governor beschließt wie sich die CPU verhält bei Auslastungen. Die Änderung des Governors hat Auswirkungen wie die CPU sich zwischen Taktfrequenzen entscheidet.</string>
     <string name="smartreflex">Smartreflex</string>
     <string name="smartreflex_summary">Smartreflex ist ein Energiesparassistent entwickelt von Texas Instruments. Es untertaktet dynamisch die Spannug jeder Frequenz zu dem niedrigsten und stabilsten Wert.</string>
+    <string name="core">Kern</string>
     <string name="corevoltages">Kern Spannungen</string>
     <string name="ivavoltages">IVA Spannungen</string>
     <string name="mpuvoltages">MPU Spannungen</string>

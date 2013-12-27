@@ -18,11 +18,13 @@
 
 package com.askp.control.Fragments;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -61,10 +63,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	private static LinearLayout mLayout;
 
-	private static TextView mCurCpuFreq, mMaxCpuFreqText, mMinCpuFreqText,
-			mMaxFreqScreenOffText, mMinFreqScreenOnText;
-
+	private static String[] mPresentCpu;
 	private static CurCPUThread mCurCPUThread;
+	private static TextView[] mCurCpuFreqTexts;
+
+	private static TextView mMaxCpuFreqText, mMinCpuFreqText,
+			mMaxFreqScreenOffText, mMinFreqScreenOnText;
 
 	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar,
 			mMaxScreenFreqOffBar, mMinFreqScreenOnBar;
@@ -131,16 +135,33 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		LayoutStyle.setTextTitle(mCpuFreqTitle,
 				context.getString(R.string.cpufreq), context);
 
-		// Current Freq
-		mCurCpuFreq = new TextView(context);
-		LayoutStyle.setCenterText(mCurCpuFreq, "");
-		mCurCpuFreq.setTextSize(40);
-		mCurCpuFreq.setTextColor(context.getResources().getColor(
-				android.R.color.white));
-
-		if (Utils.existFile(CpuValues.FILENAME_CUR_CPU_FREQ)) {
+		if (Utils.existFile(CpuValues.FILENAME_CUR_CPU_FREQ.replace(
+				"presentcpu", "cpu0")))
 			mLayout.addView(mCpuFreqTitle);
-			mLayout.addView(mCurCpuFreq);
+
+		mPresentCpu = CpuValues.mPresentCpu().split("-");
+		mCurCpuFreqTexts = new TextView[mPresentCpu.length];
+		for (int i = 0; i < mPresentCpu.length; i++) {
+			// Current Freq SubTitle
+			TextView mCurCpuFreqSubTitle = new TextView(context);
+			LayoutStyle.setTextSubTitle(
+					mCurCpuFreqSubTitle,
+					context.getString(R.string.core) + " "
+							+ String.valueOf(i + 1), context);
+
+			// Current Freq Text
+			TextView mCurCpuFreqText = new TextView(context);
+			LayoutStyle.setCenterText(mCurCpuFreqText, "");
+			mCurCpuFreqText.setTextSize(20);
+			mCurCpuFreqText.setTextColor(context.getResources().getColor(
+					android.R.color.white));
+			mCurCpuFreqTexts[i] = mCurCpuFreqText;
+
+			if (Utils.existFile(CpuValues.FILENAME_CUR_CPU_FREQ.replace(
+					"presentcpu", "cpu" + String.valueOf(i)))) {
+				mLayout.addView(mCurCpuFreqSubTitle);
+				mLayout.addView(mCurCpuFreqText);
+			}
 		}
 
 		// Freq scaling Title
@@ -151,9 +172,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		if (Utils.existFile(CpuValues.FILENAME_MAX_FREQ)
 				|| Utils.existFile(CpuValues.FILENAME_MIN_FREQ)
 				|| Utils.existFile(CpuValues.FILENAME_MAX_SCREEN_OFF)
-				|| Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON)) {
+				|| Utils.existFile(CpuValues.FILENAME_MIN_SCREEN_ON))
 			mLayout.addView(mFreqScalingTitle);
-		}
 
 		// Max Freq Title
 		TextView mMaxCpuFreqTitle = new TextView(context);
@@ -614,12 +634,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	}
 
 	protected class CurCPUThread extends Thread {
+
 		@Override
 		public void run() {
 			try {
 				while (true) {
 					mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,
-							CpuValues.mCurCpuFreq()));
+							""));
 					sleep(500);
 				}
 			} catch (InterruptedException e) {
@@ -629,10 +650,18 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	protected Handler mCurCPUHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			if (!String.valueOf(msg.obj).equals(0))
-				mCurCpuFreq
-						.setText(String.valueOf(CpuValues.mCurCpuFreq() / 1000)
-								+ " Mhz");
+			for (int i = 0; i < mPresentCpu.length; i++) {
+				int mFreq = 0;
+				try {
+					mFreq = Integer.parseInt(Utils
+							.readLine(CpuValues.FILENAME_CUR_CPU_FREQ.replace(
+									"presentcpu", "cpu" + String.valueOf(i))));
+					mCurCpuFreqTexts[i].setText(mFreq != 0 ? String
+							.valueOf(mFreq / 1000) + " MHz"
+							: getString(R.string.offline));
+				} catch (IOException e) {
+				}
+			}
 		}
 	};
 

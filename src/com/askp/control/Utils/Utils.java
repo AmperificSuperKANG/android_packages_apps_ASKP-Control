@@ -85,13 +85,12 @@ public class Utils {
 	}
 
 	public static String getString(String name, Context context) {
-		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
-		return mPref.getString(name, "nothing");
+		return context.getSharedPreferences("prefs", 0).getString(name,
+				"nothing");
 	}
 
 	public static boolean getBoolean(String name, Context context) {
-		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
-		return mPref.getBoolean(name, false);
+		return context.getSharedPreferences("prefs", 0).getBoolean(name, false);
 	}
 
 	public static void saveBoolean(String name, boolean value, Context context) {
@@ -102,8 +101,7 @@ public class Utils {
 	}
 
 	public static boolean existFile(String file) {
-		File mFile = new File(file);
-		return mFile.exists();
+		return new File(file).exists();
 	}
 
 	public static void saveString(String name, String value, Context context) {

@@ -41,6 +41,7 @@
     <!-- CPU -->
     <string name="cpu">Cpu</string>
     <string name="cpufreq">CPU Frequency</string>
+    <string name="offline">Offline</string>
     <string name="cpuscaling">Frequency scaling</string>
     <string name="cpumaxfreq">CPU Max Freq</string>
     <string name="cpumaxfreq_summary">Set the maximum frequency the CPU scales up to.</string>
