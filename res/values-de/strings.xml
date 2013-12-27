@@ -112,12 +112,11 @@
     <string name="downloads">Heruntergeladen</string>
     <string name="nointernet">Keine Internetverbindung</string>
     <string name="nosupport">Keine Unterstützung</string>
-    <string name="doyouwantdownload">Möchten Sie %s herunterladen?</string>
+    <string name="doyouwantdownload">Möchten Sie %s herunterladen? Nachdem die Datei heruntergeladen wurde, öffnen Sie Kernel den Installations Bereich.</string>
     <string name="delete">Löschen</string>
     <string name="filealreadyexist">Sie haben diese Datei bereits heruntergeladen. Möchten Sie sie nochmal laden?</string>
     <string name="downloading">Lade %s herunter</string>
     <string name="success">Erfolgreich</string>
-    <string name="fileislocatedin">Datei befindet sich in %s.</string>
 
     <!-- Install Kernel -->
     <string name="installkernel">Kernel Installation</string>
