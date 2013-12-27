@@ -44,6 +44,13 @@ public class Utils {
 
 	private static ProgressDialog mProgressDialog;
 
+	public static String replaceLastChar(String s, int length) {
+		int slength = s.length();
+		if (slength < length)
+			return "Error";
+		return s.substring(0, slength - length) + "";
+	}
+
 	public static void mkdir(String file) {
 		File folder = new File(file);
 		folder.mkdirs();
@@ -123,7 +130,21 @@ public class Utils {
 		}
 	}
 
+	public static String readBlock(String filename) throws IOException {
+		runCommand("chmod 777 " + filename);
+		BufferedReader buffreader = new BufferedReader(
+				new FileReader(filename), 256);
+		String line;
+		StringBuilder text = new StringBuilder();
+
+		while ((line = buffreader.readLine()) != null)
+			text.append(line);
+		buffreader.close();
+		return text.toString();
+	}
+
 	public static String readLine(String filename) throws IOException {
+		runCommand("chmod 777 " + filename);
 		BufferedReader reader = new BufferedReader(new FileReader(filename),
 				256);
 		try {

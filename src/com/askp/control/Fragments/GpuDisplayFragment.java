@@ -333,19 +333,19 @@ public class GpuDisplayFragment extends Fragment implements
 			// Color Multiplier SeekBar
 			SeekBar mColorMultiplierBar = new SeekBar(context);
 			LayoutStyle.setSeekBar(mColorMultiplierBar, 340, Integer
-					.parseInt(mAvailableColorMultiplier[i].replace("0000000",
-							"")) - 60);
+					.parseInt(Utils.replaceLastChar(
+							mAvailableColorMultiplier[i], 7)) - 60);
 			mColorMultiplierBar
 					.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mColorMultiplierBars[i] = mColorMultiplierBar;
 
 			// Color Multiplier Text
 			TextView mColorMultiplierText = new TextView(context);
-			LayoutStyle.setCenterText(mColorMultiplierText, String
-					.valueOf(mAvailableColorMultiplier[i]
-							.replace("0000000", "")));
+			LayoutStyle.setCenterText(mColorMultiplierText,
+					Utils.replaceLastChar(mAvailableColorMultiplier[i], 7));
 			mColorMultiplierText.setOnClickListener(OnClickListener);
 			mColorMultiplierTexts[i] = mColorMultiplierText;
+			Utils.toast(mAvailableColorMultiplier[i], context);
 
 			if (Utils.existFile(GpuDisplayValues.FILENAME_COLOR_MULTIPLIER)) {
 				mLayout.addView(mColorMultiplierSubTitle);

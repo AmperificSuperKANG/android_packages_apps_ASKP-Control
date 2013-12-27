@@ -18,9 +18,6 @@
 
 package com.askp.control.Utils;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class CpuValues {
@@ -46,17 +43,8 @@ public class CpuValues {
 	public static String mRegulatorVoltagesFreq() {
 		if (Utils.existFile(FILENAME_REGULATOR_VOLTAGES))
 			try {
-				BufferedReader buffreader;
-				buffreader = new BufferedReader(new FileReader(
-						FILENAME_REGULATOR_VOLTAGES), 256);
-				String line;
-				StringBuilder text = new StringBuilder();
-
-				while ((line = buffreader.readLine()) != null)
-					text.append(line);
-				buffreader.close();
-				return text.toString().replace(" mV", ";").replace(":", "");
-			} catch (FileNotFoundException e) {
+				return Utils.readBlock(FILENAME_REGULATOR_VOLTAGES)
+						.replace(" mV", ";").replace(":", "");
 			} catch (IOException e) {
 			}
 		return "0 0";
@@ -65,17 +53,8 @@ public class CpuValues {
 	public static String mMPUVoltagesFreq() {
 		if (Utils.existFile(FILENAME_MPU_VOLTAGES))
 			try {
-				BufferedReader buffreader;
-				buffreader = new BufferedReader(new FileReader(
-						FILENAME_MPU_VOLTAGES), 256);
-				String line;
-				StringBuilder text = new StringBuilder();
-
-				while ((line = buffreader.readLine()) != null)
-					text.append(line);
-				buffreader.close();
-				return text.toString().replace(" mV", ";").replace("mhz:", "");
-			} catch (FileNotFoundException e) {
+				return Utils.readBlock(FILENAME_MPU_VOLTAGES)
+						.replace(" mV", ";").replace("mhz:", "");
 			} catch (IOException e) {
 			}
 		return "0 0";
@@ -84,17 +63,7 @@ public class CpuValues {
 	public static String mIVAVoltagesFreq() {
 		if (Utils.existFile(FILENAME_IVA_VOLTAGES))
 			try {
-				BufferedReader buffreader;
-				buffreader = new BufferedReader(new FileReader(
-						FILENAME_IVA_VOLTAGES), 256);
-				String line;
-				StringBuilder text = new StringBuilder();
-
-				while ((line = buffreader.readLine()) != null)
-					text.append(line);
-				buffreader.close();
-				return text.toString().replace("mV", "");
-			} catch (FileNotFoundException e) {
+				return Utils.readBlock(FILENAME_IVA_VOLTAGES).replace("mV", "");
 			} catch (IOException e) {
 			}
 		return "0 0";
@@ -103,17 +72,8 @@ public class CpuValues {
 	public static String mCoreVoltagesFreq() {
 		if (Utils.existFile(FILENAME_CORE_VOLTAGES))
 			try {
-				BufferedReader buffreader;
-				buffreader = new BufferedReader(new FileReader(
-						FILENAME_CORE_VOLTAGES), 256);
-				String line;
-				StringBuilder text = new StringBuilder();
-
-				while ((line = buffreader.readLine()) != null)
-					text.append(line);
-				buffreader.close();
-				return text.toString().replace("mV", "");
-			} catch (FileNotFoundException e) {
+				return Utils.readBlock(FILENAME_CORE_VOLTAGES)
+						.replace("mV", "");
 			} catch (IOException e) {
 			}
 		return "0 0";
