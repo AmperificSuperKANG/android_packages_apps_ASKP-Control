@@ -107,6 +107,10 @@ public class MainActivity extends FragmentActivity {
 				getString(R.string.miscellaneous),
 				getString(R.string.download),
 				getString(R.string.installkernel), getString(R.string.news) };
+
+		for (int i = 0; i < mMenuTitles.length; i++)
+			mMenuTitles[i] = mMenuTitles[i].toUpperCase();
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 

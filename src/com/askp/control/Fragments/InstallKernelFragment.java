@@ -46,8 +46,8 @@ public class InstallKernelFragment extends Fragment {
 				"/askp-kernel");
 
 		File[] files = root.listFiles();
-		for (int i = 0; i < files.length; i++)
-			fileList.add(files[i].getName());
+		for (File file : files)
+			fileList.add(file.getName());
 
 		ListAdapter adapter = new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_1, fileList);
