@@ -170,11 +170,8 @@ public class GpuDisplayFragment extends Fragment implements
 
 		// Trinity Contrast Title
 		TextView mTrinityContrastTitle = new TextView(context);
-		LayoutStyle
-				.setTextTitle(
-						mTrinityContrastTitle,
-						context.getString(R.string.trinitycontrast).replace(
-								"ss", "'s"), context);
+		LayoutStyle.setTextTitle(mTrinityContrastTitle,
+				context.getString(R.string.trinitycontrast), context);
 
 		// Trinity Contrast SubTitle
 		TextView mTrinityContrastSubTitle = new TextView(context);

@@ -32,8 +32,11 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <!-- Kernel Control -->
-    <string name="kernelcontrol">Kernel Control</string>
+    <!-- Information -->
+    <string name="information">Information</string>
+    <string name="device">Device</string>
+    <string name="codename">Codename</string>
+    <string name="kernelversion">Kernel Version</string>
 
     <!-- CPU -->
     <string name="cpu">Cpu</string>
@@ -71,8 +74,8 @@
     <string name="gpumaxfreq">GPU Max Freq</string>
     <string name="gpumaxfreq_summary">Set the maximum freqency the GPU scales up to.</string>
     <string name="adaptivebrightness">Content Adaptive Brightness</string>
-    <string name="adaptivebrightness_summary">Disable this to make white brighter at low brightness.</string>
-    <string name="trinitycontrast">Trinityss Contrast</string>
+    <string name="adaptivebrightness_summary">Disable this to make white brighter at low brightness (this has impact of battery life).</string>
+    <string name="trinitycontrast">Trinity\'s Contrast</string>
     <string name="contrast">Set Contrast</string>
     <string name="contrast_summary">Set the difference between dark and bright colors.</string>
     <string name="gammacontrol">Gamma Control</string>
@@ -87,7 +90,7 @@
     <string name="blue">Blue</string>
 
     <!-- I/O Algorithm -->
-    <string name="ioscheduler">I/O scheduler</string>
+    <string name="ioscheduler">I/O Scheduler</string>
     <string name="ioscheduler_summary">Set the active I/O elevator algorithm. The scheduler decides how to handle I/O requests and how to handle them.</string>
     <string name="internalscheduler">Internal Storage Scheduler</string>
     <string name="externalscheduler">External Storage Scheduler</string>
@@ -106,7 +109,7 @@
     <string name="fastcharge">Force Fast Charge</string>
     <string name="fastcharge_summary">Enable this will increase the charing speed with USB, but disable usb mass storage.</string>
     <string name="batteryextender">Battery Life eXtender</string>
-    <string name="batteryextender_summary">Set a limit for the capacity to which the battery will be charged by passing a value between 0 and 100</string>
+    <string name="batteryextender_summary">Set a limit for the capacity to which the battery will be charged by passing a value between 0 and 100.</string>
     <string name="audio">Audio</string>
     <string name="soundhigh">High Performance Sound</string>
     <string name="headphoneboost">Headphone Volume Boost</string>
@@ -137,11 +140,5 @@
 
     <!-- News -->
     <string name="news">News</string>
-
-    <!-- Information -->
-    <string name="information">Information</string>
-    <string name="device">Device</string>
-    <string name="codename">Codename</string>
-    <string name="kernelversion">Kernel Version</string>
 
 </resources>
