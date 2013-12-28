@@ -25,6 +25,7 @@ public class MiscellaneousValues {
 	public static final String FILENAME_VIBRATION_STRENGTH = "/sys/vibrator/pwmvalue";
 	public static final String FILENAME_FSYNC_CONTROL = "/sys/devices/virtual/misc/fsynccontrol/fsync_enabled";
 	public static final String FILENAME_DYNAMIC_FSYNC = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
+	public static final String FILENAME_BACKLIGHT_NOTIFICATION = "/sys/class/misc/backlightnotification/enabled";
 	public static final String FILENAME_HEADPHONE_BOOST = "/sys/devices/virtual/misc/soundcontrol/volume_boost";
 	public static final String FILENAME_SOUND_HIGH = "/sys/devices/virtual/misc/soundcontrol/highperf_enabled";
 	public static final String FILENAME_BATTERY_EXTENDER = "/sys/devices/virtual/misc/batterylifeextender/charging_limit";
@@ -58,6 +59,16 @@ public class MiscellaneousValues {
 		if (Utils.existFile(FILENAME_DYNAMIC_FSYNC))
 			try {
 				return Integer.parseInt(Utils.readLine(FILENAME_DYNAMIC_FSYNC));
+			} catch (IOException e) {
+			}
+		return 0;
+	}
+
+	public static int mBacklightnotification() {
+		if (Utils.existFile(FILENAME_BACKLIGHT_NOTIFICATION))
+			try {
+				return Integer.parseInt(Utils
+						.readLine(FILENAME_BACKLIGHT_NOTIFICATION));
 			} catch (IOException e) {
 			}
 		return 0;

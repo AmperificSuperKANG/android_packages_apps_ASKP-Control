@@ -72,6 +72,8 @@ public class MiscellaneousFragment extends Fragment implements
 	private static SeekBar mHeadphoneBoostBar;
 	public static TextView mHeadphoneBoostText;
 
+	public static CheckBox mBacklightnotificationBox;
+
 	public static CheckBox mDynamicFsyncBox;
 
 	public static CheckBox mFsyncControlBox;
@@ -251,6 +253,34 @@ public class MiscellaneousFragment extends Fragment implements
 			mLayout.addView(mHeadphoneBoostSubTitle);
 			mLayout.addView(mHeadphoneBoostBar);
 			mLayout.addView(mHeadphoneBoostText);
+		}
+
+		// Notification Title
+		TextView mNotificationTitle = new TextView(context);
+		LayoutStyle.setTextTitle(mNotificationTitle,
+				context.getString(R.string.notification), context);
+
+		if (Utils
+				.existFile(MiscellaneousValues.FILENAME_BACKLIGHT_NOTIFICATION))
+			mLayout.addView(mNotificationTitle);
+
+		// Backlightnotification CheckBox
+		mBacklightnotificationBox = new CheckBox(context);
+		LayoutStyle.setCheckBox(mBacklightnotificationBox,
+				context.getString(R.string.backlightnotification),
+				MiscellaneousValues.mBacklightnotification() == 1);
+		mBacklightnotificationBox
+				.setOnCheckedChangeListener(CheckedChangeListener);
+
+		// Backlightnotification Summary
+		TextView mBacklightnotificationSummary = new TextView(context);
+		LayoutStyle.setTextSummary(mBacklightnotificationSummary,
+				context.getString(R.string.backlightnotification_summary));
+
+		if (Utils
+				.existFile(MiscellaneousValues.FILENAME_BACKLIGHT_NOTIFICATION)) {
+			mLayout.addView(mBacklightnotificationBox);
+			mLayout.addView(mBacklightnotificationSummary);
 		}
 
 		// Other Settings Title

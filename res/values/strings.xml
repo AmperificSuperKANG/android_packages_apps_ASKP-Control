@@ -114,6 +114,9 @@
     <string name="audio">Audio</string>
     <string name="soundhigh">High Performance Sound</string>
     <string name="headphoneboost">Headphone Volume Boost</string>
+    <string name="notification">Notification</string>
+    <string name="backlightnotification">Backlightnotification</string>
+    <string name="backlightnotification_summary">Enable this the backlights of your phone will light up when you get a notification.</string>
     <string name="othersettings">Other Settings</string>
     <string name="dynamicfsync">Dynamic Fsync</string>
     <string name="dynamicfsync_summary">When enabled and screen is on, fsync operation is asynchronous. When screen is off, this operation is committed synchronously.</string>

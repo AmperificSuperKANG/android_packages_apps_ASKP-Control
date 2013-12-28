@@ -39,8 +39,8 @@ public class Control {
 			INTERNAL_SCHEDULER = "", EXTERNAL_SCHEDULER = "",
 			INTERNAL_READ = "", EXTERNAL_READ = "", WIFI_HIGH = "",
 			TCP_CONGESTION = "", FAST_CHARGE = "", BATTERY_EXTENDER = "",
-			SOUND_HIGH = "", HEADPHONE_BOOST = "", DYNAMIC_FSYNC = "",
-			FSYNC_CONTROL = "", VIBRATION_STRENGTH = "";
+			SOUND_HIGH = "", HEADPHONE_BOOST = "", BACKLIGHT_NOTIFICATION = "",
+			DYNAMIC_FSYNC = "", FSYNC_CONTROL = "", VIBRATION_STRENGTH = "";
 
 	public static void initControl(Context context) {
 		Control.setValues();
@@ -166,6 +166,10 @@ public class Control {
 			if (Utils.existFile(MiscellaneousValues.FILENAME_HEADPHONE_BOOST))
 				HEADPHONE_BOOST = MiscellaneousFragment.mHeadphoneBoostText
 						.getText().toString();
+			if (Utils
+					.existFile(MiscellaneousValues.FILENAME_BACKLIGHT_NOTIFICATION))
+				BACKLIGHT_NOTIFICATION = MiscellaneousFragment.mBacklightnotificationBox
+						.isChecked() ? "1" : "0";
 			if (Utils.existFile(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC))
 				DYNAMIC_FSYNC = MiscellaneousFragment.mDynamicFsyncBox
 						.isChecked() ? "1" : "0";
@@ -294,6 +298,10 @@ public class Control {
 		setFileValue(HEADPHONE_BOOST,
 				MiscellaneousValues.FILENAME_HEADPHONE_BOOST, "headphoneboost",
 				context);
+		// Backlightnotification
+		setFileValue(BACKLIGHT_NOTIFICATION,
+				MiscellaneousValues.FILENAME_BACKLIGHT_NOTIFICATION,
+				"backlightnotification", context);
 		// Dynamic Fsync
 		setFileValue(DYNAMIC_FSYNC, MiscellaneousValues.FILENAME_DYNAMIC_FSYNC,
 				"dynamicfsync", context);

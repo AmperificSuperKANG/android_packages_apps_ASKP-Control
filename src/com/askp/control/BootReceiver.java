@@ -151,6 +151,10 @@ public class BootReceiver extends BroadcastReceiver {
 		setValue(MiscellaneousValues.FILENAME_HEADPHONE_BOOST,
 				"headphoneboost", context);
 
+		// Backlightnotification
+		setValue(MiscellaneousValues.FILENAME_BACKLIGHT_NOTIFICATION,
+				"backlightnotification", context);
+
 		// Dynamic Fsync
 		setValue(MiscellaneousValues.FILENAME_DYNAMIC_FSYNC, "dynamicfsync",
 				context);
