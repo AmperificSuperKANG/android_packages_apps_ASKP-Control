@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -147,13 +148,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mCurCpuFreqSubTitle,
 					context.getString(R.string.core) + " "
 							+ String.valueOf(i + 1), context);
+			mCurCpuFreqSubTitle.setGravity(Gravity.CENTER);
 
 			// Current Freq Text
 			TextView mCurCpuFreqText = new TextView(context);
 			LayoutStyle.setCenterText(mCurCpuFreqText, "");
 			mCurCpuFreqText.setTextSize(20);
-			mCurCpuFreqText.setTextColor(context.getResources().getColor(
-					android.R.color.white));
 			mCurCpuFreqTexts[i] = mCurCpuFreqText;
 
 			if (Utils.existFile(CpuValues.FILENAME_CUR_CPU_FREQ.replace(

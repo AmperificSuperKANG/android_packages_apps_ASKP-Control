@@ -30,13 +30,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.askp.control.R;
+import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
 
 public class InformationFragment extends Fragment {
-
-	private static LinearLayout mLayout;
-
-	private static TextView mDevice, mCodename, mKernelVersion;
 
 	private static final String mManufacturer = Build.MANUFACTURER;
 	public static final String mModel = Build.MODEL;
@@ -47,27 +44,42 @@ public class InformationFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.layout, container, false);
 
-		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
+		LinearLayout mLayout = (LinearLayout) rootView
+				.findViewById(R.id.layout);
 
-		mDevice = new TextView(getActivity());
-		mDevice.setText(getString(R.string.device) + ": "
-				+ mManufacturer.substring(0, 1).toUpperCase()
-				+ mManufacturer.substring(1) + " " + mModel);
+		TextView mDeviceTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mDeviceTitle, getString(R.string.device),
+				getActivity());
 
-		mCodename = new TextView(getActivity());
-		mCodename.setText(getString(R.string.codename) + ": " + mCode);
+		TextView mDeviceText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mDeviceText, mManufacturer.substring(0, 1)
+				.toUpperCase() + mManufacturer.substring(1) + " " + mModel);
 
-		mKernelVersion = new TextView(getActivity());
+		TextView mCodenameTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mCodenameTitle, getString(R.string.codename),
+				getActivity());
+
+		TextView mCodenameText = new TextView(getActivity());
+		LayoutStyle.setCenterText(mCodenameText, mCode);
+
+		TextView mKernelVersionTitle = new TextView(getActivity());
+		LayoutStyle.setTextTitle(mKernelVersionTitle,
+				getString(R.string.kernelversion), getActivity());
+
+		TextView mKernelVersionText = new TextView(getActivity());
+		mKernelVersionText.setText(getString(R.string.unavailable));
 		try {
-			mKernelVersion.setText(getString(R.string.kernelversion) + ": "
-					+ Utils.readLine("/proc/version"));
+			LayoutStyle.setCenterText(mKernelVersionText,
+					Utils.readLine("/proc/version"));
 		} catch (IOException e) {
-			mKernelVersion.setText(getString(R.string.unavailable));
 		}
 
-		mLayout.addView(mDevice);
-		mLayout.addView(mCodename);
-		mLayout.addView(mKernelVersion);
+		mLayout.addView(mDeviceTitle);
+		mLayout.addView(mDeviceText);
+		mLayout.addView(mCodenameTitle);
+		mLayout.addView(mCodenameText);
+		mLayout.addView(mKernelVersionTitle);
+		mLayout.addView(mKernelVersionText);
 
 		return rootView;
 	}
