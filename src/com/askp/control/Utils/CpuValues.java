@@ -31,7 +31,7 @@ public class CpuValues {
 	public static final String FILENAME_CORE = "/sys/kernel/debug/smartreflex/sr_core/autocomp";
 	public static final String FILENAME_CUR_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
 	public static final String FILENAME_AVAILABLE_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
-	public static final String FILENAME_AVAILABLE_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+	public static final String FILENAME_AVAILABLE_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
 	public static final String FILENAME_TEMP_LIMIT = "/sys/devices/virtual/misc/tempcontrol/templimit";
 	public static final String FILENAME_MULTICORE_SAVING = "/sys/devices/system/cpu/sched_mc_power_savings";
 	public static final String FILENAME_MIN_SCREEN_ON = "/sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq";
@@ -45,7 +45,7 @@ public class CpuValues {
 		if (Utils.existFile(FILENAME_REGULATOR_VOLTAGES))
 			try {
 				return Utils.readBlock(FILENAME_REGULATOR_VOLTAGES)
-						.replace(" mV", ";").replace(":", "");
+						.replace(" mV", "").replace(":", "");
 			} catch (IOException e) {
 			}
 		return "0 0";
@@ -55,7 +55,7 @@ public class CpuValues {
 		if (Utils.existFile(FILENAME_MPU_VOLTAGES))
 			try {
 				return Utils.readBlock(FILENAME_MPU_VOLTAGES)
-						.replace(" mV", ";").replace("mhz:", "");
+						.replace(" mV", "").replace("mhz:", "");
 			} catch (IOException e) {
 			}
 		return "0 0";
@@ -64,20 +64,21 @@ public class CpuValues {
 	public static String mIVAVoltagesFreq() {
 		if (Utils.existFile(FILENAME_IVA_VOLTAGES))
 			try {
-				return Utils.readBlock(FILENAME_IVA_VOLTAGES).replace("mV", "");
+				return Utils.readBlock(FILENAME_IVA_VOLTAGES)
+						.replace(" mV", "");
 			} catch (IOException e) {
 			}
-		return "0 0";
+		return "0\n0";
 	}
 
 	public static String mCoreVoltagesFreq() {
 		if (Utils.existFile(FILENAME_CORE_VOLTAGES))
 			try {
-				return Utils.readBlock(FILENAME_CORE_VOLTAGES)
-						.replace("mV", "");
+				return Utils.readBlock(FILENAME_CORE_VOLTAGES).replace(" mV",
+						"");
 			} catch (IOException e) {
 			}
-		return "0 0";
+		return "0\n0";
 	}
 
 	public static int mMPU() {
@@ -128,7 +129,7 @@ public class CpuValues {
 	public static String mAvailableFreq() {
 		if (Utils.existFile(FILENAME_AVAILABLE_FREQ))
 			try {
-				return Utils.readLine(FILENAME_AVAILABLE_FREQ);
+				return Utils.readBlock(FILENAME_AVAILABLE_FREQ);
 			} catch (IOException e) {
 			}
 		return "0 0";

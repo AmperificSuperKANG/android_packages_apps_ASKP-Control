@@ -73,7 +73,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static SeekBar mMaxCpuFreqBar, mMinCpuFreqBar,
 			mMaxScreenFreqOffBar, mMinFreqScreenOnBar;
 
-	public static String[] mAvailableFreq;
 	private static List<String> mAvailableFreqList = new ArrayList<String>();
 
 	public static String mMaxFreqValue, mMinFreqValue, mMaxScreenOffValue,
@@ -185,16 +184,26 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				context.getString(R.string.cpumaxfreq_summary));
 
 		// Max Freq SeekBar
-		mAvailableFreq = CpuValues.mAvailableFreq().split(" ");
+		mAvailableFreqList.clear();
+		for (String text : CpuValues.mAvailableFreq().split("\\r?\\n"))
+			mAvailableFreqList.add(text.split(" ")[0]);
 
-		mAvailableFreqList = Arrays.asList(mAvailableFreq);
+		if (Integer.parseInt(mAvailableFreqList.get(0)) > Integer
+				.parseInt(mAvailableFreqList.get(mAvailableFreqList.size() - 1))) {
+			mAvailableFreqList.clear();
+			for (int i = CpuValues.mAvailableFreq().split("\\r?\\n").length - 1; i >= 0; i--)
+				mAvailableFreqList.add(CpuValues.mAvailableFreq().split(
+						"\\r?\\n")[i].split(" ")[0]);
+		}
+
 		int mMax = mAvailableFreqList.indexOf(String.valueOf(CpuValues
 				.mMaxFreq()));
 		int mMin = mAvailableFreqList.indexOf(String.valueOf(CpuValues
 				.mMinFreq()));
 
 		mMaxCpuFreqBar = new SeekBar(context);
-		LayoutStyle.setSeekBar(mMaxCpuFreqBar, mAvailableFreq.length - 1, mMax);
+		LayoutStyle.setSeekBar(mMaxCpuFreqBar, mAvailableFreqList.size() - 1,
+				mMax);
 		mMaxCpuFreqBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 		mMaxFreqValue = String.valueOf(CpuValues.mMaxFreq());
 
@@ -222,7 +231,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		// Min Freq SeekBar
 		mMinCpuFreqBar = new SeekBar(context);
-		LayoutStyle.setSeekBar(mMinCpuFreqBar, mAvailableFreq.length - 1, mMin);
+		LayoutStyle.setSeekBar(mMinCpuFreqBar, mAvailableFreqList.size() - 1,
+				mMin);
 		mMinCpuFreqBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 		mMinFreqValue = String.valueOf(CpuValues.mMinFreq());
 
@@ -253,8 +263,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		int mMaxScreenOff = mAvailableFreqList.indexOf(mMaxScreenOffValue);
 
 		mMaxScreenFreqOffBar = new SeekBar(context);
-		LayoutStyle.setSeekBar(mMaxScreenFreqOffBar, mAvailableFreq.length - 1,
-				mMaxScreenOff);
+		LayoutStyle.setSeekBar(mMaxScreenFreqOffBar,
+				mAvailableFreqList.size() - 1, mMaxScreenOff);
 		mMaxScreenFreqOffBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Max Freq Screen Off TextView
@@ -284,8 +294,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		int mMinScreenOn = mAvailableFreqList.indexOf(mMinScreenOnValue);
 
 		mMinFreqScreenOnBar = new SeekBar(context);
-		LayoutStyle.setSeekBar(mMinFreqScreenOnBar, mAvailableFreq.length - 1,
-				mMinScreenOn);
+		LayoutStyle.setSeekBar(mMinFreqScreenOnBar,
+				mAvailableFreqList.size() - 1, mMinScreenOn);
 		mMinFreqScreenOnBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Min Freq Screen On TextView
@@ -448,7 +458,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mLayout.addView(mCoreVoltagesSummary);
 		}
 
-		mCoreVoltagesList = CpuValues.mCoreVoltagesFreq().split(" ");
+		mCoreVoltagesList = CpuValues.mCoreVoltagesFreq().split("\\r?\\n");
 		mCoreVoltagesBars = new SeekBar[mCoreVoltagesList.length];
 		mCoreVoltagesTexts = new TextView[mCoreVoltagesList.length];
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
@@ -496,7 +506,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mLayout.addView(mIVAVoltagesSummary);
 		}
 
-		mIVAVoltagesList = CpuValues.mIVAVoltagesFreq().split(" ");
+		mIVAVoltagesList = CpuValues.mIVAVoltagesFreq().split("\\r?\\n");
 		mIVAVoltagesBars = new SeekBar[mIVAVoltagesList.length];
 		mIVAVoltagesTexts = new TextView[mIVAVoltagesList.length];
 		for (int i = 0; i < mIVAVoltagesList.length; i++) {
@@ -544,7 +554,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mLayout.addView(mMPUVoltagesSummary);
 		}
 
-		mMPUVoltagesList = CpuValues.mMPUVoltagesFreq().split(";");
+		mMPUVoltagesList = CpuValues.mMPUVoltagesFreq().split("\\r?\\n");
 		mMPUVoltagesBars = new SeekBar[mMPUVoltagesList.length];
 		mMPUVoltagesTexts = new TextView[mMPUVoltagesList.length];
 		for (int i = 0; i < mMPUVoltagesList.length; i++) {
@@ -590,7 +600,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mLayout.addView(mRegulatorVoltagesSummary);
 		}
 
-		mRegulatorVoltagesList = CpuValues.mRegulatorVoltagesFreq().split(";");
+		mRegulatorVoltagesList = CpuValues.mRegulatorVoltagesFreq().split(
+				"\\r?\\n");
 		mRegulatorVoltagesBars = new SeekBar[mRegulatorVoltagesList.length];
 		mRegulatorVoltagesTexts = new TextView[mRegulatorVoltagesList.length];
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
@@ -701,8 +712,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		}
 		if (seekBar.equals(mMaxCpuFreqBar)) {
 			mMaxCpuFreqText.setText(String.valueOf(Integer
-					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
-			mMaxFreqValue = mAvailableFreq[progress];
+					.parseInt(mAvailableFreqList.get(progress)) / 1000)
+					+ " MHz");
+			mMaxFreqValue = mAvailableFreqList.get(progress);
 			if (Integer.parseInt(mMaxFreqValue) < Integer
 					.parseInt(mMinFreqValue)) {
 				mMaxCpuFreqBar.setProgress(progress);
@@ -710,8 +722,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			}
 		} else if (seekBar.equals(mMinCpuFreqBar)) {
 			mMinCpuFreqText.setText(String.valueOf(Integer
-					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
-			mMinFreqValue = mAvailableFreq[progress];
+					.parseInt(mAvailableFreqList.get(progress)) / 1000)
+					+ " MHz");
+			mMinFreqValue = mAvailableFreqList.get(progress);
 			if (Integer.parseInt(mMaxFreqValue) < Integer
 					.parseInt(mMinFreqValue)) {
 				mMaxCpuFreqBar.setProgress(progress);
@@ -719,12 +732,14 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			}
 		} else if (seekBar.equals(mMaxScreenFreqOffBar)) {
 			mMaxFreqScreenOffText.setText(String.valueOf(Integer
-					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
-			mMaxScreenOffValue = mAvailableFreq[progress];
+					.parseInt(mAvailableFreqList.get(progress)) / 1000)
+					+ " MHz");
+			mMaxScreenOffValue = mAvailableFreqList.get(progress);
 		} else if (seekBar.equals(mMinFreqScreenOnBar)) {
 			mMinFreqScreenOnText.setText(String.valueOf(Integer
-					.parseInt(mAvailableFreq[progress]) / 1000) + " MHz");
-			mMinScreenOnValue = mAvailableFreq[progress];
+					.parseInt(mAvailableFreqList.get(progress)) / 1000)
+					+ " MHz");
+			mMinScreenOnValue = mAvailableFreqList.get(progress);
 		} else if (seekBar.equals(mMulticoreSavingBar)) {
 			mMulticoreSavingText.setText(String.valueOf(progress));
 		} else if (seekBar.equals(mTempLimitBar)) {

@@ -109,9 +109,10 @@ public class Utils {
 				new FileReader(filename), 256);
 		String line;
 		StringBuilder text = new StringBuilder();
-
-		while ((line = buffreader.readLine()) != null)
+		while ((line = buffreader.readLine()) != null) {
 			text.append(line);
+			text.append("\n");
+		}
 		buffreader.close();
 		return text.toString();
 	}
