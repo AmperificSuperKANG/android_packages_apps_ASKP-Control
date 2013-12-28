@@ -42,7 +42,7 @@ public class Utils {
 	public static String replaceLastChar(String s, int length) {
 		int slength = s.length();
 		if (slength < length)
-			return "Error";
+			return "0";
 		return s.substring(0, slength - length) + "";
 	}
 
