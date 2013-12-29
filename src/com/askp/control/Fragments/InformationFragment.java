@@ -52,15 +52,15 @@ public class InformationFragment extends Fragment {
 				getActivity());
 
 		TextView mDeviceText = new TextView(getActivity());
-		LayoutStyle.setCenterText(mDeviceText, mManufacturer.substring(0, 1)
-				.toUpperCase() + mManufacturer.substring(1) + " " + mModel);
+		mDeviceText.setText(mManufacturer.substring(0, 1).toUpperCase()
+				+ mManufacturer.substring(1) + " " + mModel);
 
 		TextView mCodenameTitle = new TextView(getActivity());
 		LayoutStyle.setTextTitle(mCodenameTitle, getString(R.string.codename),
 				getActivity());
 
 		TextView mCodenameText = new TextView(getActivity());
-		LayoutStyle.setCenterText(mCodenameText, mCode);
+		mCodenameText.setText(mCode);
 
 		TextView mKernelVersionTitle = new TextView(getActivity());
 		LayoutStyle.setTextTitle(mKernelVersionTitle,
@@ -69,8 +69,7 @@ public class InformationFragment extends Fragment {
 		TextView mKernelVersionText = new TextView(getActivity());
 		mKernelVersionText.setText(getString(R.string.unavailable));
 		try {
-			LayoutStyle.setCenterText(mKernelVersionText,
-					Utils.readLine("/proc/version"));
+			mKernelVersionText.setText(Utils.readLine("/proc/version"));
 		} catch (IOException e) {
 		}
 
