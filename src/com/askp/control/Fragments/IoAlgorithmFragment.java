@@ -179,7 +179,7 @@ public class IoAlgorithmFragment extends Fragment implements
 		LayoutStyle
 				.setSeekBar(mInternalReadBar, 31, Integer.parseInt(String
 						.valueOf(Integer.parseInt(IoAlgorithmValues
-								.mInternalRead()) - 128)) / 128, context);
+								.mInternalRead()) - 128)) / 128);
 		mInternalReadBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Internal Read Text
@@ -203,7 +203,7 @@ public class IoAlgorithmFragment extends Fragment implements
 		LayoutStyle
 				.setSeekBar(mExternalReadBar, 31, Integer.parseInt(String
 						.valueOf(Integer.parseInt(IoAlgorithmValues
-								.mExternalRead()) - 128)) / 128, context);
+								.mExternalRead()) - 128)) / 128);
 		mExternalReadBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// External Read Text

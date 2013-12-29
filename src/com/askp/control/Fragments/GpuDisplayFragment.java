@@ -113,7 +113,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Gpu Max Freq SeekBar
 		mGpuMaxFreqBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mGpuMaxFreqBar, 2,
-				GpuDisplayValues.mVariableGpu(), context);
+				GpuDisplayValues.mVariableGpu());
 		mGpuMaxFreqBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Gpu Max Freq Text
@@ -186,7 +186,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Trinity Constrast SeekBar
 		mTrinityContrastBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mTrinityContrastBar, 41,
-				GpuDisplayValues.mTrinityContrast() + 25, context);
+				GpuDisplayValues.mTrinityContrast() + 25);
 		mTrinityContrastBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Trinity Constrast Text
@@ -226,7 +226,7 @@ public class GpuDisplayFragment extends Fragment implements
 		// Gamma Control SeekBar
 		mGammaControlBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mGammaControlBar, 10,
-				GpuDisplayValues.mGammaControl(), context);
+				GpuDisplayValues.mGammaControl());
 		mGammaControlBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Gamma Control Text
@@ -276,7 +276,7 @@ public class GpuDisplayFragment extends Fragment implements
 			// Gamma Offset SeekBar
 			SeekBar mGammaOffsetBar = new SeekBar(context);
 			LayoutStyle.setSeekBar(mGammaOffsetBar, 30,
-					Integer.parseInt(mAvailableGammaOffset[i]) + 15, context);
+					Integer.parseInt(mAvailableGammaOffset[i]) + 15);
 			mGammaOffsetBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mGammaOffsetBars[i] = mGammaOffsetBar;
 
@@ -331,7 +331,7 @@ public class GpuDisplayFragment extends Fragment implements
 			SeekBar mColorMultiplierBar = new SeekBar(context);
 			LayoutStyle.setSeekBar(mColorMultiplierBar, 340, Integer
 					.parseInt(Utils.replaceLastChar(
-							mAvailableColorMultiplier[i], 7)) - 60, context);
+							mAvailableColorMultiplier[i], 7)) - 60);
 			mColorMultiplierBar
 					.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mColorMultiplierBars[i] = mColorMultiplierBar;

@@ -203,7 +203,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		mMaxCpuFreqBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mMaxCpuFreqBar, mAvailableFreqList.size() - 1,
-				mMax, context);
+				mMax);
 		mMaxCpuFreqBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 		mMaxFreqValue = String.valueOf(CpuValues.mMaxFreq());
 
@@ -232,7 +232,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Min Freq SeekBar
 		mMinCpuFreqBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mMinCpuFreqBar, mAvailableFreqList.size() - 1,
-				mMin, context);
+				mMin);
 		mMinCpuFreqBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 		mMinFreqValue = String.valueOf(CpuValues.mMinFreq());
 
@@ -264,7 +264,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		mMaxScreenFreqOffBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mMaxScreenFreqOffBar,
-				mAvailableFreqList.size() - 1, mMaxScreenOff, context);
+				mAvailableFreqList.size() - 1, mMaxScreenOff);
 		mMaxScreenFreqOffBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Max Freq Screen Off TextView
@@ -295,7 +295,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		mMinFreqScreenOnBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mMinFreqScreenOnBar,
-				mAvailableFreqList.size() - 1, mMinScreenOn, context);
+				mAvailableFreqList.size() - 1, mMinScreenOn);
 		mMinFreqScreenOnBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Min Freq Screen On TextView
@@ -323,7 +323,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Multicore Saving SeekBar
 		mMulticoreSavingBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mMulticoreSavingBar, 2,
-				CpuValues.mMulticoreSaving(), context);
+				CpuValues.mMulticoreSaving());
 		mMulticoreSavingBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Multicore Saving Text
@@ -351,7 +351,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		// Temp Limit SeekBar
 		mTempLimitBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mTempLimitBar, 20,
-				CpuValues.mTempLimit() / 1000 - 60, context);
+				CpuValues.mTempLimit() / 1000 - 60);
 		mTempLimitBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Temp Limit Text
@@ -473,7 +473,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// Core Voltages SeekBar
 			SeekBar mCoreVoltagesBar = new SeekBar(context);
 			LayoutStyle.setSeekBar(mCoreVoltagesBar, 612,
-					Integer.parseInt(mCoreVoltagesList[i]) - 700, context);
+					Integer.parseInt(mCoreVoltagesList[i]) - 700);
 			mCoreVoltagesBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mCoreVoltagesBars[i] = mCoreVoltagesBar;
 
@@ -521,7 +521,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// IVA Voltages SeekBar
 			SeekBar mIVAVoltagesBar = new SeekBar(context);
 			LayoutStyle.setSeekBar(mIVAVoltagesBar, 816,
-					Integer.parseInt(mIVAVoltagesList[i]) - 700, context);
+					Integer.parseInt(mIVAVoltagesList[i]) - 700);
 			mIVAVoltagesBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mIVAVoltagesBars[i] = mIVAVoltagesBar;
 
@@ -567,8 +567,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			// MPU Voltages SeekBar
 			SeekBar mMPUVoltagesBar = new SeekBar(context);
 			LayoutStyle.setSeekBar(mMPUVoltagesBar, 918,
-					Integer.parseInt(mMPUVoltagesList[i].split(" ")[1]) - 700,
-					context);
+					Integer.parseInt(mMPUVoltagesList[i].split(" ")[1]) - 700);
 			mMPUVoltagesBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mMPUVoltagesBars[i] = mMPUVoltagesBar;
 
@@ -617,7 +616,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			LayoutStyle
 					.setSeekBar(mRegulatorVoltagesBar, 2100,
 							Integer.parseInt(mRegulatorVoltagesList[i]
-									.split(" ")[1]) - 1500, context);
+									.split(" ")[1]) - 1500);
 			mRegulatorVoltagesBar
 					.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mRegulatorVoltagesBars[i] = mRegulatorVoltagesBar;

@@ -18,10 +18,10 @@
 
 package com.askp.control.Utils;
 
-import android.app.Activity;
+import com.askp.control.MainActivity;
+
 import android.content.Context;
 import android.graphics.Typeface;
-import android.view.Display;
 import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,15 +56,10 @@ public class LayoutStyle {
 		i.setGravity(Gravity.CENTER);
 	}
 
-	@SuppressWarnings("deprecation")
-	public static void setSeekBar(SeekBar i, int max, int progress,
-			Context context) {
-		Display display = ((Activity) context).getWindowManager()
-				.getDefaultDisplay();
-		int width = display.getWidth();
+	public static void setSeekBar(SeekBar i, int max, int progress) {
 		i.setMax(max);
 		i.setProgress(progress);
-		i.setPadding(width / 10, 0, width / 10, 0);
+		i.setPadding(MainActivity.mWidth / 10, 0, MainActivity.mWidth / 10, 0);
 	}
 
 	public static void setTextSummary(TextView i, String text) {

@@ -39,6 +39,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -64,6 +65,9 @@ public class MainActivity extends FragmentActivity {
 	public static boolean mIoAlgorithmAction = false;
 	public static boolean mMiscellaneousAction = false;
 
+	public static int mWidth = 0;
+
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -98,6 +102,9 @@ public class MainActivity extends FragmentActivity {
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_SCREEN_ON);
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_SCREEN_ON);
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_CUR_GOVERNOR);
+
+		Display display = this.getWindowManager().getDefaultDisplay();
+		mWidth = display.getWidth();
 
 		mTitle = getTitle();
 		mMenuTitles = new String[] { getString(R.string.information),
