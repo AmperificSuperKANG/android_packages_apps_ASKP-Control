@@ -198,7 +198,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Battery Extender SeekBar
 		mBatteryExtenderBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mBatteryExtenderBar, 100,
-				MiscellaneousValues.mBatterExtender());
+				MiscellaneousValues.mBatterExtender(), context);
 		mBatteryExtenderBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Battery Extender Text
@@ -241,7 +241,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Headphone Boost SeekBar
 		mHeadphoneBoostBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mHeadphoneBoostBar, 3,
-				MiscellaneousValues.mHeadphoneBoost());
+				MiscellaneousValues.mHeadphoneBoost(), context);
 		mHeadphoneBoostBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Headphone Boost Text
@@ -339,7 +339,7 @@ public class MiscellaneousFragment extends Fragment implements
 		// Vibration Strength SeekBar
 		mVibrationStrengthBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mVibrationStrengthBar, 127,
-				MiscellaneousValues.mVibrationStrength());
+				MiscellaneousValues.mVibrationStrength(), context);
 		mVibrationStrengthBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Vibration Strength Text
