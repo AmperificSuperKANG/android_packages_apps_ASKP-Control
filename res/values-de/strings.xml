@@ -106,7 +106,7 @@
     <string name="othersettings">Andere Einstellungen</string>
     <string name="dynamicfsync">Dynamisches Fsync</string>
     <string name="dynamicfsync_summary">Wenn aktiviert und Bildschirm an ist, ist der Fsync Ablauf asynchron. Wenn Bildschirm aus ist, wird der Ablauf synchron ausgeführt.</string>
-    <string name="fsynccontrol_summary">Deaktiviere für bessere Dateiübertragung, mit dem Risiko Daten zu verlieren wenn etwas abstürzt.</string>
+    <string name="fsynccontrol_summary">Deaktiviere für bessere Datenübertragung, mit dem Risiko Daten zu verlieren wenn etwas abstürzt.</string>
     <string name="vibrationstrength">Vibrationstärke</string>
     <string name="vibrationstrength_summary">Kontrolliere die Vibrationstärke des Telefons.</string>
 
