@@ -18,6 +18,10 @@
 
 package com.askp.control;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.askp.control.Fragments.CpuFragment;
 import com.askp.control.Fragments.DownloadFragment;
 import com.askp.control.Fragments.GpuDisplayFragment;
@@ -109,6 +113,15 @@ public class MainActivity extends FragmentActivity {
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_MIN_SCREEN_ON);
 		Utils.runCommand("chmod 777 " + CpuValues.FILENAME_CUR_GOVERNOR);
 
+		List<String> mVoltageFolder = new ArrayList<String>();
+		for (File file : new File("/sys/devices/system/cpu/cpu0/cpufreq")
+				.listFiles())
+			mVoltageFolder.add(file.getAbsolutePath());
+
+		for (int i = 0; i < mVoltageFolder.size(); i++)
+			if (mVoltageFolder.get(i).indexOf("table") != -1)
+				CpuValues.FILENAME_CPU_VOLTAGAES = mVoltageFolder.get(i);
+
 		Display display = this.getWindowManager().getDefaultDisplay();
 		mWidth = display.getWidth();
 
@@ -199,10 +212,10 @@ public class MainActivity extends FragmentActivity {
 			Control.exitControl(getApplicationContext());
 			break;
 		case R.id.action_setonboot:
-			setonbootBox.setChecked(Utils.getBoolean("setonboot",
-					getApplicationContext()) ? false : true);
-			Utils.saveBoolean("setonboot", Utils.getBoolean("setonboot",
-					getApplicationContext()) ? false : true,
+			setonbootBox.setChecked(!Utils.getBoolean("setonboot",
+					getApplicationContext()));
+			Utils.saveBoolean("setonboot",
+					!Utils.getBoolean("setonboot", getApplicationContext()),
 					getApplicationContext());
 			break;
 		}

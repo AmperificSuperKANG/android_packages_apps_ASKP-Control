@@ -23,9 +23,9 @@ import java.io.IOException;
 public class CpuValues {
 
 	public static final String FILENAME_REGULATOR_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/regulator_voltages";
-	public static final String FILENAME_MPU_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/mpu_voltages";
 	public static final String FILENAME_IVA_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/iva_voltages";
 	public static final String FILENAME_CORE_VOLTAGES = "/sys/devices/virtual/misc/customvoltage/core_voltages";
+	public static String FILENAME_CPU_VOLTAGAES = "";
 	public static final String FILENAME_MPU = "/sys/kernel/debug/smartreflex/sr_mpu/autocomp";
 	public static final String FILENAME_IVA = "/sys/kernel/debug/smartreflex/sr_iva/autocomp";
 	public static final String FILENAME_CORE = "/sys/kernel/debug/smartreflex/sr_core/autocomp";
@@ -51,16 +51,6 @@ public class CpuValues {
 		return "0 0";
 	}
 
-	public static String mMPUVoltagesFreq() {
-		if (Utils.existFile(FILENAME_MPU_VOLTAGES))
-			try {
-				return Utils.readBlock(FILENAME_MPU_VOLTAGES)
-						.replace(" mV", "").replace("mhz:", "");
-			} catch (IOException e) {
-			}
-		return "0 0";
-	}
-
 	public static String mIVAVoltagesFreq() {
 		if (Utils.existFile(FILENAME_IVA_VOLTAGES))
 			try {
@@ -79,6 +69,16 @@ public class CpuValues {
 			} catch (IOException e) {
 			}
 		return "0\n0";
+	}
+
+	public static String mCpuVoltagesFreq() {
+		if (Utils.existFile(FILENAME_CPU_VOLTAGAES))
+			try {
+				return Utils.readBlock(FILENAME_CPU_VOLTAGAES)
+						.replace(" mV", "").replace("mhz:", "");
+			} catch (IOException e) {
+			}
+		return "0 0";
 	}
 
 	public static int mMPU() {

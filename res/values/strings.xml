@@ -25,7 +25,6 @@
     <string name="norootaccess">No root access!</string>
     <string name="nobusybox">No busybox!</string>
     <string name="valuesapplied">Apply Successfully</string>
-    <string name="warning">ONLY FOR ADVANCED USERS!</string>
     <string name="action_setonboot">Set on boot</string>
     <string name="newkernel">New Kernel detected. Your values will not get applied.</string>
     <string name="refresh">Refresh</string>
@@ -62,9 +61,10 @@
     <string name="core">Core</string>
     <string name="iva">IVA</string>
     <string name="mpu">MPU</string>
+    <string name="cpuvoltages">CPU Voltages</string>
+    <string name="cpuvoltages_summary">Decreasing voltage will lower power consumption of the CPU. Increasing it on overclocked frequencies improves stability. Too low voltage may cause instabilities and freezes.</string>
     <string name="corevoltages">Core Voltages</string>
     <string name="ivavoltages">IVA Voltages</string>
-    <string name="mpuvoltages">MPU Voltages</string>
     <string name="regulatorvoltages">Regulator Voltages</string>
     <string name="voltage">Voltage</string>
 

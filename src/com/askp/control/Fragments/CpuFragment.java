@@ -90,6 +90,11 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	public static CheckBox mCore, mIVA, mMPU;
 
+	public static TextView[] mCpuVoltagesTexts;
+	private static String[] mCpuVoltagesList;
+	private static SeekBar[] mCpuVoltagesBars;
+	public static List<String> mCpuVoltagesValuesList = new ArrayList<String>();
+
 	public static TextView[] mCoreVoltagesTexts;
 	private static String[] mCoreVoltagesList;
 	private static SeekBar[] mCoreVoltagesBars;
@@ -99,11 +104,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static String[] mIVAVoltagesList;
 	private static SeekBar[] mIVAVoltagesBars;
 	public static List<String> mIVAVoltagesValuesList = new ArrayList<String>();
-
-	public static TextView[] mMPUVoltagesTexts;
-	private static String[] mMPUVoltagesList;
-	private static SeekBar[] mMPUVoltagesBars;
-	public static List<String> mMPUVoltagesValuesList = new ArrayList<String>();
 
 	public static TextView[] mRegulatorVoltagesTexts;
 	private static String[] mRegulatorVoltagesList;
@@ -443,20 +443,59 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		if (Utils.existFile(CpuValues.FILENAME_MPU))
 			mLayout.addView(mMPU);
 
+		// Cpu Voltages Title
+		TextView mCpuVoltagesTitle = new TextView(context);
+		LayoutStyle.setTextTitle(mCpuVoltagesTitle,
+				context.getString(R.string.cpuvoltages), context);
+
+		// Cpu Voltages Summary
+		TextView mCpuVoltagesSummary = new TextView(context);
+		LayoutStyle.setTextSummary(mCpuVoltagesSummary,
+				context.getString(R.string.cpuvoltages_summary));
+
+		if (Utils.existFile(CpuValues.FILENAME_CPU_VOLTAGAES)) {
+			mLayout.addView(mCpuVoltagesTitle);
+			mLayout.addView(mCpuVoltagesSummary);
+		}
+
+		mCpuVoltagesList = CpuValues.mCpuVoltagesFreq().split("\\r?\\n");
+		mCpuVoltagesBars = new SeekBar[mCpuVoltagesList.length];
+		mCpuVoltagesTexts = new TextView[mCpuVoltagesList.length];
+		for (int i = 0; i < mCpuVoltagesList.length; i++) {
+
+			// Cpu Voltages Subtitle
+			TextView mCpuVoltagesSubtitle = new TextView(context);
+			LayoutStyle.setTextSubTitle(mCpuVoltagesSubtitle,
+					mCpuVoltagesList[i].split(" ")[0] + " MHz", context);
+
+			// Cpu Voltages SeekBar
+			SeekBar mCpuVoltagesBar = new SeekBar(context);
+			LayoutStyle.setSeekBar(mCpuVoltagesBar, i < 918 ? 918 : 1500,
+					Integer.parseInt(mCpuVoltagesList[i].split(" ")[1]) - 700);
+			mCpuVoltagesBar.setOnSeekBarChangeListener(SeekBarChangeListener);
+			mCpuVoltagesBars[i] = mCpuVoltagesBar;
+
+			// Cpu Voltages TextView
+			TextView mCpuVoltagesText = new TextView(context);
+			LayoutStyle.setCenterText(mCpuVoltagesText,
+					mCpuVoltagesList[i].split(" ")[1] + " mV");
+			mCpuVoltagesText.setOnClickListener(ClickListener);
+			mCpuVoltagesTexts[i] = mCpuVoltagesText;
+
+			if (Utils.existFile(CpuValues.FILENAME_CPU_VOLTAGAES)) {
+				mLayout.addView(mCpuVoltagesSubtitle);
+				mLayout.addView(mCpuVoltagesBar);
+				mLayout.addView(mCpuVoltagesText);
+			}
+		}
+
 		// Core Voltages Title
 		TextView mCoreVoltagesTitle = new TextView(context);
 		LayoutStyle.setTextTitle(mCoreVoltagesTitle,
 				context.getString(R.string.corevoltages), context);
 
-		// Core Voltages Summary
-		TextView mCoreVoltagesSummary = new TextView(context);
-		LayoutStyle.setTextSummary(mCoreVoltagesSummary,
-				context.getString(R.string.warning));
-
-		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES)) {
+		if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES))
 			mLayout.addView(mCoreVoltagesTitle);
-			mLayout.addView(mCoreVoltagesSummary);
-		}
 
 		mCoreVoltagesList = CpuValues.mCoreVoltagesFreq().split("\\r?\\n");
 		mCoreVoltagesBars = new SeekBar[mCoreVoltagesList.length];
@@ -496,15 +535,8 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		LayoutStyle.setTextTitle(mIVAVoltagesTitle,
 				context.getString(R.string.ivavoltages), context);
 
-		// IVA Voltages Summary
-		TextView mIVAVoltagesSummary = new TextView(context);
-		LayoutStyle.setTextSummary(mIVAVoltagesSummary,
-				context.getString(R.string.warning));
-
-		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES)) {
+		if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES))
 			mLayout.addView(mIVAVoltagesTitle);
-			mLayout.addView(mIVAVoltagesSummary);
-		}
 
 		mIVAVoltagesList = CpuValues.mIVAVoltagesFreq().split("\\r?\\n");
 		mIVAVoltagesBars = new SeekBar[mIVAVoltagesList.length];
@@ -539,66 +571,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			}
 		}
 
-		// MPU Voltages Title
-		TextView mMPUVoltagesTitle = new TextView(context);
-		LayoutStyle.setTextTitle(mMPUVoltagesTitle,
-				context.getString(R.string.mpuvoltages), context);
-
-		// MPU Voltages Summary
-		TextView mMPUVoltagesSummary = new TextView(context);
-		LayoutStyle.setTextSummary(mMPUVoltagesSummary,
-				context.getString(R.string.warning));
-
-		if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
-			mLayout.addView(mMPUVoltagesTitle);
-			mLayout.addView(mMPUVoltagesSummary);
-		}
-
-		mMPUVoltagesList = CpuValues.mMPUVoltagesFreq().split("\\r?\\n");
-		mMPUVoltagesBars = new SeekBar[mMPUVoltagesList.length];
-		mMPUVoltagesTexts = new TextView[mMPUVoltagesList.length];
-		for (int i = 0; i < mMPUVoltagesList.length; i++) {
-
-			// MPU Voltages Subtitle
-			TextView mMPUVoltagesSubtitle = new TextView(context);
-			LayoutStyle.setTextSubTitle(mMPUVoltagesSubtitle,
-					mMPUVoltagesList[i].split(" ")[0] + " MHz", context);
-
-			// MPU Voltages SeekBar
-			SeekBar mMPUVoltagesBar = new SeekBar(context);
-			LayoutStyle.setSeekBar(mMPUVoltagesBar, 918,
-					Integer.parseInt(mMPUVoltagesList[i].split(" ")[1]) - 700);
-			mMPUVoltagesBar.setOnSeekBarChangeListener(SeekBarChangeListener);
-			mMPUVoltagesBars[i] = mMPUVoltagesBar;
-
-			// MPU Voltages TextView
-			TextView mMPUVoltagesText = new TextView(context);
-			LayoutStyle.setCenterText(mMPUVoltagesText,
-					mMPUVoltagesList[i].split(" ")[1] + " mV");
-			mMPUVoltagesText.setOnClickListener(ClickListener);
-			mMPUVoltagesTexts[i] = mMPUVoltagesText;
-
-			if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES)) {
-				mLayout.addView(mMPUVoltagesSubtitle);
-				mLayout.addView(mMPUVoltagesBar);
-				mLayout.addView(mMPUVoltagesText);
-			}
-		}
-
 		// Regulator Voltages Title
 		TextView mRegulatorVoltagesTitle = new TextView(context);
 		LayoutStyle.setTextTitle(mRegulatorVoltagesTitle,
 				context.getString(R.string.regulatorvoltages), context);
 
-		// Regulator Voltages Summary
-		TextView mRegulatorVoltagesSummary = new TextView(context);
-		LayoutStyle.setTextSummary(mRegulatorVoltagesSummary,
-				context.getString(R.string.warning));
-
-		if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES)) {
+		if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES))
 			mLayout.addView(mRegulatorVoltagesTitle);
-			mLayout.addView(mRegulatorVoltagesSummary);
-		}
 
 		mRegulatorVoltagesList = CpuValues.mRegulatorVoltagesFreq().split(
 				"\\r?\\n");
@@ -694,12 +673,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mIVAVoltagesValuesList.add(mIVAVoltagesTexts[i].getText()
 					.toString());
 		}
-		mMPUVoltagesValuesList.clear();
-		for (int i = 0; i < mMPUVoltagesList.length; i++) {
-			if (seekBar.equals(mMPUVoltagesBars[i]))
-				mMPUVoltagesTexts[i].setText(String.valueOf(progress + 700)
+		mCpuVoltagesValuesList.clear();
+		for (int i = 0; i < mCpuVoltagesList.length; i++) {
+			if (seekBar.equals(mCpuVoltagesBars[i]))
+				mCpuVoltagesTexts[i].setText(String.valueOf(progress + 700)
 						+ " mV");
-			mMPUVoltagesValuesList.add(mMPUVoltagesTexts[i].getText()
+			mCpuVoltagesValuesList.add(mCpuVoltagesTexts[i].getText()
 					.toString().replace(" mV", ""));
 		}
 		mRegulatorVoltagesValuesList.clear();
@@ -796,13 +775,13 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 						mIVAVoltagesTexts[i].getText().toString()
 								.replace(" mV", ""),
 						context.getString(R.string.ivavoltages), 700, context);
-		for (int i = 0; i < mMPUVoltagesList.length; i++)
-			if (v.equals(mMPUVoltagesTexts[i]))
+		for (int i = 0; i < mCpuVoltagesList.length; i++)
+			if (v.equals(mCpuVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(
-						mMPUVoltagesBars[i],
-						mMPUVoltagesTexts[i].getText().toString()
+						mCpuVoltagesBars[i],
+						mCpuVoltagesTexts[i].getText().toString()
 								.replace(" mV", ""),
-						context.getString(R.string.mpuvoltages), 700, context);
+						context.getString(R.string.cpuvoltages), 700, context);
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++)
 			if (v.equals(mRegulatorVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(mRegulatorVoltagesBars[i],

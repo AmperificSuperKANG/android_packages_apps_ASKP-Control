@@ -83,7 +83,7 @@ public class BootReceiver extends BroadcastReceiver {
 		setValue(CpuValues.FILENAME_IVA_VOLTAGES, "ivavoltage", context);
 
 		// MPU Voltage
-		setValue(CpuValues.FILENAME_MPU_VOLTAGES, "mpuvoltage", context);
+		setValue(CpuValues.FILENAME_CPU_VOLTAGAES, "cpuvoltage", context);
 
 		// Regulator Voltage
 		setValue(CpuValues.FILENAME_REGULATOR_VOLTAGES, "regulatorvoltage",

@@ -97,15 +97,15 @@ public class Control {
 				IVA = CpuFragment.mIVA.isChecked() ? "1" : "0";
 			if (Utils.existFile(CpuValues.FILENAME_MPU))
 				MPU = CpuFragment.mMPU.isChecked() ? "1" : "0";
+			if (Utils.existFile(CpuValues.FILENAME_CPU_VOLTAGAES))
+				MPU_VOLTAGE = Utils.listSplit(
+						CpuFragment.mCpuVoltagesValuesList).replace(" mV", "");
 			if (Utils.existFile(CpuValues.FILENAME_CORE_VOLTAGES))
 				CORE_VOLTAGE = Utils.listSplit(
 						CpuFragment.mCoreVoltagesValuesList).replace(" mV", "");
 			if (Utils.existFile(CpuValues.FILENAME_IVA_VOLTAGES))
 				IVA_VOLTAGE = Utils.listSplit(
 						CpuFragment.mIVAVoltagesValuesList).replace(" mV", "");
-			if (Utils.existFile(CpuValues.FILENAME_MPU_VOLTAGES))
-				MPU_VOLTAGE = Utils.listSplit(
-						CpuFragment.mMPUVoltagesValuesList).replace(" mV", "");
 			if (Utils.existFile(CpuValues.FILENAME_REGULATOR_VOLTAGES))
 				REGULATOR_VOLTAGE = Utils.listSplit(
 						CpuFragment.mRegulatorVoltagesValuesList).replace(
@@ -218,8 +218,8 @@ public class Control {
 		setFileValue(IVA_VOLTAGE, CpuValues.FILENAME_IVA_VOLTAGES,
 				"ivavoltage", context);
 		// MPU Voltage
-		setFileValue(MPU_VOLTAGE, CpuValues.FILENAME_MPU_VOLTAGES,
-				"mpuvoltage", context);
+		setFileValue(MPU_VOLTAGE, CpuValues.FILENAME_CPU_VOLTAGAES,
+				"cpuvoltage", context);
 		// Regulator Voltage
 		setFileValue(REGULATOR_VOLTAGE, CpuValues.FILENAME_REGULATOR_VOLTAGES,
 				"regulatorvoltage", context);

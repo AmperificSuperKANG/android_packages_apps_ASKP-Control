@@ -25,7 +25,6 @@
     <string name="norootaccess">Kein root Zugriff!</string>
     <string name="nobusybox">Kein busybox!</string>
     <string name="valuesapplied">Erfolgreich übernohmen</string>
-    <string name="warning">NUR FÜR ERFAHRENE BENUTZER!</string>
     <string name="action_setonboot">Nach Neustart übernehmen</string>
     <string name="newkernel">Neuer Kernel erkannt. Ihre Werte werden nicht übernohmen.</string>
     <string name="refresh">Aktualisieren</string>
@@ -52,9 +51,10 @@
     <string name="smartreflex">Smartreflex</string>
     <string name="smartreflex_summary">Smartreflex ist ein Energiesparassistent entwickelt von Texas Instruments. Es untertaktet dynamisch die Spannug jeder Frequenz zu dem niedrigsten und stabilsten Wert.</string>
     <string name="core">Kern</string>
+    <string name="cpuvoltages">CPU Spannungen</string>
+    <string name="cpuvoltages_summary">Verringern der Spannung bewirkt, dass der Energieverbrauch der CPU abnimmt. Erhöhen Sie diese Werte an übertakte Frequenzen, nimmt die Stabilität zu. Zu niedrige Spannungen könnten Probleme verursachen.</string>
     <string name="corevoltages">Kern Spannungen</string>
     <string name="ivavoltages">IVA Spannungen</string>
-    <string name="mpuvoltages">MPU Spannungen</string>
     <string name="regulatorvoltages">Regler Spannungen</string>
     <string name="voltage">Spannung</string>
 
