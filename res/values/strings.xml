@@ -32,6 +32,13 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <!-- Tutorial -->
+    <string name="welcome">Welcome to %s</string>
+    <string name="app_summary">This app allows you to control your phone. Which features are available, depends on your kernel.</string>
+    <string name="app_summary_warning">As always we are not responsible for any kind of damage on your expensive toy in your hand!</string>
+    <string name="quickguide">Quick Guide</string>
+    <string name="quickguide_summary">%s should be compatible with all phone, but not all features are available.\n\nYou can put in a custom value to Seekbars.</string>
+
     <!-- Information -->
     <string name="information">Information</string>
     <string name="device">Device</string>

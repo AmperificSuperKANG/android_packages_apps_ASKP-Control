@@ -18,18 +18,19 @@
 
 package com.askp.control.Utils;
 
-import com.askp.control.R;
 import com.askp.control.MainActivity;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.InputType;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar;
 
 public class ValueEditor {
@@ -38,27 +39,27 @@ public class ValueEditor {
 	private static Button mPlus;
 	private static Button mMinus;
 
+	@SuppressWarnings("deprecation")
 	public static void showSeekBarEditor(final SeekBar seekbar, String value,
 			String title, final int calculate, final int steps,
 			final Context context) {
-		LayoutInflater factory = LayoutInflater.from(context);
-		final View btn = factory.inflate(R.layout.editor, null);
+		LinearLayout mLayout = new LinearLayout(context);
 
-		mValue = (EditText) btn.findViewById(R.id.value);
+		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.FILL_PARENT);
+		params.weight = 1.0f;
+		params.gravity = Gravity.CENTER;
+
+		mValue = new EditText(context);
+		mValue.setLayoutParams(params);
 		mValue.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED
 				| InputType.TYPE_CLASS_NUMBER);
 		mValue.setText(value);
+		mValue.setGravity(Gravity.CENTER);
 
-		mPlus = (Button) btn.findViewById(R.id.plus);
-		mPlus.setText("+");
-		mPlus.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
-						.toString()) + steps));
-			}
-		});
-		mMinus = (Button) btn.findViewById(R.id.minus);
+		mMinus = new Button(context);
+		mMinus.setLayoutParams(params);
+		mMinus.setGravity(Gravity.CENTER);
 		mMinus.setText("-");
 		mMinus.setOnClickListener(new OnClickListener() {
 			@Override
@@ -68,8 +69,24 @@ public class ValueEditor {
 			}
 		});
 
+		mPlus = new Button(context);
+		mPlus.setLayoutParams(params);
+		mPlus.setGravity(Gravity.CENTER);
+		mPlus.setText("+");
+		mPlus.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
+						.toString()) + steps));
+			}
+		});
+
+		mLayout.addView(mMinus);
+		mLayout.addView(mValue);
+		mLayout.addView(mPlus);
+
 		Builder builder = new Builder(context);
-		builder.setView(btn)
+		builder.setView(mLayout)
 				.setTitle(title)
 				.setNegativeButton(context.getString(android.R.string.cancel),
 						new DialogInterface.OnClickListener() {

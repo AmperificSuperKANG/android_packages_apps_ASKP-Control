@@ -32,13 +32,16 @@ import com.askp.control.Fragments.MiscellaneousFragment;
 import com.askp.control.Fragments.NewsFragment;
 import com.askp.control.Utils.Control;
 import com.askp.control.Utils.CpuValues;
+import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -47,6 +50,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,6 +60,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -77,6 +82,7 @@ public class MainActivity extends FragmentActivity {
 	public static boolean mMiscellaneousAction = false;
 
 	public static int mWidth = 0;
+	public static int mHeight = 0;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -125,6 +131,7 @@ public class MainActivity extends FragmentActivity {
 
 		Display display = this.getWindowManager().getDefaultDisplay();
 		mWidth = display.getWidth();
+		mHeight = display.getHeight();
 
 		mTitle = getTitle();
 		mMenuTitles = new String[] { getString(R.string.information),
@@ -169,8 +176,13 @@ public class MainActivity extends FragmentActivity {
 
 		if (savedInstanceState == null) {
 			selectItem(1);
-			if (Utils.getBoolean("showdrawer", true, getApplicationContext()))
+			if (Utils.getBoolean("showdrawer", true, this))
 				mDrawerLayout.openDrawer(mDrawerList);
+		}
+
+		if (Utils.getBoolean("firstuse", true, this)) {
+			showTut(this);
+			Utils.saveBoolean("firstuse", false, this);
 		}
 	}
 
@@ -316,5 +328,64 @@ public class MainActivity extends FragmentActivity {
 			imageView.setImageResource(mImage[position]);
 			return rowView;
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void showTut(Context context) {
+		LayoutInflater factory = LayoutInflater.from(context);
+		View mView = factory.inflate(R.layout.layout, null);
+		LinearLayout mLayout = (LinearLayout) mView.findViewById(R.id.layout);
+
+		TextView mWelcomeText = new TextView(context);
+		LayoutStyle.setTextTitle(
+				mWelcomeText,
+				context.getString(R.string.welcome,
+						context.getString(R.string.app_name)), context);
+		mWelcomeText.setLayoutParams(new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT));
+		mWelcomeText.setGravity(Gravity.CENTER);
+		mWelcomeText.setTextSize(40);
+
+		TextView mAppSummary = new TextView(context);
+		mAppSummary.setText("\n" + context.getString(R.string.app_summary));
+		mAppSummary.setPadding(mWidth / 20, 0, mWidth / 20, 0);
+
+		TextView mAppSummaryWarning = new TextView(context);
+		mAppSummaryWarning.setText("\n"
+				+ context.getString(R.string.app_summary_warning) + "\n");
+		mAppSummaryWarning.setTextSize(15);
+		mAppSummaryWarning.setTypeface(null, Typeface.BOLD_ITALIC);
+		mAppSummaryWarning.setPadding(mWidth / 20, 0, mWidth / 20, 0);
+
+		TextView mQuickGuide = new TextView(context);
+		LayoutStyle.setTextTitle(mQuickGuide,
+				context.getString(R.string.quickguide), context);
+		mQuickGuide.setTextSize(20);
+
+		TextView mQuickGuideSummary = new TextView(context);
+		mQuickGuideSummary.setText("\n"
+				+ context.getString(R.string.quickguide_summary,
+						context.getString(R.string.app_name)) + "\n");
+		mQuickGuideSummary.setPadding(mWidth / 20, 0, mWidth / 20, 0);
+
+		ImageView mQuickGuideImage = new ImageView(context);
+		mQuickGuideImage.setImageResource(R.drawable.ic_tut);
+		mQuickGuideImage.setPadding(mWidth / 20, -mHeight / 20, mWidth / 20, 0);
+
+		ImageView mQuickGuideImage2 = new ImageView(context);
+		mQuickGuideImage2.setImageResource(R.drawable.ic_tut2);
+		mQuickGuideImage2
+				.setPadding(mWidth / 20, -mHeight / 20, mWidth / 20, 0);
+
+		mLayout.addView(mWelcomeText);
+		mLayout.addView(mAppSummary);
+		mLayout.addView(mAppSummaryWarning);
+		mLayout.addView(mQuickGuide);
+		mLayout.addView(mQuickGuideSummary);
+		mLayout.addView(mQuickGuideImage);
+		mLayout.addView(mQuickGuideImage2);
+
+		new AlertDialog.Builder(context).setView(mView).show();
 	}
 }
