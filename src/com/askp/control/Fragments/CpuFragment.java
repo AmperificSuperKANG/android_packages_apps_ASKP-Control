@@ -767,31 +767,34 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 						mCoreVoltagesBars[i],
 						mCoreVoltagesTexts[i].getText().toString()
 								.replace(" mV", ""),
-						context.getString(R.string.corevoltages), 700, context);
+						context.getString(R.string.corevoltages), 700, 1,
+						context);
 		for (int i = 0; i < mIVAVoltagesList.length; i++)
 			if (v.equals(mIVAVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(
 						mIVAVoltagesBars[i],
 						mIVAVoltagesTexts[i].getText().toString()
 								.replace(" mV", ""),
-						context.getString(R.string.ivavoltages), 700, context);
+						context.getString(R.string.ivavoltages), 700, 1,
+						context);
 		for (int i = 0; i < mCpuVoltagesList.length; i++)
 			if (v.equals(mCpuVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(
 						mCpuVoltagesBars[i],
 						mCpuVoltagesTexts[i].getText().toString()
 								.replace(" mV", ""),
-						context.getString(R.string.cpuvoltages), 700, context);
+						context.getString(R.string.cpuvoltages), 700, 1,
+						context);
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++)
 			if (v.equals(mRegulatorVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(mRegulatorVoltagesBars[i],
 						mRegulatorVoltagesTexts[i].getText().toString()
 								.replace(" mV", ""),
-						context.getString(R.string.regulatorvoltages), 1500,
+						context.getString(R.string.regulatorvoltages), 1500, 1,
 						context);
 		if (v.equals(mTempLimitText))
 			ValueEditor.showSeekBarEditor(mTempLimitBar, mTempLimitText
 					.getText().toString(), context
-					.getString(R.string.templimit), 60, context);
+					.getString(R.string.templimit), 60, 1, context);
 	}
 }

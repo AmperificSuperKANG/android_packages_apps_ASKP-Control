@@ -39,7 +39,8 @@ public class ValueEditor {
 	private static Button mMinus;
 
 	public static void showSeekBarEditor(final SeekBar seekbar, String value,
-			String title, final int calculate, final Context context) {
+			String title, final int calculate, final int steps,
+			final Context context) {
 		LayoutInflater factory = LayoutInflater.from(context);
 		final View btn = factory.inflate(R.layout.editor, null);
 
@@ -54,7 +55,7 @@ public class ValueEditor {
 			@Override
 			public void onClick(View v) {
 				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
-						.toString()) + 1));
+						.toString()) + steps));
 			}
 		});
 		mMinus = (Button) btn.findViewById(R.id.minus);
@@ -63,7 +64,7 @@ public class ValueEditor {
 			@Override
 			public void onClick(View v) {
 				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
-						.toString()) - 1));
+						.toString()) - steps));
 			}
 		});
 
@@ -84,8 +85,10 @@ public class ValueEditor {
 									int which) {
 								if (mValue.getText().toString()
 										.matches("[0-9]+")) {
-									seekbar.setProgress(Integer.parseInt(mValue
-											.getText().toString()) - calculate);
+									seekbar.setProgress((Integer
+											.parseInt(mValue.getText()
+													.toString()) - calculate)
+											/ steps);
 									MainActivity.showButtons(true);
 								}
 							}

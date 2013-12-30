@@ -407,7 +407,7 @@ public class GpuDisplayFragment extends Fragment implements
 			if (v.equals(mColorMultiplierTexts[i])) {
 				ValueEditor.showSeekBarEditor(mColorMultiplierBars[i],
 						mColorMultiplierTexts[i].getText().toString(),
-						context.getString(R.string.colormultipliers), 60,
+						context.getString(R.string.colormultipliers), 60, 1,
 						context);
 			}
 		}

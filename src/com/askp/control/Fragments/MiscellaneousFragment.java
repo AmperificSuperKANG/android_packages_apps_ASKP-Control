@@ -404,10 +404,11 @@ public class MiscellaneousFragment extends Fragment implements
 		if (v.equals(mBatteryExtenderText))
 			ValueEditor.showSeekBarEditor(mBatteryExtenderBar,
 					mBatteryExtenderText.getText().toString(),
-					context.getString(R.string.batteryextender), 0, context);
+					context.getString(R.string.batteryextender), 0, 1, context);
 		else if (v.equals(mVibrationStrengthText))
 			ValueEditor.showSeekBarEditor(mVibrationStrengthBar,
 					mVibrationStrengthText.getText().toString(),
-					context.getString(R.string.vibrationstrength), 0, context);
+					context.getString(R.string.vibrationstrength), 0, 1,
+					context);
 	}
 }

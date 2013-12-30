@@ -27,12 +27,14 @@ import com.askp.control.R;
 import com.askp.control.Utils.IoAlgorithmValues;
 import com.askp.control.Utils.LayoutStyle;
 import com.askp.control.Utils.Utils;
+import com.askp.control.Utils.ValueEditor;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -44,11 +46,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class IoAlgorithmFragment extends Fragment implements
-		OnItemSelectedListener, OnSeekBarChangeListener {
+		OnItemSelectedListener, OnSeekBarChangeListener, OnClickListener {
 	private static Context context;
 
 	private static OnItemSelectedListener ItemSelectedListener;
 	private static OnSeekBarChangeListener SeekBarChangeListener;
+	private static OnClickListener ClickListener;
 
 	private static LinearLayout mLayout;
 
@@ -75,6 +78,7 @@ public class IoAlgorithmFragment extends Fragment implements
 		mLayout = (LinearLayout) rootView.findViewById(R.id.layout);
 		ItemSelectedListener = this;
 		SeekBarChangeListener = this;
+		ClickListener = this;
 		setContent();
 
 		return rootView;
@@ -177,15 +181,17 @@ public class IoAlgorithmFragment extends Fragment implements
 		// Internal Read SeekBar
 		mInternalReadBar = new SeekBar(context);
 		LayoutStyle
-				.setSeekBar(mInternalReadBar, 31, Integer.parseInt(String
-						.valueOf(Integer.parseInt(IoAlgorithmValues
-								.mInternalRead()) - 128)) / 128);
+				.setSeekBar(
+						mInternalReadBar,
+						31,
+						(Integer.parseInt(IoAlgorithmValues.mInternalRead()) - 128) / 128);
 		mInternalReadBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// Internal Read Text
 		mInternalReadText = new TextView(context);
 		LayoutStyle.setCenterText(mInternalReadText,
 				IoAlgorithmValues.mInternalRead() + " kB");
+		mInternalReadText.setOnClickListener(ClickListener);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_INTERNAL_READ)) {
 			mLayout.addView(mInternalReadTitle);
@@ -201,15 +207,17 @@ public class IoAlgorithmFragment extends Fragment implements
 		// External Read SeekBar
 		mExternalReadBar = new SeekBar(context);
 		LayoutStyle
-				.setSeekBar(mExternalReadBar, 31, Integer.parseInt(String
-						.valueOf(Integer.parseInt(IoAlgorithmValues
-								.mExternalRead()) - 128)) / 128);
+				.setSeekBar(
+						mExternalReadBar,
+						31,
+						(Integer.parseInt(IoAlgorithmValues.mExternalRead()) - 128) / 128);
 		mExternalReadBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 
 		// External Read Text
 		mExternalReadText = new TextView(context);
 		LayoutStyle.setCenterText(mExternalReadText,
 				IoAlgorithmValues.mExternalRead() + " kB");
+		mExternalReadText.setOnClickListener(ClickListener);
 
 		if (Utils.existFile(IoAlgorithmValues.FILENAME_EXTERNAL_READ)) {
 			mLayout.addView(mExternalReadTitle);
@@ -258,5 +266,17 @@ public class IoAlgorithmFragment extends Fragment implements
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		MainActivity.showButtons(true);
 		MainActivity.mIoAlgorithmAction = true;
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v.equals(mInternalReadText))
+			ValueEditor.showSeekBarEditor(mInternalReadBar, mInternalReadText
+					.getText().toString().replace(" kB", ""),
+					getString(R.string.internalreadahead), 128, 128, context);
+		else if (v.equals(mExternalReadText))
+			ValueEditor.showSeekBarEditor(mExternalReadBar, mExternalReadText
+					.getText().toString().replace(" kB", ""),
+					getString(R.string.externalreadahead), 128, 128, context);
 	}
 }
