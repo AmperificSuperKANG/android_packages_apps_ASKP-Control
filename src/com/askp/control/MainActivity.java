@@ -31,6 +31,8 @@ import com.askp.control.Utils.CpuValues;
 import com.askp.control.Utils.Utils;
 import com.stericson.RootTools.RootTools;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -40,13 +42,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
 	private static DrawerLayout mDrawerLayout;
@@ -123,8 +129,10 @@ public class MainActivity extends FragmentActivity {
 
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mMenuTitles));
+		mDrawerList.setAdapter(new CustomList(this, mMenuTitles, new Integer[] {
+				R.drawable.ic_info, R.drawable.ic_cpu, R.drawable.ic_gpu,
+				R.drawable.ic_io, R.drawable.ic_misce, R.drawable.ic_download,
+				R.drawable.ic_install, R.drawable.ic_news }));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -263,5 +271,32 @@ public class MainActivity extends FragmentActivity {
 	public static void showButtons(boolean visible) {
 		applyButton.setVisible(visible);
 		cancelButton.setVisible(visible);
+	}
+
+	public static class CustomList extends ArrayAdapter<String> {
+
+		private static Context mContext;
+		private static String[] mText;
+		private static Integer[] mImage;
+
+		public CustomList(Context context, String[] text, Integer[] image) {
+			super(context, R.layout.list_single, text);
+			CustomList.mContext = context;
+			CustomList.mText = text;
+			CustomList.mImage = image;
+		}
+
+		@Override
+		public View getView(int position, View view, ViewGroup parent) {
+			LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+			View rowView = inflater.inflate(R.layout.list_single, null, true);
+			TextView txtTitle = (TextView) rowView.findViewById(R.id.text);
+
+			ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
+			txtTitle.setText(mText[position]);
+
+			imageView.setImageResource(mImage[position]);
+			return rowView;
+		}
 	}
 }

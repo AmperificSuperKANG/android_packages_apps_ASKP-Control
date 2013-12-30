@@ -24,8 +24,9 @@
 
     <Button
         android:id="@+id/plus"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="?android:attr/selectableItemBackground" />
 
     <EditText
@@ -33,15 +34,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center" >
+        android:gravity="center"
+        android:inputType="" >
 
         <requestFocus />
     </EditText>
 
     <Button
         android:id="@+id/minus"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="?android:attr/selectableItemBackground" />
 
 </LinearLayout>
