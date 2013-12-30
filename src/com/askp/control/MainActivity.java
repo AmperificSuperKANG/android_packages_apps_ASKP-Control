@@ -168,7 +168,7 @@ public class MainActivity extends FragmentActivity {
 			}
 
 			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mTitle);
+				getActionBar().setTitle(getString(R.string.app_name));
 				invalidateOptionsMenu();
 			}
 		};
@@ -176,8 +176,10 @@ public class MainActivity extends FragmentActivity {
 
 		if (savedInstanceState == null) {
 			selectItem(1);
-			if (Utils.getBoolean("showdrawer", true, this))
+			if (Utils.getBoolean("showdrawer", true, this)) {
 				mDrawerLayout.openDrawer(mDrawerList);
+				getActionBar().setTitle(getString(R.string.app_name));
+			}
 		}
 
 		if (Utils.getBoolean("firstuse", true, this)) {
