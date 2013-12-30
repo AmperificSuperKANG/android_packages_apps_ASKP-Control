@@ -33,7 +33,7 @@ public class BootReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if (Utils.getBoolean("setonboot", context) == true
+		if (Utils.getBoolean("setonboot", false, context)
 				&& RootTools.isAccessGiven() && RootTools.isBusyboxAvailable()) {
 			if (Utils.getFormattedKernelVersion().equals(
 					Utils.getString("kernelversion", context))) {

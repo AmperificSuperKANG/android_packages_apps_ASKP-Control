@@ -26,6 +26,7 @@
     <string name="nobusybox">Kein busybox!</string>
     <string name="valuesapplied">Erfolgreich übernohmen</string>
     <string name="action_setonboot">Nach Neustart übernehmen</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="newkernel">Neuer Kernel erkannt. Ihre Werte werden nicht übernohmen.</string>
     <string name="refresh">Aktualisieren</string>
 

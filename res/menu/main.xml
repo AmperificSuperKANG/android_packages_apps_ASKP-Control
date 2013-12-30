@@ -22,8 +22,10 @@
     <item
         android:id="@+id/action_setonboot"
         android:checkable="true"
-        android:title="@string/action_setonboot">
-    </item>
+        android:title="@string/action_setonboot"/>
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"/>
     <item
         android:id="@+id/action_apply"
         android:icon="@drawable/navigation_accept"

@@ -65,8 +65,10 @@ public class Utils {
 				"nothing");
 	}
 
-	public static boolean getBoolean(String name, Context context) {
-		return context.getSharedPreferences("prefs", 0).getBoolean(name, false);
+	public static boolean getBoolean(String name, boolean defaults,
+			Context context) {
+		return context.getSharedPreferences("prefs", 0).getBoolean(name,
+				defaults);
 	}
 
 	public static void saveBoolean(String name, boolean value, Context context) {

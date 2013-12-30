@@ -26,6 +26,7 @@
     <string name="nobusybox">No busybox!</string>
     <string name="valuesapplied">Apply Successfully</string>
     <string name="action_setonboot">Set on boot</string>
+    <string name="action_settings">Settings</string>
     <string name="newkernel">New Kernel detected. Your values will not get applied.</string>
     <string name="refresh">Refresh</string>
     <string name="drawer_open">Open navigation drawer</string>
@@ -143,5 +144,9 @@
 
     <!-- News -->
     <string name="news">News</string>
+
+    <!-- Settings -->
+    <string name="showdrawer">Show drawer</string>
+    <string name="showdrawer_summary">Show navigation drawer at launch.</string>
 
 </resources>

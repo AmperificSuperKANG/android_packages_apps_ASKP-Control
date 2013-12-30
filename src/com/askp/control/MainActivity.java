@@ -37,6 +37,7 @@ import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -66,8 +67,8 @@ public class MainActivity extends FragmentActivity {
 	private static CharSequence mTitle;
 	private static String[] mMenuTitles;
 
-	public static MenuItem applyButton;
-	public static MenuItem cancelButton;
+	private static MenuItem applyButton;
+	private static MenuItem cancelButton;
 	private static MenuItem setonbootBox;
 
 	public static boolean mCpuAction = false;
@@ -168,7 +169,8 @@ public class MainActivity extends FragmentActivity {
 
 		if (savedInstanceState == null) {
 			selectItem(1);
-			mDrawerLayout.openDrawer(mDrawerList);
+			if (Utils.getBoolean("showdrawer", true, getApplicationContext()))
+				mDrawerLayout.openDrawer(mDrawerList);
 		}
 	}
 
@@ -193,7 +195,7 @@ public class MainActivity extends FragmentActivity {
 				| MenuItem.SHOW_AS_ACTION_ALWAYS);
 		showButtons(false);
 		setonbootBox = menu.findItem(R.id.action_setonboot).setChecked(
-				Utils.getBoolean("setonboot", getApplicationContext()));
+				Utils.getBoolean("setonboot", false, getApplicationContext()));
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -212,11 +214,14 @@ public class MainActivity extends FragmentActivity {
 			Control.exitControl(getApplicationContext());
 			break;
 		case R.id.action_setonboot:
-			setonbootBox.setChecked(!Utils.getBoolean("setonboot",
+			setonbootBox.setChecked(!Utils.getBoolean("setonboot", false,
 					getApplicationContext()));
-			Utils.saveBoolean("setonboot",
-					!Utils.getBoolean("setonboot", getApplicationContext()),
-					getApplicationContext());
+			Utils.saveBoolean("setonboot", !Utils.getBoolean("setonboot",
+					false, getApplicationContext()), getApplicationContext());
+			break;
+		case R.id.action_settings:
+			startActivity(new Intent(getApplicationContext(),
+					SettingsActivity.class));
 			break;
 		}
 		if (mDrawerToggle.onOptionsItemSelected(item))
