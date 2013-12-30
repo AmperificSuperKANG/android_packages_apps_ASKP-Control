@@ -59,7 +59,7 @@ public class LayoutStyle {
 	public static void setSeekBar(SeekBar i, int max, int progress) {
 		i.setMax(max);
 		i.setProgress(progress);
-		i.setPadding(MainActivity.mWidth / 10, 0, MainActivity.mWidth / 10, 0);
+		i.setPadding(MainActivity.mWidth / 15, 0, MainActivity.mWidth / 15, 0);
 	}
 
 	public static void setTextSummary(TextView i, String text) {
