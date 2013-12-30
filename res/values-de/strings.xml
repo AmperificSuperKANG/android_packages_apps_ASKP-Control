@@ -35,7 +35,7 @@
     <string name="app_summary">Diese App erlaubt Ihnen Ihr Telefon zu kontrollieren. Welche Funktionen verfügbar sind, liegt an Ihrem Kernel.</string>
     <string name="app_summary_warning">Wie immer sind wir nicht verantwortlich für Schäden an Ihren teuern Spielzeug in Ihrer Hand!</string>
     <string name="quickguide">Einführung</string>
-    <string name="quickguide_summary">%s sollte kompatibel sein mit allen Handys, aber nicht alle Funktionen sind verfügbar.\n\nSie können eine eigen Wert für die Wertebalken bestimmen.</string>
+    <string name="quickguide_summary">%s sollte kompatibel sein mit allen Handys, aber nicht alle Funktionen sind verfügbar.\n\nSie können eine eigenen Wert für die Wertebalken bestimmen.</string>
 
     <!-- Information -->
     <string name="information">Informationen</string>
