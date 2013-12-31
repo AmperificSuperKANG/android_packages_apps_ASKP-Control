@@ -180,7 +180,7 @@ public class MainActivity extends FragmentActivity {
 
 		if (savedInstanceState == null) {
 			selectItem(selection);
-			if (Utils.getBoolean("showdrawer", true, this)) {
+			if (Utils.getBoolean("showdrawer", true, this) && selection == 1) {
 				mDrawerLayout.openDrawer(mDrawerList);
 				getActionBar().setTitle(getString(R.string.app_name));
 			}
