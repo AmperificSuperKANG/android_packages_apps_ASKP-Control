@@ -16,13 +16,10 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp.control;
+package com.askp.control.utils;
 
-import com.askp.control.Utils.CpuValues;
-import com.askp.control.Utils.GpuDisplayValues;
-import com.askp.control.Utils.IoAlgorithmValues;
-import com.askp.control.Utils.MiscellaneousValues;
-import com.askp.control.Utils.Utils;
+import com.askp.control.R;
+import com.askp.control.services.OtaService;
 import com.stericson.RootTools.RootTools;
 
 import android.content.BroadcastReceiver;
@@ -34,15 +31,15 @@ public class BootReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (Utils.getBoolean("setonboot", false, context)
-				&& RootTools.isAccessGiven() && RootTools.isBusyboxAvailable()) {
+				&& RootTools.isAccessGiven() && RootTools.isBusyboxAvailable())
 			if (Utils.getFormattedKernelVersion().equals(
 					Utils.getString("kernelversion", context))) {
 				setOnBoot(context);
 				Utils.toast(context.getString(R.string.valuesapplied), context);
-			} else {
+			} else
 				Utils.toast(context.getString(R.string.newkernel), context);
-			}
-		}
+		if (Utils.getBoolean("otaupdates", true, context))
+			context.startService(new Intent(context, OtaService.class));
 	}
 
 	private static void setOnBoot(Context context) {

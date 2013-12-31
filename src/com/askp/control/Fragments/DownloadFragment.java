@@ -16,16 +16,16 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp.control.Fragments;
+package com.askp.control.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.askp.control.DownloadActivity;
 import com.askp.control.R;
-import com.askp.control.Utils.GetConnection;
-import com.askp.control.Utils.LayoutStyle;
-import com.askp.control.Utils.Utils;
+import com.askp.control.activities.DownloadActivity;
+import com.askp.control.utils.GetConnection;
+import com.askp.control.utils.LayoutStyle;
+import com.askp.control.utils.Utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -91,8 +91,7 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 		mLayout.addView(mProgress);
 		GetConnection.getconnection(mLink
 				+ InformationFragment.mModel.replace(" ", "").toLowerCase());
-		DisplayString task = new DisplayString();
-		task.execute();
+		new DisplayString().execute();
 	}
 
 	private static class DisplayString extends AsyncTask<String, Void, String> {
@@ -111,9 +110,9 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 			LayoutStyle.setCenterText(mError,
 					context.getString(R.string.nointernet));
 
-			if (GetConnection.mHtmlstring.isEmpty()) {
+			if (GetConnection.mHtmlstring.isEmpty())
 				mLayout.addView(mError);
-			} else if (GetConnection.mHtmlstring.contains("Contact Support")) {
+			else if (GetConnection.mHtmlstring.contains("Contact Support")) {
 				mError.setText(context.getString(R.string.nosupport));
 				mLayout.addView(mError);
 			} else {

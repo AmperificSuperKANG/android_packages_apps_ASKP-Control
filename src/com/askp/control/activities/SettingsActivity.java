@@ -1,6 +1,7 @@
-package com.askp.control;
+package com.askp.control.activities;
 
-import com.askp.control.Utils.Utils;
+import com.askp.control.R;
+import com.askp.control.utils.Utils;
 
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -12,8 +13,10 @@ public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
 
 	private static final CharSequence KEY_SHOW_DRAWER = "key_show_drawer";
+	private static final CharSequence KEY_OTA_UPDATES = "key_ota_updates";
 
 	private static CheckBoxPreference mShowDrawer;
+	private static CheckBoxPreference mOtaUpdates;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -25,6 +28,10 @@ public class SettingsActivity extends PreferenceActivity implements
 		mShowDrawer.setChecked(Utils.getBoolean("showdrawer", true,
 				getApplicationContext()));
 		mShowDrawer.setOnPreferenceClickListener(this);
+
+		mOtaUpdates = (CheckBoxPreference) findPreference(KEY_OTA_UPDATES);
+		mOtaUpdates.setChecked(Utils.getBoolean("otaupdates", true, this));
+		mOtaUpdates.setOnPreferenceClickListener(this);
 	}
 
 	@Override
@@ -32,6 +39,10 @@ public class SettingsActivity extends PreferenceActivity implements
 		if (preference.equals(mShowDrawer)) {
 			mShowDrawer.setChecked(mShowDrawer.isChecked());
 			Utils.saveBoolean("showdrawer", mShowDrawer.isChecked(),
+					getApplicationContext());
+		} else if (preference.equals(mOtaUpdates)) {
+			mOtaUpdates.setChecked(mOtaUpdates.isChecked());
+			Utils.saveBoolean("otaupdates", mOtaUpdates.isChecked(),
 					getApplicationContext());
 		}
 		return false;

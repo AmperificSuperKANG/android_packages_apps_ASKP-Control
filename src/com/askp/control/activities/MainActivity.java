@@ -16,24 +16,26 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp.control;
+package com.askp.control.activities;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.askp.control.Fragments.CpuFragment;
-import com.askp.control.Fragments.DownloadFragment;
-import com.askp.control.Fragments.GpuDisplayFragment;
-import com.askp.control.Fragments.InformationFragment;
-import com.askp.control.Fragments.InstallKernelFragment;
-import com.askp.control.Fragments.IoAlgorithmFragment;
-import com.askp.control.Fragments.MiscellaneousFragment;
-import com.askp.control.Fragments.NewsFragment;
-import com.askp.control.Utils.Control;
-import com.askp.control.Utils.CpuValues;
-import com.askp.control.Utils.LayoutStyle;
-import com.askp.control.Utils.Utils;
+import com.askp.control.R;
+import com.askp.control.fragments.CpuFragment;
+import com.askp.control.fragments.DownloadFragment;
+import com.askp.control.fragments.GpuDisplayFragment;
+import com.askp.control.fragments.InformationFragment;
+import com.askp.control.fragments.InstallKernelFragment;
+import com.askp.control.fragments.IoAlgorithmFragment;
+import com.askp.control.fragments.MiscellaneousFragment;
+import com.askp.control.fragments.NewsFragment;
+import com.askp.control.services.OtaService;
+import com.askp.control.utils.Control;
+import com.askp.control.utils.CpuValues;
+import com.askp.control.utils.LayoutStyle;
+import com.askp.control.utils.Utils;
 import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
@@ -83,6 +85,8 @@ public class MainActivity extends FragmentActivity {
 
 	public static int mWidth = 0;
 	public static int mHeight = 0;
+
+	public static int selection = 1;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -175,7 +179,7 @@ public class MainActivity extends FragmentActivity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		if (savedInstanceState == null) {
-			selectItem(1);
+			selectItem(selection);
 			if (Utils.getBoolean("showdrawer", true, this)) {
 				mDrawerLayout.openDrawer(mDrawerList);
 				getActionBar().setTitle(getString(R.string.app_name));
@@ -186,6 +190,9 @@ public class MainActivity extends FragmentActivity {
 			showTut(this);
 			Utils.saveBoolean("firstuse", false, this);
 		}
+
+		if (Utils.getBoolean("otaupdates", true, this))
+			startService(new Intent(this, OtaService.class));
 	}
 
 	private class DrawerItemClickListener implements

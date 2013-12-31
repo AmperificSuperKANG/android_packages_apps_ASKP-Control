@@ -6,6 +6,10 @@
             android:key="key_show_drawer"
             android:summary="@string/showdrawer_summary"
             android:title="@string/showdrawer" />
+        <CheckBoxPreference
+            android:key="key_ota_updates"
+            android:summary="@string/otaupdates_summary"
+            android:title="@string/otaupdates" />
     </PreferenceCategory>
 
 </PreferenceScreen>

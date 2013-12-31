@@ -16,16 +16,16 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp.control.Utils;
+package com.askp.control.utils;
 
 import android.content.Context;
 
 import com.askp.control.R;
-import com.askp.control.Fragments.CpuFragment;
-import com.askp.control.Fragments.GpuDisplayFragment;
-import com.askp.control.Fragments.IoAlgorithmFragment;
-import com.askp.control.MainActivity;
-import com.askp.control.Fragments.MiscellaneousFragment;
+import com.askp.control.activities.MainActivity;
+import com.askp.control.fragments.CpuFragment;
+import com.askp.control.fragments.GpuDisplayFragment;
+import com.askp.control.fragments.IoAlgorithmFragment;
+import com.askp.control.fragments.MiscellaneousFragment;
 
 public class Control {
 

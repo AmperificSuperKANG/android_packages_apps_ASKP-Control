@@ -16,9 +16,9 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp.control.Utils;
+package com.askp.control.utils;
 
-import com.askp.control.MainActivity;
+import com.askp.control.activities.MainActivity;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;

@@ -30,6 +30,12 @@
     <string name="newkernel">Neuer Kernel erkannt. Ihre Werte werden nicht übernohmen.</string>
     <string name="refresh">Aktualisieren</string>
 
+    <!-- Settings -->
+    <string name="showdrawer">Öffne Menu</string>
+    <string name="showdrawer_summary">Öffne Menu beim Starten.</string>
+    <string name="otaupdates">OTA Aktualisierungen</string>
+    <string name="otaupdates_summary">Erhalte Over-The-Air Aktualisierungen.</string>
+
     <!-- Tutorial -->
     <string name="welcome">Willkommen zu %s</string>
     <string name="app_summary">Diese App erlaubt Ihnen Ihr Telefon zu kontrollieren. Welche Funktionen verfügbar sind, liegt an Ihrem Kernel.</string>

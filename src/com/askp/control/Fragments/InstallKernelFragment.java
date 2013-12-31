@@ -1,12 +1,12 @@
-package com.askp.control.Fragments;
+package com.askp.control.fragments;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.askp.control.R;
-import com.askp.control.Utils.LayoutStyle;
-import com.askp.control.Utils.Utils;
+import com.askp.control.utils.LayoutStyle;
+import com.askp.control.utils.Utils;
 
 import android.app.AlertDialog;
 import android.content.Context;

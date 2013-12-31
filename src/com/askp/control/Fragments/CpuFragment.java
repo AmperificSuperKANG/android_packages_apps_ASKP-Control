@@ -16,7 +16,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp.control.Fragments;
+package com.askp.control.fragments;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,12 +45,12 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.askp.control.MainActivity;
 import com.askp.control.R;
-import com.askp.control.Utils.CpuValues;
-import com.askp.control.Utils.LayoutStyle;
-import com.askp.control.Utils.Utils;
-import com.askp.control.Utils.ValueEditor;
+import com.askp.control.activities.MainActivity;
+import com.askp.control.utils.CpuValues;
+import com.askp.control.utils.LayoutStyle;
+import com.askp.control.utils.Utils;
+import com.askp.control.utils.ValueEditor;
 
 public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		OnItemSelectedListener, OnCheckedChangeListener, OnClickListener {

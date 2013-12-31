@@ -1,8 +1,8 @@
-package com.askp.control.Fragments;
+package com.askp.control.fragments;
 
 import com.askp.control.R;
-import com.askp.control.Utils.GetConnection;
-import com.askp.control.Utils.LayoutStyle;
+import com.askp.control.utils.GetConnection;
+import com.askp.control.utils.LayoutStyle;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -53,8 +53,7 @@ public class NewsFragment extends Fragment implements OnClickListener {
 		mLayout.addView(mProgress);
 
 		GetConnection.getconnection(mNewsLink);
-		DisplayString task = new DisplayString();
-		task.execute();
+		new DisplayString().execute();
 	}
 
 	private static class DisplayString extends AsyncTask<String, Void, String> {

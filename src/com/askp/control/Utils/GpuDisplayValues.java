@@ -16,7 +16,7 @@
  * MA  02110-1301, USA.
  */
 
-package com.askp.control.Utils;
+package com.askp.control.utils;
 
 import java.io.IOException;
 
