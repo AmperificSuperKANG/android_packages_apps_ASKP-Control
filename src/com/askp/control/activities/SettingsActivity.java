@@ -8,6 +8,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.view.MenuItem;
 
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
@@ -23,6 +24,8 @@ public class SettingsActivity extends PreferenceActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings_header);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 
 		mShowDrawer = (CheckBoxPreference) findPreference(KEY_SHOW_DRAWER);
 		mShowDrawer.setChecked(Utils.getBoolean("showdrawer", true,
@@ -46,5 +49,11 @@ public class SettingsActivity extends PreferenceActivity implements
 					getApplicationContext());
 		}
 		return false;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem) {
+		onBackPressed();
+		return true;
 	}
 }
