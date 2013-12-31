@@ -1,9 +1,6 @@
 package com.askp.control.fragments;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.askp.control.R;
 import com.askp.control.utils.LayoutStyle;
 import com.askp.control.utils.Utils;
@@ -20,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -28,49 +26,64 @@ import android.widget.TextView;
 
 public class InstallKernelFragment extends Fragment {
 
-	private List<String> fileList = new ArrayList<String>();
+	private static LinearLayout mLayout;
+	private static String[] mFiles;
+	private static ListAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		LinearLayout mLayout = new LinearLayout(getActivity());
+		mLayout = new LinearLayout(getActivity());
 		Utils.mkdir(Environment.getExternalStorageDirectory() + "/askp-kernel");
+		refresh(getActivity());
+		return mLayout;
+	}
 
-		ListView mList = new ListView(getActivity());
+	private static void refresh(final Context context) {
+		mLayout.removeAllViews();
+
+		ListView mList = new ListView(context);
 		mList.setLayoutParams(new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT));
-		mLayout.addView(mList);
 
-		File root = new File(Environment.getExternalStorageDirectory(),
-				"/askp-kernel");
+		File[] files = new File(Environment.getExternalStorageDirectory(),
+				"/askp-kernel").listFiles();
+		mFiles = new String[files.length];
+		for (int i = 0; i < files.length; i++)
+			mFiles[i] = files[i].getName();
 
-		File[] files = root.listFiles();
-		for (File file : files)
-			fileList.add(file.getName());
-
-		ListAdapter adapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, fileList);
+		adapter = new ArrayAdapter<String>(context,
+				android.R.layout.simple_list_item_1, mFiles);
 		mList.setAdapter(adapter);
-		if (fileList.size() == 0) {
-			TextView mNoFile = new TextView(getActivity());
-			LayoutStyle.setTextSubTitle(mNoFile, getString(R.string.nofiles),
-					getActivity());
-			mLayout.removeAllViews();
+
+		if (mFiles.length == 0) {
+			TextView mNoFile = new TextView(context);
+			LayoutStyle.setTextSubTitle(mNoFile,
+					context.getString(R.string.nofiles), context);
 			mLayout.addView(mNoFile);
-		}
+		} else
+			mLayout.addView(mList);
 
 		mList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				installZip(fileList.get(arg2), getActivity());
+				installZip(mFiles[arg2], context);
 			}
 		});
-		return mLayout;
+
+		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				deleteFile(mFiles[arg2], context);
+				return true;
+			}
+		});
 	}
 
-	public static void installZip(final String file, Context context) {
+	private static void installZip(final String file, Context context) {
 		AlertDialog.Builder mConfirm = new AlertDialog.Builder(context);
 		mConfirm.setTitle(context.getString(R.string.installkernel))
 				.setMessage(context.getString(R.string.confirminstall, file))
@@ -89,6 +102,29 @@ public class InstallKernelFragment extends Fragment {
 								Utils.runCommand("echo install /sdcard/askp-kernel/"
 										+ file
 										+ " > /cache/recovery/openrecoveryscript && reboot recovery");
+							}
+						}).show();
+	}
+
+	private static void deleteFile(final String file, final Context context) {
+		AlertDialog.Builder mConfirm = new AlertDialog.Builder(context);
+		mConfirm.setTitle(context.getString(R.string.deletefile))
+				.setMessage(context.getString(R.string.confirmdelete, file))
+				.setNegativeButton(context.getString(android.R.string.cancel),
+						new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						})
+				.setPositiveButton(context.getString(android.R.string.ok),
+						new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Utils.runCommand("rm -f /sdcard/askp-kernel/"
+										+ file);
+								refresh(context);
 							}
 						}).show();
 	}

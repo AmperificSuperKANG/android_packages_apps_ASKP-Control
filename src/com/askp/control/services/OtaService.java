@@ -43,8 +43,6 @@ public class OtaService extends Service {
 
 	private static Context context;
 	private static Handler handler = new Handler();
-	private static Timer t;
-	private static TimerTask timeTask;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -54,8 +52,8 @@ public class OtaService extends Service {
 	}
 
 	protected void usingTimerTask() {
-		t = new Timer();
-		timeTask = new TimerTask() {
+		Timer t = new Timer();
+		TimerTask timeTask = new TimerTask() {
 			public void run() {
 				handler.post(new Runnable() {
 					public void run() {

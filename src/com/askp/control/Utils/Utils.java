@@ -28,7 +28,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.stericson.RootTools.RootTools;
@@ -47,8 +46,8 @@ public class Utils {
 	}
 
 	public static void mkdir(String file) {
-		File folder = new File(file);
-		folder.mkdirs();
+		if (new File(file).exists())
+			new File(file).mkdirs();
 	}
 
 	public static String listSplit(List<String> value) {
@@ -72,10 +71,8 @@ public class Utils {
 	}
 
 	public static void saveBoolean(String name, boolean value, Context context) {
-		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
-		SharedPreferences.Editor editorPref = mPref.edit();
-		editorPref.putBoolean(name, value);
-		editorPref.commit();
+		context.getSharedPreferences("prefs", 0).edit().putBoolean(name, value)
+				.commit();
 	}
 
 	public static boolean existFile(String file) {
@@ -83,10 +80,8 @@ public class Utils {
 	}
 
 	public static void saveString(String name, String value, Context context) {
-		SharedPreferences mPref = context.getSharedPreferences("prefs", 0);
-		SharedPreferences.Editor editorPref = mPref.edit();
-		editorPref.putString(name, value);
-		editorPref.commit();
+		context.getSharedPreferences("prefs", 0).edit().putString(name, value)
+				.commit();
 	}
 
 	public static void toast(String text, Context context) {
@@ -98,11 +93,8 @@ public class Utils {
 			RootTools.getShell(true).add(new CommandCapture(0, run))
 					.commandCompleted(0, 0);
 		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (TimeoutException e) {
-			e.printStackTrace();
 		} catch (RootDeniedException e) {
-			e.printStackTrace();
 		}
 	}
 

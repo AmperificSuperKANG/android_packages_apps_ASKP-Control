@@ -155,6 +155,8 @@
     <string name="installkernel">Install Kernel</string>
     <string name="confirminstall">Do you want to install %s? The installation will only work on TWRP recovery!</string>
     <string name="nofiles">No files found.</string>
+    <string name="deletefile">Delete File</string>
+    <string name="confirmdelete">Do you want to delete %s?</string>
 
     <!-- News -->
     <string name="news">News</string>

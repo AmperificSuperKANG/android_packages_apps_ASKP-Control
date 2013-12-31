@@ -124,6 +124,7 @@ public class DownloadFragment extends Fragment implements OnItemClickListener,
 				for (int i = 0; i < resultRaw.length; i++)
 					valueNameList.add(resultRaw[i].split(": ")[0]);
 
+				valueLinkList.clear();
 				for (int i = 0; i < resultRaw.length; i++)
 					valueLinkList.add(resultRaw[i].split(": ")[1]);
 
