@@ -191,7 +191,7 @@ public class MainActivity extends FragmentActivity {
 			Utils.saveBoolean("firstuse", false, this);
 		}
 
-		if (Utils.getBoolean("otaupdates", true, this))
+		if (Utils.getInt("otaperiod", 2, this) != 0)
 			startService(new Intent(this, OtaService.class));
 	}
 

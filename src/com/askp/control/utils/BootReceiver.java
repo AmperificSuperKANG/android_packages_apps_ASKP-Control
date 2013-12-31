@@ -38,7 +38,7 @@ public class BootReceiver extends BroadcastReceiver {
 				Utils.toast(context.getString(R.string.valuesapplied), context);
 			} else
 				Utils.toast(context.getString(R.string.newkernel), context);
-		if (Utils.getBoolean("otaupdates", true, context))
+		if (Utils.getInt("otaperiod", 2, context) != 0)
 			context.startService(new Intent(context, OtaService.class));
 	}
 

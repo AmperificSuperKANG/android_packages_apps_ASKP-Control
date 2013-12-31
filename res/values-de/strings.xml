@@ -33,8 +33,9 @@
     <!-- Settings -->
     <string name="showdrawer">Öffne Menu</string>
     <string name="showdrawer_summary">Öffne Menu beim Starten.</string>
-    <string name="otaupdates">OTA Aktualisierungen</string>
-    <string name="otaupdates_summary">Erhalte Over-The-Air Aktualisierungen.</string>
+    <string name="otaperiod">Ändere die OTA Updates Periode</string>
+    <string name="never">Nie</string>
+    <string name="everyhour">Alle %s Stunden</string>
 
     <!-- Tutorial -->
     <string name="welcome">Willkommen zu %s</string>

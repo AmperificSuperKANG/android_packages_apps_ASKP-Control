@@ -36,8 +36,9 @@
     <!-- Settings -->
     <string name="showdrawer">Show drawer</string>
     <string name="showdrawer_summary">Show navigation drawer at launch.</string>
-    <string name="otaupdates">OTA Updates</string>
-    <string name="otaupdates_summary">Get over the air updates.</string>
+    <string name="otaperiod">Set OTA Updates period</string>
+    <string name="never">Nie</string>
+    <string name="everyhour">Every %s hours</string>
 
     <!-- Tutorial -->
     <string name="welcome">Welcome to %s</string>

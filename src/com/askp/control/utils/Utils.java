@@ -59,6 +59,15 @@ public class Utils {
 		return mValue.toString();
 	}
 
+	public static int getInt(String name, int defaults, Context context) {
+		return context.getSharedPreferences("prefs", 0).getInt(name, defaults);
+	}
+
+	public static void saveInt(String name, int value, Context context) {
+		context.getSharedPreferences("prefs", 0).edit().putInt(name, value)
+				.commit();
+	}
+
 	public static String getString(String name, Context context) {
 		return context.getSharedPreferences("prefs", 0).getString(name,
 				"nothing");

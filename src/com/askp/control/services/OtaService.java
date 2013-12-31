@@ -57,7 +57,7 @@ public class OtaService extends Service {
 			public void run() {
 				handler.post(new Runnable() {
 					public void run() {
-						if (!Utils.getBoolean("otaupdates", true, context))
+						if (Utils.getInt("otaperiod", 2, context) == 0)
 							stopSelf();
 
 						GetConnection.mHtmlstring = "";
@@ -69,7 +69,8 @@ public class OtaService extends Service {
 				});
 			}
 		};
-		t.scheduleAtFixedRate(timeTask, new Date(), 1800000);
+		t.scheduleAtFixedRate(timeTask, new Date(),
+				(Utils.getInt("otaperiod", 2, context) * 3600000) / 3);
 	}
 
 	@Override
@@ -89,10 +90,10 @@ public class OtaService extends Service {
 					&& !Utils.getString("kernelstrings", context).equals(
 							GetConnection.mHtmlstring)
 					&& !GetConnection.mHtmlstring.isEmpty()) {
-				Utils.saveBoolean("otaupdates",
-						!GetConnection.mHtmlstring.contains("Contact Support"),
-						context);
-				showNotification();
+				if (GetConnection.mHtmlstring.contains("Contact Support"))
+					Utils.saveInt("otaperiod", 0, context);
+				else
+					showNotification();
 			}
 
 			Utils.saveString("kernelstrings", GetConnection.mHtmlstring,
