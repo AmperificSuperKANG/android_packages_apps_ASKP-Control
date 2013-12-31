@@ -245,10 +245,7 @@ public class MainActivity extends FragmentActivity {
 					SettingsActivity.class));
 			break;
 		}
-		if (mDrawerToggle.onOptionsItemSelected(item))
-			return true;
-		else
-			return false;
+		return mDrawerToggle.onOptionsItemSelected(item);
 	}
 
 	public void selectItem(int position) {
