@@ -47,6 +47,12 @@
     <!-- Information -->
     <string name="information">Informationen</string>
     <string name="device">Gerät</string>
+    <string name="timeinstate">Benutzte Stadien</string>
+    <string name="unusedcpustates">Unbenutzte Stadien</string>
+    <string name="totalstatetime">Gesamte Laufzeit</string>
+    <string name="deepsleep">Tiefschlaf</string>
+    <string name="resettimers">Setze Zähler zurück</string>
+    <string name="restoretimers">Stelle Zähler wiederher</string>
 
     <!-- CPU -->
     <string name="cpufreq">CPU Taktfrequenz</string>
