@@ -19,18 +19,12 @@
 package com.askp.control.utils;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
 import android.os.AsyncTask;
 import android.text.Html;
 
@@ -39,48 +33,33 @@ public class GetConnection {
 	public static String mHtmlstring = "";
 
 	public static void getconnection(String url) {
-		new RequestTask().execute(url);
+		new DownloadWebPageTask().execute(new String[] { url });
 	}
 
-	private static class RequestTask extends AsyncTask<String, String, String> {
-
+	private static class DownloadWebPageTask extends
+			AsyncTask<String, Void, String> {
 		@Override
-		protected String doInBackground(String... url) {
-			int timeoutSocket = 5000;
-			int timeoutConnection = 5000;
+		protected String doInBackground(String... urls) {
+			String response = "";
+			for (String url : urls) {
+				DefaultHttpClient client = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet(url);
+				try {
+					HttpResponse execute = client.execute(httpGet);
+					InputStream content = execute.getEntity().getContent();
 
-			HttpParams httpParameters = new BasicHttpParams();
-			HttpConnectionParams.setConnectionTimeout(httpParameters,
-					timeoutConnection);
-			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-			HttpClient client = new DefaultHttpClient(httpParameters);
+					BufferedReader buffer = new BufferedReader(
+							new InputStreamReader(content));
+					String s = "";
+					while ((s = buffer.readLine()) != null) {
+						response += s;
+					}
 
-			HttpGet httpget = new HttpGet(url[0]);
-
-			try {
-				HttpResponse getResponse = client.execute(httpget);
-				final int statusCode = getResponse.getStatusLine()
-						.getStatusCode();
-
-				if (statusCode != HttpStatus.SC_OK)
-					return null;
-
-				String line = "";
-				StringBuilder total = new StringBuilder();
-
-				HttpEntity getResponseEntity = getResponse.getEntity();
-
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(getResponseEntity.getContent()));
-
-				while ((line = reader.readLine()) != null)
-					total.append(line);
-
-				line = total.toString();
-				return line;
-			} catch (Exception e) {
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			return null;
+			return response;
 		}
 
 		@Override
