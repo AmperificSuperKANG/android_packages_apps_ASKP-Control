@@ -40,15 +40,14 @@ import com.stericson.RootTools.RootTools;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Display;
@@ -66,7 +65,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 	private static DrawerLayout mDrawerLayout;
 	private static ListView mDrawerList;
 	private static ActionBarDrawerToggle mDrawerToggle;
@@ -277,7 +276,7 @@ public class MainActivity extends FragmentActivity {
 			break;
 		}
 
-		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 

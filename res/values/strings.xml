@@ -52,6 +52,12 @@
     <string name="device">Device</string>
     <string name="codename">Codename</string>
     <string name="kernelversion">Kernel Version</string>
+    <string name="timeinstate">Time In State</string>
+    <string name="unusedcpustates">Unused CPU states</string>
+    <string name="totalstatetime">Total State Time</string>
+    <string name="deepsleep">Deep Sleep</string>
+    <string name="resettimers">Reset Timers</string>
+    <string name="restoretimers">Restore Timers</string>
 
     <!-- CPU -->
     <string name="cpu">Cpu</string>

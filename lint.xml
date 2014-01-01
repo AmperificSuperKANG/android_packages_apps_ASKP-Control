@@ -5,4 +5,7 @@
     <issue id="NewApi" severity="ignore" />
     <issue id="ResourceAsColor" severity="ignore" />
     <issue id="SdCardPath" severity="ignore" />
+    <issue id="ServiceCast" severity="ignore" />
+    <issue id="UseSparseArrays" severity="ignore" />
+    <issue id="UseValueOf" severity="ignore" />
 </lint>
