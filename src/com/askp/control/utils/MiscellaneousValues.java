@@ -22,6 +22,7 @@ import java.io.IOException;
 
 public class MiscellaneousValues {
 
+	public static final String FILENAME_ZRAM_SWAP = "proc/swaps";
 	public static final String FILENAME_VIBRATION_STRENGTH = "/sys/vibrator/pwmvalue";
 	public static final String FILENAME_FSYNC_CONTROL = "/sys/devices/virtual/misc/fsynccontrol/fsync_enabled";
 	public static final String FILENAME_DYNAMIC_FSYNC = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
@@ -33,15 +34,22 @@ public class MiscellaneousValues {
 	public static final String FILENAME_TCP_CONGESTION = "/proc/sys/net/ipv4/tcp_available_congestion_control";
 	public static final String FILENAME_WIFI_HIGH = "/sys/module/bcmdhd/parameters/wifi_fast";
 
+	public static String mZramSwap() {
+		if (Utils.existFile(FILENAME_ZRAM_SWAP))
+			try {
+				return Utils.readBlock(FILENAME_ZRAM_SWAP);
+			} catch (IOException e) {
+			}
+		return "0";
+	}
+
 	public static int mVibrationStrength() {
 		if (Utils.existFile(FILENAME_VIBRATION_STRENGTH))
 			try {
 				return Integer.parseInt(Utils
 						.readLine(FILENAME_VIBRATION_STRENGTH));
 			} catch (NumberFormatException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		return 0;
 	}

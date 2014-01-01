@@ -37,6 +37,7 @@ import com.stericson.RootTools.execution.CommandCapture;
 public class Utils {
 
 	private static final String FILENAME_PROC_VERSION = "/proc/version";
+	private static final String FILENAME_PROC_MEMINFO = "/proc/meminfo";
 
 	public static String replaceLastChar(String s, int length) {
 		int slength = s.length();
@@ -128,6 +129,20 @@ public class Utils {
 		} finally {
 			reader.close();
 		}
+	}
+
+	public static int getMemInfo() {
+		int result = 0;
+		try {
+			String firstLine = readLine(FILENAME_PROC_MEMINFO);
+			if (firstLine != null) {
+				String parts[] = firstLine.split("\\s+");
+				if (parts.length == 3)
+					result = Integer.parseInt(parts[1]) / 1024;
+			}
+		} catch (IOException e) {
+		}
+		return result;
 	}
 
 	public static String getFormattedKernelVersion() {

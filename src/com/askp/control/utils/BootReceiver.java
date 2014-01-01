@@ -163,6 +163,10 @@ public class BootReceiver extends BroadcastReceiver {
 		// Vibration Strength
 		setValue(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH,
 				"vibrationstrength", context);
+
+		// Zram Swap
+		if (!Utils.getString("zramswap", context).equals("nothing"))
+			Utils.runCommand(Utils.getString("zramswap", context));
 	}
 
 	private static void setValue(String file, String name, Context context) {

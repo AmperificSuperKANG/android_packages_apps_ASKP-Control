@@ -40,7 +40,8 @@ public class Control {
 			INTERNAL_READ = "", EXTERNAL_READ = "", WIFI_HIGH = "",
 			TCP_CONGESTION = "", FAST_CHARGE = "", BATTERY_EXTENDER = "",
 			SOUND_HIGH = "", HEADPHONE_BOOST = "", BACKLIGHT_NOTIFICATION = "",
-			DYNAMIC_FSYNC = "", FSYNC_CONTROL = "", VIBRATION_STRENGTH = "";
+			DYNAMIC_FSYNC = "", FSYNC_CONTROL = "", VIBRATION_STRENGTH = "",
+			ZRAM_SWAP = "";
 
 	public static void initControl(Context context) {
 		Control.setValues();
@@ -180,6 +181,9 @@ public class Control {
 					.existFile(MiscellaneousValues.FILENAME_VIBRATION_STRENGTH))
 				VIBRATION_STRENGTH = MiscellaneousFragment.mVibrationStrengthText
 						.getText().toString();
+			if (Utils.existFile(MiscellaneousValues.FILENAME_ZRAM_SWAP))
+				ZRAM_SWAP = MiscellaneousFragment.mZramSwapBox.isChecked() ? "1"
+						: "0";
 		}
 	}
 
@@ -312,6 +316,8 @@ public class Control {
 		setFileValue(VIBRATION_STRENGTH,
 				MiscellaneousValues.FILENAME_VIBRATION_STRENGTH,
 				"vibrationstrength", context);
+		// Zram Swap
+		zRam(ZRAM_SWAP.equals("1"), context);
 	}
 
 	private static void setFileValue(String value, String file,
@@ -320,5 +326,23 @@ public class Control {
 			Utils.runCommand("echo " + value + " > " + file);
 			Utils.saveString(prefname, value, context);
 		}
+	}
+
+	private static void zRam(boolean enable, Context context) {
+		if (!ZRAM_SWAP.isEmpty())
+			if (enable) {
+				Utils.saveString("zramswap", "swapon /dev/block/zram0", context);
+				if (!Utils.existFile("/data/swap.img"))
+					Utils.runCommand("dd if=/dev/zero of=/data/swap.img bs=1048576 count="
+							+ Utils.getMemInfo()
+							/ 10
+							+ " && mkswap /dev/block/zram0 && swapon /dev/block/zram0");
+				else
+					Utils.runCommand("mkswap /dev/block/zram0 && swapon /dev/block/zram0");
+			} else {
+				Utils.saveString("zramswap", "swapoff /dev/block/zram0",
+						context);
+				Utils.runCommand("swapoff /dev/block/zram0");
+			}
 	}
 }

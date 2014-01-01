@@ -130,6 +130,8 @@
     <string name="fsynccontrol_summary">Deaktiviere für bessere Datenübertragung, mit dem Risiko Daten zu verlieren wenn etwas abstürzt.</string>
     <string name="vibrationstrength">Vibrationstärke</string>
     <string name="vibrationstrength_summary">Kontrolliere die Vibrationstärke des Telefons.</string>
+    <string name="zramswap">zRAM</string>
+    <string name="zramswap_summary">Diese Funktion reserviert 10% des Arbeitsspeichers Ihres Gerätes als komprimierten swap-Speicher.</string>
 
     <!-- Download -->
     <string name="download">Herunterladen</string>

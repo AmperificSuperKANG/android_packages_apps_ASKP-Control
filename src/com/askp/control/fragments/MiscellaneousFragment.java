@@ -81,6 +81,8 @@ public class MiscellaneousFragment extends Fragment implements
 	private static SeekBar mVibrationStrengthBar;
 	public static TextView mVibrationStrengthText;
 
+	public static CheckBox mZramSwapBox;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -353,6 +355,22 @@ public class MiscellaneousFragment extends Fragment implements
 			mLayout.addView(mVibrationStrengthSummary);
 			mLayout.addView(mVibrationStrengthBar);
 			mLayout.addView(mVibrationStrengthText);
+		}
+
+		// Zram Swap CheckBox
+		mZramSwapBox = new CheckBox(context);
+		LayoutStyle.setCheckBox(mZramSwapBox, context
+				.getString(R.string.zramswap), MiscellaneousValues.mZramSwap()
+				.contains("/dev/block/"));
+		mZramSwapBox.setOnCheckedChangeListener(CheckedChangeListener);
+
+		TextView mZramSwapSummary = new TextView(context);
+		LayoutStyle.setTextSummary(mZramSwapSummary,
+				context.getString(R.string.zramswap_summary));
+
+		if (Utils.existFile(MiscellaneousValues.FILENAME_ZRAM_SWAP)) {
+			mLayout.addView(mZramSwapBox);
+			mLayout.addView(mZramSwapSummary);
 		}
 	}
 

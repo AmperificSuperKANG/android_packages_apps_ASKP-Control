@@ -146,6 +146,8 @@
     <string name="fsynccontrol_summary">Disable for better file system performance at the risk of data lost when phone crashes.</string>
     <string name="vibrationstrength">Vibration Strength</string>
     <string name="vibrationstrength_summary">Control the vibration strength of your phone.</string>
+    <string name="zramswap">zRAM</string>
+    <string name="zramswap_summary">This feature reserves 10% of your device RAM as compressed swap space.</string>
 
     <!-- Download -->
     <string name="download">Download</string>
