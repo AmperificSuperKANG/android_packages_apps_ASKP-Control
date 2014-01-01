@@ -26,6 +26,7 @@ import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +35,11 @@ public class LayoutStyle {
 
 	public static int ColorBlue = android.R.color.holo_blue_dark;
 	public static int ColorWhite = android.R.color.white;
+
+	public static void setProgressBar(ProgressBar i, int max, int progress) {
+		i.setMax(max);
+		i.setProgress(progress);
+	}
 
 	public static void setButton(Button i, String text, Context context) {
 		i.setBackgroundColor(context.getResources().getColor(ColorBlue));

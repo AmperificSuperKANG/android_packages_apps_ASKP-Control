@@ -39,6 +39,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -66,6 +67,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static String[] mPresentCpu;
 	private static CurCPUThread mCurCPUThread;
 	private static TextView[] mCurCpuFreqTexts;
+	private static ProgressBar[] mCurCpuFreqBars;
 
 	private static TextView mMaxCpuFreqText, mMinCpuFreqText,
 			mMaxFreqScreenOffText, mMinFreqScreenOnText;
@@ -140,6 +142,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 		mPresentCpu = CpuValues.mPresentCpu().split("-");
 		mCurCpuFreqTexts = new TextView[mPresentCpu.length];
+		mCurCpuFreqBars = new ProgressBar[mPresentCpu.length];
 		for (int i = 0; i < mPresentCpu.length; i++) {
 			// Current Freq SubTitle
 			TextView mCurCpuFreqSubTitle = new TextView(context);
@@ -155,10 +158,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mCurCpuFreqText.setTextSize(20);
 			mCurCpuFreqTexts[i] = mCurCpuFreqText;
 
+			// Current Freq ProgressBar
+			ProgressBar mCurCpuFreqBar = new ProgressBar(context, null,
+					android.R.attr.progressBarStyleHorizontal);
+			mCurCpuFreqBars[i] = mCurCpuFreqBar;
+
 			if (Utils.existFile(CpuValues.FILENAME_CUR_CPU_FREQ.replace(
 					"presentcpu", "cpu" + String.valueOf(i)))) {
 				mLayout.addView(mCurCpuFreqSubTitle);
 				mLayout.addView(mCurCpuFreqText);
+				mLayout.addView(mCurCpuFreqBar);
 			}
 		}
 
@@ -174,16 +183,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 			mLayout.addView(mFreqScalingTitle);
 
 		// Max Freq Title
-		TextView mMaxCpuFreqTitle = new TextView(context);
-		LayoutStyle.setTextSubTitle(mMaxCpuFreqTitle,
-				context.getString(R.string.cpumaxfreq), context);
-
-		// Max Freq Summary
-		TextView mMaxCpuFreqSummary = new TextView(context);
-		LayoutStyle.setTextSummary(mMaxCpuFreqSummary,
-				context.getString(R.string.cpumaxfreq_summary));
-
-		// Max Freq SeekBar
 		mAvailableFreqList.clear();
 		for (String text : CpuValues.mAvailableFreq().split("\\r?\\n"))
 			mAvailableFreqList.add(text.split(" ")[0]);
@@ -201,6 +200,16 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		int mMin = mAvailableFreqList.indexOf(String.valueOf(CpuValues
 				.mMinFreq()));
 
+		TextView mMaxCpuFreqTitle = new TextView(context);
+		LayoutStyle.setTextSubTitle(mMaxCpuFreqTitle,
+				context.getString(R.string.cpumaxfreq), context);
+
+		// Max Freq Summary
+		TextView mMaxCpuFreqSummary = new TextView(context);
+		LayoutStyle.setTextSummary(mMaxCpuFreqSummary,
+				context.getString(R.string.cpumaxfreq_summary));
+
+		// Max Freq SeekBar
 		mMaxCpuFreqBar = new SeekBar(context);
 		LayoutStyle.setSeekBar(mMaxCpuFreqBar, mAvailableFreqList.size() - 1,
 				mMax);
@@ -648,6 +657,10 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 					mCurCpuFreqTexts[i].setText(mFreq != 0 ? String
 							.valueOf(mFreq / 1000) + " MHz"
 							: getString(R.string.offline));
+
+					LayoutStyle.setProgressBar(mCurCpuFreqBars[i],
+							mAvailableFreqList.size() - 1,
+							mAvailableFreqList.indexOf(String.valueOf(mFreq)));
 				} catch (IOException e) {
 				}
 			}
