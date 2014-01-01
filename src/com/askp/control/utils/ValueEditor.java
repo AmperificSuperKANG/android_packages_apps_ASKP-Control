@@ -64,6 +64,8 @@ public class ValueEditor {
 		mMinus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (mValue.getText().toString().isEmpty())
+					mValue.setText("0");
 				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
 						.toString()) - steps));
 			}
@@ -76,6 +78,8 @@ public class ValueEditor {
 		mPlus.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (mValue.getText().toString().isEmpty())
+					mValue.setText("0");
 				mValue.setText(String.valueOf(Integer.parseInt(mValue.getText()
 						.toString()) + steps));
 			}
