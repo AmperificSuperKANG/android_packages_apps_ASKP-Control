@@ -47,7 +47,7 @@ public class Utils {
 	}
 
 	public static void mkdir(String file) {
-		if (new File(file).exists())
+		if (!new File(file).exists())
 			new File(file).mkdirs();
 	}
 
