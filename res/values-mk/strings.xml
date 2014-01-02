@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Copyright (C) 2013 AmperificSuperKANG Project
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License
+     version 3 as published by the Free Software Foundation.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+     MA  02110-1301, USA.
+-->
+
+<resources>
+
+    <string name="app_name">ASKP Kontrola</string>
+    <string name="unavailable">Nedostapno</string>
+    <string name="noroot">Nema root!</string>
+    <string name="norootaccess">Nema root pristap!</string>
+    <string name="nobusybox">Nema busybox!</string>
+    <string name="valuesapplied">Uspeshno Primenuvanje</string>
+    <string name="action_setonboot">Postavki pri Podiganje na Sistemot</string>
+    <string name="action_settings">Podesuvanje</string>
+    <string name="newkernel">Otkrien nov kernel. Vashite vrednosti nema da bidat primeneti.</string>
+    <string name="refresh">Osvezi</string>
+    <string name="drawer_open">Otvori navigaciska fioka</string>
+    <string name="drawer_close">Zatvori navigaciska fioka</string>
+    <string name="newkernelavailable">Nov kernel e dostapen.</string>
+
+    <!-- Settings -->
+    <string name="showdrawer">Pokazi fioka</string>
+    <string name="showdrawer_summary">Pokazi navigaciska fioka pri podiganje na sistemot.</string>
+    <string name="otaperiod">Postavki za periodot na OTA novosti.</string>
+    <string name="never">Ne</string>
+    <string name="everyhour">Sekoj %s casa</string>
+
+    <!-- Tutorial -->
+    <string name="welcome">Dobredojdovte vo %s</string>
+    <string name="app_summary">Ovaa aplikacija vi ovozmozuva kontrola nad vasiot telefon. Raspolozlivite postavki na aplikacijata zavisat od momentalniot kernel sto se upotrebuva.</string>
+    <string name="app_summary_warning">Kako i sekogas nie ne sme odgovorni za bilo kakov vid na steta pridonesena na skapata igracka koja se naogja vo vasite race!</string>
+    <string name="quickguide">Brz Vodic</string>
+    <string name="quickguide_summary">%s treba da bide kompatibilen so site telefoni no nekoi funkicii mozat da bidat nedostapni.\n\nMoze da dodatete sopstvena vrednost na Seekbars.</string>
+
+    <!-- Information -->
+    <string name="information">Informacii</string>
+    <string name="device">Ured</string>
+    <string name="codename">Kodno Ime</string>
+    <string name="kernelversion">Verzija na Kernel</string>
+    <string name="timeinstate">Vreme na Sostojba</string>
+    <string name="unusedcpustates">Neupotrebeni CPU Sostojbi</string>
+    <string name="totalstatetime">Vreme na Totalna Sostojba</string>
+    <string name="deepsleep">Dlabok Son</string>
+    <string name="resettimers">Resetiraj Tajmeri</string>
+    <string name="restoretimers">Vrati Tajmeri</string>
+
+    <!-- CPU -->
+    <string name="cpufreq">Frekvencija na CPU</string>
+    <string name="offline">Nedostapno</string>
+    <string name="cpuscaling">Skaliranje na frekvencija</string>
+    <string name="cpumaxfreq">Max Frekvencija na CPU</string>
+    <string name="cpumaxfreq_summary">Postavete ja max frekvencija do koja skalira procesorot.</string>
+    <string name="cpuminfreq">Min Frekvencija na CPU</string>
+    <string name="cpuminfreq_summary">Postavete ja min frekvencija do koja skalira procesorot.</string>
+    <string name="maxscreenoff">Max Frekvencija na CPU pri Isklucen Ekran.</string>
+    <string name="maxscreenoff_summary">Postavete ja max frekvencija do koja skalira procesorot dodeka ekranot e isklucen.</string>
+    <string name="minscreenon">Min Frekvencija na CPU pri Uklucen Ekran.</string>
+    <string name="minscreenon_summary">Postavete ja min frekvencija do koja skalira procesorot dodeka ekranot e uklucen.</string>
+    <string name="multicoresaving">Povekejadrena Zasteda na Energija</string>
+    <string name="multicoresaving_summary">Obid za grupiranje na zadacite na sto pomalku jadra. So pogolema vrednost, postavkite stanuvaat se poagresivni.</string>
+    <string name="templimit">Temperaturen Limit</string>
+    <string name="templimit_summary">Ogranicuvanje na najvisokata temperatura na SOC</string>
+    <string name="governor">Guverner</string>
+    <string name="governor_summary">Procesorskiot guverner odreduva kako procesorot kje se odnesuva kako odgovor na promena vo obemot na rabota. Promena na guvernerot kje vlijae kako procesorot kje skalira niz cekorite na frekvencija koi gi ima.</string>
+    <string name="smartreflex_summary">Smartreflex entehnologija za menadzment na mokj, koja e razviena od strana na Texas Instruments. Taa dinamicki gi menuva naponite za da odredi koja e najnizok stabilen napon pri sekoja frekvencija.</string>
+    <string name="core">Jadro</string>
+    <string name="cpuvoltages">Naponi na CPU</string>
+    <string name="cpuvoltages_summary">Namaluvanje na naponot kje dovede do namaluvanje na potrosuvackata na CPU-to. Zgolevuvanje na naponot kje dovede do stabilnost na CPU-to pri overklokiranje. Premnogu nizok napon moze da dovede do nestabilnost i zamrznuvanje na sistemot</string>
+    <string name="corevoltages">Naponi na Jadroto</string>
+    <string name="ivavoltages">IVA Naponi</string>
+    <string name="regulatorvoltages">Naponi na Regulatorot</string>
+    <string name="voltage">Napon</string>
+
+    <!-- GPU & Display -->
+    <string name="gpu">GPU</string>
+    <string name="display">Displej</string>
+    <string name="gpuscaling">GPU Skaliranje</string>
+    <string name="gpumaxfreq">GPU Max Frekvencija</string>
+    <string name="gpumaxfreq_summary">Postavete ja max frekvencijata do koja grafickiot procesor moze da skalira.</string>
+    <string name="adaptivebrightness">Sodrzina na Adaptivno Osvetluvanje</string>
+    <string name="adaptivebrightness_summary">Onevozmozete ja ovaa opcija za belite tonovi da bidat posvetli pri niska osvetlenost na ekranot (ima vlijanie vrz zivotniot vek na baterijata).</string>
+    <string name="trinitycontrast">Kontrast na Trinity</string>
+    <string name="contrast">Postavi Kontrast</string>
+    <string name="contrast_summary">Postavi ja Razlikata pomegju Temnite i Svetlite Boi.</string>
+    <string name="gammacontrol">Kontrola na Gamma</string>
+    <string name="setgamma">Postavi Gamma Vrednost</string>
+    <string name="gammacontrol_summary">Postavi Sredni Tonovi (sredni sivi tonovi).</string>
+    <string name="gammaoffset">Ofset na Gamma</string>
+    <string name="gammaoffset_summary">Gamma Ofsetot ja kontrolira jacinata na Senkite/Crnite boi na displejot. Toa go postignuva so menuvanje na nivoto na Osvetlenost/Kolor pri sto podracjata na srednite i visokite tonovi ostanuvaat nepromeneti.</string>
+    <string name="colormultipliers">Multiplikatori na Boja</string>
+    <string name="colormultipliers_summary">Postavi multiplikator za odredena boja.</string>
+    <string name="red">Crvena</string>
+    <string name="green">Zelena</string>
+    <string name="blue">Plava</string>
+
+    <!-- I/O Algorithm -->
+    <string name="ioscheduler">I/O Rasporeduvac</string>
+    <string name="ioscheduler_summary">Postavi I/O elevator algoritmi. Rasporeduvacot odlucuva kako ke se spravi so I/O baranjata.</string>
+    <string name="internalscheduler">Rasporeduvac na Vnatresna Memorija</string>
+    <string name="externalscheduler">Rasporeduvac na Nadvoresna Memorija</string>
+    <string name="internalreadahead">Read-ahead na Vnatresna Memorija</string>
+    <string name="externalreadahead">Read-ahead na Nadvoresna Memorija</string>
+
+    <!-- Miscellaneous -->
+    <string name="miscellaneous">Razno</string>
+    <string name="network">Mreza</string>
+    <string name="wifihigh">Wifi so Visoki Performansi</string>
+    <string name="wifihigh_summary">Zadrzi ja brzinata na Wifi dodeka e vo sleep sostojba.</string>
+    <string name="ioalgorithm">I/O Algoritam</string>
+    <string name="tcpcongestion">TCP Algoritam na Metez</string>
+    <string name="tcpcongestion_summary">Prenos protokolot za kontrola e eden od klucnite Internet protokoli (IP), i e tolku voobicaen sto celiot paket se narekuva TCP/IP.</string>
+    <string name="battery">Baterija</string>
+    <string name="fastcharge">Prinudi Brzo Polnenje</string>
+    <string name="fastcharge_summary">So ovozmozuvanje na ovaa postavka ke se zgolemi brzinata na polnenje preku USB, no se onemozvozuva USB Mass Storage.</string>
+    <string name="batteryextender">eXtender na Zivotot na Baterijata</string>
+    <string name="batteryextender_summary">Postavi ogranicuvanje na kapacitetot do koj baterijata ke se polni so vnesuvanje na vrednost od 0 do 100.</string>
+    <string name="audio">Zvuk</string>
+    <string name="soundhigh">Zvuk so Visoki Performansi</string>
+    <string name="headphoneboost">Zgolemuvanje na Jacinata na Slusalkite</string>
+    <string name="notification">Izvestuvanje</string>
+    <string name="backlightnotification">Notifikacija so Pozadinsko Osvetluvanje</string>
+    <string name="backlightnotification_summary">So ovozmozuvanje na ovaa postavka, vasiot telefon ke svetne pri dobivanje na izvestuvanje.</string>
+    <string name="othersettings">Drugi Postavki</string>
+    <string name="dynamicfsync">Dinamicki Fsync</string>
+    <string name="dynamicfsync_summary">So ovozmozuvanje na ovaa postavka, pri uklucen ekran fsync operacijata e asinhrona. Koga ekranot e isklucen ovaa operacija se izveduva sinhronizirano.</string>
+    <string name="fsynccontrol">Fsync</string>
+    <string name="fsynccontrol_summary">Onevozmozi za podobruvanje na performansite na datotecniot sistem so rizik za gubitok na podatocite pri abnormalno resetiranje na sistemot na vasiot telefon.</string>
+    <string name="vibrationstrength">Jacina na Vibracija</string>
+    <string name="vibrationstrength_summary">Kontrola na jacinata na vibraciite na vasiot telefon.</string>
+    <string name="zramswap_summary">Ovaa opcija zadrzuva 10% od RAM-ot na vasiot ured, kako kompresiran swap prostor.</string>
+
+    <!-- Download -->
+    <string name="download">Prevzemi</string>
+    <string name="downloads">Prevzemanja</string>
+    <string name="nointernet">Nema Internet Konekcija</string>
+    <string name="nosupport">Nema Poddrska</string>
+    <string name="doyouwantdownload">Dali sakate da prevzemete %? Otkako datotekata e prevzemena, otvorete ja sekcijata za Instaliranje Kernel.</string>
+    <string name="delete">Izbrisi</string>
+    <string name="filealreadyexist">Vie vekje ste ja prevzemale ovaa datoteka. Dali bi sakale povtorno da ja ucitate?</string>
+    <string name="downloading">Prevzemanje %s</string>
+    <string name="success">Uspesno</string>
+
+    <!-- Install Kernel -->
+    <string name="installkernel">Instaliraj Kernel</string>
+    <string name="confirminstall">Dali sakate da go instalirate %s? Instalacijata kje raboti samo na TWRP!</string>
+    <string name="nofiles">Nema Najdeni Datoteki.</string>
+    <string name="deletefile">Izbrisete ja Datotekata</string>
+    <string name="confirmdelete">Dali sakate da gi izbrisete %s?</string>
+
+    <!-- News -->
+    <string name="news">Novosti</string>
+
+</resources>
