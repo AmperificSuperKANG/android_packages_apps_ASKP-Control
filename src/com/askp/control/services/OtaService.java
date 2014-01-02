@@ -70,7 +70,7 @@ public class OtaService extends Service {
 			}
 		};
 		t.scheduleAtFixedRate(timeTask, new Date(),
-				(Utils.getInt("otaperiod", 2, context) * 3600000) / 3);
+				Utils.getInt("otaperiod", 2, context) * 1200000);
 	}
 
 	@Override
@@ -87,12 +87,11 @@ public class OtaService extends Service {
 		@Override
 		protected void onPostExecute(String result) {
 			if (!Utils.getString("kernelstrings", context).equals("nothing")
-					&& !Utils.getString("kernelstrings", context).equals(
-							GetConnection.mHtmlstring)
 					&& !GetConnection.mHtmlstring.isEmpty()) {
 				if (GetConnection.mHtmlstring.contains("Contact Support"))
 					Utils.saveInt("otaperiod", 0, context);
-				else
+				else if (!Utils.getString("kernelstrings", context).equals(
+						GetConnection.mHtmlstring))
 					showNotification();
 			}
 
