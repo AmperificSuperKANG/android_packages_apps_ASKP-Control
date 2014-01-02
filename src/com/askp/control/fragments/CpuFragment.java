@@ -640,7 +640,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 				while (true) {
 					mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,
 							""));
-					sleep(500);
+					sleep(1000);
 				}
 			} catch (InterruptedException e) {
 			}

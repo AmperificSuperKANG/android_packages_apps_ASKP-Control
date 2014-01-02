@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -242,9 +243,10 @@ public class InformationFragment extends Fragment {
 	 */
 	private View generateStateRow(CpuState state, ViewGroup parent) {
 		// inflate the XML into a view in the parent
-		LayoutInflater inf = LayoutInflater.from(getActivity());
-		LinearLayout theRow = (LinearLayout) inf.inflate(R.layout.state_row,
-				parent, false);
+		LayoutInflater inflater = ((Activity) getActivity())
+				.getLayoutInflater();
+		LinearLayout theRow = (LinearLayout) inflater.inflate(
+				R.layout.state_row, parent, false);
 
 		// what percetnage we've got
 		CpuStateMonitor monitor = CpuSpyApp.getCpuStateMonitor();
