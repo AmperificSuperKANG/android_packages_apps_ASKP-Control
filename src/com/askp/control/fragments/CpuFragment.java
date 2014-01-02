@@ -68,6 +68,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static CurCPUThread mCurCPUThread;
 	private static TextView[] mCurCpuFreqTexts;
 	private static ProgressBar[] mCurCpuFreqBars;
+	private static int mPresentCpulength;
 
 	private static TextView mMaxCpuFreqText, mMinCpuFreqText,
 			mMaxFreqScreenOffText, mMinFreqScreenOnText;
@@ -143,7 +144,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mPresentCpu = CpuValues.mPresentCpu().split("-");
 		mCurCpuFreqTexts = new TextView[mPresentCpu.length];
 		mCurCpuFreqBars = new ProgressBar[mPresentCpu.length];
-		for (int i = 0; i < mPresentCpu.length; i++) {
+		mPresentCpulength = mPresentCpu.length > 0 ? Integer
+				.parseInt(mPresentCpu[1]) + 1 : mPresentCpu.length;
+		for (int i = 0; i < mPresentCpulength; i++) {
 			// Current Freq SubTitle
 			TextView mCurCpuFreqSubTitle = new TextView(context);
 			LayoutStyle.setTextSubTitle(
@@ -648,7 +651,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 	protected Handler mCurCPUHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			for (int i = 0; i < mPresentCpu.length; i++) {
+			for (int i = 0; i < mPresentCpulength; i++) {
 				int mFreq = 0;
 				try {
 					mFreq = Integer.parseInt(Utils
