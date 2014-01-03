@@ -97,6 +97,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	private static String[] mCpuVoltagesList;
 	private static SeekBar[] mCpuVoltagesBars;
 	public static List<String> mCpuVoltagesValuesList = new ArrayList<String>();
+	private static int mCpuVoltagesMin;
 
 	public static TextView[] mCoreVoltagesTexts;
 	private static String[] mCoreVoltagesList;
@@ -473,6 +474,12 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 		mCpuVoltagesList = CpuValues.mCpuVoltagesFreq().split("\\r?\\n");
 		mCpuVoltagesBars = new SeekBar[mCpuVoltagesList.length];
 		mCpuVoltagesTexts = new TextView[mCpuVoltagesList.length];
+		mCpuVoltagesMin = Integer
+				.parseInt(mCpuVoltagesList[mCpuVoltagesList.length - 1]
+						.split(" ")[1]) <= 700 ? 400 : 700;
+		int mCpuVoltagesMax = Integer
+				.parseInt(mCpuVoltagesList[0].split(" ")[1]) - mCpuVoltagesMin > 1618 - mCpuVoltagesMin ? 1400 + mCpuVoltagesMin
+				: 1618 - mCpuVoltagesMin;
 		for (int i = 0; i < mCpuVoltagesList.length; i++) {
 
 			// Cpu Voltages Subtitle
@@ -482,8 +489,9 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 			// Cpu Voltages SeekBar
 			SeekBar mCpuVoltagesBar = new SeekBar(context);
-			LayoutStyle.setSeekBar(mCpuVoltagesBar, i < 918 ? 918 : 1500,
-					Integer.parseInt(mCpuVoltagesList[i].split(" ")[1]) - 700);
+			LayoutStyle.setSeekBar(mCpuVoltagesBar, mCpuVoltagesMax,
+					Integer.parseInt(mCpuVoltagesList[i].split(" ")[1])
+							- mCpuVoltagesMin);
 			mCpuVoltagesBar.setOnSeekBarChangeListener(SeekBarChangeListener);
 			mCpuVoltagesBars[i] = mCpuVoltagesBar;
 
@@ -679,6 +687,15 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
+		mCpuVoltagesValuesList.clear();
+		for (int i = 0; i < mCpuVoltagesList.length; i++) {
+			if (seekBar.equals(mCpuVoltagesBars[i]))
+				mCpuVoltagesTexts[i].setText(String.valueOf(progress
+						+ mCpuVoltagesMin)
+						+ " mV");
+			mCpuVoltagesValuesList.add(mCpuVoltagesTexts[i].getText()
+					.toString().replace(" mV", ""));
+		}
 		mCoreVoltagesValuesList.clear();
 		for (int i = 0; i < mCoreVoltagesList.length; i++) {
 			if (seekBar.equals(mCoreVoltagesBars[i]))
@@ -694,14 +711,6 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 						+ " mV");
 			mIVAVoltagesValuesList.add(mIVAVoltagesTexts[i].getText()
 					.toString());
-		}
-		mCpuVoltagesValuesList.clear();
-		for (int i = 0; i < mCpuVoltagesList.length; i++) {
-			if (seekBar.equals(mCpuVoltagesBars[i]))
-				mCpuVoltagesTexts[i].setText(String.valueOf(progress + 700)
-						+ " mV");
-			mCpuVoltagesValuesList.add(mCpuVoltagesTexts[i].getText()
-					.toString().replace(" mV", ""));
 		}
 		mRegulatorVoltagesValuesList.clear();
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++) {
@@ -783,6 +792,14 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 	@Override
 	public void onClick(View v) {
 		MainActivity.mCpuAction = true;
+		for (int i = 0; i < mCpuVoltagesList.length; i++)
+			if (v.equals(mCpuVoltagesTexts[i]))
+				ValueEditor.showSeekBarEditor(
+						mCpuVoltagesBars[i],
+						mCpuVoltagesTexts[i].getText().toString()
+								.replace(" mV", ""),
+						context.getString(R.string.cpuvoltages),
+						mCpuVoltagesMin, 1, context);
 		for (int i = 0; i < mCoreVoltagesList.length; i++)
 			if (v.equals(mCoreVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(
@@ -799,14 +816,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 								.replace(" mV", ""),
 						context.getString(R.string.ivavoltages), 700, 1,
 						context);
-		for (int i = 0; i < mCpuVoltagesList.length; i++)
-			if (v.equals(mCpuVoltagesTexts[i]))
-				ValueEditor.showSeekBarEditor(
-						mCpuVoltagesBars[i],
-						mCpuVoltagesTexts[i].getText().toString()
-								.replace(" mV", ""),
-						context.getString(R.string.cpuvoltages), 700, 1,
-						context);
+
 		for (int i = 0; i < mRegulatorVoltagesList.length; i++)
 			if (v.equals(mRegulatorVoltagesTexts[i]))
 				ValueEditor.showSeekBarEditor(mRegulatorVoltagesBars[i],
