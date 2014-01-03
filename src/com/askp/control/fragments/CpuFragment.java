@@ -665,7 +665,7 @@ public class CpuFragment extends Fragment implements OnSeekBarChangeListener,
 
 					LayoutStyle.setProgressBar(
 							mCurCpuFreqBars[i],
-							mAvailableFreqList.size() + 1,
+							mAvailableFreqList.size(),
 							mFreq != 0 ? mAvailableFreqList.indexOf(String
 									.valueOf(mFreq)) + 1 : 0);
 				} catch (NumberFormatException e) {
