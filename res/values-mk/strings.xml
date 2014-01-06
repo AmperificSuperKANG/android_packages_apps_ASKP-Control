@@ -162,7 +162,7 @@
 
     <!-- Install Kernel -->
     <string name="installkernel">Инсталирај Кернел</string>
-    <string name="confirminstall">Дали дакате да го инсталирате %s? Инсталацијата работи само со TWRP рекавери!</string>
+    <string name="confirminstall">Дали сакате да го инсталирате %s? Инсталацијата работи само со TWRP рекавери!</string>
     <string name="nofiles">Нема Најдени Датотеки.</string>
     <string name="deletefile">Избришете ја Датотеката</string>
     <string name="confirmdelete">Дали сакате да ги избришете %s?</string>
