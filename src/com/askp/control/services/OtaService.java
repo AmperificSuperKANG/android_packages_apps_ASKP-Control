@@ -92,12 +92,12 @@ public class OtaService extends Service {
 				if (GetConnection.mHtmlstring.contains("Contact Support"))
 					Utils.saveInt("otaperiod", 0, context);
 				else if (!Utils.getString("kernelstrings", context).equals(
-						GetConnection.mHtmlstring))
+						GetConnection.mHtmlstring.split("\\r?\\n")[0]))
 					showNotification();
 			}
 
-			Utils.saveString("kernelstrings", GetConnection.mHtmlstring,
-					context);
+			Utils.saveString("kernelstrings",
+					GetConnection.mHtmlstring.split("\\r?\\n")[0], context);
 		}
 	}
 
